@@ -1,17 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import './global/style.css';
+
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import ErrorBoundry from './components/common/ErrorBoundry/ErrorBoundry';
+import store from './store';
+import UserScriptsService from './services/UserScriptsService';
+import { UserScriptsProvider } from './components/common/UserScriptsContext/UserScriptsContext';
+
+const userScriptsService = new UserScriptsService();
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Provider store={store}>
+    <ErrorBoundry>
+      <UserScriptsProvider value={userScriptsService}>
+        <Router>
+          <App />
+        </Router>
+      </UserScriptsProvider>
+    </ErrorBoundry>
+  </Provider>,
   document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
