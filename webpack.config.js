@@ -12,17 +12,29 @@ module.exports = {
         test: /\.(jsx|js)$/,
         include: path.resolve(__dirname, 'src'),
         exclude: /node_modules/,
-        use: [{
-          loader: 'babel-loader',
-          options: {
-            presets: [
-              ['@babel/preset-env', {
-                "targets": "defaults" 
-              }],
-              '@babel/preset-react'
-            ]
+        use: [
+          'react-scoped-styles/script-loader',
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: [
+                ['@babel/preset-env', {
+                  "targets": "defaults" 
+                }],
+                '@babel/preset-react'
+              ]
+            }
           }
-        }]
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'react-scoped-styles/style-loader',
+          'sass-loader'
+        ]
       }
     ]
   }

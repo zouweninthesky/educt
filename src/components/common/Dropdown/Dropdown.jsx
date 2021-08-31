@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import sprite from "../../../assets/img/sprite.svg";
 
-import './Dropdown.css';
+import './Dropdown.scss';
 
 const options = ['Все сценарии', 'Новое', 'Тестирование']
 

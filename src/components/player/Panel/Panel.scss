@@ -1,0 +1,50 @@
+.panel {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	width: 100%;
+	min-height: 74px;
+
+	padding: 0 20px;
+
+	background-color: #FFFFFF;
+
+	&__button {
+		color: #0084D9;
+	
+		padding: 8px;
+	
+		background-color: transparent;
+		border: 0;
+		border-radius: 8px;
+		cursor: pointer;
+	
+		&:hover {
+			background-color: #E0F4FF;
+		}
+	
+		&:disabled {
+			opacity: 0.3;
+			cursor: default;
+			background-color: transparent;
+		}
+	}
+
+	&__text-wrapper {
+		align-self: flex-end;
+	
+		min-height: 67px;
+	
+		padding: 9px 16px;
+	
+		border: 1px solid #EFEFEF;
+		border-bottom: 0;
+		border-radius: 8px 8px 0 0;
+	}
+
+	&__text {
+		margin: 0;
+	}
+}

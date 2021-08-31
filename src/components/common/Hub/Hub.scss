@@ -1,0 +1,23 @@
+.hub {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+
+	height: calc(100vh - 64px);
+
+	&__content {
+		width: 68%;
+		height: calc(100vh - 64px);
+		overflow-y: auto;
+		flex-grow: 2;
+	
+		padding: 16px 20px 16px 0;
+	}
+
+	&__script-list {
+		list-style: none;
+	
+		padding-top: 26px;
+		padding-left: 0;
+	}
+}

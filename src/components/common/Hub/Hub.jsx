@@ -10,7 +10,7 @@ import { scriptsLoaded, scriptsRequested, scriptsError, scriptChosen } from '../
 import compose from "../../../utils/compose";
 import withUserScriptsService from '../../hoc/WithUserScriptsService';
 
-import './Hub.css';
+import './Hub.scss';
 
 class Hub extends Component {
 

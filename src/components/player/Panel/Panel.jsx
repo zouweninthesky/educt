@@ -5,7 +5,7 @@ import { useCloseModal } from "../CloseModal/CloseModalContext";
 
 import sprite from '../../../assets/img/sprite.svg';
 
-import './Panel.css';
+import './Panel.scss';
 
 const Panel = ({slide, prevSlide, nextSlide, disablePrev, disableNext}) => {
 	const [_, toggleClose] = useCloseModal();

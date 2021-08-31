@@ -9,7 +9,7 @@ import Panel from "./Panel/Panel";
 import ProgressBar from './ProgressBar/ProgressBar';
 import Viewbox from "./Viewbox/Viewbox";
 
-import './Player.css';
+import './Player.scss';
 
 class Player extends Component {
 	state = {

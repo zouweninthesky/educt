@@ -5,7 +5,7 @@ import MainLogo from '../../../assets/img/content/main-logo.svg';
 
 import sprite from '../../../assets/img/sprite.svg';
 
-import './Header.css';
+import './Header.scss';
 
 const Header = () => {
 	return (

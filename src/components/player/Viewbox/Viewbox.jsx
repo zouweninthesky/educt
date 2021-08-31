@@ -1,6 +1,6 @@
 import React from "react";
 
-import './Viewbox.css';
+import './Viewbox.scss';
 
 const Viewbox = () => {
 	return (

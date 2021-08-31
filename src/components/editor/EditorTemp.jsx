@@ -3,7 +3,7 @@ import { Stream } from 'stream';
 
 import mainLogo from '../../assets/img/content/main-logo.svg';
 
-import './Editor.css';
+import './Editor.scss';
 
 const EditorTemp = () => {
 	const canvasRef = useRef(null);

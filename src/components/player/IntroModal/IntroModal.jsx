@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import sprite from '../../../assets/img/sprite.svg';
 
-import './IntroModal.css';
+import './IntroModal.scss';
 
 const IntroModal = ({script}) => {
 	const [intro, setIntro] = useState(true);

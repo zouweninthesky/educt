@@ -1,5 +1,5 @@
 {
-  "name": "educt-no-ts",
+  "name": "educt-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -13,6 +13,7 @@
     "react-scoped-styles": "^0.5.4",
     "react-scripts": "4.0.3",
     "redux": "^4.1.1",
+    "sass": "^1.38.2",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

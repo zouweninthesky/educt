@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import sprite from '../../../../assets/img/sprite.svg';
 
-import './ScriptItem.css';
+import './ScriptItem.scss';
 
 const ScriptItem = props => {
 	return (

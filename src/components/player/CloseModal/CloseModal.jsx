@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import sprite from '../../../assets/img/sprite.svg';
 import { useCloseModal } from './CloseModalContext';
 
-import './CloseModal.css';
+import './CloseModal.scss';
 
 const CloseModal = () => {
 	const [closeModal, toggle] = useCloseModal();
