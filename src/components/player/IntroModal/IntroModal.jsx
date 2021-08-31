@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 import sprite from '../../../assets/img/sprite.svg';
 
+import { createNumberStringMale, createNumberStringFemale } from '../../../utils/string-generators';
+
 import './IntroModal.scss';
 
 const IntroModal = ({script}) => {
@@ -16,11 +18,14 @@ const IntroModal = ({script}) => {
 		return <></>
 	}
 
+	const slideString = createNumberStringMale(script.slides.length, 'слайд');
+	const minuteString = createNumberStringFemale(script.timeLength, 'минут');
+
 	return (
 		<>
 			<div className="modal-intro">
 				<h2 className="modal-intro__title">{script.title}</h2>
-				<p className="modal-intro__info">5 слайдов/1 минута</p>
+				<p className="modal-intro__info">{slideString}/{minuteString}</p>
 				<div className="modal-intro__button-wrapper">
 					<button className="modal-intro__button" onClick={hideIntro}>
 						<svg width="40" height="40">

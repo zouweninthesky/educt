@@ -50,10 +50,6 @@ export default class UserScriptsService {
 				{
 					img: '',
 					description: 'Текст 4',
-				},
-				{
-					img: '',
-					description: 'Текст 5',
 				}
 			]
 		},
@@ -63,7 +59,7 @@ export default class UserScriptsService {
 			description: 'И хуй у него здоровенный',
 			tags: ['пиздеж', 'fake', 'fake-news'],
 			date: '02.12.2020202',
-			timeLength: '1',
+			timeLength: '12',
 			slides: [
 				{
 					img: '',
@@ -74,6 +70,22 @@ export default class UserScriptsService {
 				},{
 					img: '',
 					description: 'Текст 3',
+				},
+				{
+					img: '',
+					description: 'Текст 4',
+				},
+				{
+					img: '',
+					description: 'Текст 4',
+				},
+				{
+					img: '',
+					description: 'Текст 4',
+				},
+				{
+					img: '',
+					description: 'Текст 4',
 				},
 				{
 					img: '',
