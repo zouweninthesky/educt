@@ -1,21 +1,21 @@
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from "react";
 
 const CloseModalContext = React.createContext();
 
 export const useCloseModal = () => {
-	return useContext(CloseModalContext);
+  return useContext(CloseModalContext);
 };
 
-const CloseModalProvider = ({children}) => {
-	const [closeModal, setCloseModal] = useState(false);
+const CloseModalProvider = ({ children }) => {
+  const [closeModal, setCloseModal] = useState(false);
 
-	const toggle = () => setCloseModal(prev => !prev); 
+  const toggle = () => setCloseModal((prev) => !prev);
 
-	return (
-		<CloseModalContext.Provider value = {[ closeModal, toggle ]}>
-			{children}
-		</CloseModalContext.Provider>
-	)
+  return (
+    <CloseModalContext.Provider value={[closeModal, toggle]}>
+      {children}
+    </CloseModalContext.Provider>
+  );
 };
 
 export default CloseModalProvider;

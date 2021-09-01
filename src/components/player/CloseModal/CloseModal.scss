@@ -1,67 +1,67 @@
 .modal-close {
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-	position: fixed;
-	left: 50%;
-	top: 50%;
-	transform: translate(-50%, -50%);
-	z-index: 3;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
 
-	width: 368px;
-	min-height: 390px;
+  width: 368px;
+  min-height: 390px;
 
-	padding: 32px 64px;
+  padding: 32px 64px;
 
-	background-color: #FFFFFF;
-	border-radius: 16px;
-	box-shadow: 0px 2px 20px rgba(209, 209, 209, 0.2);
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 2px 20px rgba(209, 209, 209, 0.2);
 
-	&__icon-wrapper {
-		color: #EB5757;
-	}
+  &__icon-wrapper {
+    color: #eb5757;
+  }
 
-	&__header {
-		font-size: 1.25rem;
-		font-weight: 700;
-		color: #333333;
-		text-align: center;
-	}
+  &__header {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #333333;
+    text-align: center;
+  }
 
-	&__warning-message {
-		color: #333333;
-		text-align: center;
-	}
+  &__warning-message {
+    color: #333333;
+    text-align: center;
+  }
 
-	&__button-close {
-		color: #FFFFFF;
-	
-		width: 100%;
-	
-		margin-bottom: 8px;
-	
-		background-color: #EB5757;
-		border-color: #EB5757;
+  &__button-close {
+    color: #ffffff;
 
-		&:hover {
-			background-color: #D14D4D;
-			border-color: #D14D4D;
-		}
-	}
+    width: 100%;
 
-	&__button-cancel {
-		color: #8C8C8C;
-	
-		width: 100%;
-	
-		border-width: 2px;
-		border-color: #8C8C8C;
+    margin-bottom: 8px;
 
-		&:hover {
-			color: #515151;
-			border-color: #515151;
-		}
-	}
+    background-color: #eb5757;
+    border-color: #eb5757;
+
+    &:hover {
+      background-color: #d14d4d;
+      border-color: #d14d4d;
+    }
+  }
+
+  &__button-cancel {
+    color: #8c8c8c;
+
+    width: 100%;
+
+    border-width: 2px;
+    border-color: #8c8c8c;
+
+    &:hover {
+      color: #515151;
+      border-color: #515151;
+    }
+  }
 }

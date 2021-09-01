@@ -1,66 +1,66 @@
 .dropdown {
-	display: inline-block;
+  display: inline-block;
 
-	position: relative;
+  position: relative;
 
-	color: #8C8C8C;
+  color: #8c8c8c;
 
-	width: 231px;
-	height: 44px;
+  width: 231px;
+  height: 44px;
 
-	padding: 10px 20px;
+  padding: 10px 20px;
 
-	background-color: transparent;
-	border: 1px solid #8C8C8C;
-	border-radius: 4px;
-	cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #8c8c8c;
+  border-radius: 4px;
+  cursor: pointer;
 
-	&__arrow {
-		position: absolute;
-		top: 10px;
-		right: 20px;
-	
-		pointer-events: none;
-	}
+  &__arrow {
+    position: absolute;
+    top: 10px;
+    right: 20px;
 
-	&__wrapper {
-		position: absolute;
-		z-index: 2;
-		left: -1px;
-		bottom: -148px;
-	
-		width: 231px;
-	}
+    pointer-events: none;
+  }
 
-	&__list {
-		list-style: none;
-		
-		padding-left: 0;
-	
-		border: 1px solid #8C8C8C;
-		border-radius: 4px;
-	}
+  &__wrapper {
+    position: absolute;
+    z-index: 2;
+    left: -1px;
+    bottom: -148px;
 
-	&__item {
-		padding: 10px 20px;
-	
-		border-bottom: 1px solid #8C8C8C;
-		background-color: #FFFFFF;
+    width: 231px;
+  }
 
-		&--current {
-			color: #515151;
-		
-			background-color: #EFEFEF;
-		}
+  &__list {
+    list-style: none;
 
-		&:first-of-type {
-			border-radius: 5px 5px 0 0 ;
-		}
+    padding-left: 0;
 
-		&:last-of-type {
-			border-bottom: 0;
-		
-			border-radius: 0 0 5px 5px;
-		}
-	}
+    border: 1px solid #8c8c8c;
+    border-radius: 4px;
+  }
+
+  &__item {
+    padding: 10px 20px;
+
+    border-bottom: 1px solid #8c8c8c;
+    background-color: #ffffff;
+
+    &--current {
+      color: #515151;
+
+      background-color: #efefef;
+    }
+
+    &:first-of-type {
+      border-radius: 5px 5px 0 0;
+    }
+
+    &:last-of-type {
+      border-bottom: 0;
+
+      border-radius: 0 0 5px 5px;
+    }
+  }
 }
