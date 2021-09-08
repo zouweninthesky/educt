@@ -1,12 +1,14 @@
+@use '../../../assets/scss/variables.scss' as *;
+
 .hub-header {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: center;
 
-  min-height: 64px;
+  min-height: 4rem;
 
-  box-shadow: 0 2px 20px 0 rgba(209, 209, 209, 0.2);
+  box-shadow: 0 0.125rem 1.25rem 0 $color-shadow;
 
   &__logo {
     content: "";
@@ -18,7 +20,7 @@
     justify-content: space-between;
 
     margin: 0 auto;
-    padding-right: 78px;
+    padding-right: 4.875rem;
   }
 
   &__tab {
@@ -26,17 +28,18 @@
     flex-direction: row;
     align-items: center;
 
-    color: #0084d9;
+    color: $color-primary;
 
-    margin-right: 11px;
-    padding-right: 20px;
+    margin-right: 0.6875rem;
+    padding-right: 1.25rem;
 
-    border-width: 1px;
+    border-width: 0.0625rem;
     border-color: transparent;
 
     &:hover,
     &:focus {
-      background-color: #e0f4ff;
+      color: $color-primary-dark;
+      background-color: $color-primary-lighter;
     }
 
     &:last-of-type {
@@ -44,23 +47,23 @@
     }
 
     &--active {
-      border-color: #0084d9;
+      border-color: $color-primary;
     }
 
     & svg {
       position: relative;
-      top: -1px;
-      margin-right: 10px;
+      top: -0.0625rem;
+      margin-right: 0.625rem;
     }
   }
 
   &__profile-link {
     display: block;
 
-    width: 46px;
-    height: 46px;
+    width: 2.875rem;
+    height: 2.875rem;
 
-    background-color: #d1d1d1;
+    background-color: $color-neutrals-lighter;
     border-radius: 50%;
   }
 

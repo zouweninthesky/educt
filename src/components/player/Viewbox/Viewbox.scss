@@ -1,8 +1,10 @@
+@use '../../../assets/scss/mixins.scss' as *;
+
 .viewbox {
   width: 100wv;
-  height: calc(100vh - 74px);
+  height: calc(100vh - 4.625rem);
 
-  padding: 20px;
+  padding: 1.125rem;
 
   &__wrapper {
     display: flex;
@@ -14,7 +16,7 @@
   }
 
   &__image {
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.16);
-    border-radius: 8px;
+    @include shadow;
+    border-radius: 0.5rem;
   }
 }

@@ -4,7 +4,7 @@ import "./Info.scss";
 
 import { Link } from "react-router-dom";
 
-import sprite from "../../../../assets/img/sprite.svg";
+import sprite from "../../../../assets/sprite.svg";
 
 class Info extends Component {
   render() {

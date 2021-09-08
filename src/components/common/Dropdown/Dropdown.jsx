@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import sprite from "../../../assets/img/sprite.svg";
+import sprite from "../../../assets/sprite.svg";
 
 import "./Dropdown.scss";
 

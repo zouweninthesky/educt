@@ -3,21 +3,21 @@
   flex-direction: row;
   align-items: stretch;
 
-  height: calc(100vh - 64px);
+  height: calc(100vh - 4rem);
 
   &__content {
     width: 68%;
-    height: calc(100vh - 64px);
+    height: calc(100vh - 4rem);
     overflow-y: auto;
     flex-grow: 2;
 
-    padding: 16px 20px 16px 0;
+    padding: 1rem 1.25rem 1rem 0;
   }
 
   &__script-list {
     list-style: none;
 
-    padding-top: 26px;
+    padding-top: 1.625rem;
     padding-left: 0;
   }
 }

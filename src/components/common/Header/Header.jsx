@@ -1,9 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-import MainLogo from "../../../assets/img/content/main-logo.svg";
+import MainLogo from "../../../static/img/content/main-logo.svg";
 
-import sprite from "../../../assets/img/sprite.svg";
+import sprite from "../../../assets/sprite.svg";
 
 import "./Header.scss";
 

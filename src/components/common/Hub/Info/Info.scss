@@ -1,10 +1,13 @@
+@use '../../../../assets/scss/mixins.scss' as *;
+@use '../../../../assets/scss/variables.scss' as *;
+
 .hub-info {
   /* max-width: 614px; */
-  min-width: 315px;
+  min-width: 19.6875rem;
   /* flex-grow: 1; */
   width: 31%;
 
-  padding: 16px 0;
+  padding: 1rem 0;
 
   &__wrapper {
     display: flex;
@@ -14,17 +17,17 @@
 
     height: 100%;
 
-    border: 1px solid #efefef;
-    border-radius: 8px;
+    border: 0.0625rem solid $color-neutrals-faded;
+    border-radius: 0.5rem;
 
-    box-shadow: 0 2px 20px 0 rdba(209, 209, 209, 0.2);
+    @include shadow;
   }
 
   &__preview-wrapper {
-    height: 194px;
+    height: 12.125rem;
 
-    border-radius: 8px 8px 0 0;
-    background-color: #c4c4c4;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: $color-neutrals-light;
   }
 
   &__content-wrapper {
@@ -35,34 +38,34 @@
 
     flex-grow: 1;
 
-    padding: 16px;
+    padding: 1rem;
   }
 
   &__title {
     font-weight: 700;
     font-size: 1.25rem;
-    color: #333333;
+    color: $color-neutrals-dark;
 
-    margin-top: -1px;
+    margin-top: 0.0625rem;
     margin-bottom: 0;
   }
 
   &__quality-name {
     font-size: 0.875rem;
-    line-height: 20px;
-    color: #d1d1d1;
-    margin-bottom: 3px;
+    line-height: 1.25rem;
+    color: $color-neutrals-lighter;
+    margin-bottom: 0.1875rem;
   }
 
   &__description {
     margin-left: 0;
-    line-height: 18px;
-    margin-bottom: 18px;
+    line-height: 1.125rem;
+    margin-bottom: 1.125rem;
   }
 
   &__tags {
     margin-left: 0;
-    margin-bottom: 15px;
+    margin-bottom: 0.9375rem;
   }
 
   &__origin-date {
@@ -86,29 +89,29 @@
   }
 
   &__button {
-    color: #ffffff;
+    color: $color-background;
 
     width: 100%;
 
-    margin-top: 8px;
-    padding: 8px 20px;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1.25rem;
 
-    border-width: 2px;
-    border-color: #ff4d00;
-    background-color: #ff4d00;
+    border-width: 0.125rem;
+    border-color: $color-secondary;
+    background-color: $color-secondary;
 
     &:hover {
-      border-color: #e64300;
-      background-color: #e64300;
+      border-color: $color-secondary-dark;
+      background-color: $color-secondary-dark;
     }
 
     &--outline {
-      color: #ff4d00;
+      color: $color-secondary;
 
       background-color: transparent;
 
       &:hover {
-        color: #e64300;
+        color: $color-secondary-dark;
 
         background-color: transparent;
       }
@@ -118,7 +121,7 @@
   &__stats {
     width: auto;
 
-    margin-left: 8px;
-    padding: 8px 10px 4px;
+    margin-left: 0.5rem;
+    padding: 0.5rem 0.625rem 0.2rem;
   }
 }

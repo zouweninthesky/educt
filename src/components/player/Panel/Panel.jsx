@@ -1,9 +1,9 @@
 import React from "react";
 
-import MainLogo from "../../../assets/img/content/main-logo.svg";
+import MainLogo from "../../../static/img/content/main-logo.svg";
 import { useCloseModal } from "../CloseModal/CloseModalContext";
 
-import sprite from "../../../assets/img/sprite.svg";
+import sprite from "../../../assets/sprite.svg";
 
 import "./Panel.scss";
 

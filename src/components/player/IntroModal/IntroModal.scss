@@ -1,3 +1,5 @@
+@use "../../../assets/scss/variables.scss" as *;
+
 .modal-intro {
   display: flex;
   flex-direction: column;
@@ -5,30 +7,37 @@
   align-items: flex-start;
 
   position: fixed;
-  bottom: 0;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   z-index: 3;
 
-  width: 650px;
-  min-height: 495px;
+  width: 40.625rem;
+  min-height: 22.8125rem;
 
-  padding: 32px 48px;
+  padding: 2rem 3rem;
 
-  background-color: #ffffff;
-  border-radius: 16px 16px 0 0;
-  box-shadow: 0px 2px 20px rgba(209, 209, 209, 0.2);
+  background-color: $color-background;
+  border-radius: 1rem;
+  box-shadow: 0 0.125rem 1.125rem $color-shadow;
 
   &__title {
     font-size: 1.5rem;
     font-weight: 700;
-    color: #333333;
+    color: $color-neutrals-dark;
 
     margin: 0;
   }
 
+  &__info-wrapper {
+    display: flex;
+    flex-direction: row;
+  }
+
   &__info {
-    color: #333333;
+    color: $color-neutrals-dark;
+
+    min-width: 10.9375rem;
   }
 
   &__button-wrapper {
@@ -42,45 +51,30 @@
   }
 
   &__button {
-    color: #27ae60;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-    width: 164px;
-    min-height: 115px;
+    font-family: inherit;
+    font-size: 1.125rem;
+    color: $color-success;
 
-    padding: 38px 62px 37px;
+    width: 10.9375rem;
+    min-height: 7.1875rem;
+
+    padding: 1.75rem 0.5rem 1.5rem;
 
     background-color: transparent;
-    border: 2px solid #27ae60;
-    border-radius: 16px;
+    border: 0.125rem solid $color-success;
+    border-radius: 1rem;
     cursor: pointer;
+
+    & span {
+      margin-top: 0.5rem;
+    }
 
     &:hover {
-      background-color: #eafaf1;
-    }
-  }
-
-  &__download-button {
-    position: relative;
-
-    font-size: 1.125rem;
-    color: #333333;
-
-    padding: 0;
-
-    background-color: transparent;
-    border: 0;
-    cursor: pointer;
-
-    &::after {
-      content: "";
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-
-      width: 100%;
-      height: 1px;
-
-      background-color: #333333;
+      background-color: $color-success-faded;
     }
   }
 }

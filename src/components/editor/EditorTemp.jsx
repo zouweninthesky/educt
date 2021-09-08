@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Stream } from "stream";
 
-import mainLogo from "../../assets/img/content/main-logo.svg";
+import mainLogo from "../../static/img/content/main-logo.svg";
 
 import "./Editor.scss";
 

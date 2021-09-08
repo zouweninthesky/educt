@@ -1,24 +1,26 @@
+@use '../../../assets/scss/variables.scss' as *;
+
 .dropdown {
   display: inline-block;
 
   position: relative;
 
-  color: #8c8c8c;
+  color: $color-neutrals-light;
 
-  width: 231px;
-  height: 44px;
+  width: 14.4375rem;
+  height: 2.75rem;
 
-  padding: 10px 20px;
+  padding: 0.625rem 1.25rem;
 
   background-color: transparent;
-  border: 1px solid #8c8c8c;
-  border-radius: 4px;
+  border: 0.0625rem solid $color-neutrals-light;
+  border-radius: 0.25rem;
   cursor: pointer;
 
   &__arrow {
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 0.625rem;
+    right: 1.25rem;
 
     pointer-events: none;
   }
@@ -26,10 +28,10 @@
   &__wrapper {
     position: absolute;
     z-index: 2;
-    left: -1px;
-    bottom: -148px;
+    left: -0.0625rem;
+    bottom: -9.25rem;
 
-    width: 231px;
+    width: 14.4375rem;
   }
 
   &__list {
@@ -37,30 +39,30 @@
 
     padding-left: 0;
 
-    border: 1px solid #8c8c8c;
-    border-radius: 4px;
+    border: 0.0625rem solid $color-neutrals-light;
+    border-radius: 0.25rem;
   }
 
   &__item {
-    padding: 10px 20px;
+    padding: 0.625rem 1.25rem;
 
-    border-bottom: 1px solid #8c8c8c;
-    background-color: #ffffff;
+    border-bottom: 0.0625rem solid $color-neutrals-light;
+    background-color: $color-background;
 
     &--current {
-      color: #515151;
+      color: $color-neutrals;
 
-      background-color: #efefef;
+      background-color: $color-neutrals-faded;
     }
 
     &:first-of-type {
-      border-radius: 5px 5px 0 0;
+      border-radius: 0.3125rem 0.3125rem 0 0;
     }
 
     &:last-of-type {
       border-bottom: 0;
 
-      border-radius: 0 0 5px 5px;
+      border-radius: 0 0 0.3125rem 0.3125rem;
     }
   }
 }

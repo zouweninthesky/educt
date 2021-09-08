@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import sprite from "../../../../assets/img/sprite.svg";
+import sprite from "../../../../assets/sprite.svg";
 
 import "./ScriptItem.scss";
 

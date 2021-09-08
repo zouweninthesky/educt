@@ -11,7 +11,7 @@ import {
   scriptsRequested,
   scriptsError,
   scriptChosen,
-} from "../../../actions";
+} from "../../../store/common/actions";
 import compose from "../../../utils/compose";
 import withUserScriptsService from "../../hoc/WithUserScriptsService";
 

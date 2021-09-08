@@ -1,3 +1,5 @@
+@use '../../../assets/scss/variables.scss' as *;
+
 .panel {
   display: flex;
   flex-direction: row;
@@ -5,11 +7,11 @@
   align-items: stretch;
 
   width: 100%;
-  min-height: 74px;
+  min-height: 4.625rem;
 
-  padding: 0 20px;
+  padding: 0 1.125rem;
 
-  background-color: #ffffff;
+  background-color: $color-background;
 
   &__left-side,
   &__center,
@@ -20,26 +22,26 @@
   }
 
   &__left-side img {
-    margin-left: 20px;
-    margin-bottom: 10px;
+    margin-left: 1.125rem;
+    margin-bottom: 0.625rem;
   }
 
   &__center .panel__button {
-    margin: 0 5px;
+    margin: 0 0.3125rem;
   }
 
   &__button {
-    color: #0084d9;
+    color: $color-info;
 
-    padding: 8px;
+    padding: 0.5rem;
 
     background-color: transparent;
     border: 0;
-    border-radius: 8px;
+    border-radius: 0.5rem;
     cursor: pointer;
 
     &:hover {
-      background-color: #e0f4ff;
+      background-color: $color-info-faded;
     }
 
     &:disabled {
@@ -52,14 +54,14 @@
   &__text-wrapper {
     align-self: flex-end;
 
-    width: 540px;
-    min-height: 67px;
+    width: 33.75rem;
+    min-height: 4.1875rem;
 
-    padding: 9px 16px;
+    padding: 0.5625rem 1rem;
 
-    border: 1px solid #efefef;
+    border: 0.0625rem solid $color-neutrals-faded;
     border-bottom: 0;
-    border-radius: 8px 8px 0 0;
+    border-radius: 0.5rem 0.5rem 0 0;
   }
 
   &__text {
