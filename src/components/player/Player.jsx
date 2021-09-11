@@ -7,7 +7,7 @@ import CloseModalProvider from "./CloseModal/CloseModalContext";
 import IntroModal from "./IntroModal/IntroModal";
 import Panel from "./Panel/Panel";
 import ProgressBar from "./ProgressBar/ProgressBar";
-import Viewbox from "./Viewbox/Viewbox";
+import Viewbox from "../common/Viewbox/Viewbox";
 
 import "./Player.scss";
 

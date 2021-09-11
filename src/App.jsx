@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import Author from "./components/author/Author";
 import User from "./components/user/User";
-import EditorTemp from "./components/editor/EditorTemp";
+import Editor from "./components/editor/Editor";
 import Player from "./components/player/Player";
 
 const App = () => {
@@ -11,7 +11,7 @@ const App = () => {
     <Switch>
       <Route path="/user" component={User} />
       <Route path="/player" component={Player} />
-      <Route path="/editor" component={EditorTemp} />
+      <Route path="/editor" component={Editor} />
       <Route path="/author" component={Author} />
       <Redirect from="/" to="user" />
     </Switch>
