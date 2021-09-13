@@ -35,12 +35,12 @@ const Tools = () => {
             <div className="tools__buttons-lower-wrapper">
               <button className="tools__button tools__button--small tools__button--left">
                 <svg width="32" height="32">
-                  <use xlinkHref="#arrow-left" />
+                  <use xlinkHref="#undo" />
                 </svg>
               </button>
               <button className="tools__button tools__button--small tools__button--right">
                 <svg width="32" height="32">
-                  <use xlinkHref="#arrow-left" />
+                  <use xlinkHref="#save" />
                 </svg>
               </button>
             </div>
@@ -49,7 +49,7 @@ const Tools = () => {
         <li className="tools__button-item">
           <button className="tools__button">
             <svg width="64" height="64">
-              <use xlinkHref="#arrow-left" />
+              <use xlinkHref="#comment-new" />
             </svg>
             <h3 className="tools__button-title">Комментарий</h3>
           </button>
@@ -57,7 +57,7 @@ const Tools = () => {
         <li className="tools__button-item">
           <button className="tools__button">
             <svg width="64" height="64">
-              <use xlinkHref="#arrow-left" />
+              <use xlinkHref="#action" />
             </svg>
             <h3 className="tools__button-title">Действие</h3>
           </button>
@@ -65,7 +65,7 @@ const Tools = () => {
         <li className="tools__button-item">
           <button className="tools__button">
             <svg width="64" height="64">
-              <use xlinkHref="#arrow-left" />
+              <use xlinkHref="#microphone" />
             </svg>
             <h3 className="tools__button-title">Аудио</h3>
           </button>
@@ -73,7 +73,7 @@ const Tools = () => {
         <li className="tools__button-item">
           <button className="tools__button">
             <svg width="64" height="64">
-              <use xlinkHref="#arrow-left" />
+              <use xlinkHref="#layer-group" />
             </svg>
             <h3 className="tools__button-title">Маска</h3>
           </button>
@@ -81,7 +81,7 @@ const Tools = () => {
         <li className="tools__button-item">
           <button className="tools__button">
             <svg width="64" height="64">
-              <use xlinkHref="#arrow-left" />
+              <use xlinkHref="#trash" />
             </svg>
             <h3 className="tools__button-title">Удалить слайд</h3>
           </button>
