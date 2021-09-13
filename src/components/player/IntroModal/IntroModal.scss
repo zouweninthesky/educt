@@ -57,7 +57,6 @@
 
     font-family: inherit;
     font-size: 1.125rem;
-    color: $color-success;
 
     width: 10.9375rem;
     min-height: 7.1875rem;
@@ -65,7 +64,7 @@
     padding: 1.75rem 0.5rem 1.5rem;
 
     background-color: transparent;
-    border: 0.125rem solid $color-success;
+
     border-radius: 1rem;
     cursor: pointer;
 
@@ -73,8 +72,36 @@
       margin-top: 0.5rem;
     }
 
-    &:hover {
-      background-color: $color-success-faded;
+    &:disabled {
+      opacity: 0.3;
+    }
+
+    &--start {
+      color: $color-success;
+
+      border: 0.125rem solid $color-success;
+
+      &:hover {
+        background-color: $color-success-faded;
+      }
+    }
+
+    &--test {
+      color: $color-info;
+
+      border: 0.125rem solid $color-info;
+      &:hover {
+        background-color: $color-info-faded;
+      }
+    }
+
+    &--return {
+      color: $color-danger;
+
+      border: 0.125rem solid $color-danger;
+      &:hover {
+        background-color: $color-danger-faded;
+      }
     }
   }
 }

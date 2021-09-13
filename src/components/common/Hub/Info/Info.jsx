@@ -4,8 +4,6 @@ import "./Info.scss";
 
 import { Link } from "react-router-dom";
 
-import sprite from "../../../../assets/sprite.svg";
-
 class Info extends Component {
   render() {
     const { chosenScript } = this.props;
@@ -50,7 +48,7 @@ class Info extends Component {
                   className="hub-info__stats hub-info__button hub-info__button--outline button"
                 >
                   <svg width="22" height="22">
-                    <use href={sprite + "#icon-graph-bar"} />
+                    <use xlinkHref="#graph-bar" />
                   </svg>
                   <span className="visually-hidden">Статистика</span>
                 </button>

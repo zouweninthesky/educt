@@ -1,0 +1,146 @@
+@use '../../../assets/scss/variables.scss' as *;
+
+.tools {
+  min-height: 16rem;
+
+  padding: 0 1.25rem;
+
+  &__header-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__arrow-button {
+    color: $color-primary;
+
+    width: 40px;
+    height: 40px;
+
+    margin-right: 10px;
+
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &__header {
+    color: $color-neutrals;
+    font-size: 1.25rem;
+    font-weight: 700;
+
+    margin: 0;
+  }
+
+  &__buttons-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: stretch;
+
+    list-style: none;
+
+    margin: 0;
+    padding: 0;
+  }
+
+  &__button-item {
+    margin-right: 20px;
+    flex-grow: 1;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  &__buttons-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    // width: 9.25rem;
+    min-height: 10.5rem;
+  }
+
+  &__navigation-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-grow: 2;
+
+    width: 100%;
+
+    padding: 2.1875rem 0 0;
+
+    background-color: $color-neutrals-faded;
+    border-radius: 1rem 1rem 0 0;
+  }
+
+  &__navigation-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 40px;
+    height: 40px;
+
+    padding: 0;
+
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &__navigation-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    font-size: 0.875rem;
+    font-weight: 400;
+    color: $color-neutrals-light;
+
+    margin: 0;
+
+    & span:first-child {
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+  }
+
+  &__buttons-lower-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    margin-top: 4px;
+  }
+
+  &__button {
+    // width: 9.25rem;
+    min-height: 10.5rem;
+    width: 100%;
+    flex-grow: 1;
+
+    border: 0;
+    border-radius: 1rem;
+    background-color: $color-neutrals-faded;
+    cursor: pointer;
+
+    &--small {
+      // width: 4.375rem;
+      min-height: 3.9375rem;
+    }
+
+    &--left {
+      border-radius: 0 0 0 1rem;
+    }
+
+    &--right {
+      border-radius: 0 0 1rem 0;
+    }
+  }
+
+  &__button-title {
+  }
+}

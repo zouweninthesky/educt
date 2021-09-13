@@ -3,8 +3,6 @@ import { NavLink } from "react-router-dom";
 
 import MainLogo from "../../../static/img/content/main-logo.svg";
 
-import sprite from "../../../assets/sprite.svg";
-
 import "./Header.scss";
 
 const Header = () => {
@@ -21,7 +19,7 @@ const Header = () => {
           activeClassName="hub-header__tab--active"
         >
           <svg width="22" height="22">
-            <use href={sprite + "#icon-apps"} />
+            <use xlinkHref="#apps" />
           </svg>
           Сценарии
         </NavLink>
@@ -31,7 +29,7 @@ const Header = () => {
           activeClassName="hub-header__tab--active"
         >
           <svg width="22" height="22">
-            <use href={sprite + "#icon-puzzle-piece"} />
+            <use xlinkHref="#puzzle-piece" />
           </svg>
           Конструктор
         </NavLink>

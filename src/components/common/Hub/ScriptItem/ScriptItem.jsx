@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import sprite from "../../../../assets/sprite.svg";
-
 import "./ScriptItem.scss";
 
 const ScriptItem = (props) => {
@@ -21,12 +19,12 @@ const ScriptItem = (props) => {
         onClick={props.onClick.bind(null, props.id)}
       >
         <svg width="20" height="20">
-          <use href={sprite + "#icon-play"} />
+          <use xlinkHref="#play" />
         </svg>
       </Link>
       <button className="script-item__icon-button" type="button">
         <svg width="20" height="20">
-          <use href={sprite + "#icon-graph-bar"} />
+          <use xlinkHref="#graph-bar" />
         </svg>
       </button>
     </li>

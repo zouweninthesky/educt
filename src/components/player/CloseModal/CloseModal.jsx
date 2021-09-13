@@ -1,7 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import sprite from "../../../assets/sprite.svg";
 import { useCloseModal } from "./CloseModalContext";
 
 import "./CloseModal.scss";
@@ -18,7 +16,7 @@ const CloseModal = () => {
       <div className="modal-close">
         <div className="modal-close__icon-wrapper">
           <svg width="64" height="64">
-            <use href={sprite + "#icon-warning"}></use>
+            <use xlinkHref="#warning"></use>
           </svg>
         </div>
         <h2 className="modal-close__header">Закрыть сценарий</h2>

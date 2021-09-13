@@ -12,6 +12,7 @@
     "react-router-dom": "^5.2.1",
     "react-scoped-styles": "^0.5.4",
     "react-scripts": "4.0.3",
+    "react-svg-sprite": "^1.0.8",
     "redux": "^4.1.1",
     "sass": "^1.38.2",
     "web-vitals": "^1.1.2"

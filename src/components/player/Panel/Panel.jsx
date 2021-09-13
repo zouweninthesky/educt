@@ -3,8 +3,6 @@ import React from "react";
 import MainLogo from "../../../static/img/content/main-logo.svg";
 import { useCloseModal } from "../CloseModal/CloseModalContext";
 
-import sprite from "../../../assets/sprite.svg";
-
 import "./Panel.scss";
 
 const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
@@ -20,7 +18,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           onClick={() => toggleClose()}
         >
           <svg width="24" height="24">
-            <use href={sprite + "#icon-arrow-left"} />
+            <use xlinkHref="#arrow-left" />
           </svg>
         </button>
         <img src={MainLogo} alt="Лого Educt" />
@@ -33,7 +31,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           disabled={disablePrev}
         >
           <svg width="24" height="24">
-            <use href={sprite + "#icon-angle-left"} />
+            <use xlinkHref="#angle-left" />
           </svg>
         </button>
         <button
@@ -43,7 +41,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           disabled={disableNext}
         >
           <svg width="24" height="24">
-            <use href={sprite + "#icon-angle-right"} />
+            <use xlinkHref="#angle-right" />
           </svg>
         </button>
         <div className="panel__text-wrapper">
@@ -53,17 +51,17 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
       <div className="panel__right-side">
         <button type="button" className="panel__button">
           <svg width="24" height="24">
-            <use href={sprite + "#icon-volume"} />
+            <use xlinkHref="#volume" />
           </svg>
         </button>
         <button type="button" className="panel__button">
           <svg width="24" height="24">
-            <use href={sprite + "#icon-zoom"} />
+            <use xlinkHref="#zoom" />
           </svg>
         </button>
         <button type="button" className="panel__button">
           <svg width="24" height="24">
-            <use href={sprite + "#icon-focus"} />
+            <use xlinkHref="#focus" />
           </svg>
         </button>
       </div>

@@ -1,8 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
-import sprite from "../../../assets/sprite.svg";
-
 import {
   createNumberStringMale,
   createNumberStringFemale,
@@ -33,21 +30,27 @@ const IntroModal = ({ script, introShown, introHide }) => {
           </div>
         </div>
         <div className="modal-intro__button-wrapper">
-          <button className="modal-intro__button" onClick={() => introHide()}>
+          <button
+            className="modal-intro__button modal-intro__button--start"
+            onClick={() => introHide()}
+          >
             <svg width="40" height="40">
-              <use href={sprite + "#icon-play"}></use>
+              <use xlinkHref="#play"></use>
             </svg>
             <span>Начать</span>
           </button>
-          <button className="modal-intro__button">
+          <button className="modal-intro__button modal-intro__button--test">
             <svg width="40" height="40">
-              <use href={sprite + "#icon-graph-bar"}></use>
+              <use xlinkHref="#graph-bar"></use>
             </svg>
             <span>Тестирование</span>
           </button>
-          <Link to="/user" className="modal-intro__button">
+          <Link
+            to="/user"
+            className="modal-intro__button modal-intro__button--return"
+          >
             <svg width="40" height="40">
-              <use href={sprite + "#icon-arrow-left"}></use>
+              <use xlinkHref="#arrow-left"></use>
             </svg>
             <span>Вернуться</span>
           </Link>
