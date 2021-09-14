@@ -1,7 +1,40 @@
-import { createStore } from "redux";
+import { makeAutoObservable } from "mobx";
 
-import reducer from "./common/reducer";
+import scriptsApi from "../api/UserScriptsService";
 
-const store = createStore(reducer);
+const Api = new scriptsApi();
 
-export default store;
+class Scripts {
+  scripts = [];
+  chosenScript = null;
+  loading = true;
+  error = null;
+
+  constructor() {
+    makeAutoObservable(this);
+  }
+
+  async scriptsLoad() {
+    const data = await Api.getUserScripts();
+    this.scripts = data;
+    this.loading = false;
+    this.error = null;
+  }
+
+  scriptsRequested() {
+    this.loading = true;
+  }
+
+  scriptsError(error) {
+    this.scripts = [];
+    this.loading = false;
+    this.error = error;
+  }
+
+  scriptChosen(id) {
+    const [chosenScipt] = this.scripts.filter((script) => script.id === id);
+    this.chosenScript = chosenScipt;
+  }
+}
+
+export default new Scripts();
