@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
 import { Redirect } from "react-router";
 
 import CloseModal from "./CloseModal/CloseModal";
@@ -8,6 +7,7 @@ import IntroModal from "./IntroModal/IntroModal";
 import Panel from "./Panel/Panel";
 import ProgressBar from "./ProgressBar/ProgressBar";
 import Viewbox from "../common/Viewbox/Viewbox";
+import Scripts from "../../store/";
 
 import "./Player.scss";
 
@@ -20,7 +20,7 @@ class Player extends Component {
   };
 
   nextSlide = () => {
-    const slidesNumber = this.props.chosenScript.slides.length;
+    const slidesNumber = Scripts.chosenScript.slides.length;
     const block = this.state.currentSlideId === slidesNumber - 2;
 
     if (block) {
@@ -62,7 +62,7 @@ class Player extends Component {
 
   render() {
     const { currentSlideId, disablePrev, disableNext, introShown } = this.state;
-    const { chosenScript } = this.props;
+    const { chosenScript } = Scripts;
 
     if (chosenScript === null) {
       return <Redirect to="/user" />;
@@ -98,8 +98,4 @@ class Player extends Component {
   }
 }
 
-const mapStateToProps = ({ loading, error, chosenScript }) => {
-  return { loading, error, chosenScript };
-};
-
-export default connect(mapStateToProps)(Player);
+export default Player;

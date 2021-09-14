@@ -1,22 +1,25 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
+
+import Scripts from "../../../../store";
 
 import "./ScriptItem.scss";
 
-const ScriptItem = (props) => {
+const ScriptItem = observer((props) => {
   return (
     <li className="script-item" id={props.id.toString()}>
       <button
         className="script-item__button"
         type="button"
-        onClick={props.onClick.bind(null, props.id)}
+        onClick={() => Scripts.scriptChosen(props.id)}
       >
         <span>{props.title}</span>
       </button>
       <Link
         className="script-item__icon-button"
         to="/player/:id/show"
-        onClick={props.onClick.bind(null, props.id)}
+        onClick={() => Scripts.scriptChosen(props.id)}
       >
         <svg width="20" height="20">
           <use xlinkHref="#play" />
@@ -29,7 +32,7 @@ const ScriptItem = (props) => {
       </button>
     </li>
   );
-};
+});
 
 export default ScriptItem;
 
