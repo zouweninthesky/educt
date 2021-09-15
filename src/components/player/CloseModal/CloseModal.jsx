@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useCloseModal } from "./CloseModalContext";
 
 import "./CloseModal.scss";
+import Modal from "../../common/Modal/Modal";
 
 const CloseModal = () => {
   const [closeModal, toggle] = useCloseModal();
@@ -13,7 +14,7 @@ const CloseModal = () => {
 
   return (
     <>
-      <div className="modal-close">
+      <Modal>
         <div className="modal-close__icon-wrapper">
           <svg width="64" height="64">
             <use xlinkHref="#warning"></use>
@@ -33,7 +34,7 @@ const CloseModal = () => {
         >
           Отмена
         </button>
-      </div>
+      </Modal>
       <div className="overlay"></div>
     </>
   );

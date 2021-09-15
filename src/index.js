@@ -5,20 +5,14 @@ import "./assets/scss/style.scss";
 
 import App from "./App";
 import ErrorBoundry from "./components/common/ErrorBoundry/ErrorBoundry";
-import UserScriptsService from "./api/UserScriptsService";
-import { UserScriptsProvider } from "./components/common/UserScriptsContext/UserScriptsContext";
 import Sprite from "./components/common/Sprite/Sprite";
-
-const userScriptsService = new UserScriptsService();
 
 ReactDOM.render(
   <ErrorBoundry>
-    <UserScriptsProvider value={userScriptsService}>
-      <Router>
-        <Sprite />
-        <App />
-      </Router>
-    </UserScriptsProvider>
+    <Router>
+      <Sprite />
+      <App />
+    </Router>
   </ErrorBoundry>,
   document.getElementById("root")
 );
