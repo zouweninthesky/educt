@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useCloseModal } from "./CloseModalContext";
 
-import "./CloseModal.scss";
 import Modal from "../../common/Modal/Modal";
 
 const CloseModal = () => {
@@ -15,20 +14,20 @@ const CloseModal = () => {
   return (
     <>
       <Modal>
-        <div className="modal-close__icon-wrapper">
+        <div className="modal__icon-wrapper">
           <svg width="64" height="64">
             <use xlinkHref="#warning"></use>
           </svg>
         </div>
-        <h2 className="modal-close__header">Закрыть сценарий</h2>
-        <p className="modal-close__warning-message">
+        <h2 className="modal__header">Закрыть сценарий</h2>
+        <p className="modal__warning-message">
           Прогресс выполнения не будет сохранен
         </p>
-        <Link to="/user" className="button modal-close__button-close">
+        <Link to="/user" className="button modal__button-close">
           Закрыть
         </Link>
         <button
-          className="button modal-close__button-cancel"
+          className="button modal__button-cancel"
           type="button"
           onClick={() => toggle()}
         >
