@@ -11,7 +11,9 @@ import Scripts from "../../../store";
 
 import "./Hub.scss";
 
-const Hub = observer(() => {
+const Hub = observer((props) => {
+  const { isAuthor } = props;
+
   useEffect(() => {
     Scripts.scriptsLoad();
   }, []);
@@ -28,7 +30,8 @@ const Hub = observer(() => {
     <main className="hub container">
       <section className="hub__content">
         <h2 className="visually-hidden">Список сценариев</h2>
-        <Dropdown />
+        {isAuthor ? <></> : <Dropdown />}
+
         <div className="hub__content-wrapper">
           <ul className="hub__script-list">
             {Scripts.scripts.map((script, i) => {
@@ -37,7 +40,7 @@ const Hub = observer(() => {
           </ul>
         </div>
       </section>
-      <Info />
+      <Info isAuthor={isAuthor} />
     </main>
   );
 });

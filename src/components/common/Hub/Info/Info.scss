@@ -124,4 +124,33 @@
     margin-left: 0.5rem;
     padding: 0.5rem 0.625rem 0.2rem;
   }
+
+  &__author-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    color: $color-primary;
+
+    width: 100%;
+
+    margin-right: 0.6875rem;
+    padding-right: 1.25rem;
+
+    border-width: 0.0625rem;
+    border-color: transparent;
+
+    &:hover,
+    &:focus {
+      color: $color-primary-dark;
+      background-color: $color-primary-faded;
+    }
+
+    & svg {
+      position: relative;
+      top: -0.0625rem;
+      margin-right: 0.625rem;
+    }
+  }
 }
