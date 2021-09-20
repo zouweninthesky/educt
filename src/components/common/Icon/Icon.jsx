@@ -1,11 +1,13 @@
 import React from "react";
 
 const Icon = (props) => {
-  const { id, width, height } = props;
+  const { id, width, height, className } = props;
+
+  const realHeight = height ? height : width;
 
   return (
-    <svg width={width} height={height}>
-      <use xlinkHref={id} />
+    <svg className={className} width={width} height={realHeight}>
+      <use xlinkHref={`#${id}`} />
     </svg>
   );
 };

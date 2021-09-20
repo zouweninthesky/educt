@@ -15,7 +15,7 @@ const Viewbox = ({ mod }) => {
         <div className="viewbox__field-wrapper">
           <button className="viewbox__field" type="button"></button>
           <span className="viewbox__field-type">
-            <Icon width="42" height="42" id="#mouse-left" />
+            <Icon id="mouse-left" width="42" height="42" />
           </span>
         </div>
       </div>

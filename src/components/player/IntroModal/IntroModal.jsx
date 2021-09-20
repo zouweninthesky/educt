@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
+import Icon from "../../common/Icon/Icon";
 import {
   createNumberStringMale,
   createNumberStringFemale,
@@ -34,24 +36,18 @@ const IntroModal = ({ script, introShown, introHide }) => {
             className="modal-intro__button modal-intro__button--start"
             onClick={() => introHide()}
           >
-            <svg width="40" height="40">
-              <use xlinkHref="#play"></use>
-            </svg>
+            <Icon id="play" width="40" />
             <span>Начать</span>
           </button>
           <button className="modal-intro__button modal-intro__button--test">
-            <svg width="40" height="40">
-              <use xlinkHref="#graph-bar"></use>
-            </svg>
+            <Icon id="graduation" width="40" />
             <span>Тестирование</span>
           </button>
           <Link
             to="/user"
             className="modal-intro__button modal-intro__button--return"
           >
-            <svg width="40" height="40">
-              <use xlinkHref="#arrow-left"></use>
-            </svg>
+            <Icon id="arrow-left" width="40" />
             <span>Вернуться</span>
           </Link>
         </div>

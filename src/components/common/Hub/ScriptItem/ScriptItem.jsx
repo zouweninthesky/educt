@@ -3,6 +3,7 @@ import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
 import Scripts from "../../../../store";
+import Icon from "../../Icon/Icon";
 
 import "./ScriptItem.scss";
 
@@ -21,14 +22,10 @@ const ScriptItem = observer((props) => {
         to="/player/:id/show"
         onClick={() => Scripts.scriptChosen(props.id)}
       >
-        <svg width="20" height="20">
-          <use xlinkHref="#play" />
-        </svg>
+        <Icon id="play" width="20" />
       </Link>
       <button className="script-item__icon-button" type="button">
-        <svg width="20" height="20">
-          <use xlinkHref="#graph-bar" />
-        </svg>
+        <Icon id="graph-bar" width="20" />
       </button>
     </li>
   );
