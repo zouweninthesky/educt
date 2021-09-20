@@ -16,7 +16,7 @@ const CloseModal = () => {
     <>
       <Modal>
         <div className="modal__icon-wrapper">
-          <Icon id="#warning" width="64" />
+          <Icon id="warning" width="64" />
         </div>
         <h2 className="modal__header">Закрыть сценарий</h2>
         <p className="modal__warning-message">

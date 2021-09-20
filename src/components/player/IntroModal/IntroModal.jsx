@@ -36,18 +36,18 @@ const IntroModal = ({ script, introShown, introHide }) => {
             className="modal-intro__button modal-intro__button--start"
             onClick={() => introHide()}
           >
-            <Icon id="#play" width="40" />
+            <Icon id="play" width="40" />
             <span>Начать</span>
           </button>
           <button className="modal-intro__button modal-intro__button--test">
-            <Icon id="#graduation" width="40" />
+            <Icon id="graduation" width="40" />
             <span>Тестирование</span>
           </button>
           <Link
             to="/user"
             className="modal-intro__button modal-intro__button--return"
           >
-            <Icon id="#arrow-left" width="40" />
+            <Icon id="arrow-left" width="40" />
             <span>Вернуться</span>
           </Link>
         </div>

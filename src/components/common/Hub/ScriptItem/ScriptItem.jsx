@@ -22,10 +22,10 @@ const ScriptItem = observer((props) => {
         to="/player/:id/show"
         onClick={() => Scripts.scriptChosen(props.id)}
       >
-        <Icon id="#play" width="20" />
+        <Icon id="play" width="20" />
       </Link>
       <button className="script-item__icon-button" type="button">
-        <Icon id="#graph-bar" width="20" />
+        <Icon id="graph-bar" width="20" />
       </button>
     </li>
   );

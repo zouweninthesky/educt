@@ -49,7 +49,7 @@ const Info = observer((props) => {
                 type="button"
                 className="hub-info__stats hub-info__button hub-info__button--outline button"
               >
-                <Icon id="#graph-bar" width="22" />
+                <Icon id="graph-bar" width="22" />
                 <span className="visually-hidden">Статистика</span>
               </button>
             </div>

@@ -7,7 +7,7 @@ const Icon = (props) => {
 
   return (
     <svg className={className} width={width} height={realHeight}>
-      <use xlinkHref={id} />
+      <use xlinkHref={`#${id}`} />
     </svg>
   );
 };

@@ -19,7 +19,7 @@ const Header = () => {
           className="hub-header__tab button"
           activeClassName="hub-header__tab--active"
         >
-          <Icon id="#apps" width="22" />
+          <Icon id="apps" width="22" />
           Сценарии
         </NavLink>
         <NavLink
@@ -27,7 +27,7 @@ const Header = () => {
           className="hub-header__tab button"
           activeClassName="hub-header__tab--active"
         >
-          <Icon id="#puzzle-piece" width="22" />
+          <Icon id="puzzle-piece" width="22" />
           Конструктор
         </NavLink>
       </div>

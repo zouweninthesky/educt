@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import Icon from "../../../common/Icon/Icon";
 
-const FULLSCREEN_ID = "#zoom";
-const NOT_FULLSCREEN_ID = "#focus";
+const FULLSCREEN_ID = "zoom";
+const NOT_FULLSCREEN_ID = "focus";
 
 const FullScreenButton = () => {
   const [fullScreen, setFullScreen] = useState(false);

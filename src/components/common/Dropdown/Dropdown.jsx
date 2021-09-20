@@ -18,7 +18,7 @@ const Dropdown = () => {
 
   return (
     <div className="dropdown">
-      <Icon id="#angle-down" width="24" className="dropdown__arrow" />
+      <Icon id="angle-down" width="24" className="dropdown__arrow" />
       <div className="dropdown__header" onClick={toggling}>
         {selectedOption}
       </div>

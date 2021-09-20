@@ -19,7 +19,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           type="button"
           onClick={() => toggleClose()}
         >
-          <Icon id="#arrow-left" width="24" />
+          <Icon id="arrow-left" width="24" />
         </button>
         <img src={MainLogo} alt="Лого Educt" />
       </div>
@@ -30,7 +30,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           onClick={prevSlide}
           disabled={disablePrev}
         >
-          <Icon id="#angle-left" width="24" />
+          <Icon id="angle-left" width="24" />
         </button>
         <button
           type="button"
@@ -38,7 +38,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           onClick={nextSlide}
           disabled={disableNext}
         >
-          <Icon id="#angle-right" width="24" />
+          <Icon id="angle-right" width="24" />
         </button>
         <div className="panel__text-wrapper">
           <p className="panel__text">{slide.description}</p>
@@ -46,10 +46,10 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
       </div>
       <div className="panel__right-side">
         <button type="button" className="panel__button">
-          <Icon id="#volume" width="24" />
+          <Icon id="volume" width="24" />
         </button>
         <button type="button" className="panel__button" disabled>
-          <Icon id="#zoom" width="24" />
+          <Icon id="zoom" width="24" />
         </button>
         <FullScreenButton />
       </div>
