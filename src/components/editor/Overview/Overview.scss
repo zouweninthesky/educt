@@ -1,0 +1,63 @@
+@use '../../../assets/scss/variables.scss' as *;
+
+.overview {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+
+  min-height: 12.25rem;
+
+  &__list {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-grow: 2;
+
+    margin: 0;
+    padding: 0 0 0 20px;
+
+    list-style: none;
+  }
+
+  &__item {
+    color: $color-info-dark;
+
+    width: 9.25rem;
+    min-height: 10.5rem;
+
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+
+  &__button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    font-family: inherit;
+    color: inherit;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 32px 0;
+
+    border: 0;
+    border-radius: 16px;
+    background-color: transparent;
+
+    & img {
+      border-radius: 2px;
+    }
+
+    &:hover,
+    &:active {
+      background-color: $color-neutrals-faded;
+    }
+  }
+
+  &__title {
+    font-weight: 400;
+  }
+}
