@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useCloseModal } from "./CloseModalContext";
 
+import { useCloseModal } from "./CloseModalContext";
+import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
 const CloseModal = () => {
@@ -15,9 +16,7 @@ const CloseModal = () => {
     <>
       <Modal>
         <div className="modal__icon-wrapper">
-          <svg width="64" height="64">
-            <use xlinkHref="#warning"></use>
-          </svg>
+          <Icon id="#warning" width="64" />
         </div>
         <h2 className="modal__header">Закрыть сценарий</h2>
         <p className="modal__warning-message">

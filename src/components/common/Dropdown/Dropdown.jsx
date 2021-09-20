@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+import Icon from "../Icon/Icon";
 import "./Dropdown.scss";
 
 const options = ["Все сценарии", "Новое", "Тестирование"];
@@ -17,9 +18,7 @@ const Dropdown = () => {
 
   return (
     <div className="dropdown">
-      <svg className="dropdown__arrow" width="24" height="24">
-        <use xlinkHref="#angle-down"></use>
-      </svg>
+      <Icon id="#angle-down" width="24" className="dropdown__arrow" />
       <div className="dropdown__header" onClick={toggling}>
         {selectedOption}
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 
+import Icon from "../../common/Icon/Icon";
 import MainLogo from "../../../static/img/content/main-logo.svg";
 import { useCloseModal } from "../CloseModal/CloseModalContext";
 import FullScreenButton from "./FullScreenButton/FullScreenButton";
@@ -18,9 +19,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           type="button"
           onClick={() => toggleClose()}
         >
-          <svg width="24" height="24">
-            <use xlinkHref="#arrow-left" />
-          </svg>
+          <Icon id="#arrow-left" width="24" />
         </button>
         <img src={MainLogo} alt="Лого Educt" />
       </div>
@@ -31,9 +30,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           onClick={prevSlide}
           disabled={disablePrev}
         >
-          <svg width="24" height="24">
-            <use xlinkHref="#angle-left" />
-          </svg>
+          <Icon id="#angle-left" width="24" />
         </button>
         <button
           type="button"
@@ -41,9 +38,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           onClick={nextSlide}
           disabled={disableNext}
         >
-          <svg width="24" height="24">
-            <use xlinkHref="#angle-right" />
-          </svg>
+          <Icon id="#angle-right" width="24" />
         </button>
         <div className="panel__text-wrapper">
           <p className="panel__text">{slide.description}</p>
@@ -51,14 +46,10 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
       </div>
       <div className="panel__right-side">
         <button type="button" className="panel__button">
-          <svg width="24" height="24">
-            <use xlinkHref="#volume" />
-          </svg>
+          <Icon id="#volume" width="24" />
         </button>
         <button type="button" className="panel__button" disabled>
-          <svg width="24" height="24">
-            <use xlinkHref="#zoom" />
-          </svg>
+          <Icon id="#zoom" width="24" />
         </button>
         <FullScreenButton />
       </div>

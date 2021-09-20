@@ -2,6 +2,7 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
+import Icon from "../../Icon/Icon";
 import Scripts from "../../../../store";
 
 import "./Info.scss";
@@ -48,9 +49,7 @@ const Info = observer((props) => {
                 type="button"
                 className="hub-info__stats hub-info__button hub-info__button--outline button"
               >
-                <svg width="22" height="22">
-                  <use xlinkHref="#graph-bar" />
-                </svg>
+                <Icon id="#graph-bar" width="22" />
                 <span className="visually-hidden">Статистика</span>
               </button>
             </div>
