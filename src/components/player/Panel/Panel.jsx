@@ -2,6 +2,7 @@ import React from "react";
 
 import MainLogo from "../../../static/img/content/main-logo.svg";
 import { useCloseModal } from "../CloseModal/CloseModalContext";
+import FullScreenButton from "./FullScreenButton/FullScreenButton";
 
 import "./Panel.scss";
 
@@ -54,16 +55,12 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
             <use xlinkHref="#volume" />
           </svg>
         </button>
-        <button type="button" className="panel__button">
+        <button type="button" className="panel__button" disabled>
           <svg width="24" height="24">
             <use xlinkHref="#zoom" />
           </svg>
         </button>
-        <button type="button" className="panel__button">
-          <svg width="24" height="24">
-            <use xlinkHref="#focus" />
-          </svg>
-        </button>
+        <FullScreenButton />
       </div>
     </section>
   );

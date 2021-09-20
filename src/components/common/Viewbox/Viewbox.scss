@@ -1,4 +1,5 @@
 @use '../../../assets/scss/mixins.scss' as *;
+@use '../../../assets/scss/variables.scss' as *;
 
 .viewbox {
   width: 100wv;
@@ -11,13 +12,66 @@
     justify-content: center;
     align-items: center;
 
+    position: relative;
+
     width: 100%;
     height: 100%;
+
+    margin: 0 auto;
+
+    // padding-top: 56.25%;
+    // max-height: calc(100vh - 4.625rem);
   }
 
   &__image {
-    @include shadow;
+    // position: absolute;
+    // top: 0;
+    // right: 0;
+    // bottom: 0;
+    // left: 0;
+
+    max-height: 100%;
+
     border-radius: 0.5rem;
+    @include shadow;
+  }
+
+  &__field-wrapper {
+    position: absolute;
+    top: 50px;
+    left: 60px;
+  }
+
+  &__field {
+    display: block;
+
+    width: 300px;
+    height: 300px;
+
+    border: 4px solid $color-secondary;
+    border-radius: 4px;
+    background-color: fade-out($color-secondary, 0.9);
+  }
+
+  &__field-type {
+    color: $color-background;
+
+    position: absolute;
+    right: -53px;
+    top: 0;
+
+    width: 50px;
+    height: 50px;
+
+    padding: 4px;
+
+    background-color: $color-secondary;
+    border-radius: 4px;
+
+    &--left {
+      right: auto;
+      left: -53px;
+    }
   }
 
   &--editor {
