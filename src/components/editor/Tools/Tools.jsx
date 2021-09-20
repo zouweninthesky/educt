@@ -6,13 +6,7 @@ import "./Tools.scss";
 
 const Tools = () => {
   return (
-    <section className="tools">
-      <div className="tools__header-wrapper">
-        <button className="tools__arrow-button">
-          <Icon id="arrow-left" width="24" />
-        </button>
-        <h2 className="tools__header">Все слайды</h2>
-      </div>
+    <div className="tools">
       <ul className="tools__buttons-list">
         <li className="tools__button-item">
           <div className="tools__buttons-wrapper">
@@ -69,7 +63,7 @@ const Tools = () => {
           </button>
         </li>
       </ul>
-    </section>
+    </div>
   );
 };
 

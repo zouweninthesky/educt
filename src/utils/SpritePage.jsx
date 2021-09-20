@@ -84,6 +84,18 @@ const SpritePage = () => {
           </svg>
         </div>
         <div>
+          <p>image</p>
+          <svg width="40" height="40">
+            <use xlinkHref="#image"></use>
+          </svg>
+        </div>
+        <div>
+          <p>info</p>
+          <svg width="40" height="40">
+            <use xlinkHref="#info"></use>
+          </svg>
+        </div>
+        <div>
           <p>layer-group</p>
           <svg width="40" height="40">
             <use xlinkHref="#layer-group"></use>

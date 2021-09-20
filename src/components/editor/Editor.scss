@@ -1,0 +1,47 @@
+@use '../../assets/scss/variables.scss' as *;
+
+.editor {
+  &__panel {
+    min-height: 16rem;
+
+    padding: 1.25rem 1.25rem 0;
+  }
+
+  &__header-wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__arrow-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: $color-primary;
+
+    width: 40px;
+    height: 40px;
+
+    margin-right: 10px;
+
+    border: 0;
+    border-radius: 8px;
+    background-color: transparent;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      background-color: $color-primary-faded;
+    }
+  }
+
+  &__header {
+    color: $color-neutrals;
+    font-size: 1.25rem;
+    font-weight: 700;
+
+    margin: 0;
+  }
+}
