@@ -5,6 +5,10 @@ import Icon from "../common/Icon/Icon";
 import Viewbox from "../common/Viewbox/Viewbox";
 import Overview from "./Overview/Overview";
 import Tools from "./Tools/Tools";
+import DeleteModal from "./modals/DeleteModal";
+import Overlay from "../common/Modal/Overlay";
+import CommentModal from "./modals/CommentModal";
+import SettingsModal from "./modals/SettingsModal";
 
 import "./Editor.scss";
 
@@ -45,6 +49,10 @@ const Editor = () => {
         </div>
         {toolsShown ? <Tools /> : <Overview />}
       </section>
+      <DeleteModal />
+      <CommentModal />
+      <SettingsModal />
+      <Overlay />
     </main>
   );
 };

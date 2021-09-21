@@ -100,6 +100,52 @@ a {
   &:focus {
     outline: none;
   }
+
+  &--accept {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    color: $color-success;
+
+    min-width: 11.25rem;
+
+    margin-right: 1.25rem;
+
+    border: 0;
+
+    & svg {
+      margin-right: 0.5rem;
+    }
+
+    &:hover,
+    &:active {
+      background-color: $color-success-faded;
+    }
+  }
+
+  &--discard {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    color: $color-danger;
+
+    min-width: 11.25rem;
+
+    border: 0;
+
+    & svg {
+      margin-right: 0.5rem;
+    }
+
+    &:hover,
+    &:active {
+      background-color: $color-danger-faded;
+    }
+  }
 }
 
 .container {

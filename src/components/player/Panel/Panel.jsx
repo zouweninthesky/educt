@@ -2,13 +2,13 @@ import React from "react";
 
 import Icon from "../../common/Icon/Icon";
 import MainLogo from "../../../static/img/content/main-logo.svg";
-import { useCloseModal } from "../CloseModal/CloseModalContext";
+import { useModal } from "../../common/Modal/ModalContext";
 import FullScreenButton from "./FullScreenButton/FullScreenButton";
 
 import "./Panel.scss";
 
 const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
-  const [_, toggleClose] = useCloseModal();
+  const [, setModalID] = useModal();
 
   return (
     <section className="panel">
@@ -17,7 +17,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
         <button
           className="panel__button"
           type="button"
-          onClick={() => toggleClose()}
+          onClick={() => setModalID("close")}
         >
           <Icon id="arrow-left" width="24" />
         </button>
