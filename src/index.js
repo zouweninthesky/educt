@@ -7,6 +7,11 @@ import App from "./App";
 import ErrorBoundry from "./components/common/ErrorBoundry/ErrorBoundry";
 import ModalProvider from "./components/common/Modal/ModalContext";
 import Sprite from "./components/common/Sprite/Sprite";
+import UserScriptsServiceNew from "./api/UserScriptServiceNew";
+
+const service = new UserScriptsServiceNew();
+
+service.getUserScripts();
 
 ReactDOM.render(
   <ErrorBoundry>
