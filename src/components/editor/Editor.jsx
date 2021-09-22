@@ -9,6 +9,7 @@ import DeleteModal from "./modals/DeleteModal";
 import Overlay from "../common/Modal/Overlay";
 import CommentModal from "./modals/CommentModal";
 import SettingsModal from "./modals/SettingsModal";
+import NoSaveModal from "./modals/NoSaveModal";
 
 import "./Editor.scss";
 
@@ -49,8 +50,9 @@ const Editor = () => {
         </div>
         {toolsShown ? <Tools /> : <Overview />}
       </section>
-      <DeleteModal />
       <CommentModal />
+      <DeleteModal />
+      <NoSaveModal />
       <SettingsModal />
       <Overlay />
     </main>
