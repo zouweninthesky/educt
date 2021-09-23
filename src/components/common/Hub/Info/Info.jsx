@@ -50,6 +50,11 @@ const Info = observer((props) => {
     );
   };
 
+  const convertCreateTime = (date) => {
+    const [year, month, day] = date.split("-");
+    return `${day.slice(0, day.indexOf("T"))}.${month}.${year}`;
+  };
+
   return (
     <section className="hub-info">
       <h2 className="visually-hidden">Информация о сценарии</h2>
@@ -62,16 +67,12 @@ const Info = observer((props) => {
           <dl className="hub-info__quality-list">
             <dt className="hub-info__quality-name">Описание</dt>
             <dd className="hub-info__description">
-              {chosenScript.description}
-            </dd>
-            <dt className="hub-info__quality-name">Теги</dt>
-            <dd className="hub-info__tags">
-              {chosenScript.tags.length !== 0
-                ? chosenScript.tags.join(", ")
-                : "Пока нет тегов"}
+              {/* {chosenScript.description} */}
             </dd>
             <dt className="hub-info__quality-name">Дата создания</dt>
-            <dd className="hub-info__origin-date">{chosenScript.date}</dd>
+            <dd className="hub-info__origin-date">
+              {convertCreateTime(chosenScript.create_time)}
+            </dd>
           </dl>
           <div className="hub-info__button-wrapper">{infoButtons()}</div>
         </div>

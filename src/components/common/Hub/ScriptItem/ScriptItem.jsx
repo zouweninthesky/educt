@@ -32,5 +32,3 @@ const ScriptItem = observer((props) => {
 });
 
 export default ScriptItem;
-
-// onClick={() => props.onClick(props.id)}

@@ -4,8 +4,6 @@ export default class UserScriptsServiceNew {
       method: "GET",
     });
 
-    const body = response.json();
-    console.log(response);
-    console.log(body);
+    return await response.json();
   }
 }
