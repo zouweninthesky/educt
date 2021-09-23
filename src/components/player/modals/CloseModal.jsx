@@ -21,7 +21,11 @@ const CloseModal = () => {
       <p className="modal__warning-message">
         Прогресс выполнения не будет сохранен
       </p>
-      <Link to="/user" className="button modal__button modal__button--action">
+      <Link
+        to="/user"
+        className="button modal__button modal__button--action"
+        onClick={() => setModalID()}
+      >
         Закрыть
       </Link>
       <button

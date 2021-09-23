@@ -18,7 +18,7 @@ const HEADER_TOOLS_OFF = "Вернуться к списку";
 
 const Editor = () => {
   // temp
-  const [toolsShown, setTools] = useState(true);
+  const [toolsShown, setTools] = useState(false);
   const onArrowClick = () => {
     setTools(false);
   };
