@@ -35,7 +35,9 @@ const Hub = observer((props) => {
         <div className="hub__content-wrapper">
           <ul className="hub__script-list">
             {Scripts.scripts.map((script, i) => {
-              return <ScriptItem key={i} id={script.id} title={script.title} />;
+              return (
+                <ScriptItem key={i} id={script.uid} title={script.title} />
+              );
             })}
           </ul>
         </div>

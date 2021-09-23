@@ -1,12 +1,11 @@
 export default class UserScriptsService {
   data = [
     {
-      id: 24,
+      uid: 24,
       title: "Выгрузка табеля учета рабочего времени",
       description:
         "Тут будет описание для этого сцернария. Пользователь только почитать может, а редактор изменить еще. Надо придумать ограничение по количеству симоволов.",
-      tags: ["Google Sheets", "табель"],
-      date: "222222",
+      date: "2021-09-23T08:57:20.903557Z",
       timeLength: "1",
       slides: [
         {
@@ -32,11 +31,10 @@ export default class UserScriptsService {
       ],
     },
     {
-      id: 11,
+      uid: 11,
       title: "Сценарий №32",
       description: "Они из Перми",
-      tags: ["янеробот"],
-      date: "3123111",
+      date: "2021-09-23T08:57:20.903557Z",
       timeLength: "1",
       slides: [
         {
@@ -58,11 +56,10 @@ export default class UserScriptsService {
       ],
     },
     {
-      id: 54,
+      uid: 54,
       title: "Слава чудесный человек",
       description: "И хуй у него здоровенный",
-      tags: ["пиздеж", "fake", "fake-news"],
-      date: "02.12.2020202",
+      date: "2021-09-28T08:57:20.903557Z",
       timeLength: "12",
       slides: [
         {
@@ -104,11 +101,10 @@ export default class UserScriptsService {
       ],
     },
     {
-      id: 22,
+      uid: 22,
       title: "Я обожаю реакт",
       description: "Дайте денег",
-      tags: [""],
-      date: "1111111",
+      date: "2021-09-11T08:57:20.903557Z",
       timeLength: "1",
       slides: [
         {
@@ -134,11 +130,10 @@ export default class UserScriptsService {
       ],
     },
     {
-      id: 112,
+      uid: 112,
       title: "Сценарий №32",
       description: "Они из Перми",
-      tags: ["янеробот"],
-      date: "3123111",
+      date: "2020-09-11T08:57:20.903557Z",
       timeLength: "1",
       slides: [
         {
@@ -164,11 +159,10 @@ export default class UserScriptsService {
       ],
     },
     {
-      id: 51,
+      uid: 51,
       title: "Слава чудесный человек",
       description: "И хуй у него здоровенный",
-      tags: ["пиздеж", "fake", "fake-news"],
-      date: "02.12.2020202",
+      date: "2020-09-23T08:57:20.903557Z",
       timeLength: "1",
       slides: [
         {
@@ -194,11 +188,10 @@ export default class UserScriptsService {
       ],
     },
     {
-      id: 52,
+      uid: 52,
       title: "Слава чудесный человек",
       description: "И хуй у него здоровенный",
-      tags: ["пиздеж", "fake", "fake-news"],
-      date: "02.12.2020202",
+      date: "2021-09-21T08:57:20.903557Z",
       timeLength: "1",
       slides: [
         {
@@ -224,11 +217,10 @@ export default class UserScriptsService {
       ],
     },
     {
-      id: 53,
+      uid: 53,
       title: "Слава чудесный человек",
       description: "И хуй у него здоровенный",
-      tags: ["пиздеж", "fake", "fake-news"],
-      date: "02.12.2020202",
+      date: "2021-08-23T08:57:20.903557Z",
       timeLength: "1",
       slides: [
         {
@@ -254,11 +246,10 @@ export default class UserScriptsService {
       ],
     },
     {
-      id: 29,
+      uid: 29,
       title: "Я обожаю реакт",
       description: "Дайте денег",
-      tags: [""],
-      date: "1111111",
+      date: "2021-09-23T08:57:20.903557Z",
       timeLength: "1",
       slides: [
         {

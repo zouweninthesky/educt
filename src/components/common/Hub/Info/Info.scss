@@ -1,5 +1,5 @@
-@use '../../../../assets/scss/mixins.scss' as *;
-@use '../../../../assets/scss/variables.scss' as *;
+@use "../../../../assets/scss/mixins.scss" as *;
+@use "../../../../assets/scss/variables.scss" as *;
 
 .hub-info {
   /* max-width: 614px; */
@@ -61,11 +61,6 @@
     margin-left: 0;
     line-height: 1.125rem;
     margin-bottom: 1.125rem;
-  }
-
-  &__tags {
-    margin-left: 0;
-    margin-bottom: 0.9375rem;
   }
 
   &__origin-date {
