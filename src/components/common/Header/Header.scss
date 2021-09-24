@@ -1,4 +1,4 @@
-@use '../../../assets/scss/variables.scss' as *;
+@use "../../../assets/scss/variables.scss" as *;
 
 .hub-header {
   display: flex;
@@ -24,23 +24,10 @@
   }
 
   &__tab {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-
-    color: $color-primary;
-
     margin-right: 0.6875rem;
     padding-right: 1.25rem;
 
-    border-width: 0.0625rem;
-    border-color: transparent;
-
-    &:hover,
-    &:focus {
-      color: $color-primary-dark;
-      background-color: $color-primary-faded;
-    }
+    border: 0.0625rem solid transparent;
 
     &:last-of-type {
       margin-right: 0;
@@ -53,7 +40,6 @@
     & svg {
       position: relative;
       top: -0.0625rem;
-      margin-right: 0.625rem;
     }
   }
 

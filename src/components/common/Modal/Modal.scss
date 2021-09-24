@@ -37,6 +37,10 @@
     text-align: center;
   }
 
+  &__description {
+    width: 100%;
+  }
+
   &__button {
     display: flex;
     flex-direction: row;
@@ -101,6 +105,8 @@
   &__info-wrapper {
     display: flex;
     flex-direction: row;
+
+    width: 100%;
   }
 
   &__info {
@@ -191,11 +197,36 @@
     font-family: inherit;
     font-size: inherit;
     line-height: inherit;
+    text-align: left;
     color: $color-neutrals-light;
+
+    width: 23.875rem;
+    height: 6.9375rem;
+
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    padding: 8px;
 
     border: 0;
     border-radius: 8px;
     background-color: $color-neutrals-faded;
+    resize: none;
+
+    &--wide {
+      width: 100%;
+
+      margin-right: 0;
+    }
+
+    &--header {
+      line-height: 1.625rem;
+      color: $color-neutrals-dark;
+
+      height: auto;
+
+      margin: 0;
+    }
   }
 
   &--wide {

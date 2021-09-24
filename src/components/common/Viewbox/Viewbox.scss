@@ -1,5 +1,5 @@
-@use '../../../assets/scss/mixins.scss' as *;
-@use '../../../assets/scss/variables.scss' as *;
+@use "../../../assets/scss/mixins.scss" as *;
+@use "../../../assets/scss/variables.scss" as *;
 
 .viewbox {
   width: 100wv;
@@ -51,6 +51,7 @@
     border: 4px solid $color-secondary;
     border-radius: 4px;
     background-color: fade-out($color-secondary, 0.9);
+    cursor: pointer;
   }
 
   &__field-type {
@@ -72,6 +73,32 @@
       right: auto;
       left: -53px;
     }
+  }
+
+  &__mask {
+    position: absolute;
+    top: 500px;
+    left: 1000px;
+
+    width: 115px;
+    height: 54px;
+
+    background-color: $color-background;
+    border-radius: 2px;
+  }
+
+  &__mask-remove {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+
+    color: $color-neutrals;
+
+    padding: 2px;
+
+    background-color: $color-neutrals-faded;
+    border-radius: 50%;
+    border: 0;
   }
 
   &--editor {

@@ -18,6 +18,14 @@ const Viewbox = ({ mod }) => {
             <Icon id="mouse-left" width="42" height="42" />
           </span>
         </div>
+        <div className="viewbox__mask">
+          <button
+            type="button"
+            className="viewbox__mask-remove button button--icon-only"
+          >
+            <Icon id="cancel" width="22" />
+          </button>
+        </div>
       </div>
     </section>
   );

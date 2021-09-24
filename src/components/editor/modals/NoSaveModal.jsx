@@ -1,14 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 import { useModal } from "../../common/Modal/ModalContext";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
-const CloseModal = () => {
+const NoSaveModal = () => {
   const [modalID, setModalID] = useModal();
 
-  if (modalID !== "close") {
+  if (modalID !== "no-save") {
     return <></>;
   }
 
@@ -17,17 +16,16 @@ const CloseModal = () => {
       <div className="modal__icon-wrapper">
         <Icon id="warning" width="64" />
       </div>
-      <h2 className="modal__header">Закрыть сценарий</h2>
+      <h2 className="modal__header">Выйти без сохранения?</h2>
       <p className="modal__warning-message">
-        Прогресс выполнения не будет сохранен
+        Все внесенные изменения будут утеряны.
       </p>
-      <Link
-        to="/user"
+      <button
         className="button modal__button modal__button--action"
-        onClick={() => setModalID()}
+        type="button"
       >
-        Закрыть
-      </Link>
+        Не сохранять
+      </button>
       <button
         className="button modal__button modal__button--cancel"
         type="button"
@@ -39,4 +37,4 @@ const CloseModal = () => {
   );
 };
 
-export default CloseModal;
+export default NoSaveModal;

@@ -83,7 +83,10 @@ a {
 }
 
 .button {
-  display: inline-block;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 
   font-family: inherit;
   font-weight: 500;
@@ -96,6 +99,10 @@ a {
   border-radius: 0.5rem;
   background-color: transparent;
   cursor: pointer;
+
+  & svg {
+    margin-right: 0.5rem;
+  }
 
   &:focus {
     outline: none;
@@ -115,10 +122,6 @@ a {
 
     border: 0;
 
-    & svg {
-      margin-right: 0.5rem;
-    }
-
     &:hover,
     &:active {
       background-color: $color-success-faded;
@@ -137,13 +140,27 @@ a {
 
     border: 0;
 
-    & svg {
-      margin-right: 0.5rem;
-    }
-
     &:hover,
     &:active {
       background-color: $color-danger-faded;
+    }
+  }
+
+  &--simple {
+    color: $color-primary;
+
+    border: 0;
+
+    &:hover,
+    &:focus {
+      color: $color-primary-dark;
+      background-color: $color-primary-faded;
+    }
+  }
+
+  &--icon-only {
+    & svg {
+      margin-right: 0;
     }
   }
 }

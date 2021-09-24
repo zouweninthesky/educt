@@ -13,26 +13,16 @@ const Tools = () => {
       <ul className="tools__buttons-list">
         <li className="tools__button-item">
           <div className="tools__buttons-wrapper">
-            <div className="tools__navigation-wrapper">
-              <button className="tools__navigation-button" type="button">
-                <Icon id="angle-left" width="24" />
-              </button>
-              <p className="tools__navigation-count">
-                <span>2</span>
-                <span>из 3</span>
-              </p>
-              <button className="tools__navigation-button" type="button">
-                <Icon id="angle-right" width="24" />
-              </button>
-            </div>
-            <div className="tools__buttons-lower-wrapper">
-              <button className="tools__button tools__button--small tools__button--left">
-                <Icon id="undo" width="32" height="32" />
-              </button>
-              <button className="tools__button tools__button--small tools__button--right">
-                <Icon id="save" width="32" height="32" />
-              </button>
-            </div>
+            <button className="tools__navigation-button" type="button">
+              <Icon id="angle-left" width="24" />
+            </button>
+            <p className="tools__navigation-count">
+              <span>2</span>
+              <span>из 3</span>
+            </p>
+            <button className="tools__navigation-button" type="button">
+              <Icon id="angle-right" width="24" />
+            </button>
           </div>
         </li>
         <li className="tools__button-item">

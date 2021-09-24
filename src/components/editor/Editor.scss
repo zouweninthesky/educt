@@ -1,4 +1,4 @@
-@use '../../assets/scss/variables.scss' as *;
+@use "../../assets/scss/variables.scss" as *;
 
 .editor {
   &__panel {
@@ -15,21 +15,11 @@
   }
 
   &__arrow-button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    width: 2.5rem;
+    height: 2.5rem;
 
-    color: $color-primary;
-
-    width: 40px;
-    height: 40px;
-
-    margin-right: 10px;
-
-    border: 0;
-    border-radius: 8px;
-    background-color: transparent;
-    cursor: pointer;
+    margin-right: 0.625rem;
+    padding: 0;
 
     &:hover,
     &:active {
@@ -43,5 +33,11 @@
     font-weight: 700;
 
     margin: 0;
+  }
+
+  &__save-button {
+    width: 15.0625rem;
+
+    margin-left: auto;
   }
 }

@@ -19,7 +19,10 @@ const Info = observer((props) => {
   const infoButtons = () => {
     if (isAuthor) {
       return (
-        <Link to="/editor" className="hub-info__author-button button">
+        <Link
+          to="/editor"
+          className="hub-info__author-button button button--simple"
+        >
           <Icon id="puzzle-piece" width="22" />
           Открыть редактор
         </Link>
@@ -37,7 +40,7 @@ const Info = observer((props) => {
           </Link>
           <button
             type="button"
-            className="hub-info__stats hub-info__button hub-info__button--outline button"
+            className="hub-info__stats hub-info__button hub-info__button--outline button button--icon-only"
           >
             <Icon id="graph-bar" width="22" />
             <span className="visually-hidden">Статистика</span>

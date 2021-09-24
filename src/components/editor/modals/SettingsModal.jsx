@@ -14,7 +14,7 @@ const SettingsModal = () => {
   return (
     <Modal modifier="wide">
       <input
-        className="modal__header modal__editable-text"
+        className="modal__header modal__editable-text modal__editable-text--wide modal__editable-text--header"
         value="Выгрузка табеля учета рабочего времени"
       />
       <div className="modal__info-wrapper">
