@@ -16,7 +16,7 @@ const CommentModal = () => {
       <h2 className="modal__header">Комментарий</h2>
       <div className="modal__info-wrapper">
         <div className="modal__description">
-          <textarea className="modal__editable-text">
+          <textarea className="modal__editable-text modal__editable-text--wide">
             Этот сценарий покажет что-то, чего вы не умеете хаха!!!!!! АААААА
             Режим тестирования станет доступен после обычного прохождения.
           </textarea>

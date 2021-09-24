@@ -10,6 +10,7 @@ import Overlay from "../common/Modal/Overlay";
 import CommentModal from "./modals/CommentModal";
 import SettingsModal from "./modals/SettingsModal";
 import NoSaveModal from "./modals/NoSaveModal";
+import { useModal } from "../common/Modal/ModalContext";
 
 import "./Editor.scss";
 
@@ -17,25 +18,48 @@ const HEADER_TOOLS_ON = "Все слайды";
 const HEADER_TOOLS_OFF = "Вернуться к списку";
 
 const Editor = () => {
+  const [, setModalID] = useModal();
+
   // temp
-  const [toolsShown, setTools] = useState(false);
+  const [toolsShown, setTools] = useState(true);
   const onArrowClick = () => {
     setTools(false);
   };
 
   // will depend on currentSlide being not null
-  const headerContent = toolsShown ? HEADER_TOOLS_ON : HEADER_TOOLS_OFF;
-  const arrow = () => {
+
+  const headerContent = () => {
     if (toolsShown)
       return (
-        <button className="editor__arrow-button" onClick={onArrowClick}>
-          <Icon id="arrow-left" width="24" />
-        </button>
+        <>
+          <button
+            className="editor__arrow-button button button--simple button--icon-only"
+            type="button"
+            onClick={onArrowClick}
+          >
+            <Icon id="arrow-left" width="24" />
+          </button>
+          <h2 className="editor__header">{HEADER_TOOLS_ON}</h2>
+        </>
       );
+
     return (
-      <Link to="/author" className="editor__arrow-button">
-        <Icon id="arrow-left" width="24" />
-      </Link>
+      <>
+        <Link
+          to="/author"
+          className="editor__arrow-button button button--simple button--icon-only"
+        >
+          <Icon id="arrow-left" width="24" />
+        </Link>
+        <h2 className="editor__header">{HEADER_TOOLS_OFF}</h2>
+        <button
+          className="editor__save-button button button--simple"
+          type="button"
+        >
+          <Icon id="save" width="22" />
+          Сохранить и выйти
+        </button>
+      </>
     );
   };
 
@@ -44,10 +68,7 @@ const Editor = () => {
       <Viewbox mod={"editor"} />
 
       <section className="editor__panel">
-        <div className="editor__header-wrapper">
-          {arrow()}
-          <h2 className="editor__header">{headerContent}</h2>
-        </div>
+        <div className="editor__header-wrapper">{headerContent()}</div>
         {toolsShown ? <Tools /> : <Overview />}
       </section>
       <CommentModal />

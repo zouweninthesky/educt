@@ -16,7 +16,7 @@ const Header = () => {
       <div className="hub-header__tab-wrapper">
         <NavLink
           to="/user"
-          className="hub-header__tab button"
+          className="hub-header__tab button button--simple"
           activeClassName="hub-header__tab--active"
         >
           <Icon id="apps" width="22" />
@@ -24,7 +24,7 @@ const Header = () => {
         </NavLink>
         <NavLink
           to="/author"
-          className="hub-header__tab button"
+          className="hub-header__tab button button--simple"
           activeClassName="hub-header__tab--active"
         >
           <Icon id="puzzle-piece" width="22" />
