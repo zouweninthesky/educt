@@ -1,7 +1,7 @@
 import React from "react";
 import "./Author.scss";
 
-import Header from "../common/Header/Header";
+import Header from "../common/Hub/Header/Header";
 import Hub from "../common/Hub/Hub";
 
 const Author = () => {

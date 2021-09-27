@@ -1,7 +1,7 @@
 import React from "react";
 import "./User.scss";
 
-import Header from "../common/Header/Header";
+import Header from "../common/Hub/Header/Header";
 import Hub from "../common/Hub/Hub";
 
 const User = () => {
