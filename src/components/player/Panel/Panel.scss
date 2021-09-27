@@ -1,4 +1,4 @@
-@use '../../../assets/scss/variables.scss' as *;
+@use "../../../assets/scss/variables.scss" as *;
 
 .panel {
   display: flex;
@@ -6,7 +6,6 @@
   justify-content: space-between;
   align-items: stretch;
 
-  width: 100%;
   min-height: 4.625rem;
 
   padding: 0 1.125rem;
