@@ -1,9 +1,8 @@
 import { makeAutoObservable } from "mobx";
 
-// import scriptsApi from "../api/UserScriptsService";
-import scriptsApi from "../api/UserScriptServiceNew";
+import scriptsApi from "../api/UserScriptsService";
+// import scriptsApi from "../api/UserScriptServiceNew";
 
-// const Api = new scriptsApi();
 const Api = new scriptsApi();
 
 class Scripts {

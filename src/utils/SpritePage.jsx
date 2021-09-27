@@ -203,6 +203,12 @@ const SpritePage = () => {
             <use xlinkHref="#zoom"></use>
           </svg>
         </div>
+        <div>
+          <p>main-logo</p>
+          <svg width="322" height="74">
+            <use xlinkHref="#main-logo"></use>
+          </svg>
+        </div>
       </div>
     </main>
   );
