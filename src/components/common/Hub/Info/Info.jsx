@@ -53,10 +53,10 @@ const Info = observer((props) => {
     );
   };
 
-  const convertCreateTime = (date) => {
-    const [year, month, day] = date.split("-");
-    return `${day.slice(0, day.indexOf("T"))}.${month}.${year}`;
-  };
+  // const convertCreateTime = (date) => {
+  //   const [year, month, day] = date.split("-");
+  //   return `${day.slice(0, day.indexOf("T"))}.${month}.${year}`;
+  // };
 
   return (
     <section className="hub-info">
@@ -74,7 +74,7 @@ const Info = observer((props) => {
             </dd>
             <dt className="hub-info__quality-name">Дата создания</dt>
             <dd className="hub-info__origin-date">
-              {convertCreateTime(chosenScript.create_time)}
+              {/* {convertCreateTime(chosenScript.create_time)} */}
             </dd>
           </dl>
           <div className="hub-info__button-wrapper">{infoButtons()}</div>
