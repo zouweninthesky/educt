@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import Icon from "../../../common/Icon/Icon";
 
-const FULLSCREEN_ID = "zoom";
-const NOT_FULLSCREEN_ID = "focus";
+const NOT_FULLSCREEN_ID = "focus-finish";
+const FULLSCREEN_ID = "focus";
 
 const FullScreenButton = () => {
   const [fullScreen, setFullScreen] = useState(false);
@@ -22,7 +22,7 @@ const FullScreenButton = () => {
     }
   };
 
-  const svgId = fullScreen ? FULLSCREEN_ID : NOT_FULLSCREEN_ID;
+  const svgId = fullScreen ? NOT_FULLSCREEN_ID : FULLSCREEN_ID;
 
   return (
     <button type="button" className="panel__button" onClick={enterFullscreen}>

@@ -72,6 +72,12 @@ const SpritePage = () => {
           </svg>
         </div>
         <div>
+          <p>focus-finish</p>
+          <svg width="40" height="40">
+            <use xlinkHref="#focus-finish"></use>
+          </svg>
+        </div>
+        <div>
           <p>graduation</p>
           <svg width="40" height="40">
             <use xlinkHref="#graduation"></use>
@@ -141,6 +147,12 @@ const SpritePage = () => {
           <p>save</p>
           <svg width="40" height="40">
             <use xlinkHref="#save"></use>
+          </svg>
+        </div>
+        <div>
+          <p>smile</p>
+          <svg width="40" height="40">
+            <use xlinkHref="#smile"></use>
           </svg>
         </div>
         <div>
