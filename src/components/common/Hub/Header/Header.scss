@@ -52,7 +52,8 @@
     background-color: $color-neutrals-lighter;
     border-radius: 50%;
 
-    &:hover + .hub-header__dropdown {
+    &:hover + .hub-header__dropdown,
+    &:focus + .hub-header__dropdown {
       display: block;
     }
   }
@@ -70,7 +71,8 @@
     width: 11.25rem;
     min-height: 4.875rem;
 
-    &:hover {
+    &:hover,
+    &:focus-within {
       display: block;
     }
 
@@ -84,7 +86,7 @@
 
       height: 0.5rem;
       width: 100%;
-      background-color: yellow;
+      background-color: transparent;
     }
 
     &::after {
