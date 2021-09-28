@@ -1,8 +1,8 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-import Icon from "../Icon/Icon";
-import MainLogo from "../../../static/img/content/main-logo.svg";
+import Icon from "../../Icon/Icon";
+import MainLogo from "../../../../static/img/content/main-logo.svg";
 
 import "./Header.scss";
 
@@ -35,6 +35,24 @@ const Header = () => {
         {/* <img src="#" width="46" height="46" alt="Изображение пользователя"></img> */}
         <span className="visually-hidden">Пользователь</span>
       </a>
+      <div className="hub-header__dropdown">
+        <ul className="hub-header__dropdown-list">
+          <li className="hub-header__dropdown-item">
+            <button
+              className="hub-header__dropdown-link"
+              type="button"
+              disabled
+            >
+              Настройки
+            </button>
+          </li>
+          <li className="hub-header__dropdown-item">
+            <button className="hub-header__dropdown-link">
+              Выйти из аккаунта
+            </button>
+          </li>
+        </ul>
+      </div>
     </header>
   );
 };
