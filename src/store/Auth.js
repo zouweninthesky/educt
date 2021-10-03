@@ -21,12 +21,12 @@ class Auth {
     this.loading = true;
     const tokenData = await Api.SignIn(login, hash(password));
     this.loading = false;
-    if (tokenData.ok) {
-      this.token = tokenData.token;
-      window.localStorage.setItem("token", tokenData.token);
+    if (tokenData.user) {
+      this.token = tokenData.access;
+      window.localStorage.setItem("token", tokenData.access);
       // routing.push("/user");
     } else {
-      this.error = tokenData.error;
+      this.error = tokenData.details;
     }
   }
 

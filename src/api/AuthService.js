@@ -4,30 +4,27 @@ export default class AuthService {
     ok: true,
     token: "QWERTYUIOP123!@#$",
     error: "Неверный логин/пароль"
-  }
+  };
 
   async SignIn(login, passwordHash) {
-    // const response = await fetch("https://educt.ru/api/scripts/", {
-    //   method: "POST",
-    //   body: {
-    //     login,
-    //     passwordHash
-    //   }
-    // });
-    //
-    // return await response.json();
+    const response = await fetch("https://educt.ru/api/token/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        email: login,
+        password: passwordHash
+      })
+    });
 
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        resolve(this.data);
-      }, 400);
-    })
+    return await response.json();
   }
 
 
   async SignOut() {
     const response = await fetch("https://educt.ru/api/scripts/", {
-      method: "DELETE",
+      method: "DELETE"
     });
     return await response.json();
   }

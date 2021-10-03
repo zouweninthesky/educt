@@ -7,8 +7,8 @@ import Auth from "../../store/Auth";
 
 const Login = () => {
   const initialState = {
-    login: undefined,
-    password: undefined,
+    login: "",
+    password: "",
   };
 
   const [loginState, setLoginState] = useState(initialState.login);
