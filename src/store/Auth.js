@@ -4,7 +4,8 @@ import AuthApi from "../api/AuthService";
 
 const Api = new AuthApi();
 
-const hash = (string) => { // Does nothing, need to discuss
+const hash = (string) => {
+  // Does nothing, need to discuss
   return string;
 };
 

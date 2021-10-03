@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import Spinner from "../common/Spinner/Spinner";
 
 import Authentication from "../common/Authentication/Authentication";
 
@@ -18,6 +19,8 @@ const Login = () => {
     evt.preventDefault();
     await Auth.SignIn(loginState, passwordState);
   };
+
+  const loading = true;
 
   return (
     <Authentication>
@@ -45,6 +48,7 @@ const Login = () => {
           Войти в аккаунт &#8594;
         </button>
       </form>
+      <Spinner show={loading} />
     </Authentication>
   );
 };
