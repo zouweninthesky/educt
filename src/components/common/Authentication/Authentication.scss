@@ -44,7 +44,10 @@
     align-items: center;
     justify-content: center;
 
+    position: relative;
+
     width: 50%;
+    background-color: $color-background;
   }
 
   &__content-wrapper {

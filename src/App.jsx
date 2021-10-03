@@ -8,19 +8,31 @@ import Player from "./components/player/Player";
 import Register from "./components/register/Register";
 import SpritePage from "./utils/SpritePage";
 import User from "./components/user/User";
+import Sprite from "./components/common/Sprite/Sprite";
+import ErrorIndicator from "./components/common/ErrorIndicator/ErrorIndicator";
+
+// const error = {
+//   message: "Мало каши ел",
+// };
+
+const error = null;
 
 const App = () => {
   return (
-    <Switch>
-      <Route path="/login" component={Login} />
-      <Route path="/register" component={Register} />
-      <Route path="/user" component={User} />
-      <Route path="/player" component={Player} />
-      <Route path="/editor" component={Editor} />
-      <Route path="/author" component={Author} />
-      <Route path="/sprite" component={SpritePage} />
-      <Redirect from="/" to="user" />
-    </Switch>
+    <>
+      <Sprite />
+      <ErrorIndicator error={error} />
+      <Switch>
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <Route path="/user" component={User} />
+        <Route path="/player" component={Player} />
+        <Route path="/editor" component={Editor} />
+        <Route path="/author" component={Author} />
+        <Route path="/sprite" component={SpritePage} />
+        <Redirect from="/" to="user" />
+      </Switch>
+    </>
   );
 };
 
