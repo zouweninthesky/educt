@@ -20,7 +20,7 @@ const Login = () => {
     await Auth.SignIn(loginState, passwordState);
   };
 
-  const loading = true;
+  const loading = false;
 
   return (
     <Authentication>

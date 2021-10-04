@@ -11,9 +11,15 @@ import User from "./components/user/User";
 import Sprite from "./components/common/Sprite/Sprite";
 import ErrorIndicator from "./components/common/ErrorIndicator/ErrorIndicator";
 
+import UserScriptsServiceNew from "./api/UserScriptServiceNew";
+
+const Service = new UserScriptsServiceNew();
+
 // const error = {
 //   message: "Мало каши ел",
 // };
+
+console.log(Service.getUserScripts());
 
 const error = null;
 
