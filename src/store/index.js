@@ -1,9 +1,9 @@
 import { makeAutoObservable } from "mobx";
 
-import scriptsApi from "../api/UserScriptsService";
-// import scriptsApi from "../api/UserScriptServiceNew";
+import ScriptsApi from "../api/UserScriptsService";
+// import ScriptsApi from "../api/UserScriptServiceNew";
 
-const Api = new scriptsApi();
+const Api = new ScriptsApi();
 
 class Scripts {
   scripts = [];
@@ -33,8 +33,8 @@ class Scripts {
   }
 
   scriptChosen(id) {
-    const [chosenScipt] = this.scripts.filter((script) => script.uid === id);
-    this.chosenScript = chosenScipt;
+    const [chosenScript] = this.scripts.filter((script) => script.uid === id);
+    this.chosenScript = chosenScript;
   }
 }
 

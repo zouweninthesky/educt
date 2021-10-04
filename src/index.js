@@ -4,24 +4,14 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "./assets/scss/style.scss";
 
 import App from "./App";
-import ErrorBoundry from "./components/common/ErrorBoundry/ErrorBoundry";
 import ModalProvider from "./components/common/Modal/ModalContext";
-import Sprite from "./components/common/Sprite/Sprite";
-import UserScriptServiceNew from "./api/UserScriptServiceNew";
-
-// const api = new UserScriptServiceNew();
-
-// api.getScript("yvQuCB1SFmeye4ZT");
 
 ReactDOM.render(
-  <ErrorBoundry>
-    <ModalProvider>
-      <Router>
-        <Sprite />
-        <App />
-      </Router>
-    </ModalProvider>
-  </ErrorBoundry>,
+  <ModalProvider>
+    <Router>
+      <App />
+    </Router>
+  </ModalProvider>,
   document.getElementById("root")
 );
 

@@ -44,7 +44,10 @@
     align-items: center;
     justify-content: center;
 
+    position: relative;
+
     width: 50%;
+    background-color: $color-background;
   }
 
   &__content-wrapper {
@@ -56,6 +59,9 @@
     font-size: 2.5rem;
 
     margin: 0;
+
+    // temp
+    margin-bottom: 4rem;
   }
 
   &__create-acc {
@@ -130,7 +136,6 @@
     font-size: 0.875rem;
 
     margin-top: 0.5rem;
-    margin-bottom: 4rem;
 
     &:after {
       content: "";
@@ -151,6 +156,8 @@
     font-weight: 500;
 
     width: 100%;
+
+    margin-top: 4rem;
 
     border: 0;
     background-color: $color-secondary;
