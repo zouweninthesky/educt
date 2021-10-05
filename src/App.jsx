@@ -24,7 +24,7 @@ console.log(Service.getUserScripts());
 
 const error = null;
 
-const loading = true;
+const loading = false;
 
 const App = () => {
   if (loading) {
