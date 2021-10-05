@@ -3,6 +3,7 @@ import React from "react";
 import { useModal } from "../../common/Modal/ModalContext";
 import Icon from "../../common/Icon/Icon";
 import Thumbnail from "../../../static/img/test/temp-slide-thumbnail.jpg";
+import { MODAL_SETTINGS_ID } from "../../../utils/constants/modals";
 
 import "./Overview.scss";
 
@@ -15,7 +16,7 @@ const Overview = () => {
         <button
           className="overview__button"
           type="button"
-          onClick={() => setScriptID("settings")}
+          onClick={() => setScriptID(MODAL_SETTINGS_ID)}
         >
           <Icon id="info" width="64" />
           <h3 className="overview__title">Общие настройки</h3>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
 
 import CloseModal from "./modals/CloseModal";
@@ -9,6 +9,7 @@ import ProgressBar from "./ProgressBar/ProgressBar";
 import Viewbox from "../common/Viewbox/Viewbox";
 import Scripts from "../../store/";
 import Overlay from "../common/Modal/Overlay";
+import { MODAL_INTRO_ID } from "../../utils/constants/modals";
 
 import "./Player.scss";
 
@@ -58,10 +59,10 @@ const Player = () => {
 
   const { currentSlideId, disablePrev, disableNext } = playerState;
   const { chosenScript } = Scripts;
-  const [modalID, setModalID] = useModal();
+  const [, setModalID] = useModal();
 
   useEffect(() => {
-    setModalID("intro");
+    setModalID(MODAL_INTRO_ID);
   }, []);
 
   if (chosenScript === null) {

@@ -4,11 +4,12 @@ import { Link } from "react-router-dom";
 import { useModal } from "../../common/Modal/ModalContext";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
+import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
 
 const CloseModal = () => {
   const [modalID, setModalID] = useModal();
 
-  if (modalID !== "close") {
+  if (modalID !== MODAL_CLOSE_ID) {
     return <></>;
   }
 

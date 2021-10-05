@@ -3,11 +3,12 @@ import React from "react";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 import { useModal } from "../../common/Modal/ModalContext";
+import { MODAL_SETTINGS_ID } from "../../../utils/constants/modals";
 
 const SettingsModal = () => {
   const [modalID, setModalID] = useModal();
 
-  if (modalID !== "settings") {
+  if (modalID !== MODAL_SETTINGS_ID) {
     return <></>;
   }
 

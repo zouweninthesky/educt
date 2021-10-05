@@ -2,6 +2,10 @@ import React from "react";
 
 import { useModal } from "../../common/Modal/ModalContext";
 import Icon from "../../common/Icon/Icon";
+import {
+  MODAL_DELETE_ID,
+  MODAL_COMMENT_ID,
+} from "../../../utils/constants/modals";
 
 import "./Tools.scss";
 
@@ -29,7 +33,7 @@ const Tools = () => {
           <button
             className="tools__button"
             type="button"
-            onClick={() => setModalID("comment")}
+            onClick={() => setModalID(MODAL_COMMENT_ID)}
           >
             <Icon id="comment-new" width="64" />
             <h3 className="tools__button-title">Комментарий</h3>
@@ -57,7 +61,7 @@ const Tools = () => {
           <button
             className="tools__button"
             type="button"
-            onClick={() => setModalID("delete")}
+            onClick={() => setModalID(MODAL_DELETE_ID)}
           >
             <Icon id="trash" width="64" />
             <h3 className="tools__button-title">Удалить слайд</h3>
