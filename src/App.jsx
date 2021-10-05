@@ -10,6 +10,7 @@ import SpritePage from "./utils/SpritePage";
 import User from "./components/user/User";
 import Sprite from "./components/common/Sprite/Sprite";
 import ErrorIndicator from "./components/common/ErrorIndicator/ErrorIndicator";
+import Loader from "./components/common/Loader/Loader";
 
 import UserScriptsServiceNew from "./api/UserScriptServiceNew";
 
@@ -23,7 +24,13 @@ console.log(Service.getUserScripts());
 
 const error = null;
 
+const loading = true;
+
 const App = () => {
+  if (loading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <Sprite />
