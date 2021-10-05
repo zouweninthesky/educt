@@ -4,6 +4,7 @@ import Icon from "../../common/Icon/Icon";
 import MainLogo from "../../../static/img/content/main-logo.svg";
 import { useModal } from "../../common/Modal/ModalContext";
 import FullScreenButton from "./FullScreenButton/FullScreenButton";
+import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
 
 import "./Panel.scss";
 
@@ -17,7 +18,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
         <button
           className="panel__button"
           type="button"
-          onClick={() => setModalID("close")}
+          onClick={() => setModalID(MODAL_CLOSE_ID)}
         >
           <Icon id="arrow-left" width="24" />
         </button>

@@ -1,4 +1,4 @@
-@use '../../../assets/scss/variables.scss' as *;
+@use "../../../assets/scss/variables.scss" as *;
 
 .dropdown {
   display: inline-block;
@@ -27,7 +27,7 @@
 
   &__wrapper {
     position: absolute;
-    z-index: 2;
+    z-index: $z-bg;
     left: -0.0625rem;
     bottom: -9.25rem;
 

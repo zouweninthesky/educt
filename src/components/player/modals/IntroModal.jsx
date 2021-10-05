@@ -8,11 +8,12 @@ import {
   createNumberStringMale,
   createNumberStringFemale,
 } from "../../../utils/string-generators";
+import { MODAL_INTRO_ID } from "../../../utils/constants/modals";
 
 const IntroModal = ({ script }) => {
   const [modalID, setModalID] = useModal();
 
-  if (modalID !== "intro") {
+  if (modalID !== MODAL_INTRO_ID) {
     return <></>;
   }
 
