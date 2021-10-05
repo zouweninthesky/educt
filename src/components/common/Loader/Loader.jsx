@@ -1,8 +1,8 @@
-import React, { useDebugValue, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import "./SpinnerBig.scss";
+import "./Loader.scss";
 
-const SpinnerBig = (props) => {
+const Loader = (props) => {
   const [className, setClassName] = useState("");
 
   const spinnerInterval = setInterval(() => {
@@ -22,7 +22,7 @@ const SpinnerBig = (props) => {
   const height = props.height || 76;
 
   return (
-    <div>
+    <div className="loader">
       <svg
         width={width}
         height={height}
@@ -91,4 +91,4 @@ const SpinnerBig = (props) => {
   );
 };
 
-export default SpinnerBig;
+export default Loader;
