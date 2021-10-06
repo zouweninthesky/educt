@@ -1,5 +1,9 @@
 import { makeAutoObservable } from "mobx";
 
+import ScriptsApi from "../api/UserScriptService";
+
+const Api = new ScriptsApi();
+
 class Editor {
   // Передается из другого store (?), для отправки запроса к api
   scriptUID = null;

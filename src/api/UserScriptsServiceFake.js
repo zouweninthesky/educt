@@ -1,4 +1,4 @@
-export default class UserScriptsService {
+export default class UserScriptsServiceFake {
   data = [
     {
       uid: 24,

@@ -42,7 +42,9 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
           <Icon id="angle-right" width="24" />
         </button>
         <div className="panel__text-wrapper">
-          <p className="panel__text">{slide.description}</p>
+          <p className="panel__text">
+            {slide.description == "" ? "Нет описания" : slide.description}
+          </p>
         </div>
       </div>
       <div className="panel__right-side">

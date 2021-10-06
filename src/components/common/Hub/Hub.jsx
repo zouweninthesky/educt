@@ -7,7 +7,7 @@ import ScriptItem from "./ScriptItem/ScriptItem";
 import Spinner from "../../common/Spinner/Spinner";
 import ErrorIndicator from "../../common/ErrorIndicator/ErrorIndicator";
 
-import Scripts from "../../../store";
+import Scripts from "../../../store/scripts";
 
 import "./Hub.scss";
 
@@ -36,7 +36,11 @@ const Hub = observer((props) => {
           <ul className="hub__script-list">
             {Scripts.scripts.map((script, i) => {
               return (
-                <ScriptItem key={i} id={script.uid} title={script.title} />
+                <ScriptItem
+                  key={script.UID}
+                  id={script.UID}
+                  title={script.title}
+                />
               );
             })}
           </ul>

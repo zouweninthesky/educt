@@ -9,6 +9,7 @@ import ProgressBar from "./ProgressBar/ProgressBar";
 import Viewbox from "../common/Viewbox/Viewbox";
 import Scripts from "../../store/";
 import Overlay from "../common/Modal/Overlay";
+import PlayerStore from "../../store/player";
 import { MODAL_INTRO_ID } from "../../utils/constants/modals";
 
 import "./Player.scss";
@@ -23,7 +24,7 @@ const Player = () => {
   const [playerState, setPlayerState] = useState(state);
 
   const nextSlide = () => {
-    const slidesNumber = Scripts.chosenScript.slides.length;
+    const slidesNumber = PlayerStore.script.steps.length;
     const block = playerState.currentSlideId === slidesNumber - 2;
 
     if (block) {
@@ -58,18 +59,17 @@ const Player = () => {
   };
 
   const { currentSlideId, disablePrev, disableNext } = playerState;
-  const { chosenScript } = Scripts;
   const [, setModalID] = useModal();
 
   useEffect(() => {
     setModalID(MODAL_INTRO_ID);
   }, []);
 
-  if (chosenScript === null) {
+  if (PlayerStore.script === undefined) {
     return <Redirect to="/user" />;
   }
 
-  const currentSlide = chosenScript.slides[currentSlideId];
+  const currentSlide = PlayerStore.script.steps[currentSlideId];
 
   return (
     <main className="player">
@@ -83,10 +83,10 @@ const Player = () => {
       />
       <ProgressBar
         current={currentSlideId}
-        total={chosenScript.slides.length}
+        total={PlayerStore.script.steps.length}
       />
       <CloseModal />
-      <IntroModal script={chosenScript} />
+      <IntroModal script={PlayerStore.script} />
       <Overlay />
     </main>
   );

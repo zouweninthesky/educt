@@ -17,20 +17,23 @@ const IntroModal = ({ script }) => {
     return <></>;
   }
 
-  const slideString = createNumberStringMale(script.slides.length, "слайд");
-  const minuteString = createNumberStringFemale(script.timeLength, "минут");
+  const stepString = createNumberStringMale(script.steps.length, "слайд");
+  const description = script.description || "Нет описания";
+  const minuteString = script.timeLength
+    ? createNumberStringFemale(script.timeLength, "минут")
+    : "Неопределенное время";
 
   return (
     <Modal modifier="wide">
       <h2 className="modal__header">{script.title}</h2>
       <div className="modal__info-wrapper">
         <div className="modal__description">
-          <p>{script.description}</p>
-          <p>Режим тестирования стнет доступен после обычного прохождения.</p>
+          <p>{description}</p>
+          <p>Режим тестирования станет доступен после обычного прохождения.</p>
         </div>
         <div className="modal__info">
-          <p>{slideString}</p>
-          <p>&gt; {minuteString}</p>
+          <p>{stepString}</p>
+          <p>{minuteString}</p>
         </div>
       </div>
       <div className="modal__button-wrapper modal__button-wrapper--big">
