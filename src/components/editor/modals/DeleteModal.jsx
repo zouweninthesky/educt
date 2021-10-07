@@ -3,12 +3,12 @@ import React from "react";
 import { useModal } from "../../common/Modal/ModalContext";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
-import { MODAL_DELETE_ID } from "../../../utils/constants/modals";
+import { MODAL_DELETE_STEP_ID } from "../../../utils/constants/modals";
 
 const DeleteModal = () => {
   const [modalID, setModalID] = useModal();
 
-  if (modalID !== MODAL_DELETE_ID) {
+  if (modalID !== MODAL_DELETE_STEP_ID) {
     return <></>;
   }
 

@@ -3,7 +3,7 @@ import React from "react";
 import { useModal } from "../../common/Modal/ModalContext";
 import Icon from "../../common/Icon/Icon";
 import {
-  MODAL_DELETE_ID,
+  MODAL_DELETE_STEP_ID,
   MODAL_COMMENT_ID,
 } from "../../../utils/constants/modals";
 
@@ -61,7 +61,7 @@ const Tools = () => {
           <button
             className="tools__button"
             type="button"
-            onClick={() => setModalID(MODAL_DELETE_ID)}
+            onClick={() => setModalID(MODAL_DELETE_STEP_ID)}
           >
             <Icon id="trash" width="64" />
             <h3 className="tools__button-title">Удалить слайд</h3>
