@@ -19,9 +19,13 @@ const IntroModal = ({ script }) => {
 
   const stepString = createNumberStringMale(script.steps.length, "слайд");
   const description = script.description || "Нет описания";
-  const minuteString = script.timeLength
-    ? createNumberStringFemale(script.timeLength, "минут")
-    : "Неопределенное время";
+  // const minuteString = script.timeLength
+  //   ? createNumberStringFemale(script.timeLength, "минут")
+  //   : "Неопределенное время";
+  const minuteString = createNumberStringFemale(
+    Math.ceil(script.steps.length / 4),
+    "минут"
+  );
 
   return (
     <Modal modifier="wide">
@@ -51,6 +55,7 @@ const IntroModal = ({ script }) => {
         <Link
           to="/user"
           className="modal__big-button modal__big-button--return"
+          onClick={() => setModalID()}
         >
           <Icon id="arrow-left" width="40" />
           <span>Вернуться</span>

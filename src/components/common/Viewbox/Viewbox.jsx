@@ -1,6 +1,6 @@
 import React from "react";
 
-import TempSlide from "../../../static/img/test/test.jpg";
+// import TempStep from "../../../static/img/test/test.jpg";
 import Icon from "../Icon/Icon";
 import {
   MOUSE_LEFT_BUTTON,
@@ -9,14 +9,12 @@ import {
 import { STORAGE_URL } from "../../../utils/constants/links";
 import "./Viewbox.scss";
 
-const link = "https://educt-images.s3.eu-north-1.amazonaws.com/";
-
-const Viewbox = ({ mod, slide, actionClick }) => {
+const Viewbox = ({ mod, step, actionClick }) => {
   const mainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
 
-  const { boxCoords } = slide.metaInfo;
+  const { boxCoords } = step.metaInfo;
 
-  const imageLink = `${STORAGE_URL}${slide.imageUID}`;
+  const imageLink = `${STORAGE_URL}${step.imageUID}`;
 
   const actionStyle = {
     top: boxCoords.upperLeft.y,
@@ -26,7 +24,7 @@ const Viewbox = ({ mod, slide, actionClick }) => {
   };
 
   const actionButton = () => {
-    switch (slide.actionID) {
+    switch (step.actionID) {
       case 1:
         return (
           <>

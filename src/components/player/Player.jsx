@@ -8,55 +8,62 @@ import ProgressBar from "./ProgressBar/ProgressBar";
 import Viewbox from "../common/Viewbox/Viewbox";
 import Overlay from "../common/Modal/Overlay";
 import PlayerStore from "../../store/player";
-import { MODAL_INTRO_ID } from "../../utils/constants/modals";
+import {
+  MODAL_INTRO_ID,
+  MODAL_FINISH_PLAY_ID,
+} from "../../utils/constants/modals";
 
 import "./Player.scss";
+import FinishPlayModal from "./modals/FinishPlayModal";
 
 const Player = () => {
   const state = {
-    currentSlideId: 0,
+    currentStepId: 0,
     disablePrev: true,
     disableNext: false,
+    isLastStep: false,
   };
 
   const [playerState, setPlayerState] = useState(state);
 
-  const nextSlide = () => {
-    const slidesNumber = PlayerStore.script.steps.length;
-    const block = playerState.currentSlideId === slidesNumber - 2;
+  const nextStep = () => {
+    const stepsNumber = PlayerStore.script.steps.length;
+    const block = playerState.currentStepId === stepsNumber - 2;
 
     if (block) {
       setPlayerState((prev) => ({
-        currentSlideId: prev.currentSlideId + 1,
+        currentStepId: prev.currentStepId + 1,
         disableNext: true,
         disablePrev: false,
+        isLastStep: true,
       }));
     } else {
       setPlayerState((prev) => ({
-        currentSlideId: prev.currentSlideId + 1,
+        currentStepId: prev.currentStepId + 1,
         disablePrev: false,
       }));
     }
   };
 
-  const prevSlide = () => {
-    const block = playerState.currentSlideId === 1;
+  const prevStep = () => {
+    const block = playerState.currentStepId === 1;
 
     if (block) {
       setPlayerState((prev) => ({
-        currentSlideId: prev.currentSlideId - 1,
+        currentStepId: prev.currentStepId - 1,
         disablePrev: true,
         disableNext: false,
       }));
     } else {
       setPlayerState((prev) => ({
-        currentSlideId: prev.currentSlideId - 1,
+        currentStepId: prev.currentStepId - 1,
         disableNext: false,
+        isLastStep: false,
       }));
     }
   };
 
-  const { currentSlideId, disablePrev, disableNext } = playerState;
+  const { currentStepId, disablePrev, disableNext, isLastStep } = playerState;
   const [, setModalID] = useModal();
 
   useEffect(() => {
@@ -67,24 +74,31 @@ const Player = () => {
     return <Redirect to="/user" />;
   }
 
-  const currentSlide = PlayerStore.script.steps[currentSlideId];
+  const currentStep = PlayerStore.script.steps[currentStepId];
+
+  const actionClick = isLastStep ? setModalID(MODAL_FINISH_PLAY_ID) : nextStep;
 
   return (
     <main className="player">
-      <Viewbox slide={currentSlide} actionClick={nextSlide} />
+      <Viewbox
+        step={currentStep}
+        actionClick={actionClick}
+        isLastStep={isLastStep}
+      />
       <Panel
-        slide={currentSlide}
-        prevSlide={prevSlide}
-        nextSlide={nextSlide}
+        step={currentStep}
+        prevStep={prevStep}
+        nextStep={nextStep}
         disablePrev={disablePrev}
         disableNext={disableNext}
       />
       <ProgressBar
-        current={currentSlideId}
+        current={currentStepId}
         total={PlayerStore.script.steps.length}
       />
       <CloseModal />
       <IntroModal script={PlayerStore.script} />
+      <FinishPlayModal />
       <Overlay />
     </main>
   );
