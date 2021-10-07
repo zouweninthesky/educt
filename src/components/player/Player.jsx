@@ -73,7 +73,7 @@ const Player = () => {
 
   return (
     <main className="player">
-      <Viewbox />
+      <Viewbox slide={currentSlide} actionClick={nextSlide} />
       <Panel
         slide={currentSlide}
         prevSlide={prevSlide}

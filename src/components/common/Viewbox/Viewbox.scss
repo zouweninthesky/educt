@@ -19,42 +19,57 @@
 
     margin: 0 auto;
 
+    // test
+    // display: block;
+    // overflow: hidden;
+    // position: relative;
+    // width: 100%;
+
     // padding-top: 56.25%;
-    // max-height: calc(100vh - 4.625rem);
   }
 
   &__image {
-    // position: absolute;
-    // top: 0;
-    // right: 0;
-    // bottom: 0;
-    // left: 0;
-
     max-height: 100%;
 
     border-radius: 0.5rem;
     @include shadow;
+
+    // test
+    // position: absolute;
+    // top: 0;
+    // left: 0;
+
+    // width: 100%;
+    // height: 100%;
+    // user-select: none;
+    // object-fit: cover;
   }
 
-  &__field-wrapper {
+  &__action-wrapper {
     position: absolute;
-    top: 50px;
-    left: 60px;
+
+    z-index: $z-action;
   }
 
-  &__field {
+  &__action {
     display: block;
 
-    width: 300px;
-    height: 300px;
+    width: 100%;
+    height: 100%;
+
+    padding: 0;
 
     border: 4px solid $color-secondary;
     border-radius: 4px;
     background-color: fade-out($color-secondary, 0.9);
     cursor: pointer;
+
+    &:focus {
+      outline: none;
+    }
   }
 
-  &__field-type {
+  &__action-type {
     color: $color-background;
 
     position: absolute;
@@ -85,6 +100,7 @@
 
     background-color: $color-background;
     border-radius: 2px;
+    z-index: $z-mask;
   }
 
   &__mask-remove {
