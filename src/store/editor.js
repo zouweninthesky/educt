@@ -1,5 +1,9 @@
 import { makeAutoObservable } from "mobx";
 
+import ScriptsApi from "../api/UserScriptService";
+
+const Api = new ScriptsApi();
+
 class Editor {
   // Передается из другого store (?), для отправки запроса к api
   scriptUID = null;
@@ -12,10 +16,10 @@ class Editor {
   // Объект текущего степа, в него закидывается тот степ, который сейчас открыт из stepsOld
   currentStep = null;
   // Массив удаленных степов, чисто их uid
-  deleted = [];
+  toDelete = [];
   // Массив измененных степов, они формируются из currentStep
   // masks добавляется к
-  modified = [];
+  toUpdate = [];
   // Не уверен, что нужно
   loading = true;
   // Ошибка, думаю, все же нужна, но не уверен, как её

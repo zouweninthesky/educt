@@ -2,7 +2,7 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
-import Scripts from "../../../../store";
+import Scripts from "../../../../store/scripts";
 import Icon from "../../Icon/Icon";
 
 import "./ScriptItem.scss";

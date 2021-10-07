@@ -16,10 +16,18 @@ const Loader = (props) => {
     return () => {
       clearInterval(spinnerInterval);
     };
-  }, []);
+  }, [spinnerInterval]);
 
   const width = props.width || 324;
   const height = props.height || 76;
+
+  console.log("Эх " + props.loading);
+
+  if (props.loading === false) {
+    console.log("Ух " + props.loading);
+    clearInterval(spinnerInterval);
+    return <></>;
+  }
 
   return (
     <div className="loader">

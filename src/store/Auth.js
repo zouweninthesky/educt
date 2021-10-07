@@ -1,11 +1,10 @@
 import { makeAutoObservable } from "mobx";
 import AuthApi from "../api/AuthService";
-// import routing from "./routing";
 
 const Api = new AuthApi();
 
 const hash = (string) => {
-  // Does nothing, need to discuss
+  // Does nothing, was discussed, will be changed
   return string;
 };
 

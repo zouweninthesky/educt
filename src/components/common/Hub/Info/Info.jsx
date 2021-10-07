@@ -3,12 +3,16 @@ import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 
 import Icon from "../../Icon/Icon";
-import Scripts from "../../../../store";
+import Scripts from "../../../../store/scripts";
+import Store from "../../../../store";
+import PlayerStore from "../../../../store/player";
+import { useHistory } from "react-router";
 
 import "./Info.scss";
 
 const Info = observer((props) => {
   const { isAuthor } = props;
+  const history = useHistory();
 
   const { chosenScript } = Scripts;
 
@@ -46,9 +50,19 @@ const Info = observer((props) => {
             <span className="visually-hidden">Статистика</span>
           </button>
         </div>
-        <Link to="/player/:id/show" className="hub-info__button button">
+
+        <button
+          to="/player/:id/show"
+          className="hub-info__button button"
+          type="button"
+          onClick={async () => {
+            Store.storeRequested();
+            await PlayerStore.playerGetScript();
+            history.push("/player");
+          }}
+        >
           Пройти сценарий
-        </Link>
+        </button>
       </>
     );
   };

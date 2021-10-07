@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
 import Author from "./components/author/Author";
@@ -11,30 +11,16 @@ import User from "./components/user/User";
 import Sprite from "./components/common/Sprite/Sprite";
 import ErrorIndicator from "./components/common/ErrorIndicator/ErrorIndicator";
 import Loader from "./components/common/Loader/Loader";
-
-import UserScriptsServiceNew from "./api/UserScriptServiceNew";
-
-const Service = new UserScriptsServiceNew();
-
-// const error = {
-//   message: "Мало каши ел",
-// };
-
-console.log(Service.getUserScripts());
+import Store from "./store";
 
 const error = null;
 
-const loading = false;
-
 const App = () => {
-  if (loading) {
-    return <Loader />;
-  }
-
   return (
     <>
       <Sprite />
       <ErrorIndicator error={error} />
+      <Loader loading={Store.loading} />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
