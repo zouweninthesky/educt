@@ -1,8 +1,12 @@
 import React from "react";
+import { useModal } from "../../common/Modal/ModalContext";
+import { MODAL_INTRO_ID } from "../../../utils/constants/modals";
 import "./ProgressBar.scss";
 
 const ProgressBar = ({ current, total, intro }) => {
-  if (intro) {
+  const [modalID] = useModal();
+
+  if (modalID === MODAL_INTRO_ID) {
     return <></>;
   }
 

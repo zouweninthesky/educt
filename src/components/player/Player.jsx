@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
-
 import CloseModal from "./modals/CloseModal";
 import { useModal } from "../common/Modal/ModalContext";
 import IntroModal from "./modals/IntroModal";
 import Panel from "./Panel/Panel";
 import ProgressBar from "./ProgressBar/ProgressBar";
 import Viewbox from "../common/Viewbox/Viewbox";
-import Scripts from "../../store/";
 import Overlay from "../common/Modal/Overlay";
 import PlayerStore from "../../store/player";
 import { MODAL_INTRO_ID } from "../../utils/constants/modals";
