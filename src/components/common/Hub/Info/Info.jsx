@@ -1,17 +1,18 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
+import dateFormat from "dateformat";
 
 import Icon from "../../Icon/Icon";
 import Scripts from "../../../../store/scripts";
 import Store from "../../../../store";
 import PlayerStore from "../../../../store/player";
+import { MASK_DAY_MONTH_YEAR_DOTS } from "../../../../utils/constants/dateFormatMasks";
 import { useHistory } from "react-router";
 
 import "./Info.scss";
 
 const Info = observer((props) => {
-  const { isAuthor } = props;
   const history = useHistory();
 
   const { chosenScript } = Scripts;
@@ -19,6 +20,14 @@ const Info = observer((props) => {
   if (chosenScript === null) {
     return <></>;
   }
+
+  const { isAuthor } = props;
+
+  const title = chosenScript.title ? chosenScript.title : "Нет названия";
+
+  const description = chosenScript.description
+    ? chosenScript.description
+    : "Нет описания";
 
   const infoButtons = () => {
     if (isAuthor) {
@@ -67,11 +76,6 @@ const Info = observer((props) => {
     );
   };
 
-  // const convertCreateTime = (date) => {
-  //   const [year, month, day] = date.split("-");
-  //   return `${day.slice(0, day.indexOf("T"))}.${month}.${year}`;
-  // };
-
   return (
     <section className="hub-info">
       <h2 className="visually-hidden">Информация о сценарии</h2>
@@ -80,15 +84,13 @@ const Info = observer((props) => {
           {/* <img src="" alt="Первый кадр сценария" /> */}
         </div>
         <div className="hub-info__content-wrapper">
-          <h3 className="hub-info__title">{chosenScript.title}</h3>
+          <h3 className="hub-info__title">{title}</h3>
           <dl className="hub-info__quality-list">
             <dt className="hub-info__quality-name">Описание</dt>
-            <dd className="hub-info__description">
-              {/* {chosenScript.description} */}
-            </dd>
+            <dd className="hub-info__description">{description}</dd>
             <dt className="hub-info__quality-name">Дата создания</dt>
             <dd className="hub-info__origin-date">
-              {/* {convertCreateTime(chosenScript.create_time)} */}
+              {dateFormat(chosenScript.createTime, MASK_DAY_MONTH_YEAR_DOTS)}
             </dd>
           </dl>
           <div className="hub-info__button-wrapper">{infoButtons()}</div>
