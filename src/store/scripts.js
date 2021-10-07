@@ -9,6 +9,7 @@ const Api = new ScriptsApi();
 class Scripts {
   scripts = [];
   chosenScript = null;
+  scriptToDelete = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -34,6 +35,15 @@ class Scripts {
   scriptChosen(id) {
     const [chosenScript] = this.scripts.filter((script) => script.UID === id);
     this.chosenScript = chosenScript;
+  }
+
+  scriptToDeleteChosen(id) {
+    this.scriptToDelete = id;
+  }
+
+  async scriptDelete() {
+    await Api.deleteScript(this.scriptToDelete);
+    this.scriptsLoad();
   }
 }
 

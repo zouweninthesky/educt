@@ -6,7 +6,8 @@ import Info from "./Info/Info";
 import ScriptItem from "./ScriptItem/ScriptItem";
 import Spinner from "../../common/Spinner/Spinner";
 import ErrorIndicator from "../../common/ErrorIndicator/ErrorIndicator";
-
+import Overlay from "../../common/Modal/Overlay";
+import DeleteScriptModal from "./modals/DeleteScriptModal";
 import Scripts from "../../../store/scripts";
 
 import "./Hub.scss";
@@ -40,6 +41,7 @@ const Hub = observer((props) => {
                   key={script.UID}
                   id={script.UID}
                   title={script.title}
+                  isAuthor={isAuthor}
                 />
               );
             })}
@@ -47,6 +49,8 @@ const Hub = observer((props) => {
         </div>
       </section>
       <Info isAuthor={isAuthor} />
+      <DeleteScriptModal />
+      <Overlay />
     </main>
   );
 });

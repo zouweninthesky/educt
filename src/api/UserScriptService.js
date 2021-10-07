@@ -24,4 +24,13 @@ export default class UserScriptsService {
     console.log(data);
     return data;
   }
+
+  async deleteScript(id) {
+    await fetch(`https://educt.ru/api/scripts/${id}/`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+      },
+    });
+  }
 }
