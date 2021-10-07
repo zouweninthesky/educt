@@ -8,7 +8,7 @@ import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
 
 import "./Panel.scss";
 
-const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
+const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
   const [, setModalID] = useModal();
 
   return (
@@ -28,7 +28,7 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
         <button
           type="button"
           className="panel__button"
-          onClick={prevSlide}
+          onClick={prevStep}
           disabled={disablePrev}
         >
           <Icon id="angle-left" width="24" />
@@ -36,14 +36,14 @@ const Panel = ({ slide, prevSlide, nextSlide, disablePrev, disableNext }) => {
         <button
           type="button"
           className="panel__button"
-          onClick={nextSlide}
+          onClick={nextStep}
           disabled={disableNext}
         >
           <Icon id="angle-right" width="24" />
         </button>
         <div className="panel__text-wrapper">
           <p className="panel__text">
-            {slide.description == "" ? "Нет описания" : slide.description}
+            {step.description == "" ? "Нет описания" : step.description}
           </p>
         </div>
       </div>
