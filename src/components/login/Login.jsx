@@ -1,12 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import Spinner from "../common/Spinner/Spinner";
+import { useHistory } from "react-router";
 
 import Authentication from "../common/Authentication/Authentication";
 
 import Auth from "../../store/Auth";
 
 const Login = () => {
+  const history = useHistory();
+
   const initialState = {
     login: "",
     password: "",
@@ -18,6 +20,9 @@ const Login = () => {
   const signIn = async (evt) => {
     evt.preventDefault();
     await Auth.SignIn(loginState, passwordState);
+    if (Auth.error === null) {
+      history.push("/user");
+    }
   };
 
   const loading = false;
