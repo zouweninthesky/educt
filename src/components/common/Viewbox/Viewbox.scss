@@ -14,23 +14,17 @@
 
     position: relative;
 
-    width: 100%;
+    width: fit-content;
     height: 100%;
 
     margin: 0 auto;
-
-    // test
-    // display: block;
-    // overflow: hidden;
-    // position: relative;
-    // width: 100%;
-
-    // padding-top: 56.25%;
   }
 
   &__image {
     max-height: 100%;
+    max-width: 100%;
 
+    object-fit: contain;
     border-radius: 0.5rem;
     @include shadow;
 
