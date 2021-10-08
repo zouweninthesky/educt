@@ -24,6 +24,7 @@
     max-height: 100%;
     max-width: 100%;
 
+    object-fit: contain;
     border-radius: 0.5rem;
     @include shadow;
   }
