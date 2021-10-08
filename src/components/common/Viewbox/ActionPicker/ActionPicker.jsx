@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import Icon from "../../Icon/Icon";
-import "./ActionPicker.scss";
 import "../../Dropdown/Dropdown.scss";
 
 const options = ["ЛКМ", "Ввод текст", "ПКМ"];

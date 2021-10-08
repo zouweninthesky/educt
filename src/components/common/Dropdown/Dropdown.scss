@@ -32,11 +32,18 @@
     bottom: -9.25rem;
 
     width: 14.4375rem;
+
+    &--action {
+      top: 0;
+      right: -17.9375rem;
+      left: auto;
+    }
   }
 
   &__list {
     list-style: none;
 
+    margin: 0;
     padding-left: 0;
 
     border: 0.0625rem solid $color-neutrals-light;
@@ -65,4 +72,9 @@
       border-radius: 0 0 0.3125rem 0.3125rem;
     }
   }
+}
+
+.viewbox__action--left .dropdown__wrapper--action {
+  right: auto;
+  left: -17.9375rem;
 }

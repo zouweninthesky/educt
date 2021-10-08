@@ -28,6 +28,10 @@ const FinishPlayModal = ({ script }) => {
           <Icon id="graduation" width="40" />
           <span>Тестирование</span>
         </button> */}
+        <button className="modal__big-button modal__big-button--test" disabled>
+          <Icon id="graduation" width="40" />
+          <span>Тестирование</span>
+        </button>
         <Link
           to="/user"
           className="modal__big-button modal__big-button--return"

@@ -76,15 +76,13 @@ const Player = () => {
 
   const currentStep = PlayerStore.script.steps[currentStepId];
 
-  const actionClick = isLastStep ? setModalID(MODAL_FINISH_PLAY_ID) : nextStep;
+  const actionClick = isLastStep
+    ? setModalID.bind(null, MODAL_FINISH_PLAY_ID)
+    : nextStep;
 
   return (
     <main className="player">
-      <Viewbox
-        step={currentStep}
-        actionClick={actionClick}
-        isLastStep={isLastStep}
-      />
+      <Viewbox step={currentStep} actionClick={actionClick} />
       <Panel
         step={currentStep}
         prevStep={prevStep}

@@ -48,7 +48,7 @@ const IntroModal = ({ script }) => {
           <Icon id="play" width="40" />
           <span>Начать</span>
         </button>
-        <button className="modal__big-button modal__big-button--test">
+        <button className="modal__big-button modal__big-button--test" disabled>
           <Icon id="graduation" width="40" />
           <span>Тестирование</span>
         </button>
