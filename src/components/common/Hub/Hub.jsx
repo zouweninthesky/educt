@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 
-import Dropdown from "../Dropdown/Dropdown";
+import FilterDropdown from "./FilterDropdown/FilterDropdown";
 import Info from "./Info/Info";
 import ScriptItem from "./ScriptItem/ScriptItem";
 import Spinner from "../../common/Spinner/Spinner";
@@ -31,7 +31,7 @@ const Hub = observer((props) => {
     <main className="hub container">
       <section className="hub__content">
         <h2 className="visually-hidden">Список сценариев</h2>
-        {isAuthor ? <></> : <Dropdown />}
+        {isAuthor ? <></> : <FilterDropdown />}
 
         <div className="hub__content-wrapper">
           <ul className="hub__script-list">

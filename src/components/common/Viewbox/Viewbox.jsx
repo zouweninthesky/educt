@@ -7,6 +7,7 @@ import {
   MOUSE_RIGHT_BUTTON,
 } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
+import ActionPicker from "./ActionPicker/ActionPicker";
 import "./Viewbox.scss";
 
 const Viewbox = ({ mod, step, actionClick }) => {
@@ -84,7 +85,11 @@ const Viewbox = ({ mod, step, actionClick }) => {
       <h2 className="visually-hidden">Текущий слайд</h2>
       <div className="viewbox__wrapper">
         <img className="viewbox__image" alt="Текущий слайд" src={imageLink} />
-        <div className="viewbox__action-wrapper">{actionButton()}</div>
+        <div className="viewbox__action-wrapper">
+          {actionButton()}
+          <ActionPicker />
+        </div>
+
         {/* <div className="viewbox__mask">
           <button
             type="button"
