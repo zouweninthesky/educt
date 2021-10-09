@@ -11,7 +11,7 @@
   box-shadow: 0 0.125rem 1.25rem 0 $color-shadow;
 
   &__logo {
-    content: "";
+    color: $color-neutrals-lighter;
   }
 
   &__tab-wrapper {

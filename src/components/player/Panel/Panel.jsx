@@ -6,7 +6,6 @@ import FullScreenButton from "./FullScreenButton/FullScreenButton";
 
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
-import MainLogo from "../../../static/img/content/main-logo.svg";
 
 const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
   const [, setModalID] = useModal();
@@ -22,7 +21,7 @@ const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
         >
           <Icon id="arrow-left" width="24" />
         </button>
-        <img src={MainLogo} alt="Лого Educt" />
+        <Icon id="main-logo" width="122" height="28" />
       </div>
       <div className="panel__center">
         <button
