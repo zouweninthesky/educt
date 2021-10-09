@@ -9,17 +9,22 @@ const Api = new ScriptsApi();
 class Scripts {
   scripts = [];
   chosenScript = null;
+  chosenScriptTitle = null;
+  chosenScriptDescription = null;
   scriptToDelete = "";
 
   constructor() {
     makeAutoObservable(this);
   }
 
+  // without this a warning popped up on each sciptsLoad
+  scriptsSet(data) {
+    this.scripts = data;
+  }
+
   async scriptsLoad() {
-    Store.loading = true;
     const data = await Api.getUserScripts();
-    this.scripts = await data;
-    Store.loading = false;
+    this.scriptsSet(data);
   }
 
   // scriptsRequested() {
@@ -32,18 +37,42 @@ class Scripts {
   //   this.error = error;
   // }
 
-  scriptChosen(id) {
-    const [chosenScript] = this.scripts.filter((script) => script.UID === id);
+  scriptChosen(UID) {
+    const [chosenScript] = this.scripts.filter((script) => script.UID === UID);
     this.chosenScript = chosenScript;
+    this.chosenScriptTitle = chosenScript.title;
+    this.chosenScriptDescription = chosenScript.description;
   }
 
-  scriptToDeleteChosen(id) {
-    this.scriptToDelete = id;
+  scriptToDeleteChosen(UID) {
+    this.scriptToDelete = UID;
   }
 
   async scriptDelete() {
     await Api.deleteScript(this.scriptToDelete);
     this.scriptsLoad();
+  }
+
+  changeTitle(title) {
+    this.chosenScriptTitle = title;
+  }
+
+  changeDescription(description) {
+    this.chosenScriptDescription = description;
+  }
+
+  async scriptTitleDescriptionUpdate() {
+    console.log(
+      this.chosenScript.UID,
+      this.chosenScriptTitle,
+      this.chosenScriptDescription
+    );
+    await Api.changeTitleDescriptionScript(
+      this.chosenScript.UID,
+      this.chosenScriptTitle,
+      this.chosenScriptDescription
+    );
+    // this.scriptsLoad();
   }
 }
 

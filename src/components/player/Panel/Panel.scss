@@ -20,13 +20,11 @@
     align-items: center;
   }
 
-  &__left-side {
+  &__logo {
     color: $color-neutrals-lighter;
 
-    & svg {
-      margin-left: 1.125rem;
-      margin-bottom: 0.625rem;
-    }
+    margin-left: 1.125rem;
+    margin-bottom: 0.625rem;
   }
 
   &__center .panel__button {

@@ -21,7 +21,7 @@ const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
         >
           <Icon id="arrow-left" width="24" />
         </button>
-        <Icon id="main-logo" width="122" height="28" />
+        <Icon id="main-logo" width="122" height="28" className="panel__logo" />
       </div>
       <div className="panel__center">
         <button
