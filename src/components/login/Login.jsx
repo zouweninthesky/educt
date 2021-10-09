@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Spinner from "../common/Spinner/Spinner";
 import { useHistory } from "react-router";
 
+import Spinner from "../common/Spinner/Spinner";
 import Authentication from "../common/Authentication/Authentication";
 
 import Auth from "../../store/Auth";

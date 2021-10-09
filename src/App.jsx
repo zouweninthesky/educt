@@ -6,12 +6,13 @@ import Editor from "./components/editor/Editor";
 import Login from "./components/login/Login";
 import Player from "./components/player/Player";
 import Register from "./components/register/Register";
-import SpritePage from "./utils/SpritePage";
 import User from "./components/user/User";
 import Sprite from "./components/common/Sprite/Sprite";
 import ErrorIndicator from "./components/common/ErrorIndicator/ErrorIndicator";
 import Loader from "./components/common/Loader/Loader";
+
 import Store from "./store";
+import SpritePage from "./utils/SpritePage";
 
 const error = null;
 

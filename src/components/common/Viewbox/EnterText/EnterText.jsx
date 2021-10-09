@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Icon from "../../Icon/Icon";
+
 import {
   MOUSE_LEFT_BUTTON,
   KEYBOARD_ENTER_BUTTON,

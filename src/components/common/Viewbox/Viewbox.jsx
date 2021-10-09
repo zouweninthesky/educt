@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
+import "./Viewbox.scss";
 
-// import TempStep from "../../../static/img/test/test.jpg";
 import Icon from "../Icon/Icon";
+import ActionPicker from "./ActionPicker/ActionPicker";
+import EnterText from "./EnterText/EnterText";
+
 import { MOUSE_LEFT_BUTTON } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
-import ActionPicker from "./ActionPicker/ActionPicker";
-import "./Viewbox.scss";
-import EnterText from "./EnterText/EnterText";
+// import TempStep from "../../../static/img/test/test.jpg";
 
 const Viewbox = ({ mod, step, actionClick }) => {
   const image = useRef(null);

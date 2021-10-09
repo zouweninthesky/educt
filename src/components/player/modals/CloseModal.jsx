@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { useModal } from "../../common/Modal/ModalContext";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
+
+import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
 
 const CloseModal = () => {

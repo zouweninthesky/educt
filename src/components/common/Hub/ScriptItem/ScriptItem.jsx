@@ -1,13 +1,13 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
-
-import { useModal } from "../../Modal/ModalContext";
-import Scripts from "../../../../store/scripts";
-import Icon from "../../Icon/Icon";
-import { MODAL_DELETE_SCRIPT_ID } from "../../../../utils/constants/modals";
-
 import "./ScriptItem.scss";
+
+import Icon from "../../Icon/Icon";
+
+import Scripts from "../../../../store/scripts";
+import { useModal } from "../../Modal/ModalContext";
+import { MODAL_DELETE_SCRIPT_ID } from "../../../../utils/constants/modals";
 
 const ScriptItem = observer(({ id, title, isAuthor }) => {
   const [, setModalID] = useModal();

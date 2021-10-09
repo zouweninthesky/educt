@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import "./Editor.scss";
 
 import Icon from "../common/Icon/Icon";
 import Viewbox from "../common/Viewbox/Viewbox";
@@ -11,8 +12,6 @@ import CommentModal from "./modals/CommentModal";
 import SettingsModal from "./modals/SettingsModal";
 import NoSaveModal from "./modals/NoSaveModal";
 import { useModal } from "../common/Modal/ModalContext";
-
-import "./Editor.scss";
 
 const HEADER_TOOLS_ON = "Все слайды";
 const HEADER_TOOLS_OFF = "Вернуться к списку";

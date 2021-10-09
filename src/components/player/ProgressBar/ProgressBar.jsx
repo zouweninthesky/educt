@@ -1,8 +1,8 @@
 import React from "react";
+import "./ProgressBar.scss";
 
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_INTRO_ID } from "../../../utils/constants/modals";
-import "./ProgressBar.scss";
 
 const ProgressBar = ({ current, total }) => {
   const [modalID] = useModal();

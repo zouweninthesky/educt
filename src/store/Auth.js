@@ -1,4 +1,5 @@
 import { makeAutoObservable } from "mobx";
+
 import AuthApi from "../api/AuthService";
 
 const Api = new AuthApi();

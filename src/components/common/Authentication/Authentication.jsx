@@ -1,10 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import "./Authentication.scss";
+
 import Icon from "../Icon/Icon";
 
 import AuthBG from "../../../static/img/content/auth-bg@4x.jpg";
-
-import "./Authentication.scss";
 
 const Authentication = (props) => {
   const className = props.modifier ? `auth auth--${props.modifier}` : "auth";

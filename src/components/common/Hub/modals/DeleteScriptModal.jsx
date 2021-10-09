@@ -1,10 +1,11 @@
 import React from "react";
 
-import { useModal } from "../../../common/Modal/ModalContext";
 import Icon from "../../../common/Icon/Icon";
 import Modal from "../../../common/Modal/Modal";
-import { MODAL_DELETE_SCRIPT_ID } from "../../../../utils/constants/modals";
+
 import Scripts from "../../../../store/scripts";
+import { useModal } from "../../../common/Modal/ModalContext";
+import { MODAL_DELETE_SCRIPT_ID } from "../../../../utils/constants/modals";
 
 const DeleteScriptModal = () => {
   const [modalID, setModalID] = useModal();

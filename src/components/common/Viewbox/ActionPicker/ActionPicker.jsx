@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import "../../Dropdown/Dropdown.scss";
 
 const options = ["ЛКМ", "Ввод текст", "ПКМ"];

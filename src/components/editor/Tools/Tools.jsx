@@ -1,13 +1,13 @@
 import React from "react";
+import "./Tools.scss";
+
+import Icon from "../../common/Icon/Icon";
 
 import { useModal } from "../../common/Modal/ModalContext";
-import Icon from "../../common/Icon/Icon";
 import {
   MODAL_DELETE_STEP_ID,
   MODAL_COMMENT_ID,
 } from "../../../utils/constants/modals";
-
-import "./Tools.scss";
 
 const Tools = () => {
   const [, setModalID] = useModal();

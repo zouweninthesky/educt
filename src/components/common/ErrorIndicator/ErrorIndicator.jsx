@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./ErrorIndicator.scss";
 
 const ErrorIndicator = (props) => {
