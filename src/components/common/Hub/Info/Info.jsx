@@ -1,16 +1,16 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import dateFormat from "dateformat";
+import "./Info.scss";
 
 import Icon from "../../Icon/Icon";
-import Scripts from "../../../../store/scripts";
+
 import Store from "../../../../store";
+import Scripts from "../../../../store/scripts";
 import PlayerStore from "../../../../store/player";
 import { MASK_DAY_MONTH_YEAR_DOTS } from "../../../../utils/constants/dateFormatMasks";
-import { useHistory } from "react-router";
-
-import "./Info.scss";
 
 const Info = observer((props) => {
   const history = useHistory();

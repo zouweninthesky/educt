@@ -1,12 +1,12 @@
 import React from "react";
+import "./Panel.scss";
 
 import Icon from "../../common/Icon/Icon";
-import MainLogo from "../../../static/img/content/main-logo.svg";
-import { useModal } from "../../common/Modal/ModalContext";
 import FullScreenButton from "./FullScreenButton/FullScreenButton";
-import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
 
-import "./Panel.scss";
+import { useModal } from "../../common/Modal/ModalContext";
+import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
+import MainLogo from "../../../static/img/content/main-logo.svg";
 
 const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
   const [, setModalID] = useModal();

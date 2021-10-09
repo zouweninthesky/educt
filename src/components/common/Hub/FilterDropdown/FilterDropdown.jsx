@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import "../../Dropdown/Dropdown.scss";
 
 import Icon from "../../Icon/Icon";
-import "../../Dropdown/Dropdown.scss";
 
 const options = ["Все сценарии", "Новое", "Тестирование"];
 

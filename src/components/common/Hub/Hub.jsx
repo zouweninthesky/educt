@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
+import "./Hub.scss";
 
 import FilterDropdown from "./FilterDropdown/FilterDropdown";
 import Info from "./Info/Info";
@@ -8,9 +9,8 @@ import Spinner from "../../common/Spinner/Spinner";
 import ErrorIndicator from "../../common/ErrorIndicator/ErrorIndicator";
 import Overlay from "../../common/Modal/Overlay";
 import DeleteScriptModal from "./modals/DeleteScriptModal";
-import Scripts from "../../../store/scripts";
 
-import "./Hub.scss";
+import Scripts from "../../../store/scripts";
 
 const Hub = observer((props) => {
   const { isAuthor } = props;

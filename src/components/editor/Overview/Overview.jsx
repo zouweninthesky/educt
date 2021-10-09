@@ -1,11 +1,11 @@
 import React from "react";
+import "./Overview.scss";
 
-import { useModal } from "../../common/Modal/ModalContext";
 import Icon from "../../common/Icon/Icon";
 import Thumbnail from "../../../static/img/test/temp-slide-thumbnail.jpg";
-import { MODAL_SETTINGS_ID } from "../../../utils/constants/modals";
 
-import "./Overview.scss";
+import { useModal } from "../../common/Modal/ModalContext";
+import { MODAL_SETTINGS_ID } from "../../../utils/constants/modals";
 
 const Overview = () => {
   const [, setScriptID] = useModal();

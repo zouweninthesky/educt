@@ -1,10 +1,10 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
+import "./Header.scss";
 
 import Icon from "../../Icon/Icon";
-import MainLogo from "../../../../static/img/content/main-logo.svg";
 
-import "./Header.scss";
+import MainLogo from "../../../../static/img/content/main-logo.svg";
 
 const Header = () => {
   return (
