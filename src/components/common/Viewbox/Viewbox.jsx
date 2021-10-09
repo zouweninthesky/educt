@@ -9,6 +9,8 @@ import { MOUSE_LEFT_BUTTON } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
 // import TempStep from "../../../static/img/test/test.jpg";
 
+const MARGIN_FOR_ACTION = 70;
+
 const Viewbox = ({ mod, step, actionClick }) => {
   const image = useRef(null);
 
@@ -32,6 +34,12 @@ const Viewbox = ({ mod, step, actionClick }) => {
     width: boxCoords.width * shrinkRatio,
     height: boxCoords.height * shrinkRatio,
   };
+
+  const actionClass =
+    actionStyle.width + actionStyle.left + MARGIN_FOR_ACTION >=
+    image.current.clientWidth
+      ? "viewbox__action--left"
+      : "";
 
   const actionButton = () => {
     switch (step.actionID) {
@@ -87,7 +95,7 @@ const Viewbox = ({ mod, step, actionClick }) => {
             getShrinkRatio();
           }}
         />
-        <div className="viewbox__action" style={actionStyle}>
+        <div className={`viewbox__action ${actionClass}`} style={actionStyle}>
           {actionButton()}
           {/* <ActionPicker /> */}
         </div>
