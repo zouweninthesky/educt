@@ -7,7 +7,7 @@ import Scripts from "./scripts";
 const Api = new ScriptsApi();
 
 class Player {
-  script = {};
+  script = undefined;
 
   constructor() {
     makeAutoObservable(this);

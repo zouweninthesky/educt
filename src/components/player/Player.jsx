@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
-import CloseModal from "./modals/CloseModal";
-import { useModal } from "../common/Modal/ModalContext";
-import IntroModal from "./modals/IntroModal";
+import "./Player.scss";
+
 import Panel from "./Panel/Panel";
 import ProgressBar from "./ProgressBar/ProgressBar";
 import Viewbox from "../common/Viewbox/Viewbox";
 import Overlay from "../common/Modal/Overlay";
+import CloseModal from "./modals/CloseModal";
+import FinishPlayModal from "./modals/FinishPlayModal";
+import IntroModal from "./modals/IntroModal";
+
 import PlayerStore from "../../store/player";
+import { useModal } from "../common/Modal/ModalContext";
 import {
   MODAL_INTRO_ID,
   MODAL_FINISH_PLAY_ID,
 } from "../../utils/constants/modals";
-
-import "./Player.scss";
-import FinishPlayModal from "./modals/FinishPlayModal";
 
 const Player = () => {
   const state = {
@@ -24,7 +25,18 @@ const Player = () => {
     isLastStep: false,
   };
 
+  const [, setModalID] = useModal();
   const [playerState, setPlayerState] = useState(state);
+
+  useEffect(() => {
+    if (PlayerStore.script) {
+      setModalID(MODAL_INTRO_ID);
+    }
+  }, []);
+
+  if (PlayerStore.script === undefined) {
+    return <Redirect to="/user" />;
+  }
 
   const nextStep = () => {
     const stepsNumber = PlayerStore.script.steps.length;
@@ -64,15 +76,6 @@ const Player = () => {
   };
 
   const { currentStepId, disablePrev, disableNext, isLastStep } = playerState;
-  const [, setModalID] = useModal();
-
-  useEffect(() => {
-    setModalID(MODAL_INTRO_ID);
-  }, []);
-
-  if (PlayerStore.script === undefined) {
-    return <Redirect to="/user" />;
-  }
 
   const currentStep = PlayerStore.script.steps[currentStepId];
 

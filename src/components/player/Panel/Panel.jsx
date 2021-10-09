@@ -43,7 +43,7 @@ const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
         </button>
         <div className="panel__text-wrapper">
           <p className="panel__text">
-            {step.description == "" ? "Нет описания" : step.description}
+            {step.description === "" ? "Нет описания" : step.description}
           </p>
         </div>
       </div>
