@@ -17,6 +17,14 @@ const Viewbox = ({ mod, step, actionClick }) => {
   const [shrinkRatio, setShrinkRatio] = useState(
     image.complete ? image.current.clientWidth / image.current.naturalWidth : 1
   );
+  const [actionClass, setActionClass] = useState(
+    image.complete
+      ? actionStyle.width + actionStyle.left + MARGIN_FOR_ACTION >=
+        image.current.clientWidth
+        ? "viewbox__action--left"
+        : ""
+      : ""
+  );
 
   const mainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
 
@@ -24,8 +32,14 @@ const Viewbox = ({ mod, step, actionClick }) => {
 
   const { boxCoords } = step.metaInfo;
 
-  const getShrinkRatio = () => {
+  const getShrinkRatioActionClass = () => {
     setShrinkRatio(image.current.clientWidth / image.current.naturalWidth);
+    setActionClass(
+      actionStyle.width + actionStyle.left + MARGIN_FOR_ACTION >=
+        image.current.clientWidth
+        ? "viewbox__action--left"
+        : ""
+    );
   };
 
   const actionStyle = {
@@ -34,12 +48,6 @@ const Viewbox = ({ mod, step, actionClick }) => {
     width: boxCoords.width * shrinkRatio,
     height: boxCoords.height * shrinkRatio,
   };
-
-  const actionClass =
-    actionStyle.width + actionStyle.left + MARGIN_FOR_ACTION >=
-    image.current.clientWidth
-      ? "viewbox__action--left"
-      : "";
 
   const actionButton = () => {
     switch (step.actionID) {
@@ -92,7 +100,7 @@ const Viewbox = ({ mod, step, actionClick }) => {
           src={imageLink}
           ref={image}
           onLoad={() => {
-            getShrinkRatio();
+            getShrinkRatioActionClass();
           }}
         />
         <div className={`viewbox__action ${actionClass}`} style={actionStyle}>

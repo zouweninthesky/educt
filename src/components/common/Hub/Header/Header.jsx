@@ -4,13 +4,11 @@ import "./Header.scss";
 
 import Icon from "../../Icon/Icon";
 
-import MainLogo from "../../../../static/img/content/main-logo.svg";
-
 const Header = () => {
   return (
     <header className="hub-header container">
       <a href="/" className="hub-header__logo">
-        <img src={MainLogo} alt="Главный логотип eDuct" />
+        <Icon id="main-logo" width="122" height="28" />
         <span className="visually-hidden">educt</span>
       </a>
       <div className="hub-header__tab-wrapper">
