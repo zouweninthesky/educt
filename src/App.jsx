@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
+import PrivateRoute from "./components/common/PrivateRoute/PrivateRoute";
 import Author from "./components/author/Author";
 import Editor from "./components/editor/Editor";
 import Login from "./components/login/Login";
@@ -25,11 +26,26 @@ const App = () => {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        <Route path="/user" component={User} />
-        <Route path="/player" component={Player} />
-        <Route path="/editor" component={Editor} />
-        <Route path="/author" component={Author} />
-        <Route path="/sprite" component={SpritePage} />
+        {/* <PrivateRoute path="/user" component={User} />
+        <PrivateRoute path="/player" component={Player} />
+        <PrivateRoute path="/editor" component={Editor} />
+        <PrivateRoute path="/author" component={Author} />
+        <PrivateRoute path="/sprite" component={SpritePage} /> */}
+        <PrivateRoute path="/user">
+          <User />
+        </PrivateRoute>
+        <PrivateRoute path="/player">
+          <Player />
+        </PrivateRoute>
+        <PrivateRoute path="/editor">
+          <Editor />
+        </PrivateRoute>
+        <PrivateRoute path="/author">
+          <Author />
+        </PrivateRoute>
+        <PrivateRoute path="/sprite">
+          <SpritePage />
+        </PrivateRoute>
         <Redirect from="/" to="user" />
       </Switch>
     </>
