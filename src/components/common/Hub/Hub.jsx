@@ -15,6 +15,8 @@ import Scripts from "../../../store/scripts";
 const Hub = observer((props) => {
   const { isAuthor } = props;
 
+  const { scripts } = Scripts;
+
   useEffect(() => {
     Scripts.scriptsLoad();
   }, []);
@@ -35,7 +37,7 @@ const Hub = observer((props) => {
 
         <div className="hub__content-wrapper">
           <ul className="hub__script-list">
-            {Scripts.scripts.map((script, i) => {
+            {scripts.map((script, i) => {
               return (
                 <ScriptItem
                   key={script.UID}

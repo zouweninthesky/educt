@@ -10,12 +10,13 @@ import Icon from "../../Icon/Icon";
 import Store from "../../../../store";
 import Scripts from "../../../../store/scripts";
 import PlayerStore from "../../../../store/player";
+import { KEYBOARD_ENTER_BUTTON } from "../../../../utils/constants/keycodes";
 import { MASK_DAY_MONTH_YEAR_DOTS } from "../../../../utils/constants/dateFormatMasks";
 
 const Info = observer((props) => {
   const history = useHistory();
 
-  const { chosenScript } = Scripts;
+  const { chosenScript, chosenScriptTitle, chosenScriptDescription } = Scripts;
 
   if (chosenScript === null) {
     return <></>;
@@ -23,11 +24,56 @@ const Info = observer((props) => {
 
   const { isAuthor } = props;
 
-  const title = chosenScript.title ? chosenScript.title : "Нет названия";
+  const title = chosenScriptTitle ? chosenScriptTitle : "Нет названия";
 
-  const description = chosenScript.description
-    ? chosenScript.description
+  const description = chosenScriptDescription
+    ? chosenScriptDescription
     : "Нет описания";
+
+  const infoTitle = () => {
+    if (isAuthor) {
+      return (
+        <input
+          type="text"
+          value={title}
+          className="hub-info__title"
+          onChange={(e) => {
+            Scripts.changeTitle(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === KEYBOARD_ENTER_BUTTON) {
+              Scripts.scriptTitleDescriptionUpdate();
+              e.target.blur();
+            }
+          }}
+        />
+      );
+    }
+
+    return <h3 className="hub-info__title">{title}</h3>;
+  };
+
+  const infoDescription = () => {
+    if (isAuthor) {
+      return (
+        <input
+          type="text"
+          value={description}
+          onChange={(e) => {
+            Scripts.changeDescription(e.target.value);
+          }}
+          onKeyDown={(e) => {
+            if (e.key === KEYBOARD_ENTER_BUTTON) {
+              Scripts.scriptTitleDescriptionUpdate();
+              e.target.blur();
+            }
+          }}
+        />
+      );
+    }
+
+    return description;
+  };
 
   const infoButtons = () => {
     if (isAuthor) {
@@ -84,10 +130,10 @@ const Info = observer((props) => {
           {/* <img src="" alt="Первый кадр сценария" /> */}
         </div>
         <div className="hub-info__content-wrapper">
-          <h3 className="hub-info__title">{title}</h3>
+          {infoTitle()}
           <dl className="hub-info__quality-list">
             <dt className="hub-info__quality-name">Описание</dt>
-            <dd className="hub-info__description">{description}</dd>
+            <dd className="hub-info__description">{infoDescription()}</dd>
             <dt className="hub-info__quality-name">Дата создания</dt>
             <dd className="hub-info__origin-date">
               {dateFormat(chosenScript.createTime, MASK_DAY_MONTH_YEAR_DOTS)}

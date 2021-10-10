@@ -70,11 +70,12 @@
   }
 
   &__button {
+    font-family: inherit;
+    color: $color-info-dark;
+
     min-height: 10.5rem;
     width: 100%;
     flex-grow: 1;
-
-    color: $color-info-dark;
 
     border: 0;
     border-radius: 1rem;
