@@ -6,7 +6,7 @@ const headers = {
 
 export default class UserScriptsService {
   async getUserScripts() {
-    const response = await fetch(`${MAIN_URL}scripts/`, {
+    const response = await fetch(`${MAIN_URL}scripts/?page=1&perPage=15`, {
       method: "GET",
       headers,
     });

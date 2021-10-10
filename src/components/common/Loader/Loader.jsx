@@ -4,27 +4,27 @@ import "./Loader.scss";
 const Loader = (props) => {
   const [className, setClassName] = useState("");
 
-  const spinnerInterval = setInterval(() => {
-    if (className === "active") setClassName(() => "");
-    else setClassName(() => "active");
-  }, 3600);
+  // const spinnerInterval = setInterval(() => {
+  //   if (className === "active") setClassName(() => "");
+  //   else setClassName(() => "active");
+  // }, 3600);
 
-  useEffect(() => {
-    setClassName("active");
+  // useEffect(() => {
+  //   setClassName("active");
 
-    return () => {
-      clearInterval(spinnerInterval);
-    };
-  }, [spinnerInterval]);
+  //   return () => {
+  //     clearInterval(spinnerInterval);
+  //   };
+  // }, [spinnerInterval]);
 
   const width = props.width || 324;
   const height = props.height || 76;
 
-  console.log("Эх " + props.loading);
+  // console.log("Эх " + props.loading);
 
   if (props.loading === false) {
-    console.log("Ух " + props.loading);
-    clearInterval(spinnerInterval);
+    // console.log("Ух " + props.loading);
+    // clearInterval(spinnerInterval);
     return <></>;
   }
 

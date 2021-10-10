@@ -7,7 +7,7 @@ import {
   KEYBOARD_ENTER_BUTTON,
 } from "../../../../utils/constants/keycodes";
 
-const EnterText = ({ step, actionClick }) => {
+const EnterText = ({ step, actionClick, sizes }) => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(false);
 
@@ -64,6 +64,7 @@ const EnterText = ({ step, actionClick }) => {
         className="viewbox__action-button"
         placeholder={neededString}
         value={value}
+        style={sizes}
         onChange={(e) => {
           setValue(e.target.value);
           if (e.target.value === neededString) setIsValid(true);

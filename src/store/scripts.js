@@ -23,8 +23,15 @@ class Scripts {
   }
 
   async scriptsLoad() {
+    Store.storeRequested();
     const data = await Api.getUserScripts();
-    this.scriptsSet(data);
+    if (data.length) {
+      this.scriptsSet(data);
+      Store.storeLoaded();
+    } else {
+      this.scriptsSet([]);
+      Store.storeError();
+    }
   }
 
   // scriptsRequested() {

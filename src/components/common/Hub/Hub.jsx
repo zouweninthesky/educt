@@ -6,11 +6,13 @@ import FilterDropdown from "./FilterDropdown/FilterDropdown";
 import Info from "./Info/Info";
 import ScriptItem from "./ScriptItem/ScriptItem";
 import Spinner from "../../common/Spinner/Spinner";
+import Loader from "../Loader/Loader";
 import ErrorIndicator from "../../common/ErrorIndicator/ErrorIndicator";
 import Overlay from "../../common/Modal/Overlay";
 import DeleteScriptModal from "./modals/DeleteScriptModal";
 
 import Scripts from "../../../store/scripts";
+import Store from "../../../store";
 
 const Hub = observer((props) => {
   const { isAuthor } = props;
@@ -21,13 +23,8 @@ const Hub = observer((props) => {
     Scripts.scriptsLoad();
   }, []);
 
-  if (Scripts.loading) {
-    return <Spinner />;
-  }
-
-  if (Scripts.error) {
-    return <ErrorIndicator />;
-  }
+  console.log(Store.loading);
+  console.log(Store.error);
 
   const content = () => {
     if (scripts && scripts.length) {
