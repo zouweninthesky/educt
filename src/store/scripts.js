@@ -62,17 +62,13 @@ class Scripts {
   }
 
   async scriptTitleDescriptionUpdate() {
-    console.log(
-      this.chosenScript.UID,
-      this.chosenScriptTitle,
-      this.chosenScriptDescription
-    );
     await Api.changeTitleDescriptionScript(
       this.chosenScript.UID,
+      this.chosenScript.orgID,
       this.chosenScriptTitle,
       this.chosenScriptDescription
     );
-    // this.scriptsLoad();
+    this.scriptsLoad();
   }
 }
 

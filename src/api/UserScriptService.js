@@ -33,18 +33,21 @@ export default class UserScriptsService {
     });
   }
 
-  async changeTitleDescriptionScript(UID, title, description) {
+  async changeTitleDescriptionScript(UID, orgID, title, description) {
+    const data = {
+      UID,
+      orgID,
+      title,
+      description,
+    };
+
     await fetch(`${MAIN_URL}scripts/${UID}/`, {
       method: "PUT",
       headers: {
         ...headers,
         "Content-Type": "application/json",
       },
-      body: {
-        UID,
-        title,
-        description,
-      },
+      body: JSON.stringify(data),
     });
   }
 }
