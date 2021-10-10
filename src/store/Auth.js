@@ -35,6 +35,7 @@ class Auth {
     this.loading = true;
     await Api.SignOut();
     window.localStorage.clear();
+    this.token = null;
     this.loading = false;
     // routing.push("/login");
   }

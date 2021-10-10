@@ -29,6 +29,28 @@ const Hub = observer((props) => {
     return <ErrorIndicator />;
   }
 
+  const content = () => {
+    if (scripts && scripts.length) {
+      const scriptItems = scripts.map((script, i) => {
+        return (
+          <ScriptItem
+            key={script.UID}
+            id={script.UID}
+            title={script.title}
+            isAuthor={isAuthor}
+          />
+        );
+      });
+      return <ul className="hub__script-list">{scriptItems}</ul>;
+    } else {
+      return (
+        <>
+          <Spinner show={true} />
+        </>
+      );
+    }
+  };
+
   return (
     <main className="hub container">
       <section className="hub__content">
@@ -36,18 +58,7 @@ const Hub = observer((props) => {
         {isAuthor ? <></> : <FilterDropdown />}
 
         <div className="hub__content-wrapper">
-          <ul className="hub__script-list">
-            {scripts.map((script, i) => {
-              return (
-                <ScriptItem
-                  key={script.UID}
-                  id={script.UID}
-                  title={script.title}
-                  isAuthor={isAuthor}
-                />
-              );
-            })}
-          </ul>
+          <ul className="hub__script-list">{content()}</ul>
         </div>
       </section>
       <Info isAuthor={isAuthor} />

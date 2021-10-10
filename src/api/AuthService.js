@@ -23,9 +23,9 @@ export default class AuthService {
   }
 
   async SignOut() {
-    const response = await fetch("https://educt.ru/api/scripts/", {
-      method: "DELETE",
-    });
-    return await response.json();
+    // const response = await fetch("https://educt.ru/api/scripts/", {
+    // method: "DELETE",
+    // });
+    // return await response.json();
   }
 }

@@ -4,6 +4,8 @@ import "./Header.scss";
 
 import Icon from "../../Icon/Icon";
 
+import Auth from "../../../../store/Auth";
+
 const Header = () => {
   return (
     <header className="hub-header container">
@@ -45,7 +47,12 @@ const Header = () => {
             </button>
           </li>
           <li className="hub-header__dropdown-item">
-            <button className="hub-header__dropdown-link">
+            <button
+              className="hub-header__dropdown-link"
+              onClick={() => {
+                Auth.SignOut();
+              }}
+            >
               Выйти из аккаунта
             </button>
           </li>
