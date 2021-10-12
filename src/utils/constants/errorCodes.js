@@ -1,3 +1,4 @@
-const UNAUTHORIZED = 401;
+const TOKEN_EXPIRED = "token_not_valid";
+const UNATHORIZED = 401;
 
-export default { UNAUTHORIZED };
+export { TOKEN_EXPIRED, UNATHORIZED };

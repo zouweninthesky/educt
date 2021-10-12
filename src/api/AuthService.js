@@ -1,4 +1,11 @@
-export default class AuthService {
+import Auth from "../store/auth";
+import { MAIN_URL } from "../utils/constants/links";
+
+const headers = {
+  "Content-Type": "application/json",
+};
+
+class AuthService {
   data = {
     ok: true,
     token: "QWERTYUIOP123!@#$",
@@ -6,11 +13,9 @@ export default class AuthService {
   };
 
   async SignIn(login, passwordHash) {
-    const response = await fetch("https://educt.ru/api/token/", {
+    const response = await fetch(`${MAIN_URL}token/`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify({
         email: login,
         password: passwordHash,
@@ -26,4 +31,18 @@ export default class AuthService {
     // });
     // return await response.json();
   }
+
+  async RefreshToken() {
+    const response = await fetch(`${MAIN_URL}token/refresh/`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({
+        refresh: Auth.refresh,
+      }),
+    });
+
+    return await response.json();
+  }
 }
+
+export default new AuthService();

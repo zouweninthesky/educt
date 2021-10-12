@@ -18,23 +18,25 @@ const Info = observer((props) => {
 
   const { chosenScript } = Scripts;
 
+  const [chosenScriptTitle, setChosenScriptTitle] = useState(
+    chosenScript?.title || "test"
+  );
+
+  const [chosenScriptDescription, setChosenScriptDescription] = useState(
+    chosenScript?.description || "test"
+  );
+
   if (chosenScript === null) {
     return <></>;
   }
 
-  const [chosenScriptTitle, setChosenScriptTitle] = useState(
-    chosenScript.title
-  );
-
-  const [chosenScriptDescription, setChosenScriptDescription] = useState(
-    chosenScript.description
-  );
+  console.log(chosenScript.title);
 
   const { isAuthor } = props;
 
-  const title = chosenScriptTitle ? chosenScriptTitle : "Нет названия";
+  const title = chosenScript.title ? chosenScriptTitle : "Нет названия";
 
-  const description = chosenScriptDescription
+  const description = chosenScript.description
     ? chosenScriptDescription
     : "Нет описания";
 

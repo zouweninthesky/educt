@@ -1,8 +1,6 @@
 import { makeAutoObservable } from "mobx";
 
-import AuthApi from "../api/AuthService";
-
-const Api = new AuthApi();
+import Api from "../api/AuthService";
 
 const hash = (string) => {
   // Does nothing, was discussed, will be changed
@@ -43,8 +41,20 @@ class Auth {
     this.loading = false;
   }
 
-  RefreshToken() {
-    window.localStorage.clear();
+  async RefreshToken() {
+    this.loading = true;
+    this.token = null;
+    window.localStorage.removeItem("token");
+    const response = await Api.RefreshToken();
+    if (response.access) {
+      this.token = response.access;
+      window.localStorage.setItem("token", response.access);
+    } else {
+      window.localStorage.clear();
+      this.refresh = null;
+      this.error = response.details;
+    }
+    this.loading = false;
   }
 }
 

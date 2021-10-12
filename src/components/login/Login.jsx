@@ -4,7 +4,7 @@ import { useHistory, Redirect } from "react-router";
 import Spinner from "../common/Spinner/Spinner";
 import Authentication from "../common/Authentication/Authentication";
 
-import Auth from "../../store/Auth";
+import Auth from "../../store/auth";
 
 const Login = () => {
   const history = useHistory();
