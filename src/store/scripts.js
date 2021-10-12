@@ -9,8 +9,8 @@ const Api = new ScriptsApi();
 class Scripts {
   scripts = [];
   chosenScript = null;
-  chosenScriptTitle = null;
-  chosenScriptDescription = null;
+  // chosenScriptTitle = null;
+  // chosenScriptDescription = null;
   scriptToDelete = "";
 
   constructor() {
@@ -40,8 +40,6 @@ class Scripts {
   scriptChosen(UID) {
     const [chosenScript] = this.scripts.filter((script) => script.UID === UID);
     this.chosenScript = chosenScript;
-    this.chosenScriptTitle = chosenScript.title;
-    this.chosenScriptDescription = chosenScript.description;
   }
 
   scriptToDeleteChosen(UID) {
@@ -53,20 +51,12 @@ class Scripts {
     this.scriptsLoad();
   }
 
-  changeTitle(title) {
-    this.chosenScriptTitle = title;
-  }
-
-  changeDescription(description) {
-    this.chosenScriptDescription = description;
-  }
-
-  async scriptTitleDescriptionUpdate() {
+  async scriptTitleDescriptionUpdate(title, description) {
     await Api.changeTitleDescriptionScript(
       this.chosenScript.UID,
       this.chosenScript.orgID,
-      this.chosenScriptTitle,
-      this.chosenScriptDescription
+      title,
+      description
     );
     this.scriptsLoad();
   }
