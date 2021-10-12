@@ -17,8 +17,6 @@ export default class AuthService {
       }),
     });
 
-    console.log("sanek s sobakoj");
-
     return await response.json();
   }
 
