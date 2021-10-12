@@ -3,21 +3,6 @@ import { Route, Redirect } from "react-router";
 
 import Auth from "../../../store/auth";
 
-// const PrivateRoute = ({ component, ...rest }) => {
-//   return (
-//     <Route
-//       {...rest}
-//       component={
-//         Auth.token !== null ? (
-//           component
-//         ) : (
-//           <Redirect to={{ pathname: "/login" }} />
-//         )
-//       }
-//     />
-//   );
-// };
-
 const PrivateRoute = ({ children, ...rest }) => {
   return (
     <Route
