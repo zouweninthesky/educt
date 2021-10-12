@@ -8,7 +8,9 @@ export default class UserScriptsService {
   async getUserScripts() {
     const response = await fetch(`${MAIN_URL}scripts/`, {
       method: "GET",
-      headers,
+      headers: {
+        Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+      },
     });
 
     const data = await response.json();
