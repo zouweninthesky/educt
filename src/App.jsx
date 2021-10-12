@@ -23,6 +23,7 @@ const App = () => {
       <Sprite />
       <ErrorIndicator error={error} />
       <Loader loading={Store.loading} />
+      {/* <Loader loading={true} /> */}
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

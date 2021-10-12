@@ -43,8 +43,11 @@ const Viewbox = ({ mod, step, actionClick }) => {
   };
 
   const actionStyle = {
-    top: boxCoords.upperLeft.y * shrinkRatio,
-    left: boxCoords.upperLeft.x * shrinkRatio,
+    top: boxCoords.upperLeft.y * shrinkRatio - 4,
+    left: boxCoords.upperLeft.x * shrinkRatio - 4,
+  };
+
+  const actionButtonStyle = {
     width: boxCoords.width * shrinkRatio,
     height: boxCoords.height * shrinkRatio,
   };
@@ -57,6 +60,7 @@ const Viewbox = ({ mod, step, actionClick }) => {
             <button
               className="viewbox__action-button"
               type="button"
+              style={actionButtonStyle}
               onClick={(e) => {
                 if (e.button === MOUSE_LEFT_BUTTON) {
                   actionClick();
@@ -69,13 +73,20 @@ const Viewbox = ({ mod, step, actionClick }) => {
           </>
         );
       case 2:
-        return <EnterText step={step} actionClick={actionClick} />;
+        return (
+          <EnterText
+            step={step}
+            actionClick={actionClick}
+            sizes={actionButtonStyle}
+          />
+        );
       case 3:
         return (
           <>
             <button
               className="viewbox__action-button"
               type="button"
+              style={actionButtonStyle}
               onContextMenu={(e) => {
                 e.preventDefault();
                 actionClick();

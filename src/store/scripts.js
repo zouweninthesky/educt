@@ -1,10 +1,11 @@
 import { makeAutoObservable } from "mobx";
 
-// import ScriptsApi from "../api/UserScriptsServiceFake";
-import ScriptsApi from "../api/UserScriptService";
+// import ScriptsService from "../api/UserScriptsServiceFake";
+// import AuthService from "../api/AuthService";
+import ScriptsService from "../api/UserScriptService";
 import Store from "./index";
-
-const Api = new ScriptsApi();
+import Auth from "./auth";
+import { TOKEN_EXPIRED } from "../utils/constants/errorCodes";
 
 class Scripts {
   scripts = [];
@@ -23,8 +24,28 @@ class Scripts {
   }
 
   async scriptsLoad() {
-    const data = await Api.getUserScripts();
-    this.scriptsSet(data);
+    Store.storeRequested();
+    const response = await ScriptsService.getUserScripts();
+
+    if (response.length) {
+      this.scriptsSet(response);
+      Store.storeLoaded();
+    }
+
+    // refresh attempt
+    else {
+      if (response.code === TOKEN_EXPIRED) {
+        Auth.RefreshToken();
+        const secondResponse = await ScriptsService.getUserScripts();
+        if (response.length) {
+          this.scriptsSet(secondResponse);
+          Store.storeLoaded();
+        }
+      }
+
+      this.scriptsSet([]);
+      Store.storeError();
+    }
   }
 
   // scriptsRequested() {
@@ -47,12 +68,12 @@ class Scripts {
   }
 
   async scriptDelete() {
-    await Api.deleteScript(this.scriptToDelete);
+    await ScriptsService.deleteScript(this.scriptToDelete);
     this.scriptsLoad();
   }
 
   async scriptTitleDescriptionUpdate(title, description) {
-    await Api.changeTitleDescriptionScript(
+    await ScriptsService.changeTitleDescriptionScript(
       this.chosenScript.UID,
       this.chosenScript.orgID,
       title,

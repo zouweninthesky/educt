@@ -12,6 +12,14 @@ class Store {
     this.loading = true;
   }
 
+  storeLoaded() {
+    this.loading = false;
+  }
+
+  storeError() {
+    this.error = true;
+  }
+
   // async scriptsLoad() {
   //   const data = await Api.getUserScripts();
   //   this.scripts = await data;

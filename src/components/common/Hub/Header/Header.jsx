@@ -4,7 +4,7 @@ import "./Header.scss";
 
 import Icon from "../../Icon/Icon";
 
-import Auth from "../../../../store/Auth";
+import Auth from "../../../../store/auth";
 
 const Header = () => {
   return (

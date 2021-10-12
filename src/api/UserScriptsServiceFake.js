@@ -1,4 +1,4 @@
-export default class UserScriptsServiceFake {
+class UserScriptsServiceFake {
   data = [
     {
       UID: 24,
@@ -545,3 +545,5 @@ export default class UserScriptsServiceFake {
     });
   }
 }
+
+export default new UserScriptsServiceFake();
