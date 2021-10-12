@@ -32,7 +32,7 @@ export default class UserScriptsService {
   async deleteScript(UID) {
     await fetch(`${MAIN_URL}scripts/${UID}/`, {
       method: "DELETE",
-      // headers,
+      headers,
     });
   }
 
@@ -47,7 +47,7 @@ export default class UserScriptsService {
     await fetch(`${MAIN_URL}scripts/${UID}/`, {
       method: "PUT",
       headers: {
-        // ...headers,
+        ...headers,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),
