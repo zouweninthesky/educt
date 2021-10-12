@@ -27,11 +27,6 @@ const App = () => {
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
-        {/* <PrivateRoute path="/user" component={User} />
-        <PrivateRoute path="/player" component={Player} />
-        <PrivateRoute path="/editor" component={Editor} />
-        <PrivateRoute path="/author" component={Author} />
-        <PrivateRoute path="/sprite" component={SpritePage} /> */}
         <PrivateRoute path="/user">
           <User />
         </PrivateRoute>

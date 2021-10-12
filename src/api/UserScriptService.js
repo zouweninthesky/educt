@@ -1,14 +1,17 @@
+import Auth from "../store/Auth";
 import { MAIN_URL } from "../utils/constants/links";
 
 const headers = {
-  Authorization: `Bearer ${window.localStorage.getItem("token")}`,
+  Authorization: `Bearer ${Auth.token}`,
 };
 
 export default class UserScriptsService {
   async getUserScripts() {
     const response = await fetch(`${MAIN_URL}scripts/?page=1&perPage=15`, {
       method: "GET",
-      headers,
+      headers: {
+        Authorization: `Bearer ${Auth.token}`,
+      },
     });
 
     const data = await response.json();
@@ -29,7 +32,7 @@ export default class UserScriptsService {
   async deleteScript(UID) {
     await fetch(`${MAIN_URL}scripts/${UID}/`, {
       method: "DELETE",
-      headers,
+      // headers,
     });
   }
 
@@ -44,7 +47,7 @@ export default class UserScriptsService {
     await fetch(`${MAIN_URL}scripts/${UID}/`, {
       method: "PUT",
       headers: {
-        ...headers,
+        // ...headers,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(data),

@@ -11,8 +11,9 @@ const hash = (string) => {
 
 class Auth {
   token = window.localStorage.getItem("token") || null;
+  refresh = window.localStorage.getItem("refresh") || null;
   loading = false;
-  error = null;
+  error = "";
 
   constructor() {
     makeAutoObservable(this);
@@ -20,14 +21,16 @@ class Auth {
 
   async SignIn(login, password) {
     this.loading = true;
-    const tokenData = await Api.SignIn(login, hash(password));
+    const response = await Api.SignIn(login, hash(password));
     this.loading = false;
-    if (tokenData.user) {
-      this.token = tokenData.access;
-      window.localStorage.setItem("token", tokenData.access);
-      // routing.push("/user");
+    if (response.user) {
+      this.token = response.access;
+      this.refresh = response.refresh;
+      window.localStorage.setItem("token", response.access);
+      window.localStorage.setItem("refresh", response.refresh);
+      this.error = null;
     } else {
-      this.error = tokenData.details;
+      this.error = response.details;
     }
   }
 
@@ -36,13 +39,12 @@ class Auth {
     await Api.SignOut();
     window.localStorage.clear();
     this.token = null;
+    this.refresh = null;
     this.loading = false;
-    // routing.push("/login");
   }
 
   RefreshToken() {
     window.localStorage.clear();
-    // routing.push("/login");
   }
 }
 
