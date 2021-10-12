@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
@@ -16,11 +16,19 @@ import { MASK_DAY_MONTH_YEAR_DOTS } from "../../../../utils/constants/dateFormat
 const Info = observer((props) => {
   const history = useHistory();
 
-  const { chosenScript, chosenScriptTitle, chosenScriptDescription } = Scripts;
+  const { chosenScript } = Scripts;
 
   if (chosenScript === null) {
     return <></>;
   }
+
+  const [chosenScriptTitle, setChosenScriptTitle] = useState(
+    chosenScript.title
+  );
+
+  const [chosenScriptDescription, setChosenScriptDescription] = useState(
+    chosenScript.description
+  );
 
   const { isAuthor } = props;
 
@@ -38,11 +46,14 @@ const Info = observer((props) => {
           value={title}
           className="hub-info__title"
           onChange={(e) => {
-            Scripts.changeTitle(e.target.value);
+            setChosenScriptTitle(e.target.value);
           }}
           onKeyDown={(e) => {
             if (e.key === KEYBOARD_ENTER_BUTTON) {
-              Scripts.scriptTitleDescriptionUpdate();
+              Scripts.scriptTitleDescriptionUpdate(
+                chosenScriptTitle,
+                chosenScriptDescription
+              );
               e.target.blur();
             }
           }}
@@ -60,11 +71,14 @@ const Info = observer((props) => {
           type="text"
           value={description}
           onChange={(e) => {
-            Scripts.changeDescription(e.target.value);
+            setChosenScriptDescription(e.target.value);
           }}
           onKeyDown={(e) => {
             if (e.key === KEYBOARD_ENTER_BUTTON) {
-              Scripts.scriptTitleDescriptionUpdate();
+              Scripts.scriptTitleDescriptionUpdate(
+                chosenScriptTitle,
+                chosenScriptDescription
+              );
               e.target.blur();
             }
           }}
