@@ -20,12 +20,12 @@ class Scripts {
 
   // without this a warning popped up on each sciptsLoad
   scriptsSet(data) {
-    this.scripts = data;
+    this.scripts = [...this.scripts, ...data];
   }
 
-  async scriptsLoad() {
+  async scriptsLoad(pageNumber) {
     Store.storeRequested();
-    const response = await ScriptsService.getUserScripts();
+    const response = await ScriptsService.getUserScripts(pageNumber);
 
     if (response.length) {
       this.scriptsSet(response);
