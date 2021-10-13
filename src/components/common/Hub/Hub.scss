@@ -49,5 +49,17 @@
     margin: 0 auto 1rem;
 
     border-color: transparent;
+
+    &:hover {
+      background-color: $color-neutrals-faded;
+    }
+
+    &:disabled {
+      cursor: auto;
+
+      &:hover {
+        background-color: transparent;
+      }
+    }
   }
 }

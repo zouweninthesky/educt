@@ -14,6 +14,7 @@ import DeleteScriptModal from "./modals/DeleteScriptModal";
 
 import Scripts from "../../../store/scripts";
 import Store from "../../../store";
+import { SCRIPTS_PER_PAGE } from "../../../utils/constants/links";
 
 const Hub = observer((props) => {
   const { isAuthor } = props;
@@ -21,6 +22,13 @@ const Hub = observer((props) => {
   const { scripts } = Scripts;
 
   const [pagesLoaded, setPagesLoaded] = useState(1);
+  const [allLoaded, setAllLoaded] = useState(false);
+
+  const checkAllLoaded = () => {
+    if (scripts.length % SCRIPTS_PER_PAGE !== 0) {
+      setAllLoaded(true);
+    }
+  };
 
   useEffect(() => {
     Scripts.scriptsLoad(pagesLoaded);
@@ -49,6 +57,28 @@ const Hub = observer((props) => {
     }
   };
 
+  const loadButton = () => {
+    if (allLoaded) {
+      return (
+        <button className="button hub__load-button" disabled>
+          Все сценарии уже загружены
+        </button>
+      );
+    }
+    return (
+      <button
+        className="button hub__load-button"
+        onClick={() => {
+          Scripts.scriptsLoad(pagesLoaded);
+          setPagesLoaded((prev) => prev + 1);
+          checkAllLoaded();
+        }}
+      >
+        Загрузить ещё 15 сценариев
+      </button>
+    );
+  };
+
   return (
     <main className="hub container">
       <section className="hub__content">
@@ -59,21 +89,13 @@ const Hub = observer((props) => {
         {/* <Scrollbars autoHide autoHideTimeout={500}> */}
         <div className="hub__content-wrapper">
           <Scrollbars
-          // autoHide
-          // autoHideTimeout={500}
-          // renderView={(props) => <div className="hub__content-wrapper" />}
+            autoHide
+            autoHideTimeout={500}
+            // renderView={(props) => <div className="hub__content-wrapper" />}
           >
             {/* <div className="hub__content-wrapper"> */}
             {content()}
-            <button
-              className="button hub__load-button"
-              onClick={() => {
-                Scripts.scriptsLoad(pagesLoaded);
-                setPagesLoaded((prev) => prev + 1);
-              }}
-            >
-              Загрузить ещё 15 сценариев
-            </button>
+            {loadButton()}
             {/* </div> */}
           </Scrollbars>
         </div>

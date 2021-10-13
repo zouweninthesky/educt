@@ -1,15 +1,15 @@
 import Auth from "../store/auth";
 import scripts from "../store/scripts";
 import request from "./request";
-import { MAIN_URL } from "../utils/constants/links";
+import { MAIN_URL, SCRIPTS_PER_PAGE } from "../utils/constants/links";
 
 const headers = {
   Authorization: `Bearer ${Auth.token}`,
 };
 
 class UserScriptsService {
-  async getUserScripts() {
-    const url = `${MAIN_URL}scripts/?page=1&perPage=15`;
+  async getUserScripts(pageNumber) {
+    const url = `${MAIN_URL}scripts/?page=${pageNumber}&perPage=${SCRIPTS_PER_PAGE}`;
     const config = {
       method: "GET",
       headers: {
