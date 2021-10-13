@@ -1,3 +1,5 @@
+@use "../../../assets/scss/variables.scss" as *;
+
 .hub {
   display: flex;
   flex-direction: row;
@@ -5,21 +7,47 @@
 
   height: calc(100vh - 4rem);
 
+  padding-right: 0;
+
   &__content {
     width: 68%;
     height: calc(100vh - 4rem);
-    overflow-y: auto;
+    // overflow-y: auto;
     flex-grow: 2;
 
-    padding: 1rem 1.25rem 1rem 0;
+    // removed for scrollbar
+    // padding: 1rem 0 1rem 0;
+  }
+
+  &__content-filters {
+    min-height: 4.75rem;
+  }
+
+  & .dropdown {
+    margin-top: 1rem;
+  }
+
+  &__content-wrapper {
+    // height: calc(100vh - 8.75rem);
+    height: calc(100vh - 8.75rem);
+    padding: 1rem 0;
   }
 
   &__script-list {
     position: relative;
 
     list-style: none;
+    margin: 0;
 
-    padding-top: 1.625rem;
+    // padding: 1rem 0;
     padding-left: 0;
+  }
+
+  &__load-button {
+    color: $color-neutrals;
+
+    margin: 0 auto 1rem;
+
+    border-color: transparent;
   }
 }
