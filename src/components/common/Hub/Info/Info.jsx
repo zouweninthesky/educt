@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { observer } from "mobx-react-lite";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
@@ -16,27 +16,17 @@ import { MASK_DAY_MONTH_YEAR_DOTS } from "../../../../utils/constants/dateFormat
 const Info = observer((props) => {
   const history = useHistory();
 
-  const { chosenScript } = Scripts;
-
-  const [chosenScriptTitle, setChosenScriptTitle] = useState(
-    chosenScript?.title || "test"
-  );
-
-  const [chosenScriptDescription, setChosenScriptDescription] = useState(
-    chosenScript?.description || "test"
-  );
+  const { chosenScript, chosenScriptTitle, chosenScriptDescription } = Scripts;
 
   if (chosenScript === null) {
     return <></>;
   }
 
-  console.log(chosenScript.title);
-
   const { isAuthor } = props;
 
-  const title = chosenScript.title ? chosenScriptTitle : "Нет названия";
+  const title = chosenScriptTitle ? chosenScriptTitle : "Нет названия";
 
-  const description = chosenScript.description
+  const description = chosenScriptDescription
     ? chosenScriptDescription
     : "Нет описания";
 
@@ -48,14 +38,11 @@ const Info = observer((props) => {
           value={title}
           className="hub-info__title"
           onChange={(e) => {
-            setChosenScriptTitle(e.target.value);
+            Scripts.changeTitle(e.target.value);
           }}
           onKeyDown={(e) => {
             if (e.key === KEYBOARD_ENTER_BUTTON) {
-              Scripts.scriptTitleDescriptionUpdate(
-                chosenScriptTitle,
-                chosenScriptDescription
-              );
+              Scripts.scriptTitleDescriptionUpdate();
               e.target.blur();
             }
           }}
@@ -73,14 +60,11 @@ const Info = observer((props) => {
           type="text"
           value={description}
           onChange={(e) => {
-            setChosenScriptDescription(e.target.value);
+            Scripts.changeDescription(e.target.value);
           }}
           onKeyDown={(e) => {
             if (e.key === KEYBOARD_ENTER_BUTTON) {
-              Scripts.scriptTitleDescriptionUpdate(
-                chosenScriptTitle,
-                chosenScriptDescription
-              );
+              Scripts.scriptTitleDescriptionUpdate();
               e.target.blur();
             }
           }}
