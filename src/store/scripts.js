@@ -5,13 +5,15 @@ import { makeAutoObservable } from "mobx";
 import ScriptsService from "../api/UserScriptService";
 import Store from "./index";
 import Auth from "./auth";
-import { TOKEN_EXPIRED } from "../utils/constants/errorCodes";
+import { SCRIPTS_PER_PAGE } from "../utils/constants/links";
 
 class Scripts {
   scripts = [];
   chosenScript = null;
   chosenScriptTitle = null;
   chosenScriptDescription = null;
+  pagesLoaded = 1;
+  allLoaded = false;
   scriptToDelete = "";
 
   constructor() {
@@ -23,26 +25,27 @@ class Scripts {
     this.scripts = [...this.scripts, ...data];
   }
 
-  async scriptsLoad(pageNumber) {
+  // temp
+  scriptsClear() {
+    this.scripts = [];
+    this.pagesLoaded = 1;
+    this.allLoaded = false;
+  }
+
+  async scriptsLoad() {
     Store.storeRequested();
-    const response = await ScriptsService.getUserScripts(pageNumber);
+    const response = await ScriptsService.getUserScripts(this.pagesLoaded);
 
     if (response.length) {
       this.scriptsSet(response);
+      this.pagesLoaded++;
       Store.storeLoaded();
-    }
-
-    // refresh attempt
-    else {
-      if (response.code === TOKEN_EXPIRED) {
-        Auth.RefreshToken();
-        const secondResponse = await ScriptsService.getUserScripts();
-        if (response.length) {
-          this.scriptsSet(secondResponse);
-          Store.storeLoaded();
-        }
+      if (this.scripts.length % SCRIPTS_PER_PAGE !== 0) {
+        this.allLoaded = true;
       }
-
+    } else if (response.length === 0) {
+      this.allLoaded = true;
+    } else {
       this.scriptsSet([]);
       Store.storeError();
     }
@@ -71,7 +74,7 @@ class Scripts {
 
   async scriptDelete() {
     await ScriptsService.deleteScript(this.scriptToDelete);
-    this.scriptsLoad(1);
+    this.updateShownScripts();
   }
 
   changeTitle(title) {
@@ -89,7 +92,15 @@ class Scripts {
       this.chosenScriptTitle,
       this.chosenScriptDescription
     );
-    // this.scriptsLoad(1);
+    this.updateShownScripts();
+  }
+
+  async updateShownScripts() {
+    const oldPagesLoaded = this.pagesLoaded;
+    this.scriptsClear();
+    for (let i = 0; i < oldPagesLoaded; i++) {
+      await this.scriptsLoad();
+    }
   }
 }
 

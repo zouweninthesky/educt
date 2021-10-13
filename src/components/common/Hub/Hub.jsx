@@ -19,20 +19,11 @@ import { SCRIPTS_PER_PAGE } from "../../../utils/constants/links";
 const Hub = observer((props) => {
   const { isAuthor } = props;
 
-  const { scripts } = Scripts;
-
-  const [pagesLoaded, setPagesLoaded] = useState(1);
-  const [allLoaded, setAllLoaded] = useState(false);
-
-  const checkAllLoaded = () => {
-    if (scripts.length % SCRIPTS_PER_PAGE !== 0) {
-      setAllLoaded(true);
-    }
-  };
+  const { scripts, allLoaded } = Scripts;
 
   useEffect(() => {
-    Scripts.scriptsLoad(pagesLoaded);
-    setPagesLoaded((prev) => prev + 1);
+    Scripts.scriptsClear();
+    Scripts.scriptsLoad();
   }, []);
 
   const content = () => {
@@ -69,9 +60,7 @@ const Hub = observer((props) => {
       <button
         className="button hub__load-button"
         onClick={() => {
-          Scripts.scriptsLoad(pagesLoaded);
-          setPagesLoaded((prev) => prev + 1);
-          checkAllLoaded();
+          Scripts.scriptsLoad();
         }}
       >
         Загрузить ещё 15 сценариев
