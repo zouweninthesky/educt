@@ -47,6 +47,11 @@ const Header = () => {
             </button>
           </li>
           <li className="hub-header__dropdown-item">
+            <button className="hub-header__dropdown-link" type="button">
+              Скачать приложение
+            </button>
+          </li>
+          <li className="hub-header__dropdown-item">
             <button
               className="hub-header__dropdown-link"
               onClick={() => {

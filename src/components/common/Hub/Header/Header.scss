@@ -68,7 +68,8 @@
     top: 62px;
     right: 20px;
 
-    width: 11.25rem;
+    width: auto;
+    min-width: 11.25rem;
     min-height: 4.875rem;
 
     &:hover,
