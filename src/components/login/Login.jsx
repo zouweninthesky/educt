@@ -17,9 +17,9 @@ const Login = () => {
   const [loginState, setLoginState] = useState(initialState.login);
   const [passwordState, setPasswordState] = useState(initialState.password);
 
-  // if (Auth.token) {
-  //   return <Redirect to="/user" />;
-  // }
+  if (Auth.token) {
+    return <Redirect to="/user" />;
+  }
 
   const signIn = async (evt) => {
     evt.preventDefault();
