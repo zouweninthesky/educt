@@ -34,7 +34,7 @@ class UserScriptsService {
       method: "DELETE",
       headers,
     };
-    return await request(url, config);
+    await request(url, config, true);
   }
 
   async changeTitleDescriptionScript(UID, orgID, title, description) {
@@ -53,7 +53,7 @@ class UserScriptsService {
       }),
     };
 
-    return await request(url, config);
+    await request(url, config, true);
   }
 
   // async getUserScripts() {

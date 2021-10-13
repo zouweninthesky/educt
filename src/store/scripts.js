@@ -10,8 +10,8 @@ import { TOKEN_EXPIRED } from "../utils/constants/errorCodes";
 class Scripts {
   scripts = [];
   chosenScript = null;
-  // chosenScriptTitle = null;
-  // chosenScriptDescription = null;
+  chosenScriptTitle = null;
+  chosenScriptDescription = null;
   scriptToDelete = "";
 
   constructor() {
@@ -61,6 +61,8 @@ class Scripts {
   scriptChosen(UID) {
     const [chosenScript] = this.scripts.filter((script) => script.UID === UID);
     this.chosenScript = chosenScript;
+    this.chosenScriptTitle = chosenScript.title;
+    this.chosenScriptDescription = chosenScript.description;
   }
 
   scriptToDeleteChosen(UID) {
@@ -69,17 +71,25 @@ class Scripts {
 
   async scriptDelete() {
     await ScriptsService.deleteScript(this.scriptToDelete);
-    this.scriptsLoad();
+    this.scriptsLoad(1);
   }
 
-  async scriptTitleDescriptionUpdate(title, description) {
+  changeTitle(title) {
+    this.chosenScriptTitle = title;
+  }
+
+  changeDescription(description) {
+    this.chosenScriptDescription = description;
+  }
+
+  async scriptTitleDescriptionUpdate() {
     await ScriptsService.changeTitleDescriptionScript(
       this.chosenScript.UID,
       this.chosenScript.orgID,
-      title,
-      description
+      this.chosenScriptTitle,
+      this.chosenScriptDescription
     );
-    this.scriptsLoad();
+    // this.scriptsLoad(1);
   }
 }
 
