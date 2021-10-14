@@ -22,7 +22,6 @@ const ScriptItem = observer(({ id, title, isAuthor }) => {
           className="script-item__icon-button"
           type="button"
           onClick={() => {
-            // console.log(2222)
             ScriptsStore.scriptToDeleteChosen(id);
             setModalID(MODAL_DELETE_SCRIPT_ID);
           }}
