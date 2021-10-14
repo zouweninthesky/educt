@@ -7,7 +7,7 @@ import Hub from "../common/Hub/Hub";
 import Auth from "../../store/auth";
 
 const Author = () => {
-  if (!Auth.isAuthor) {
+  if (!Auth.isEditor) {
     return <Redirect to="/user" />;
   }
 
@@ -17,7 +17,7 @@ const Author = () => {
         Меню выбора сценариев для редактирования
       </h1>
       <Header />
-      <Hub isAuthor={true} />
+      <Hub isEditor={true} />
     </>
   );
 };

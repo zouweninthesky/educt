@@ -24,6 +24,8 @@ const Player = () => {
     disableNext: false,
     isLastStep: false,
   };
+  console.log(1111);
+  console.log(PlayerStore.script);
 
   const [, setModalID] = useModal();
   const [playerState, setPlayerState] = useState(state);

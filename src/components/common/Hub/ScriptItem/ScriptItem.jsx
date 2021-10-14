@@ -1,16 +1,19 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 import "./ScriptItem.scss";
 
 import Icon from "../../Icon/Icon";
 
-import Scripts from "../../../../store/scripts";
+import Store from "../../../../store";
+import PlayerStore from "../../../../store/player";
+import ScriptsStore from "../../../../store/scripts";
 import { useModal } from "../../Modal/ModalContext";
 import { MODAL_DELETE_SCRIPT_ID } from "../../../../utils/constants/modals";
 
 const ScriptItem = observer(({ id, title, isAuthor }) => {
   const [, setModalID] = useModal();
+  const history = useHistory();
 
   const deleteButton = () => {
     if (isAuthor) {
@@ -20,7 +23,7 @@ const ScriptItem = observer(({ id, title, isAuthor }) => {
           type="button"
           onClick={() => {
             // console.log(2222)
-            Scripts.scriptToDeleteChosen(id);
+            ScriptsStore.scriptToDeleteChosen(id);
             setModalID(MODAL_DELETE_SCRIPT_ID);
           }}
         >
@@ -36,17 +39,24 @@ const ScriptItem = observer(({ id, title, isAuthor }) => {
       <button
         className="script-item__button"
         type="button"
-        onClick={() => Scripts.scriptChosen(id)}
+        onClick={() => {
+          ScriptsStore.scriptChosen(id);
+        }}
       >
         <span>{title}</span>
       </button>
-      <Link
+      <button
         className="script-item__icon-button"
         to="/player/:id/show"
-        onClick={() => Scripts.scriptChosen(id)}
+        onClick={async () => {
+          ScriptsStore.scriptChosen(id);
+          Store.storeRequested();
+          await PlayerStore.playerGetScript();
+          history.push("/player");
+        }}
       >
         <Icon id="play" width="20" />
-      </Link>
+      </button>
       <button className="script-item__icon-button" type="button">
         <Icon id="graph-bar" width="20" />
       </button>
