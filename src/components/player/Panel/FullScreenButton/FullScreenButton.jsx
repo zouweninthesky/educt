@@ -25,7 +25,11 @@ const FullScreenButton = () => {
   const svgId = fullScreen ? NOT_FULLSCREEN_ID : FULLSCREEN_ID;
 
   return (
-    <button type="button" className="panel__button" onClick={enterFullscreen}>
+    <button
+      type="button"
+      className="panel__button button button--simple button--icon-only"
+      onClick={enterFullscreen}
+    >
       <Icon id={svgId} width="24" />
     </button>
   );

@@ -29,7 +29,7 @@
 
     border: 0.0625rem solid transparent;
 
-    &:last-of-type {
+    &:last-child {
       margin-right: 0;
     }
 
@@ -40,6 +40,16 @@
     & svg {
       position: relative;
       top: -0.0625rem;
+    }
+
+    &:disabled {
+      cursor: auto;
+
+      &:hover {
+        color: $color-primary;
+
+        background-color: transparent;
+      }
     }
   }
 

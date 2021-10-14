@@ -36,19 +36,14 @@
 
     padding: 0.5rem;
 
-    background-color: transparent;
-    border: 0;
-    border-radius: 0.5rem;
-    cursor: pointer;
-
     &:hover {
       background-color: $color-info-faded;
     }
 
     &:disabled {
-      opacity: 0.3;
-      cursor: default;
-      background-color: transparent;
+      &:hover {
+        color: $color-info;
+      }
     }
   }
 

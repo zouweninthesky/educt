@@ -15,7 +15,7 @@ const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
       <h2 className="visually-hidden">Панель управления</h2>
       <div className="panel__left-side">
         <button
-          className="panel__button"
+          className="panel__button button button--simple button--icon-only"
           type="button"
           onClick={() => setModalID(MODAL_CLOSE_ID)}
         >
@@ -26,7 +26,7 @@ const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
       <div className="panel__center">
         <button
           type="button"
-          className="panel__button"
+          className="panel__button button button--simple button--icon-only"
           onClick={prevStep}
           disabled={disablePrev}
         >
@@ -34,7 +34,7 @@ const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
         </button>
         <button
           type="button"
-          className="panel__button"
+          className="panel__button button button--simple button--icon-only"
           onClick={nextStep}
           disabled={disableNext}
         >
@@ -47,10 +47,17 @@ const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
         </div>
       </div>
       <div className="panel__right-side">
-        <button type="button" className="panel__button">
+        <button
+          type="button"
+          className="panel__button button button--simple button--icon-only"
+        >
           <Icon id="volume" width="24" />
         </button>
-        <button type="button" className="panel__button" disabled>
+        <button
+          type="button"
+          className="panel__button button button--simple button--icon-only"
+          disabled
+        >
           <Icon id="zoom" width="24" />
         </button>
         <FullScreenButton />
