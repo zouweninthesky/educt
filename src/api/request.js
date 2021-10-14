@@ -5,7 +5,15 @@ const request = async (url, config, responseNotNeeded) => {
   let response = await fetch(url, config);
   if (response.status === UNATHORIZED) {
     await Auth.RefreshToken();
-    response = await fetch(url, config);
+    const newConfig = {
+      ...config,
+      headers: {
+        ...config.headers,
+        Authorization: `Bearer ${Auth.token}`,
+      },
+    };
+
+    response = await fetch(url, newConfig);
   }
 
   if (responseNotNeeded) {
