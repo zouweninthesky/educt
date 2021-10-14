@@ -1,5 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { useHistory } from "react-router";
 import "./Header.scss";
 
 import Icon from "../../Icon/Icon";
@@ -7,6 +8,8 @@ import Icon from "../../Icon/Icon";
 import Auth from "../../../../store/auth";
 
 const Header = () => {
+  const history = useHistory();
+
   const authorLink = () => {
     if (Auth.isAuthor) {
       return (
@@ -73,8 +76,9 @@ const Header = () => {
           <li className="hub-header__dropdown-item">
             <button
               className="hub-header__dropdown-link"
-              onClick={() => {
-                Auth.SignOut();
+              onClick={async () => {
+                await Auth.SignOut();
+                history.push("/login");
               }}
             >
               Выйти из аккаунта
