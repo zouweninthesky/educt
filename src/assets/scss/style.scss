@@ -156,6 +156,18 @@ a {
       color: $color-primary-dark;
       background-color: $color-primary-faded;
     }
+
+    &:disabled {
+      opacity: 0.3;
+      cursor: default;
+      background-color: transparent;
+
+      &:hover,
+      &:focus {
+        color: $color-primary;
+        background-color: transparent;
+      }
+    }
   }
 
   &--icon-only {

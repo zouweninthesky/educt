@@ -10,6 +10,7 @@ const hash = (string) => {
 class Auth {
   token = window.localStorage.getItem("token") || null;
   refresh = window.localStorage.getItem("refresh") || null;
+  isAuthor = null;
   loading = false;
   error = "";
 
@@ -26,6 +27,7 @@ class Auth {
       this.refresh = response.refresh;
       window.localStorage.setItem("token", response.access);
       window.localStorage.setItem("refresh", response.refresh);
+      this.isAuthor = response.isAuthor;
       this.error = null;
     } else {
       this.error = response.details;
@@ -38,6 +40,7 @@ class Auth {
     window.localStorage.clear();
     this.token = null;
     this.refresh = null;
+    this.isAuthor = null;
     this.loading = false;
   }
 

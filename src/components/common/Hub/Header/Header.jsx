@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Header.scss";
 
 import Icon from "../../Icon/Icon";
@@ -7,6 +7,28 @@ import Icon from "../../Icon/Icon";
 import Auth from "../../../../store/auth";
 
 const Header = () => {
+  const authorLink = () => {
+    if (Auth.isAuthor) {
+      return (
+        <NavLink
+          to="/author"
+          className="hub-header__tab button button--simple"
+          activeClassName="hub-header__tab--active"
+        >
+          <Icon id="puzzle-piece" width="22" />
+          Конструктор
+        </NavLink>
+      );
+    }
+
+    return (
+      <button className="hub-header__tab button button--simple" disabled>
+        <Icon id="puzzle-piece" width="22" />
+        Конструктор
+      </button>
+    );
+  };
+
   return (
     <header className="hub-header container">
       <a href="/" className="hub-header__logo">
@@ -22,14 +44,7 @@ const Header = () => {
           <Icon id="apps" width="22" />
           Сценарии
         </NavLink>
-        <NavLink
-          to="/author"
-          className="hub-header__tab button button--simple"
-          activeClassName="hub-header__tab--active"
-        >
-          <Icon id="puzzle-piece" width="22" />
-          Конструктор
-        </NavLink>
+        {authorLink()}
       </div>
       <a href="/" className="hub-header__profile-link">
         {/* <img src="#" width="46" height="46" alt="Изображение пользователя"></img> */}
@@ -47,7 +62,11 @@ const Header = () => {
             </button>
           </li>
           <li className="hub-header__dropdown-item">
-            <button className="hub-header__dropdown-link" type="button">
+            <button
+              className="hub-header__dropdown-link"
+              type="button"
+              disabled={!Auth.isAuthor}
+            >
               Скачать приложение
             </button>
           </li>
