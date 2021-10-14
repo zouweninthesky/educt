@@ -107,7 +107,6 @@ const Info = observer((props) => {
         </div>
 
         <button
-          to="/player/:id/show"
           className="hub-info__button button"
           type="button"
           onClick={async () => {

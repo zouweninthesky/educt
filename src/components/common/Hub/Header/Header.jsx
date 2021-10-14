@@ -11,7 +11,7 @@ const Header = () => {
   const history = useHistory();
 
   const authorLink = () => {
-    if (Auth.isAuthor) {
+    if (Auth.isEditor) {
       return (
         <NavLink
           to="/author"
@@ -68,7 +68,7 @@ const Header = () => {
             <button
               className="hub-header__dropdown-link"
               type="button"
-              disabled={!Auth.isAuthor}
+              disabled={!Auth.isEditor}
             >
               Скачать приложение
             </button>
