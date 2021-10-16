@@ -1,8 +1,8 @@
 import { makeAutoObservable } from "mobx";
 
-import ScriptsService from "../api/UserScriptsServiceFake";
+// import ScriptsService from "../utils/UserScriptsServiceFake";
 // import AuthService from "../api/AuthService";
-// import ScriptsService from "../api/UserScriptService";
+import ScriptsService from "../api/UserScriptService";
 import Store from "./index";
 import Auth from "./auth";
 import { SCRIPTS_PER_PAGE } from "../utils/constants/links";
