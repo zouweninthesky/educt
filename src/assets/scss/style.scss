@@ -92,6 +92,7 @@ a {
   font-weight: 500;
   font-size: 1.125rem;
   text-align: center;
+  color: inherit;
 
   padding: 0.625rem 1.25rem;
 
@@ -171,6 +172,8 @@ a {
   }
 
   &--icon-only {
+    padding: 0.625rem;
+
     & svg {
       margin-right: 0;
     }

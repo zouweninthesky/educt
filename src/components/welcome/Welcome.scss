@@ -1,0 +1,61 @@
+@use "../../assets/scss/variables.scss" as *;
+
+.welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+
+  &__wrapper {
+    width: 28.4375rem;
+  }
+
+  &__logo {
+    color: $color-neutrals-lighter;
+
+    margin-bottom: 2.875rem;
+  }
+
+  &__description {
+    font-size: 1.125rem;
+    line-height: 1.5625rem;
+    color: $color-neutrals-dark;
+  }
+
+  &__likes {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    margin-top: 1.5rem;
+  }
+
+  &__like-button {
+    padding: 0.5625rem;
+
+    border-color: $color-neutrals-faded;
+    background-color: $color-neutrals-faded;
+
+    &--clicked {
+      color: $color-background;
+
+      border-color: $color-danger;
+      background-color: $color-danger;
+    }
+  }
+
+  &__counter {
+    font-size: 1.125rem;
+    font-weight: 700;
+
+    margin: 12px 0 0 1rem;
+  }
+
+  @media (max-width: 1280px) {
+    &__wrapper {
+      width: 22.375rem;
+    }
+  }
+}

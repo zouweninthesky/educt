@@ -12,7 +12,7 @@ const NoScripts = ({ isEditor }) => {
   const button = () =>
     isEditor ? (
       <button type="button" className="button no-scripts__button">
-        <Icon id="angle-down" width="22" />
+        <Icon id="arrow-down" width="22" />
         Приложение для Windows
       </button>
     ) : (
