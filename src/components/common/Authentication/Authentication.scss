@@ -113,13 +113,22 @@
     }
 
     & input {
+      font-size: inherit;
+
       width: 100%;
       min-height: 3.125rem;
 
-      padding: 1rem 1.5rem;
+      padding: 0.9375rem 1.5rem;
 
-      border: 1px solid $color-neutrals-light;
+      border: 1px solid $color-neutrals-lighter;
       border-radius: 0.25rem;
+
+      &:focus,
+      &:active {
+        border-color: $color-neutrals-light;
+
+        outline: none;
+      }
     }
 
     &:last-of-type {
