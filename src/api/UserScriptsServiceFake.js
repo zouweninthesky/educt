@@ -1,5 +1,6 @@
 class UserScriptsServiceFake {
-  data = [
+  data = [];
+  data1 = [
     {
       UID: 24,
       title: "Выгрузка табеля учета рабочего времени",

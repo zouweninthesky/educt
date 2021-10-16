@@ -11,12 +11,12 @@ import ScriptsStore from "../../../../store/scripts";
 import { useModal } from "../../Modal/ModalContext";
 import { MODAL_DELETE_SCRIPT_ID } from "../../../../utils/constants/modals";
 
-const ScriptItem = observer(({ id, title, isAuthor }) => {
+const ScriptItem = observer(({ id, title, isEditor }) => {
   const [, setModalID] = useModal();
   const history = useHistory();
 
   const deleteButton = () => {
-    if (isAuthor) {
+    if (isEditor) {
       return (
         <button
           className="script-item__icon-button"
