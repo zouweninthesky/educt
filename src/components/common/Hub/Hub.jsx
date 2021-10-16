@@ -15,9 +15,10 @@ import DeleteScriptModal from "./modals/DeleteScriptModal";
 import Scripts from "../../../store/scripts";
 import Store from "../../../store";
 import { SCRIPTS_PER_PAGE } from "../../../utils/constants/links";
+import NoScripts from "./NoScripts/NoScripts";
 
 const Hub = observer((props) => {
-  const { isAuthor } = props;
+  const { isEditor } = props;
 
   const { scripts, allLoaded } = Scripts;
 
@@ -25,28 +26,6 @@ const Hub = observer((props) => {
     Scripts.scriptsClear();
     Scripts.scriptsLoad();
   }, []);
-
-  const content = () => {
-    if (scripts && scripts.length) {
-      const scriptItems = scripts.map((script, i) => {
-        return (
-          <ScriptItem
-            key={script.UID}
-            id={script.UID}
-            title={script.title}
-            isAuthor={isAuthor}
-          />
-        );
-      });
-      return <ul className="hub__script-list">{scriptItems}</ul>;
-    } else {
-      return (
-        <>
-          <Spinner show={true} />
-        </>
-      );
-    }
-  };
 
   const loadButton = () => {
     if (allLoaded) {
@@ -68,28 +47,56 @@ const Hub = observer((props) => {
     );
   };
 
+  const content = () => {
+    if (scripts) {
+      if (scripts.length !== 0) {
+        const scriptItems = scripts.map((script, i) => {
+          return (
+            <ScriptItem
+              key={script.UID}
+              id={script.UID}
+              title={script.title}
+              isEditor={isEditor}
+            />
+          );
+        });
+        return (
+          <>
+            <div className="hub__content-filters">
+              <FilterDropdown />
+            </div>
+            <div className="hub__content-wrapper">
+              <Scrollbars autoHide autoHideTimeout={500}>
+                <ul className="hub__script-list">{scriptItems}</ul>
+                {loadButton()}
+              </Scrollbars>
+            </div>
+          </>
+        );
+      } else {
+        return <NoScripts isEditor={isEditor} />;
+      }
+    } else {
+      return (
+        <>
+          <div className="hub__content-filters">
+            <FilterDropdown />
+          </div>
+          <div className="hub__content-wrapper">
+            <Spinner show={true} />
+          </div>
+        </>
+      );
+    }
+  };
+
   return (
     <main className="hub container">
       <section className="hub__content">
         <h2 className="visually-hidden">Список сценариев</h2>
-        <div className="hub__content-filters">
-          <FilterDropdown />
-        </div>
-        {/* <Scrollbars autoHide autoHideTimeout={500}> */}
-        <div className="hub__content-wrapper">
-          <Scrollbars
-            autoHide
-            autoHideTimeout={500}
-            // renderView={(props) => <div className="hub__content-wrapper" />}
-          >
-            {/* <div className="hub__content-wrapper"> */}
-            {content()}
-            {loadButton()}
-            {/* </div> */}
-          </Scrollbars>
-        </div>
+        {content()}
       </section>
-      <Info isAuthor={isAuthor} />
+      <Info isEditor={isEditor} />
       <DeleteScriptModal />
       <Overlay />
     </main>

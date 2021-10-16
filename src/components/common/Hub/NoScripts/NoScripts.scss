@@ -1,0 +1,47 @@
+@use "../../../../assets/scss/variables.scss" as *;
+
+.no-scripts {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: calc(100vh - 4rem);
+
+  &__wrapper {
+    max-width: 37.5rem;
+
+    margin-bottom: 5%;
+  }
+
+  &__header {
+    font-weight: 700;
+    font-size: 2rem;
+    line-height: 2.2rem;
+    color: $color-neutrals-dark;
+    text-align: center;
+
+    margin-top: 0;
+  }
+
+  &__description {
+    font-size: 1.125rem;
+    line-height: 1.575rem;
+    color: $color-neutrals-dark;
+    text-align: center;
+  }
+
+  &__button {
+    color: $color-background;
+
+    margin: 2.5625rem auto 0;
+
+    background-color: $color-secondary;
+    border-color: $color-secondary;
+
+    &:hover,
+    &:focus {
+      background-color: $color-secondary-dark;
+      border-color: $color-secondary-dark;
+    }
+  }
+}

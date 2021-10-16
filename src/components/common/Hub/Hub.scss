@@ -30,7 +30,7 @@
   &__content-wrapper {
     // height: calc(100vh - 8.75rem);
     height: calc(100vh - 8.75rem);
-    padding: 1rem 0;
+    padding: 1rem 0 0;
   }
 
   &__script-list {
@@ -46,7 +46,7 @@
   &__load-button {
     color: $color-neutrals;
 
-    margin: 0 auto 1rem;
+    margin: 0 auto 2rem;
 
     border-color: transparent;
 
