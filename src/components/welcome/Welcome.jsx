@@ -15,10 +15,10 @@ const Welcome = () => {
           className="welcome__logo"
         />
         <p className="welcome__description">
-          Сейчас наш сервис работает в тестовом режиме.
+          Сейчас наш сервис работает в&nbsp;тестовом режиме.
         </p>
         <p className="welcome__description">
-          Скоро сделаем сайт, чтобы делиться новостями и апдейтами, а пока
+          Скоро сделаем сайт, чтобы делиться новостями и&nbsp;апдейтами, а пока
           можете поставить лайк!
         </p>
         <div className="welcome__likes">
