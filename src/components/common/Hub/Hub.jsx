@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Scrollbars } from "react-custom-scrollbars";
 import "./Hub.scss";
@@ -7,14 +7,10 @@ import FilterDropdown from "./FilterDropdown/FilterDropdown";
 import Info from "./Info/Info";
 import ScriptItem from "./ScriptItem/ScriptItem";
 import Spinner from "../../common/Spinner/Spinner";
-import Loader from "../Loader/Loader";
-import ErrorIndicator from "../../common/ErrorIndicator/ErrorIndicator";
 import Overlay from "../../common/Modal/Overlay";
 import DeleteScriptModal from "./modals/DeleteScriptModal";
 
 import Scripts from "../../../store/scripts";
-import Store from "../../../store";
-import { SCRIPTS_PER_PAGE } from "../../../utils/constants/links";
 import NoScripts from "./NoScripts/NoScripts";
 
 const Hub = observer((props) => {
@@ -63,7 +59,7 @@ const Hub = observer((props) => {
         return (
           <>
             <div className="hub__content-filters">
-              <FilterDropdown />
+              {/* <FilterDropdown /> */}
             </div>
             <div className="hub__content-wrapper">
               <Scrollbars autoHide autoHideTimeout={500}>
@@ -76,7 +72,7 @@ const Hub = observer((props) => {
       } else {
         return <NoScripts isEditor={isEditor} />;
       }
-    } else {
+    } else if (scripts && scripts.length === 0) {
       return (
         <>
           <div className="hub__content-filters">
@@ -87,6 +83,8 @@ const Hub = observer((props) => {
           </div>
         </>
       );
+    } else {
+      return <Spinner show={true} />;
     }
   };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import "./Like.scss";
 
 import Icon from "../../common/Icon/Icon";
