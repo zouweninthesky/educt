@@ -2,6 +2,7 @@ import React from "react";
 import "./Welcome.scss";
 
 import Icon from "../common/Icon/Icon";
+import Like from "./Like/Like";
 
 const Welcome = () => {
   return (
@@ -21,18 +22,7 @@ const Welcome = () => {
           Скоро сделаем сайт, чтобы делиться новостями и&nbsp;апдейтами, а пока
           можете поставить лайк!
         </p>
-        <div className="welcome__likes">
-          <button
-            className="welcome__like-button button button--icon-only"
-            type="button"
-            onClick={() => {
-              console.log("Ща все будет");
-            }}
-          >
-            <Icon id="like" width="22" />
-          </button>
-          <p className="welcome__counter">12</p>
-        </div>
+        <Like />
       </div>
     </main>
   );
