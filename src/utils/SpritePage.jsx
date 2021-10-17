@@ -114,6 +114,12 @@ const SpritePage = () => {
           </svg>
         </div>
         <div>
+          <p>like-clicked</p>
+          <svg width="40" height="40">
+            <use xlinkHref="#like-clicked"></use>
+          </svg>
+        </div>
+        <div>
           <p>layer-group</p>
           <svg width="40" height="40">
             <use xlinkHref="#layer-group"></use>
