@@ -19,6 +19,7 @@ const IntroModal = ({ script }) => {
   }
 
   const stepString = createNumberStringMale(script.steps.length, "слайд");
+  const title = script.title || "Нет названия";
   const description = script.description || "Нет описания";
   const minuteString = createNumberStringFemale(
     Math.ceil(script.steps.length / 4),
@@ -27,7 +28,7 @@ const IntroModal = ({ script }) => {
 
   return (
     <Modal modifier="wide">
-      <h2 className="modal__header">{script.title}</h2>
+      <h2 className="modal__header">{title}</h2>
       <div className="modal__info-wrapper">
         <div className="modal__description">
           <p>{description}</p>

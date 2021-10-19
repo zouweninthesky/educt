@@ -52,6 +52,7 @@ const Hub = observer((props) => {
               key={script.UID}
               id={script.UID}
               title={script.title}
+              createTime={script.createTime}
               isEditor={isEditor}
             />
           );
