@@ -24,10 +24,16 @@ const Info = observer((props) => {
 
   const { isEditor } = props;
 
-  const title = chosenScriptTitle ? chosenScriptTitle : "Нет названия";
+  const title = chosenScriptTitle
+    ? chosenScriptTitle
+    : isEditor
+    ? "Добавьте название"
+    : "Нет названия";
 
   const description = chosenScriptDescription
     ? chosenScriptDescription
+    : isEditor
+    ? "Добавьте описание"
     : "Нет описания";
 
   const infoTitle = () => {
