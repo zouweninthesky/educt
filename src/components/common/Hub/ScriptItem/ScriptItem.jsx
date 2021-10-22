@@ -65,7 +65,7 @@ const ScriptItem = observer(({ id, title, createTime, isEditor }) => {
       >
         <Icon id="play" width="20" />
       </button>
-      <button className="script-item__icon-button" type="button">
+      <button className="script-item__icon-button" type="button" disabled>
         <Icon id="graph-bar" width="20" />
       </button>
       {deleteButton()}

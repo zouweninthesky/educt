@@ -1,4 +1,5 @@
 @use "../../assets/scss/variables.scss" as *;
+@use "../../assets/scss/mixins.scss" as *;
 
 .welcome {
   display: flex;
@@ -23,13 +24,17 @@
     color: $color-neutrals-dark;
   }
 
-  @media (max-width: 1280px) {
+  // @media (max-width: 1280px) {
+
+  // }
+
+  @include vp-laptop {
     &__wrapper {
       max-width: 22.375rem;
     }
   }
 
-  @media (max-width: 1024px) {
+  @include vp-tablet {
     justify-content: flex-start;
     align-items: flex-start;
 
@@ -40,7 +45,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @include vp-mobile {
     padding: 0 1rem;
   }
 }

@@ -1,4 +1,5 @@
 @use "../../../assets/scss/variables.scss" as *;
+@use "../../../assets/scss/mixins.scss" as *;
 
 .auth {
   display: flex;
@@ -175,7 +176,7 @@
     }
   }
 
-  @media (max-width: 1024px) {
+  @include vp-tablet {
     flex-direction: column;
 
     padding-left: 6.875rem;
@@ -218,7 +219,7 @@
     }
   }
 
-  @media (max-width: 768px) {
+  @include vp-mobile {
     padding: 1rem;
 
     align-items: center;
