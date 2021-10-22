@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import "./Viewbox.scss";
 
 import Icon from "../Icon/Icon";
@@ -14,11 +14,24 @@ const MARGIN_FOR_ACTION = 70;
 const Viewbox = ({ mod, step, actionClick }) => {
   const image = useRef(null);
 
+  const { boxCoords } = step.metaInfo;
+
   const [shrinkRatio, setShrinkRatio] = useState(
-    image.complete ? image.current.clientWidth / image.current.naturalWidth : 1
+    image.current && image.current.complete
+      ? image.current.clientWidth / image.current.naturalWidth
+      : 1
   );
+
+  const [actionShown, setActionShown] = useState(false);
+
+  const actionStyle = {
+    top: boxCoords.upperLeft.y * shrinkRatio - 4,
+    left: boxCoords.upperLeft.x * shrinkRatio - 4,
+    display: actionShown ? "block" : "none",
+  };
+
   const [actionClass, setActionClass] = useState(
-    image.complete
+    image.current && image.current.complete
       ? actionStyle.width + actionStyle.left + MARGIN_FOR_ACTION >=
         image.current.clientWidth
         ? "viewbox__action--left"
@@ -26,25 +39,40 @@ const Viewbox = ({ mod, step, actionClick }) => {
       : ""
   );
 
+  useEffect(() => {
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  });
+
   const mainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
 
   const imageLink = `${STORAGE_URL}${step.imageUID}`;
 
-  const { boxCoords } = step.metaInfo;
+  const getShrinkRatio = () => {
+    setShrinkRatio(image.current.clientWidth / image.current.naturalWidth);
+  };
+
+  const onResize = () => {
+    if (
+      image.current &&
+      image.current.naturalWidth !== 0 &&
+      image.current.complete
+    ) {
+      getShrinkRatio();
+    }
+  };
+
+  window.addEventListener("resize", onResize);
 
   const getShrinkRatioActionClass = () => {
-    setShrinkRatio(image.current.clientWidth / image.current.naturalWidth);
+    getShrinkRatio();
     setActionClass(
       actionStyle.width + actionStyle.left + MARGIN_FOR_ACTION >=
         image.current.clientWidth
         ? "viewbox__action--left"
         : ""
     );
-  };
-
-  const actionStyle = {
-    top: boxCoords.upperLeft.y * shrinkRatio - 4,
-    left: boxCoords.upperLeft.x * shrinkRatio - 4,
   };
 
   const actionButtonStyle = {
@@ -112,6 +140,7 @@ const Viewbox = ({ mod, step, actionClick }) => {
           ref={image}
           onLoad={() => {
             getShrinkRatioActionClass();
+            setActionShown(true);
           }}
         />
         <div className={`viewbox__action ${actionClass}`} style={actionStyle}>
