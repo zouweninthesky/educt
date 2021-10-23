@@ -44,7 +44,7 @@ class Editor {
   // Показывается или нет дропдаун для выбора типа действия
   actionPickerVisible = false;
 
-  mode = "tools";
+  mode = "overview";
 
   constructor() {
     makeAutoObservable(this);
@@ -81,15 +81,15 @@ class Editor {
     this.loading = false;
   }
 
-  // async scriptLoad() {
-  //   const data = await Api.getUserScripts();
-  //   this.scriptOld.title = data.title;
-  //   this.scriptOld.description = data.description;
-  //   this.stepsOld = data.steps;
-  // }
-
   changeShrinkRatio(newVal) {
     this.currentStepData.shrinkRatio = newVal;
+  }
+
+  openStep(UID) {
+    this.currentStepNumber = this.steps.findIndex((step) => step.UID === UID);
+    console.log(this.currentStepNumber);
+    this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+    this.mode = "tools";
   }
 
   nextStep() {
@@ -97,9 +97,7 @@ class Editor {
     if (this.currentStepNumber < this.steps.length - 1) {
       const temp = this.currentStepNumber + 1;
       this.currentStepNumber = temp;
-      console.log(this.currentStepNumber);
       this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
-      console.log(this.currentStepData.description);
     }
   }
 

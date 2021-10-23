@@ -93,8 +93,8 @@ const Viewbox = observer(
       } else {
         image.current.onload = () => {
           setImageOffsets({
-            x: image.current.getBoundingClientRect().left,
-            y: image.current.getBoundingClientRect().top,
+            x: image.current?.getBoundingClientRect().left,
+            y: image.current?.getBoundingClientRect().top,
           });
         };
       }
