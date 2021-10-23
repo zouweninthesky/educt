@@ -203,7 +203,15 @@ const Editor = observer(({ scriptUID }) => {
 
       {currentPanel()}
       {SavingAreas()}
-      <CommentModal />
+      <CommentModal
+        step={EditorStore.currentStepData.description}
+        onApply={() => {
+          EditorStore.saveStepMasks();
+        }}
+        onCancel={() => {
+          EditorStore.cancelStepMasks();
+        }}
+      />
       <DeleteModal onDelete={() => EditorStore.deleteStep()} />
       <NoSaveModal />
       <SettingsModal />
