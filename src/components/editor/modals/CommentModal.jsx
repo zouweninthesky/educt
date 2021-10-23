@@ -1,29 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
-import Editor from "../../../store/editor";
+import EditorStore from "../../../store/editor";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_COMMENT_ID } from "../../../utils/constants/modals";
 
-const CommentModal = () => {
+const CommentModal = ({ onApply, onCancel }) => {
   const [modalID, setModalID] = useModal();
+  const [value, setValue] = useState(EditorStore.currentStepData.description);
 
   if (modalID !== MODAL_COMMENT_ID) {
     return <></>;
   }
-
-  console.log(Editor);
 
   return (
     <Modal modifier="wide">
       <h2 className="modal__header">Комментарий</h2>
       <div className="modal__info-wrapper">
         <div className="modal__description">
-          <textarea className="modal__editable-text modal__editable-text--wide">
-            {/* {Editor.currentStepData.description} */}
-          </textarea>
+          <textarea
+            className="modal__editable-text modal__editable-text--wide"
+            value={value}
+            onChange={(e) => {
+              setValue(e.target.value);
+            }}
+          ></textarea>
         </div>
       </div>
       <div className="modal__upload-wrapper">
@@ -39,14 +42,26 @@ const CommentModal = () => {
         </button>
       </div>
       <div className="modal__button-wrapper">
-        <button className="button button--accept" type="button">
+        <button
+          className="button button--accept"
+          type="button"
+          onClick={() => {
+            EditorStore.currentStepData.description = value;
+            onApply();
+            setModalID();
+          }}
+        >
           <Icon id="accept" width="22" />
           Готово
         </button>
         <button
           className="button button--discard"
           type="button"
-          onClick={() => setModalID()}
+          onClick={() => {
+            setValue(EditorStore.currentStepData.description);
+            onCancel();
+            setModalID();
+          }}
         >
           <Icon id="cancel" width="22" />
           Отменить

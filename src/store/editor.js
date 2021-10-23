@@ -56,8 +56,6 @@ class Editor {
     this.scriptData = await Api.getScript(this.scriptUID);
     this.stepsOld = this.scriptData.steps;
     this.steps = this.scriptData.steps;
-    console.log(this.steps);
-    console.log(this.scriptData.steps);
     this.steps.forEach((step) => {
       step.masks = [];
       step.shrinkRatio = 1;
