@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { toJS } from 'mobx';
+import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import { Scrollbars } from "react-custom-scrollbars";
 import "./Hub.scss";
@@ -26,12 +26,12 @@ const Hub = observer((props) => {
     (async () => {
       Scripts.scriptsClear();
       await Scripts.scriptsLoad();
-    })()
+    })();
   }, []);
 
   const content = () => {
     if (scripts && scripts.length) {
-      const scriptItems = scripts.map((script, i) => {
+      const scriptItems = scripts.map((script) => {
         return (
           <ScriptItem
             key={script.UID}
