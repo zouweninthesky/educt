@@ -59,6 +59,10 @@
     }
   }
 
+  & textarea.viewbox__action-button {
+    background-color: $color-background;
+  }
+
   &__action-type {
     color: $color-background;
 

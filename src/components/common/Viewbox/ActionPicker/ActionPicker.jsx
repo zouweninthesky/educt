@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "../../Dropdown/Dropdown.scss";
 
-const options = ["ЛКМ", "Ввод текст", "ПКМ"];
+import EditorStore from "../../../../store/editor";
+
+const options = ["ЛКМ", "Ввод текста", "ПКМ"];
 
 // NOT FINISHED, FEEL FREE TO CHANGE
-const ActionPicker = ({ data, pickerStyle }) => {
+const ActionPicker = ({ pickerStyle }) => {
   // const [isOpen, setIsOpen] = useState(false);
   // const [selectedOption, setSelectedOption] = useState("ЛКМ");
 
@@ -16,16 +18,19 @@ const ActionPicker = ({ data, pickerStyle }) => {
   // };
 
   return (
-    <div className="dropdown__wrapper dropdown__wrapper--action" style={pickerStyle}>
+    <div
+      className="dropdown__wrapper dropdown__wrapper--action"
+      style={pickerStyle}
+    >
       <ul className="dropdown__list">
         {options.map((option, i) => (
           <li
             className={
-              data.currentStepData.actionID === i + 1
+              EditorStore.currentStepData.actionID === i + 1
                 ? "dropdown__item dropdown__item--current"
                 : "dropdown__item"
             }
-            onClick={() => data.setActionType(i + 1)}
+            onClick={() => EditorStore.setActionType(i + 1)}
             key={i}
           >
             {option}

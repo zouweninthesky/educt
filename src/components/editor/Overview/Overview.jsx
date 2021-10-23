@@ -2,13 +2,45 @@ import React from "react";
 import "./Overview.scss";
 
 import Icon from "../../common/Icon/Icon";
-import Thumbnail from "../../../static/img/test/temp-slide-thumbnail.jpg";
+import Spinner from "../../common/Spinner/Spinner";
 
+import EditorStore from "../../../store/editor";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_SETTINGS_ID } from "../../../utils/constants/modals";
+import Thumbnail from "../../../static/img/test/temp-slide-thumbnail.jpg";
 
 const Overview = () => {
-  const [, setScriptID] = useModal();
+  const [, setModalID] = useModal();
+
+  const { steps } = EditorStore;
+
+  const content = () => {
+    if (steps && steps.length) {
+      const stepsItems = steps.map((step, i) => {
+        return (
+          <li className="overview__item" key={step.UID}>
+            <button
+              className="overview__button"
+              type="button"
+              onClick={() => {
+                EditorStore.openStep(step.UID);
+              }}
+            >
+              <img src={Thumbnail} width="110" height="62" alt="thumbnail" />
+              <h3 className="overview__title">{`Слайд ${i + 1}`}</h3>
+            </button>
+          </li>
+        );
+      });
+      return <ul className="overview__list">{stepsItems}</ul>;
+    } else {
+      return (
+        <>
+          <Spinner show={true} />
+        </>
+      );
+    }
+  };
 
   return (
     <div className="overview">
@@ -16,44 +48,13 @@ const Overview = () => {
         <button
           className="overview__button"
           type="button"
-          onClick={() => setScriptID(MODAL_SETTINGS_ID)}
+          onClick={() => setModalID(MODAL_SETTINGS_ID)}
         >
           <Icon id="info" width="64" />
           <h3 className="overview__title">Общие настройки</h3>
         </button>
       </div>
-      <ul className="overview__list">
-        <li className="overview__item">
-          <button className="overview__button" type="button">
-            <img src={Thumbnail} width="110" height="62" alt="thumbnail" />
-            <h3 className="overview__title">Слайд 1</h3>
-          </button>
-        </li>
-        <li className="overview__item">
-          <button className="overview__button" type="button">
-            <img src={Thumbnail} width="110" height="62" alt="thumbnail" />
-            <h3 className="overview__title">Слайд 2</h3>
-          </button>
-        </li>
-        <li className="overview__item">
-          <button className="overview__button" type="button">
-            <img src={Thumbnail} width="110" height="62" alt="thumbnail" />
-            <h3 className="overview__title">Слайд 3</h3>
-          </button>
-        </li>
-        <li className="overview__item">
-          <button className="overview__button" type="button">
-            <img src={Thumbnail} width="110" height="62" alt="thumbnail" />
-            <h3 className="overview__title">Слайд 4</h3>
-          </button>
-        </li>
-        <li className="overview__item">
-          <button className="overview__button" type="button">
-            <img src={Thumbnail} width="110" height="62" alt="thumbnail" />
-            <h3 className="overview__title">Слайд 5</h3>
-          </button>
-        </li>
-      </ul>
+      {content()}
     </div>
   );
 };

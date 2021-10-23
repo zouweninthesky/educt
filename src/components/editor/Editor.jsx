@@ -13,7 +13,7 @@ import CommentModal from "./modals/CommentModal";
 import SettingsModal from "./modals/SettingsModal";
 import NoSaveModal from "./modals/NoSaveModal";
 import { useModal } from "../common/Modal/ModalContext";
-import EditorClass from "../../store/editor";
+import EditorStore from "../../store/editor";
 import { observer } from "mobx-react-lite";
 import { toJS } from "mobx";
 import Loader from "../common/Loader/Loader";
@@ -24,24 +24,23 @@ import ZoomPanel from "./ZoomPanel/ZoomPanel";
 const HEADER_TOOLS_ON = "Все слайды";
 const HEADER_TOOLS_OFF = "Вернуться к списку";
 
-const Editor = observer(({ scriptUid }) => {
+const Editor = observer(({ scriptUID }) => {
   const [, setModalID] = useModal();
 
-  const [state] = useState(() => new EditorClass(scriptUid));
   useEffect(() => {
     (async () => {
-      await state.getSteps(scriptUid);
+      await EditorStore.getSteps(scriptUID);
     })();
-  }, [scriptUid]);
+  }, [scriptUID]);
 
   const headerContent = () => {
-    if (state.mode === "tools")
+    if (EditorStore.mode === "tools")
       return (
         <>
           <button
             className="editor__arrow-button button button--simple button--icon-only"
             type="button"
-            onClick={() => state.setOverviewMode()}
+            onClick={() => EditorStore.setOverviewMode()}
           >
             <Icon id="arrow-left" width="24" />
           </button>
@@ -71,41 +70,39 @@ const Editor = observer(({ scriptUid }) => {
   };
 
   const currentPanel = () => {
-    switch (state.mode) {
+    switch (EditorStore.mode) {
       case "mask":
         return (
           <ZoomPanel
             maskMode={true}
-            data={state}
             onApply={() => {
-              state.saveStepMasks();
-              state.setDefaultMode();
+              EditorStore.saveStepMasks();
+              EditorStore.setDefaultMode();
             }}
             onCancel={() => {
-              state.cancelStepMasks();
-              state.setDefaultMode();
+              EditorStore.cancelStepMasks();
+              EditorStore.setDefaultMode();
             }}
-            onRepeatMasks={() => state.repeatStepMasks()}
+            onRepeatMasks={() => EditorStore.repeatStepMasks()}
           />
         );
       case "tools":
         return (
           <section className="editor__panel">
             <div className="editor__header-wrapper">{headerContent()}</div>
-            <Tools data={state} />
+            <Tools />
           </section>
         );
       case "action":
         return (
           <ZoomPanel
             onApply={() => {
-              state.saveStepAction();
-              state.setDefaultMode();
+              EditorStore.saveStepAction();
+              EditorStore.setDefaultMode();
             }}
             onCancel={() => {
-              console.log("cancel");
-              state.cancelStepAction();
-              state.setDefaultMode();
+              EditorStore.cancelStepAction();
+              EditorStore.setDefaultMode();
             }}
           />
         );
@@ -169,7 +166,7 @@ const Editor = observer(({ scriptUid }) => {
 
   // will depend on currentSlide being not null
 
-  if (state.loading) return <Loader />;
+  if (EditorStore.loading) return <Loader />;
 
   const SavingAreas = () => {
     return updatingSteps.map((step) => (
@@ -183,29 +180,39 @@ const Editor = observer(({ scriptUid }) => {
 
   const saveAll = () => {
     console.log("starting save");
-    setUpdatingSteps(state.toUpdate);
+    setUpdatingSteps(EditorStore.toUpdate);
   };
 
   const viewboxModifier =
-    state.mode === "mask" || state.mode === "action" ? "" : "editor";
+    EditorStore.mode === "mask" || EditorStore.mode === "action"
+      ? ""
+      : "editor";
 
   return (
     <main className="editor">
       <Viewbox
-        data={state}
         mod={viewboxModifier}
-        maskActive={state.mode === "mask"}
+        isEditor={true}
+        maskActive={EditorStore.mode === "mask"}
         onNewMask={(topLeft, bottomRight) =>
-          state.addMask(topLeft, bottomRight)
+          EditorStore.addMask(topLeft, bottomRight)
         }
-        onDeleteMask={(key) => state.deleteMask(key)}
-        onShrinkRatioChange={(sr) => state.changeShrinkRatio(sr)}
+        onDeleteMask={(key) => EditorStore.deleteMask(key)}
+        onShrinkRatioChange={(sr) => EditorStore.changeShrinkRatio(sr)}
       />
 
       {currentPanel()}
       {SavingAreas()}
-      <CommentModal />
-      <DeleteModal onDelete={() => state.deleteStep()} />
+      <CommentModal
+        step={EditorStore.currentStepData.description}
+        onApply={() => {
+          EditorStore.saveStepMasks();
+        }}
+        onCancel={() => {
+          EditorStore.cancelStepMasks();
+        }}
+      />
+      <DeleteModal onDelete={() => EditorStore.deleteStep()} />
       <NoSaveModal />
       <SettingsModal />
       <Overlay />
