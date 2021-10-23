@@ -18,8 +18,8 @@ class Editor {
   scriptUID = null;
   // // Название и описания сценария, изменение чисто их работает отдельно, не триггерит общее
   // // "Сохранить и выйти" и сопутствующие предупреждения
-  // scriptTitle = null;
-  // scriptDescription = null;
+  scriptTitle = null;
+  scriptDescription = null;
   // Откуда будут браться степы для отображения и редактирования
   stepsOld = [];
   // Модифицированный объект шагов
@@ -50,6 +50,11 @@ class Editor {
     makeAutoObservable(this);
   }
 
+  setTitleDescription() {
+    this.scriptTitle = this.scriptData.title;
+    this.scriptDescription = this.scriptData.description;
+  }
+
   async getSteps(scriptUID) {
     this.scriptUID = scriptUID;
     this.scriptRequested();
@@ -66,6 +71,7 @@ class Editor {
     });
     this.currentStepNumber = 0;
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+    this.setTitleDescription();
     this.stepsLoaded();
   }
 
@@ -255,11 +261,24 @@ class Editor {
     this.actionPickerVisible = false;
   }
 
-  // Пользователь нажимает "сохранить" - сравнивается со старым
-  // стейтом,
-  // Должна быть проверка - изменены или нет. Не знаю, может,
-  // снаружи.
-  scriptTitleDescriptionChange(title, description) {}
+  changeTitle(title) {
+    this.scriptTitle = title;
+  }
+
+  changeDescription(description) {
+    this.scriptDescription = description;
+  }
+
+  async scriptTitleDescriptionUpdate() {
+    await ScriptsApi.changeTitleDescriptionScript(
+      this.scriptData.UID,
+      this.scriptData.orgID,
+      this.scriptTitle,
+      this.scriptDescription
+    );
+    this.scriptData.title = this.scriptTitle;
+    this.scriptData.description = this.scriptDescription;
+  }
 }
 
 export default new Editor();
