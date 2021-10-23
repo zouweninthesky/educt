@@ -242,6 +242,9 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
             {data.actionPickerVisible ? <ActionPicker data={data} pickerStyle={actionPickerStyle()} /> : null}
           </div>
           {Masks()}
+          <div className={`viewbox__action ${actionClass}`} style={actionStyle()}>
+            {actionButton()}
+          </div>
           <img
             className="viewbox__image"
             alt="Текущий слайд"
@@ -251,10 +254,6 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
               getShrinkRatioActionClass();
             }}
           />
-          <div className={`viewbox__action ${actionClass}`} style={actionStyle()}>
-            {actionButton()}
-          </div>
-
           {/* <div className="viewbox__mask">
           <button
             type="button"

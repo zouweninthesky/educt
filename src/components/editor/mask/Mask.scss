@@ -1,6 +1,8 @@
+@use "../../../assets/scss/variables" as *;
+
 .mask {
   position: absolute;
   background-color: white;
-  z-index: 50;
+  z-index: $z-mask;
   border: 1px solid black
 }
