@@ -86,6 +86,17 @@
     &:active {
       background-color: $color-neutrals-faded;
     }
+
+    &:disabled {
+      opacity: 0.3;
+
+      cursor: auto;
+
+      &:hover,
+      &:active {
+        background-color: transparent;
+      }
+    }
   }
 
   &__button-title {
