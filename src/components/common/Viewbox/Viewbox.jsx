@@ -8,6 +8,8 @@ import ActionPicker from "./ActionPicker/ActionPicker";
 import EnterText from "./EnterText/EnterText";
 import Mask from "../../editor/mask/Mask";
 
+import EditorStore from "../../../store/editor";
+
 import { MOUSE_LEFT_BUTTON } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
 import DeleteMaskButton from "../../editor/mask/deleteMaskButton/DeleteMaskButton";
@@ -22,7 +24,6 @@ const MARGIN_FOR_ACTION = 70;
 
 const Viewbox = observer(
   ({
-    data,
     mod,
     actionClick,
     onNewMask,
@@ -57,15 +58,15 @@ const Viewbox = observer(
     const [creatingObj, setCreatingObj] = useState(false);
 
     useEffect(() => {
-      if (data.mode === "mask") {
+      if (EditorStore.mode === "mask") {
         if (!creatingObj && currentObjFirst?.x && currentObjSecond?.x) {
           onNewMask(currentObjFirst, currentObjSecond);
           setCurrentObjFirst(undefined);
           setCurrentObjSecond(undefined);
         }
-      } else if (data.mode === "action") {
+      } else if (EditorStore.mode === "action") {
         if (!creatingObj && currentObjFirst?.x && currentObjSecond?.x) {
-          data.updateAction(
+          EditorStore.updateAction(
             {
               x: (currentObjFirst.x + 4) / shrinkRatio,
               y: (currentObjFirst.y + 4) / shrinkRatio,
@@ -77,7 +78,7 @@ const Viewbox = observer(
           );
           setCurrentObjFirst(undefined);
           setCurrentObjSecond(undefined);
-          if (data.mode === "action") data.showActionPicker();
+          if (EditorStore.mode === "action") EditorStore.showActionPicker();
         }
       }
     }, [currentObjSecond, creatingObj]);
@@ -97,27 +98,30 @@ const Viewbox = observer(
           });
         };
       }
-    }, [data.currentStepData]);
+    }, [EditorStore.currentStepData]);
 
     const vbMainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
     const vbCursorClass =
-      data.mode === "mask" || data.mode === "action"
+      EditorStore.mode === "mask" || EditorStore.mode === "action"
         ? " viewbox--crosshair"
         : "";
-    const vbActionClass = data.mode === "action" ? " viewbox--action-mode" : "";
+    const vbActionClass =
+      EditorStore.mode === "action" ? " viewbox--action-mode" : "";
     const maskActions =
-      data.mode === "mask" || data.mode === "action"
+      EditorStore.mode === "mask" || EditorStore.mode === "action"
         ? {
             onMouseDown: (e) => {
               if (e.target === e.currentTarget) {
-                if (data.actionPickerVisible) data.actionPickerVisible = false;
+                if (EditorStore.actionPickerVisible)
+                  EditorStore.hideActionPicker();
                 else {
                   setCreatingObj(true);
                   setCurrentObjFirst({
                     x: e.clientX - imageOffsets.x,
                     y: e.clientY - imageOffsets.y,
                   });
-                  if (data.mode === "action") data.actionPickerVisible = false;
+                  if (EditorStore.mode === "action")
+                    EditorStore.hideActionPicker();
                 }
               }
             },
@@ -128,7 +132,8 @@ const Viewbox = observer(
                     x: e.clientX - imageOffsets.x,
                     y: e.clientY - imageOffsets.y,
                   });
-                  if (data.mode === "action") data.actionPickerVisible = true;
+                  if (EditorStore.mode === "action")
+                    EditorStore.showActionPicker();
                 }
                 setCreatingObj(false);
               }
@@ -147,16 +152,17 @@ const Viewbox = observer(
               if (e.target === e.currentTarget) {
                 if (creatingObj) {
                   setCreatingObj(false);
-                  if (data.mode === "action") data.actionPickerVisible = true;
+                  if (EditorStore.mode === "action")
+                    EditorStore.showActionPicker();
                 }
               }
             },
           }
         : {};
 
-    const imageLink = `${STORAGE_URL}${data.currentStepData.imageUID}`;
+    const imageLink = `${STORAGE_URL}${EditorStore.currentStepData.imageUID}`;
 
-    const { boxCoords } = data.currentStepData.metaInfo;
+    const { boxCoords } = EditorStore.currentStepData.metaInfo;
 
     const getShrinkRatioActionClass = () => {
       setShrinkRatio(image.current.clientWidth / image.current.naturalWidth);
@@ -174,7 +180,7 @@ const Viewbox = observer(
         left: boxCoords.upperLeft.x * shrinkRatio - 4,
       };
       console.log(currentObjFirst, currentObjSecond);
-      if (data.mode === "action" && currentObjFirst && currentObjSecond)
+      if (EditorStore.mode === "action" && currentObjFirst && currentObjSecond)
         return {
           top: calculateTopLeft(currentObjFirst, currentObjSecond)?.y,
           left: calculateTopLeft(currentObjFirst, currentObjSecond)?.x,
@@ -188,7 +194,7 @@ const Viewbox = observer(
         height: boxCoords.height * shrinkRatio,
       };
       console.log(currentObjFirst, currentObjSecond);
-      if (data.mode === "action" && currentObjFirst && currentObjSecond)
+      if (EditorStore.mode === "action" && currentObjFirst && currentObjSecond)
         return {
           width: calculateWidth(currentObjFirst, currentObjSecond),
           height: calculateHeight(currentObjFirst, currentObjSecond),
@@ -197,7 +203,7 @@ const Viewbox = observer(
     };
 
     const actionButton = () => {
-      switch (data.currentStepData.actionID) {
+      switch (EditorStore.currentStepData.actionID) {
         case 1:
           return (
             <>
@@ -219,7 +225,6 @@ const Viewbox = observer(
         case 2:
           return (
             <EnterText
-              data={data}
               actionClick={actionClick}
               sizes={actionButtonStyle()}
               isEditor={isEditor}
@@ -247,7 +252,7 @@ const Viewbox = observer(
     };
 
     const Masks = () => {
-      const masks = data.currentStepData.masks.map((el) => {
+      const masks = EditorStore.currentStepData.masks.map((el) => {
         return (
           <Mask
             firstPoint={el.topLeft}
@@ -256,7 +261,11 @@ const Viewbox = observer(
           />
         );
       });
-      if (data.mode === "mask" && currentObjFirst?.x && currentObjSecond?.x)
+      if (
+        EditorStore.mode === "mask" &&
+        currentObjFirst?.x &&
+        currentObjSecond?.x
+      )
         masks.push(
           <Mask
             firstPoint={currentObjFirst}
@@ -268,7 +277,7 @@ const Viewbox = observer(
     };
 
     const DeleteMasksButtons = () => {
-      const buttons = data.currentStepData.masks.map((el) => {
+      const buttons = EditorStore.currentStepData.masks.map((el) => {
         return (
           <DeleteMaskButton
             firstPoint={el.topLeft}
@@ -296,8 +305,8 @@ const Viewbox = observer(
         <div className="viewbox__wrapper">
           <div className="viewbox__canvas" {...maskActions}>
             {DeleteMasksButtons()}
-            {data.actionPickerVisible ? (
-              <ActionPicker data={data} pickerStyle={actionPickerStyle()} />
+            {EditorStore.actionPickerVisible ? (
+              <ActionPicker pickerStyle={actionPickerStyle()} />
             ) : null}
           </div>
           {Masks()}

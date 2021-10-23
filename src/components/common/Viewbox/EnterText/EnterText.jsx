@@ -2,16 +2,18 @@ import React, { useState } from "react";
 
 import Icon from "../../Icon/Icon";
 
+import EditorStore from "../../../../store/editor";
+
 import {
   MOUSE_LEFT_BUTTON,
   KEYBOARD_ENTER_BUTTON,
 } from "../../../../utils/constants/keycodes";
 
-const EnterText = ({ data, actionClick, isEditor, sizes }) => {
+const EnterText = ({ actionClick, isEditor, sizes }) => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(false);
 
-  const neededString = data.currentStepData.metaInfo.text?.slice() || "";
+  const neededString = EditorStore.currentStepData.metaInfo.text?.slice() || "";
 
   const hint = () => {
     if (isEditor) {
@@ -68,8 +70,7 @@ const EnterText = ({ data, actionClick, isEditor, sizes }) => {
   const onChange = (e) => {
     if (isEditor) {
       setValue(e.target.value);
-      data.currentStepData.metaInfo.text = e.target.value;
-      console.log();
+      EditorStore.currentStepData.metaInfo.text = e.target.value;
     } else {
       setValue(e.target.value);
       if (e.target.value === neededString) setIsValid(true);
