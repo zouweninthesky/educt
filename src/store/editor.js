@@ -3,7 +3,11 @@ import Scripts from "./scripts";
 
 import ScriptsApi from "../api/UserScriptService";
 import { deepCopy } from "../utils/deepCopy";
-import { calculateHeight, calculateTopLeft, calculateWidth } from "../utils/calculateMaskCoords";
+import {
+  calculateHeight,
+  calculateTopLeft,
+  calculateWidth,
+} from "../utils/calculateMaskCoords";
 
 const Api = ScriptsApi;
 
@@ -37,6 +41,8 @@ class Editor {
   sending = null;
   // Счетчик для уникальных id масок
   lastMaskId = 0;
+  // Показывается или нет дропдаун для выбора типа действия
+  actionPickerVisible = false;
 
   mode = "tools";
 
@@ -103,7 +109,11 @@ class Editor {
 
   addMask(topLeft, bottomRight) {
     // console.log(toJS(this.currentStepData));
-    this.currentStepData.masks.push({ topLeft, bottomRight, id: this.lastMaskId });
+    this.currentStepData.masks.push({
+      topLeft,
+      bottomRight,
+      id: this.lastMaskId,
+    });
     this.lastMaskId++;
   }
 
@@ -115,8 +125,12 @@ class Editor {
   saveStepToUpdate() {
     const stepNew = deepCopy(this.currentStepData);
     const index = this.toUpdate.findIndex((step) => step.UID === stepNew.UID);
-    if (JSON.stringify(stepNew) !==
-      JSON.stringify(toJS(this.stepsOld.find((step) => step.UID === stepNew.UID)))) {
+    if (
+      JSON.stringify(stepNew) !==
+      JSON.stringify(
+        toJS(this.stepsOld.find((step) => step.UID === stepNew.UID))
+      )
+    ) {
       if (index === -1) {
         this.toUpdate = deepCopy([...this.toUpdate, stepNew]);
       } else {
@@ -143,7 +157,9 @@ class Editor {
 
   cancelStepMasks() {
     console.log("cancel");
-    this.currentStepData.masks = deepCopy(this.steps[this.currentStepNumber].masks);
+    this.currentStepData.masks = deepCopy(
+      this.steps[this.currentStepNumber].masks
+    );
   }
 
   repeatStepMasks() {
@@ -175,7 +191,10 @@ class Editor {
   updateAction(firstPoint, secondPoint) {
     console.log("upd action", toJS(this.currentStepData));
     const step = deepCopy(this.currentStepData);
-    step.metaInfo.boxCoords.upperLeft = calculateTopLeft(firstPoint, secondPoint);
+    step.metaInfo.boxCoords.upperLeft = calculateTopLeft(
+      firstPoint,
+      secondPoint
+    );
     step.metaInfo.boxCoords.width = calculateWidth(firstPoint, secondPoint);
     step.metaInfo.boxCoords.height = calculateHeight(firstPoint, secondPoint);
     this.currentStepData = step;
@@ -197,7 +216,8 @@ class Editor {
     const stepsNew = deepCopy(this.steps);
     stepsNew.splice(this.currentStepNumber, 1);
     this.steps = stepsNew;
-    if (this.currentStepNumber < this.steps.length - 1) this.currentStepNumber += 0;
+    if (this.currentStepNumber < this.steps.length - 1)
+      this.currentStepNumber += 0;
     else this.currentStepNumber -= 1;
     this.currentStepData = this.steps[this.currentStepNumber];
   }
@@ -220,14 +240,19 @@ class Editor {
     this.setActionType(3);
   }
 
-  actionPickerVisible = false;
+  showActionPicker() {
+    this.actionPickerVisible = true;
+  }
+
+  hideActionPicker() {
+    this.actionPickerVisible = false;
+  }
 
   // Пользователь нажимает "сохранить" - сравнивается со старым
   // стейтом,
   // Должна быть проверка - изменены или нет. Не знаю, может,
   // снаружи.
-  scriptTitleDescriptionChange(title, description) {
-  }
+  scriptTitleDescriptionChange(title, description) {}
 }
 
 export default Editor;

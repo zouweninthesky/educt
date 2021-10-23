@@ -39,11 +39,23 @@ const ZoomPanel = observer(
     return (
       <div className="zoom-panel">
         {maskMode ? RepeatMask(repeatMaskDisabled()) : null}
-        <button className="button button--accept" onClick={() => onApply()}>
+        <button
+          className="button button--accept"
+          onClick={() => {
+            data.hideActionPicker();
+            onApply();
+          }}
+        >
           <Icon id="accept" width="22" />
           Готово
         </button>
-        <button className="button button--discard" onClick={() => onCancel()}>
+        <button
+          className="button button--discard"
+          onClick={() => {
+            data.hideActionPicker();
+            onCancel();
+          }}
+        >
           <Icon id="cancel" width="22" />
           Отменить
         </button>

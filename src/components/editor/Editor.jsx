@@ -98,6 +98,7 @@ const Editor = observer(({ scriptUid }) => {
       case "action":
         return (
           <ZoomPanel
+            data={state}
             onApply={() => {
               state.saveStepAction();
               state.setDefaultMode();
@@ -194,6 +195,7 @@ const Editor = observer(({ scriptUid }) => {
       <Viewbox
         data={state}
         mod={viewboxModifier}
+        isEditor={true}
         maskActive={state.mode === "mask"}
         onNewMask={(topLeft, bottomRight) =>
           state.addMask(topLeft, bottomRight)
