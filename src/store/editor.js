@@ -95,8 +95,7 @@ class Editor {
   nextStep() {
     console.log(toJS(this));
     if (this.currentStepNumber < this.steps.length - 1) {
-      const temp = this.currentStepNumber + 1;
-      this.currentStepNumber = temp;
+      this.currentStepNumber++;
       this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
     }
   }
