@@ -204,6 +204,7 @@ const Editor = observer(({ scriptUID }) => {
       {currentPanel()}
       {SavingAreas()}
       <CommentModal
+        step={EditorStore.currentStepData.description}
         onApply={() => {
           EditorStore.saveStepMasks();
         }}

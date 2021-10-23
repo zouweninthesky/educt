@@ -95,8 +95,11 @@ class Editor {
   nextStep() {
     console.log(toJS(this));
     if (this.currentStepNumber < this.steps.length - 1) {
-      this.currentStepNumber++;
+      const temp = this.currentStepNumber + 1;
+      this.currentStepNumber = temp;
+      console.log(this.currentStepNumber);
       this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+      console.log(this.currentStepData.description);
     }
   }
 
@@ -209,6 +212,13 @@ class Editor {
   cancelStepAction() {
     console.log("cancel");
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+  }
+
+  saveStepDescription(description) {
+    this.currentStepData.description = description;
+    this.steps[this.currentStepNumber] = deepCopy(this.currentStepData);
+    console.log(this.steps[this.currentStepNumber].description);
+    this.saveStepToUpdate();
   }
 
   deleteStep() {

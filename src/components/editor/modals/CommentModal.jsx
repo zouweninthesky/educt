@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { observer } from "mobx-react-lite";
 
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
@@ -7,9 +8,16 @@ import EditorStore from "../../../store/editor";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_COMMENT_ID } from "../../../utils/constants/modals";
 
-const CommentModal = ({ onApply, onCancel }) => {
+const CommentModal = observer(({ step, onApply, onCancel }) => {
   const [modalID, setModalID] = useModal();
-  const [value, setValue] = useState(EditorStore.currentStepData.description);
+
+  const [value, setValue] = useState(step);
+
+  useEffect(() => {
+    if (value !== step) {
+      setValue(step);
+    }
+  }, [step]);
 
   if (modalID !== MODAL_COMMENT_ID) {
     return <></>;
@@ -46,7 +54,7 @@ const CommentModal = ({ onApply, onCancel }) => {
           className="button button--accept"
           type="button"
           onClick={() => {
-            EditorStore.currentStepData.description = value;
+            EditorStore.saveStepDescription(value);
             onApply();
             setModalID();
           }}
@@ -58,7 +66,7 @@ const CommentModal = ({ onApply, onCancel }) => {
           className="button button--discard"
           type="button"
           onClick={() => {
-            setValue(EditorStore.currentStepData.description);
+            // setValue(EditorStore.currentStepData.description);
             onCancel();
             setModalID();
           }}
@@ -69,6 +77,6 @@ const CommentModal = ({ onApply, onCancel }) => {
       </div>
     </Modal>
   );
-};
+});
 
 export default CommentModal;
