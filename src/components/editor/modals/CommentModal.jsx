@@ -3,6 +3,7 @@ import React from "react";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
+import Editor from "../../../store/editor";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_COMMENT_ID } from "../../../utils/constants/modals";
 
@@ -13,14 +14,15 @@ const CommentModal = () => {
     return <></>;
   }
 
+  console.log(Editor);
+
   return (
     <Modal modifier="wide">
       <h2 className="modal__header">Комментарий</h2>
       <div className="modal__info-wrapper">
         <div className="modal__description">
           <textarea className="modal__editable-text modal__editable-text--wide">
-            Этот сценарий покажет что-то, чего вы не умеете хаха!!!!!! АААААА
-            Режим тестирования станет доступен после обычного прохождения.
+            {/* {Editor.currentStepData.description} */}
           </textarea>
         </div>
       </div>

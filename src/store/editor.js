@@ -46,16 +46,18 @@ class Editor {
 
   mode = "tools";
 
-  constructor(scriptUid) {
-    this.scriptSet(scriptUid);
+  constructor() {
     makeAutoObservable(this);
   }
 
-  async getSteps() {
+  async getSteps(scriptUID) {
+    this.scriptUID = scriptUID;
     this.scriptRequested();
     this.scriptData = await Api.getScript(this.scriptUID);
     this.stepsOld = this.scriptData.steps;
     this.steps = this.scriptData.steps;
+    console.log(this.steps);
+    console.log(this.scriptData.steps);
     this.steps.forEach((step) => {
       step.masks = [];
       step.shrinkRatio = 1;
@@ -255,4 +257,4 @@ class Editor {
   scriptTitleDescriptionChange(title, description) {}
 }
 
-export default Editor;
+export default new Editor();
