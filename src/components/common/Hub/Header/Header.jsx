@@ -53,7 +53,7 @@ const Header = () => {
         {/* <img src="#" width="46" height="46" alt="Изображение пользователя"></img> */}
         <span className="visually-hidden">Пользователь</span>
       </a>
-      <div className="hub-header__dropdown">
+      <div className="hub-header__dropdown" onMouseOver={(e) => e.stopPropagation()}>
         <ul className="hub-header__dropdown-list">
           <li className="hub-header__dropdown-item">
             <button

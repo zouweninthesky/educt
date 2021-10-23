@@ -33,9 +33,7 @@ const App = () => {
         <PrivateRoute path="/player">
           <Player />
         </PrivateRoute>
-        <PrivateRoute path="/editor">
-          <Editor />
-        </PrivateRoute>
+        <PrivateRoute path="/editor/:scriptUid" component={(props) => <Editor {...props.match.params} />} />
         <PrivateRoute path="/author">
           <Author />
         </PrivateRoute>

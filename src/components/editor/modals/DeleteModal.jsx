@@ -6,7 +6,7 @@ import Modal from "../../common/Modal/Modal";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_DELETE_STEP_ID } from "../../../utils/constants/modals";
 
-const DeleteModal = () => {
+const DeleteModal = ({ onDelete }) => {
   const [modalID, setModalID] = useModal();
 
   if (modalID !== MODAL_DELETE_STEP_ID) {
@@ -23,6 +23,10 @@ const DeleteModal = () => {
       <button
         className="button modal__button modal__button--action"
         type="button"
+        onClick={() => {
+          onDelete();
+          setModalID();
+        }}
       >
         Удалить
       </button>

@@ -4,14 +4,14 @@ import Icon from "../../Icon/Icon";
 
 import {
   MOUSE_LEFT_BUTTON,
-  KEYBOARD_ENTER_BUTTON,
+  KEYBOARD_ENTER_BUTTON
 } from "../../../../utils/constants/keycodes";
 
-const EnterText = ({ step, actionClick, sizes }) => {
+const EnterText = ({ data, actionClick, sizes }) => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(false);
 
-  const neededString = step.metaInfo.text.slice();
+  const neededString = data.currentStepData.metaInfo.text?.slice() || "";
 
   const hint = () => {
     if (neededString === "") {

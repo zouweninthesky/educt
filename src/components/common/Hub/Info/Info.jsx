@@ -22,7 +22,7 @@ const Info = observer((props) => {
     return <></>;
   }
 
-  const { isAuthor } = props;
+  const { isEditor } = props;
 
   const title = chosenScriptTitle ? chosenScriptTitle : "Нет названия";
 
@@ -31,7 +31,7 @@ const Info = observer((props) => {
     : "Нет описания";
 
   const infoTitle = () => {
-    if (isAuthor) {
+    if (isEditor) {
       return (
         <input
           type="text"
@@ -54,7 +54,7 @@ const Info = observer((props) => {
   };
 
   const infoDescription = () => {
-    if (isAuthor) {
+    if (isEditor) {
       return (
         <input
           type="text"
@@ -76,10 +76,10 @@ const Info = observer((props) => {
   };
 
   const infoButtons = () => {
-    if (isAuthor) {
+    if (isEditor) {
       return (
         <Link
-          to="/editor"
+          to={"/editor/" + chosenScript.UID}
           className="hub-info__author-button button button--simple"
         >
           <Icon id="puzzle-piece" width="22" />

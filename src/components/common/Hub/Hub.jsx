@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { toJS } from 'mobx';
 import { observer } from "mobx-react-lite";
 import { Scrollbars } from "react-custom-scrollbars";
 import "./Hub.scss";
@@ -17,13 +18,15 @@ import Store from "../../../store";
 import { SCRIPTS_PER_PAGE } from "../../../utils/constants/links";
 
 const Hub = observer((props) => {
-  const { isAuthor } = props;
+  const { isEditor } = props;
 
   const { scripts, allLoaded } = Scripts;
 
   useEffect(() => {
-    Scripts.scriptsClear();
-    Scripts.scriptsLoad();
+    (async () => {
+      Scripts.scriptsClear();
+      await Scripts.scriptsLoad();
+    })()
   }, []);
 
   const content = () => {
@@ -34,7 +37,7 @@ const Hub = observer((props) => {
             key={script.UID}
             id={script.UID}
             title={script.title}
-            isAuthor={isAuthor}
+            isEditor={isEditor}
           />
         );
       });
@@ -89,7 +92,7 @@ const Hub = observer((props) => {
           </Scrollbars>
         </div>
       </section>
-      <Info isAuthor={isAuthor} />
+      <Info isEditor={isEditor} />
       <DeleteScriptModal />
       <Overlay />
     </main>

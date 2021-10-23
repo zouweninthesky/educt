@@ -1,0 +1,14 @@
+.mask {
+  &__delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    z-index: 150;
+    cursor: pointer;
+  }
+}
