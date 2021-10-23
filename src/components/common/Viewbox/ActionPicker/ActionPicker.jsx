@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../../Dropdown/Dropdown.scss";
 
-const options = ["ЛКМ", "Ввод текст", "ПКМ"];
+const options = ["ЛКМ", "Ввод текста", "ПКМ"];
 
 // NOT FINISHED, FEEL FREE TO CHANGE
 const ActionPicker = ({ data, pickerStyle }) => {
@@ -16,7 +16,10 @@ const ActionPicker = ({ data, pickerStyle }) => {
   // };
 
   return (
-    <div className="dropdown__wrapper dropdown__wrapper--action" style={pickerStyle}>
+    <div
+      className="dropdown__wrapper dropdown__wrapper--action"
+      style={pickerStyle}
+    >
       <ul className="dropdown__list">
         {options.map((option, i) => (
           <li

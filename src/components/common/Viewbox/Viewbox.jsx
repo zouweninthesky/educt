@@ -11,17 +11,31 @@ import Mask from "../../editor/mask/Mask";
 import { MOUSE_LEFT_BUTTON } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
 import DeleteMaskButton from "../../editor/mask/deleteMaskButton/DeleteMaskButton";
-import { calculateTopLeft, calculateWidth, calculateHeight } from "../../../utils/calculateMaskCoords";
+import {
+  calculateTopLeft,
+  calculateWidth,
+  calculateHeight,
+} from "../../../utils/calculateMaskCoords";
 // import TempStep from "../../../static/img/test/test.jpg";
 
 const MARGIN_FOR_ACTION = 70;
 
-const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onShrinkRatioChange }) => {
-
+const Viewbox = observer(
+  ({
+    data,
+    mod,
+    actionClick,
+    onNewMask,
+    isEditor,
+    onDeleteMask,
+    onShrinkRatioChange,
+  }) => {
     const image = useRef(null);
 
     const [shrinkRatio, setShrinkRatio] = useState(
-      image.complete ? image.current.clientWidth / image.current.naturalWidth : 1
+      image.complete
+        ? image.current.clientWidth / image.current.naturalWidth
+        : 1
     );
 
     useEffect(() => {
@@ -31,9 +45,9 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
     const [actionClass, setActionClass] = useState(
       image.complete
         ? actionStyle().width + actionStyle().left + MARGIN_FOR_ACTION >=
-        image.current.clientWidth
-        ? "viewbox__action--left"
-        : ""
+          image.current.clientWidth
+          ? "viewbox__action--left"
+          : ""
         : ""
     );
 
@@ -51,16 +65,19 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
         }
       } else if (data.mode === "action") {
         if (!creatingObj && currentObjFirst?.x && currentObjSecond?.x) {
-          data.updateAction({
-            x: (currentObjFirst.x + 4) / shrinkRatio,
-            y: (currentObjFirst.y + 4) / shrinkRatio
-          }, {
-            x: (currentObjSecond.x + 4) / shrinkRatio,
-            y: (currentObjSecond.y + 4) / shrinkRatio
-          });
+          data.updateAction(
+            {
+              x: (currentObjFirst.x + 4) / shrinkRatio,
+              y: (currentObjFirst.y + 4) / shrinkRatio,
+            },
+            {
+              x: (currentObjSecond.x + 4) / shrinkRatio,
+              y: (currentObjSecond.y + 4) / shrinkRatio,
+            }
+          );
           setCurrentObjFirst(undefined);
           setCurrentObjSecond(undefined);
-          if (data.mode === "action") data.actionPickerVisible = true;
+          if (data.mode === "action") data.showActionPicker();
         }
       }
     }, [currentObjSecond, creatingObj]);
@@ -68,56 +85,74 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
     useEffect(() => {
       // setting image offsets
       if (image.current.complete) {
-        setImageOffsets({ x: image.current.getBoundingClientRect().left, y: image.current.getBoundingClientRect().top });
+        setImageOffsets({
+          x: image.current.getBoundingClientRect().left,
+          y: image.current.getBoundingClientRect().top,
+        });
       } else {
         image.current.onload = () => {
           setImageOffsets({
             x: image.current.getBoundingClientRect().left,
-            y: image.current.getBoundingClientRect().top
+            y: image.current.getBoundingClientRect().top,
           });
         };
       }
     }, [data.currentStepData]);
 
     const vbMainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
-    const vbCursorClass = (data.mode === "mask" || data.mode === "action") ? " viewbox--crosshair" : "";
+    const vbCursorClass =
+      data.mode === "mask" || data.mode === "action"
+        ? " viewbox--crosshair"
+        : "";
     const vbActionClass = data.mode === "action" ? " viewbox--action-mode" : "";
-    const maskActions = (data.mode === "mask" || data.mode === "action") ? {
-      onMouseDown: (e) => {
-        if (e.target === e.currentTarget) {
-          if (data.actionPickerVisible) data.actionPickerVisible = false;
-          else {
-            setCreatingObj(true);
-            setCurrentObjFirst({ x: e.clientX - imageOffsets.x, y: e.clientY - imageOffsets.y });
-            if (data.mode === "action") data.actionPickerVisible = false;
+    const maskActions =
+      data.mode === "mask" || data.mode === "action"
+        ? {
+            onMouseDown: (e) => {
+              if (e.target === e.currentTarget) {
+                if (data.actionPickerVisible) data.actionPickerVisible = false;
+                else {
+                  setCreatingObj(true);
+                  setCurrentObjFirst({
+                    x: e.clientX - imageOffsets.x,
+                    y: e.clientY - imageOffsets.y,
+                  });
+                  if (data.mode === "action") data.actionPickerVisible = false;
+                }
+              }
+            },
+            onMouseUp: (e) => {
+              if (e.target === e.currentTarget) {
+                if (creatingObj) {
+                  setCurrentObjSecond({
+                    x: e.clientX - imageOffsets.x,
+                    y: e.clientY - imageOffsets.y,
+                  });
+                  if (data.mode === "action") data.actionPickerVisible = true;
+                }
+                setCreatingObj(false);
+              }
+            },
+            onMouseMove: (e) => {
+              if (e.target === e.currentTarget) {
+                if (creatingObj) {
+                  setCurrentObjSecond({
+                    x: e.clientX - imageOffsets.x,
+                    y: e.clientY - imageOffsets.y,
+                  });
+                }
+              }
+            },
+            onMouseOut: (e) => {
+              if (e.target === e.currentTarget) {
+                if (creatingObj) {
+                  setCreatingObj(false);
+                  if (data.mode === "action") data.actionPickerVisible = true;
+                }
+              }
+            },
           }
-        }
-      },
-      onMouseUp: (e) => {
-        if (e.target === e.currentTarget) {
-          if (creatingObj) {
-            setCurrentObjSecond({ x: e.clientX - imageOffsets.x, y: e.clientY - imageOffsets.y });
-            if (data.mode === "action") data.actionPickerVisible = true;
-          }
-          setCreatingObj(false);
-        }
-      },
-      onMouseMove: (e) => {
-        if (e.target === e.currentTarget) {
-          if (creatingObj) {
-            setCurrentObjSecond({ x: e.clientX - imageOffsets.x, y: e.clientY - imageOffsets.y });
-          }
-        }
-      },
-      onMouseOut: (e) => {
-        if (e.target === e.currentTarget) {
-          if (creatingObj) {
-            setCreatingObj(false);
-            if (data.mode === "action") data.actionPickerVisible = true;
-          }
-        }
-      }
-    } : {};
+        : {};
 
     const imageLink = `${STORAGE_URL}${data.currentStepData.imageUID}`;
 
@@ -127,7 +162,7 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
       setShrinkRatio(image.current.clientWidth / image.current.naturalWidth);
       setActionClass(
         actionStyle().width + actionStyle().left + MARGIN_FOR_ACTION >=
-        image.current.clientWidth
+          image.current.clientWidth
           ? "viewbox__action--left"
           : ""
       );
@@ -136,26 +171,28 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
     const actionStyle = () => {
       const defaultStyle = {
         top: boxCoords.upperLeft.y * shrinkRatio - 4,
-        left: boxCoords.upperLeft.x * shrinkRatio - 4
+        left: boxCoords.upperLeft.x * shrinkRatio - 4,
       };
       console.log(currentObjFirst, currentObjSecond);
-      if (data.mode === "action" && currentObjFirst && currentObjSecond) return ({
-        top: calculateTopLeft(currentObjFirst, currentObjSecond)?.y,
-        left: calculateTopLeft(currentObjFirst, currentObjSecond)?.x
-      });
+      if (data.mode === "action" && currentObjFirst && currentObjSecond)
+        return {
+          top: calculateTopLeft(currentObjFirst, currentObjSecond)?.y,
+          left: calculateTopLeft(currentObjFirst, currentObjSecond)?.x,
+        };
       return defaultStyle;
     };
 
     const actionButtonStyle = () => {
       const defaultStyle = {
         width: boxCoords.width * shrinkRatio,
-        height: boxCoords.height * shrinkRatio
+        height: boxCoords.height * shrinkRatio,
       };
       console.log(currentObjFirst, currentObjSecond);
-      if (data.mode === "action" && currentObjFirst && currentObjSecond) return ({
-        width: calculateWidth(currentObjFirst, currentObjSecond),
-        height: calculateHeight(currentObjFirst, currentObjSecond)
-      });
+      if (data.mode === "action" && currentObjFirst && currentObjSecond)
+        return {
+          width: calculateWidth(currentObjFirst, currentObjSecond),
+          height: calculateHeight(currentObjFirst, currentObjSecond),
+        };
       return defaultStyle;
     };
 
@@ -175,8 +212,8 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
                 }}
               ></button>
               <span className="viewbox__action-type">
-              <Icon id="mouse-left" width="42" height="42" />
-            </span>
+                <Icon id="mouse-left" width="42" height="42" />
+              </span>
             </>
           );
         case 2:
@@ -185,6 +222,7 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
               data={data}
               actionClick={actionClick}
               sizes={actionButtonStyle()}
+              isEditor={isEditor}
             />
           );
         case 3:
@@ -200,8 +238,8 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
                 }}
               ></button>
               <span className="viewbox__action-type">
-              <Icon id="mouse-right" width="42" height="42" />
-            </span>
+                <Icon id="mouse-right" width="42" height="42" />
+              </span>
             </>
           );
         default:
@@ -210,18 +248,35 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
 
     const Masks = () => {
       const masks = data.currentStepData.masks.map((el) => {
-        return <Mask firstPoint={el.topLeft} secondPoint={el.bottomRight} key={el.id} />;
+        return (
+          <Mask
+            firstPoint={el.topLeft}
+            secondPoint={el.bottomRight}
+            key={el.id}
+          />
+        );
       });
-      if (data.mode === "mask" && currentObjFirst?.x && currentObjSecond?.x) masks.push(<Mask firstPoint={currentObjFirst}
-                                                                                              secondPoint={currentObjSecond}
-                                                                                              key="current" />);
+      if (data.mode === "mask" && currentObjFirst?.x && currentObjSecond?.x)
+        masks.push(
+          <Mask
+            firstPoint={currentObjFirst}
+            secondPoint={currentObjSecond}
+            key="current"
+          />
+        );
       return masks;
     };
 
     const DeleteMasksButtons = () => {
       const buttons = data.currentStepData.masks.map((el) => {
-        return <DeleteMaskButton firstPoint={el.topLeft} secondPoint={el.bottomRight}
-                                 onDeleteMask={() => onDeleteMask(el.id)} key={el.id} />;
+        return (
+          <DeleteMaskButton
+            firstPoint={el.topLeft}
+            secondPoint={el.bottomRight}
+            onDeleteMask={() => onDeleteMask(el.id)}
+            key={el.id}
+          />
+        );
       });
       return buttons;
     };
@@ -229,7 +284,9 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
     const actionPickerStyle = () => {
       return {
         top: actionStyle().top,
-        left: `calc(${actionStyle().left + actionButtonStyle().width + 8 + 2 + 6}px + 3.125rem)`
+        left: `calc(${
+          actionStyle().left + actionButtonStyle().width + 8 + 2 + 6
+        }px + 3.125rem)`,
       };
     };
 
@@ -239,7 +296,9 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
         <div className="viewbox__wrapper">
           <div className="viewbox__canvas" {...maskActions}>
             {DeleteMasksButtons()}
-            {data.actionPickerVisible ? <ActionPicker data={data} pickerStyle={actionPickerStyle()} /> : null}
+            {data.actionPickerVisible ? (
+              <ActionPicker data={data} pickerStyle={actionPickerStyle()} />
+            ) : null}
           </div>
           {Masks()}
           <img
@@ -251,7 +310,10 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
               getShrinkRatioActionClass();
             }}
           />
-          <div className={`viewbox__action ${actionClass}`} style={actionStyle()}>
+          <div
+            className={`viewbox__action ${actionClass}`}
+            style={actionStyle()}
+          >
             {actionButton()}
           </div>
 
@@ -266,7 +328,6 @@ const Viewbox = observer(({ data, mod, actionClick, onNewMask, onDeleteMask, onS
         </div>
       </section>
     );
-  })
-;
-
+  }
+);
 export default Viewbox;
