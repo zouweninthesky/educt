@@ -160,9 +160,9 @@ const Viewbox = observer(
           }
         : {};
 
-    const imageLink = `${STORAGE_URL}${EditorStore.currentStepData.imageUID}`;
+    const imageLink = `${STORAGE_URL}${EditorStore.currentStepData?.imageUID}`;
 
-    const { boxCoords } = EditorStore.currentStepData.metaInfo;
+    const { boxCoords } = EditorStore.currentStepData?.metaInfo;
 
     const getShrinkRatioActionClass = () => {
       setShrinkRatio(image.current.clientWidth / image.current.naturalWidth);
@@ -305,7 +305,10 @@ const Viewbox = observer(
         <div className="viewbox__wrapper">
           <div className="viewbox__canvas" {...maskActions}>
             {DeleteMasksButtons()}
-            <div className={`viewbox__action ${actionClass}`} style={actionStyle()}>
+            <div
+              className={`viewbox__action ${actionClass}`}
+              style={actionStyle()}
+            >
               {actionButton()}
             </div>
             {Masks()}
