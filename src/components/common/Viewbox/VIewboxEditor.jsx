@@ -10,7 +10,6 @@ import Mask from "../../editor/mask/Mask";
 
 import EditorStore from "../../../store/editor";
 
-import { MOUSE_LEFT_BUTTON } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
 import DeleteMaskButton from "../../editor/mask/deleteMaskButton/DeleteMaskButton";
 import {
@@ -18,7 +17,6 @@ import {
   calculateWidth,
   calculateHeight,
 } from "../../../utils/calculateMaskCoords";
-// import TempStep from "../../../static/img/test/test.jpg";
 
 const MARGIN_FOR_ACTION = 70;
 
@@ -211,11 +209,6 @@ const Viewbox = observer(
                 className="viewbox__action-button"
                 type="button"
                 style={actionButtonStyle()}
-                onClick={(e) => {
-                  if (e.button === MOUSE_LEFT_BUTTON) {
-                    actionClick();
-                  }
-                }}
               ></button>
               <span className="viewbox__action-type">
                 <Icon id="mouse-left" width="42" height="42" />
@@ -237,10 +230,6 @@ const Viewbox = observer(
                 className="viewbox__action-button"
                 type="button"
                 style={actionButtonStyle()}
-                onContextMenu={(e) => {
-                  e.preventDefault();
-                  actionClick();
-                }}
               ></button>
               <span className="viewbox__action-type">
                 <Icon id="mouse-right" width="42" height="42" />
@@ -326,15 +315,6 @@ const Viewbox = observer(
               getShrinkRatioActionClass();
             }}
           />
-
-          {/* <div className="viewbox__mask">
-          <button
-            type="button"
-            className="viewbox__mask-remove button button--icon-only"
-          >
-            <Icon id="cancel" width="22" />
-          </button>
-        </div> */}
         </div>
       </section>
     );

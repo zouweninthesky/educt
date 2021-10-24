@@ -89,33 +89,6 @@
     left: -3.3125rem;
   }
 
-  &__mask {
-    position: absolute;
-    top: 500px;
-    left: 1000px;
-
-    width: 115px;
-    height: 54px;
-
-    background-color: $color-background;
-    border-radius: 0.125rem;
-    z-index: $z-mask;
-  }
-
-  &__mask-remove {
-    position: absolute;
-    top: -0.75rem;
-    right: -0.75rem;
-
-    color: $color-neutrals;
-
-    padding: 0.125rem;
-
-    background-color: $color-neutrals-faded;
-    border-radius: 50%;
-    border: 0;
-  }
-
   &--editor {
     height: calc(100vh - 16rem);
   }

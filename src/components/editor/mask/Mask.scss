@@ -2,7 +2,9 @@
 
 .mask {
   position: absolute;
-  background-color: white;
+
+  border: 1px solid $color-neutrals-dark;
+  background-color: $color-background;
+  border-radius: 0.125rem;
   z-index: $z-mask;
-  border: 1px solid black
 }
