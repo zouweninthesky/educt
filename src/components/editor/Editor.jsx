@@ -4,7 +4,7 @@ import { STORAGE_URL } from "../../utils/constants/links";
 import "./Editor.scss";
 
 import Icon from "../common/Icon/Icon";
-import Viewbox from "../common/Viewbox/Viewbox";
+import ViewboxEditor from "../common/Viewbox/VIewboxEditor";
 import Overview from "./Overview/Overview";
 import Tools from "./Tools/Tools";
 import DeleteModal from "./modals/DeleteModal";
@@ -190,7 +190,7 @@ const Editor = observer(({ scriptUID }) => {
 
   return (
     <main className="editor">
-      <Viewbox
+      <ViewboxEditor
         mod={viewboxModifier}
         isEditor={true}
         maskActive={EditorStore.mode === "mask"}
