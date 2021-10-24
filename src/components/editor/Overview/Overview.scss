@@ -4,6 +4,7 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
+  align-items: flex-start;
 
   min-height: 12.25rem;
 
@@ -17,16 +18,21 @@
     padding: 0 0 0 20px;
 
     list-style: none;
+
+    overflow-x: auto;
+    width: 1200px;
   }
 
   &__item {
     color: $color-info-dark;
 
     min-width: 9.25rem;
-    min-height: 10.5rem;
+    max-height: 10.5rem;
 
     margin-right: 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+
+    // background-color: tomato;
   }
 
   &__button {
