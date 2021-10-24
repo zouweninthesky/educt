@@ -37,7 +37,7 @@ const CommentModal = observer(({ step }) => {
           ></textarea>
         </div>
       </div>
-      <div className="modal__upload-wrapper">
+      {/* <div className="modal__upload-wrapper">
         <button className="button modal__button" type="button">
           <Icon id="image" width="22" />
           Добавить фото
@@ -48,7 +48,7 @@ const CommentModal = observer(({ step }) => {
         >
           <Icon id="cancel" width="24" />
         </button>
-      </div>
+      </div> */}
       <div className="modal__button-wrapper">
         <button
           className="button button--accept"

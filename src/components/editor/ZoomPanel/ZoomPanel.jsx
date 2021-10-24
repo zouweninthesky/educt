@@ -9,7 +9,7 @@ import EditorStore from "../../../store/editor";
 const ZoomPanel = observer(({ maskMode, onApply, onCancel, onRepeatMasks }) => {
   const repeatMaskDisabled = () => {
     if (EditorStore.currentStepNumber > 1) {
-      const repeatableMasks = EditorStore.currentStepEditorStore.masks.filter(
+      const repeatableMasks = EditorStore.currentStepData.masks.filter(
         (mask) => {
           return (
             EditorStore.steps[
