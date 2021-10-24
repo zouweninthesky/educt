@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { STORAGE_URL } from "../../utils/constants/links";
 import "./Editor.scss";
@@ -20,12 +21,15 @@ import Loader from "../common/Loader/Loader";
 import SavingArea from "./SavingArea/SavingArea";
 import request from "../../api/request";
 import ZoomPanel from "./ZoomPanel/ZoomPanel";
+import { MODAL_NO_SAVE_ID } from "../../utils/constants/modals";
 
 const HEADER_TOOLS_ON = "Все слайды";
 const HEADER_TOOLS_OFF = "Вернуться к списку";
 
 const Editor = observer(({ scriptUID }) => {
   const [, setModalID] = useModal();
+
+  const history = useHistory();
 
   useEffect(() => {
     (async () => {
@@ -50,17 +54,22 @@ const Editor = observer(({ scriptUID }) => {
 
     return (
       <>
-        <Link
-          to="/author"
+        <button
+          type="button"
           className="editor__arrow-button button button--simple button--icon-only"
+          onClick={() => setModalID(MODAL_NO_SAVE_ID)}
         >
           <Icon id="arrow-left" width="24" />
-        </Link>
+        </button>
         <h2 className="editor__header">{HEADER_TOOLS_OFF}</h2>
         <button
           className="editor__save-button button button--simple"
           type="button"
-          onClick={() => saveAll()}
+          onClick={async () => {
+            await EditorStore.scriptUpdate();
+            // await saveAll();
+            history.push("/author");
+          }}
         >
           <Icon id="save" width="22" />
           Сохранить и выйти
@@ -124,7 +133,10 @@ const Editor = observer(({ scriptUID }) => {
   };
 
   const [updatingSteps, setUpdatingSteps] = useState([]);
+
   const [maskedImages, setMaskedImages] = useState([]); // [{imageId, imageSrc}...]
+
+  // updates only images
   useEffect(() => {
     if (
       maskedImages.length > 0 &&
@@ -203,15 +215,7 @@ const Editor = observer(({ scriptUID }) => {
 
       {currentPanel()}
       {SavingAreas()}
-      <CommentModal
-        step={EditorStore.currentStepData.description}
-        onApply={() => {
-          EditorStore.saveStepMasks();
-        }}
-        onCancel={() => {
-          EditorStore.cancelStepMasks();
-        }}
-      />
+      <CommentModal step={EditorStore.currentStepData.description} />
       <DeleteModal onDelete={() => EditorStore.deleteStep()} />
       <NoSaveModal />
       <SettingsModal />

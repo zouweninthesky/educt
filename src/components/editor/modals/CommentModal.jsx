@@ -8,7 +8,7 @@ import EditorStore from "../../../store/editor";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_COMMENT_ID } from "../../../utils/constants/modals";
 
-const CommentModal = observer(({ step, onApply, onCancel }) => {
+const CommentModal = observer(({ step }) => {
   const [modalID, setModalID] = useModal();
 
   const [value, setValue] = useState(step);
@@ -55,7 +55,6 @@ const CommentModal = observer(({ step, onApply, onCancel }) => {
           type="button"
           onClick={() => {
             EditorStore.saveStepDescription(value);
-            onApply();
             setModalID();
           }}
         >
@@ -66,8 +65,6 @@ const CommentModal = observer(({ step, onApply, onCancel }) => {
           className="button button--discard"
           type="button"
           onClick={() => {
-            // setValue(EditorStore.currentStepData.description);
-            onCancel();
             setModalID();
           }}
         >
