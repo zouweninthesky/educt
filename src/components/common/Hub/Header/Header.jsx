@@ -51,9 +51,11 @@ const Header = () => {
       </div>
       <a href="/" className="hub-header__profile-link">
         {/* <img src="#" width="46" height="46" alt="Изображение пользователя"></img> */}
+        <div className="hub-header__profile-plug"></div>
         <span className="visually-hidden">Пользователь</span>
       </a>
-      <div className="hub-header__dropdown" onMouseOver={(e) => e.stopPropagation()}>
+
+      <div className="hub-header__dropdown">
         <ul className="hub-header__dropdown-list">
           <li className="hub-header__dropdown-item">
             <button
@@ -65,13 +67,20 @@ const Header = () => {
             </button>
           </li>
           <li className="hub-header__dropdown-item">
-            <button
+            {/* <button
               className="hub-header__dropdown-link"
               type="button"
               disabled={!Auth.isEditor}
             >
               Скачать приложение
-            </button>
+            </button> */}
+            <a
+              className="hub-header__dropdown-link"
+              href="https://educt-desktop-apps.s3.eu-north-1.amazonaws.com/EductRecorder-001.exe"
+              download
+            >
+              Скачать приложение
+            </a>
           </li>
           <li className="hub-header__dropdown-item">
             <button

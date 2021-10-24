@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeObservable, observable, computed } from "mobx";
 
 import Api from "../api/AuthService";
 
@@ -10,12 +10,31 @@ const hash = (string) => {
 class Auth {
   token = window.localStorage.getItem("token") || null;
   refresh = window.localStorage.getItem("refresh") || null;
-  isEditor = window.localStorage.getItem("isEditor") || null;
+  // isEditor = null;
   loading = false;
   error = "";
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      token: observable,
+      refresh: observable,
+      isEditor: computed,
+      loading: observable,
+      error: observable,
+      SignIn: action,
+      SignOut: action,
+      RefreshToken: action,
+    });
+  }
+
+  get isEditor() {
+    if (window.localStorage.getItem("token")) {
+      const token = window.localStorage.getItem("token");
+      return JSON.parse(
+        atob(token.slice(token.indexOf(".") + 1, token.lastIndexOf(".")))
+      ).isEditor;
+    }
+    return null;
   }
 
   async SignIn(login, password) {
@@ -27,8 +46,7 @@ class Auth {
       this.refresh = response.refresh;
       window.localStorage.setItem("token", response.access);
       window.localStorage.setItem("refresh", response.refresh);
-      window.localStorage.setItem("isEditor", response.user.isEditor);
-      this.isEditor = response.user.isEditor;
+      // this.isEditor = response.user.isEditor;
       this.error = null;
     } else {
       this.error = response.details;
@@ -41,7 +59,7 @@ class Auth {
     window.localStorage.clear();
     this.token = null;
     this.refresh = null;
-    this.isEditor = null;
+    // this.isEditor = null;
     this.loading = false;
   }
 

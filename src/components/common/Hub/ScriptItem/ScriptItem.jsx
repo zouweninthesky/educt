@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router";
+import dateFormat from "dateformat";
 import "./ScriptItem.scss";
 
 import Icon from "../../Icon/Icon";
@@ -10,8 +11,9 @@ import PlayerStore from "../../../../store/player";
 import ScriptsStore from "../../../../store/scripts";
 import { useModal } from "../../Modal/ModalContext";
 import { MODAL_DELETE_SCRIPT_ID } from "../../../../utils/constants/modals";
+import { MASK_DAY_MONTH_SHORT_YEAR_DOTS_HOUR_MINUTE } from "../../../../utils/constants/dateFormatMasks";
 
-const ScriptItem = observer(({ id, title, isEditor }) => {
+const ScriptItem = observer(({ id, title, createTime, isEditor }) => {
   const [, setModalID] = useModal();
   const history = useHistory();
 
@@ -33,6 +35,13 @@ const ScriptItem = observer(({ id, title, isEditor }) => {
     return <></>;
   };
 
+  const shownTitle = title
+    ? title
+    : `Новый сценарий от ${dateFormat(
+        createTime,
+        MASK_DAY_MONTH_SHORT_YEAR_DOTS_HOUR_MINUTE
+      )}`;
+
   return (
     <li className="script-item" id={id.toString()}>
       <button
@@ -42,7 +51,7 @@ const ScriptItem = observer(({ id, title, isEditor }) => {
           ScriptsStore.scriptChosen(id);
         }}
       >
-        <span>{title}</span>
+        <span>{shownTitle}</span>
       </button>
       <button
         className="script-item__icon-button"
@@ -56,7 +65,7 @@ const ScriptItem = observer(({ id, title, isEditor }) => {
       >
         <Icon id="play" width="20" />
       </button>
-      <button className="script-item__icon-button" type="button">
+      <button className="script-item__icon-button" type="button" disabled>
         <Icon id="graph-bar" width="20" />
       </button>
       {deleteButton()}

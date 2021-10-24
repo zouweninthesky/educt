@@ -1,0 +1,51 @@
+@use "../../assets/scss/variables.scss" as *;
+@use "../../assets/scss/mixins.scss" as *;
+
+.welcome {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  height: 100vh;
+
+  &__wrapper {
+    max-width: 28.4375rem;
+  }
+
+  &__logo {
+    color: $color-neutrals-lighter;
+
+    margin-bottom: 2.875rem;
+  }
+
+  &__description {
+    font-size: 1.125rem;
+    line-height: 1.5625rem;
+    color: $color-neutrals-dark;
+  }
+
+  // @media (max-width: 1280px) {
+
+  // }
+
+  @include vp-laptop {
+    &__wrapper {
+      max-width: 22.375rem;
+    }
+  }
+
+  @include vp-tablet {
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    padding-left: 6.9375rem;
+
+    &__wrapper {
+      padding-top: 4rem;
+    }
+  }
+
+  @include vp-mobile {
+    padding: 0 1rem;
+  }
+}

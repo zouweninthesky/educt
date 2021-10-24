@@ -1,14 +1,13 @@
 import { makeAutoObservable } from "mobx";
 
-// import ScriptsService from "../api/UserScriptsServiceFake";
+// import ScriptsService from "../utils/UserScriptsServiceFake";
 // import AuthService from "../api/AuthService";
 import ScriptsService from "../api/UserScriptService";
 import Store from "./index";
-import Auth from "./auth";
 import { SCRIPTS_PER_PAGE } from "../utils/constants/links";
 
 class Scripts {
-  scripts = [];
+  scripts = null;
   chosenScript = null;
   chosenScriptTitle = null;
   chosenScriptDescription = null;
@@ -22,12 +21,14 @@ class Scripts {
 
   // without this a warning popped up on each sciptsLoad
   scriptsSet(data) {
+    if (this.scripts === null) {
+      this.scripts = [];
+    }
     this.scripts = [...this.scripts, ...data];
   }
 
-  // temp
   scriptsClear() {
-    this.scripts = [];
+    this.scripts = null;
     this.pagesLoaded = 1;
     this.allLoaded = false;
   }
@@ -49,6 +50,8 @@ class Scripts {
       this.scriptsSet([]);
       Store.storeError();
     }
+
+    this.scriptsSet([]);
   }
 
   // scriptsRequested() {

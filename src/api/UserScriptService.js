@@ -1,5 +1,4 @@
 import Auth from "../store/auth";
-import scripts from "../store/scripts";
 import request from "./request";
 import { MAIN_URL, SCRIPTS_PER_PAGE } from "../utils/constants/links";
 
