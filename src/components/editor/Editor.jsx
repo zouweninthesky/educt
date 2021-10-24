@@ -70,7 +70,7 @@ const Editor = observer(({ scriptUID }) => {
             EditorStore.startSending();
             await EditorStore.scriptUpdate();
             await saveAll();
-            EditorStore.finishSending();
+            // EditorStore.finishSending();
             history.push("/author");
           }}
         >
@@ -141,6 +141,7 @@ const Editor = observer(({ scriptUID }) => {
 
   // updates only images
   useEffect(() => {
+    // console.log("here we go");
     if (
       maskedImages.length > 0 &&
       maskedImages.length === updatingSteps.length
@@ -180,10 +181,6 @@ const Editor = observer(({ scriptUID }) => {
     }
   }, [maskedImages, updatingSteps]);
 
-  if (EditorStore.sending) {
-    return <Spinner show />;
-  }
-
   // will depend on currentSlide being not null
 
   if (EditorStore.loading) return <Loader />;
@@ -210,6 +207,7 @@ const Editor = observer(({ scriptUID }) => {
 
   return (
     <main className="editor">
+      <Spinner show={EditorStore.sending} />
       <ViewboxEditor
         mod={viewboxModifier}
         isEditor={true}
