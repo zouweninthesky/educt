@@ -32,14 +32,22 @@ const Viewbox = observer(
     const image = useRef(null);
 
     const [shrinkRatio, setShrinkRatio] = useState(
-      image.complete
+      image.current && image.current.complete
         ? image.current.clientWidth / image.current.naturalWidth
         : 1
     );
 
+    // diff
     useEffect(() => {
       onShrinkRatioChange(shrinkRatio);
     }, [shrinkRatio]);
+    //
+
+    useEffect(() => {
+      return () => {
+        window.removeEventListener("resize", onResize);
+      };
+    });
 
     const [actionClass, setActionClass] = useState(
       image.complete
@@ -50,10 +58,15 @@ const Viewbox = observer(
         : ""
     );
 
+    // diff
     const [imageOffsets, setImageOffsets] = useState({ x: 0, y: 0 });
     const [currentObjFirst, setCurrentObjFirst] = useState(undefined);
     const [currentObjSecond, setCurrentObjSecond] = useState(undefined);
     const [creatingObj, setCreatingObj] = useState(false);
+
+    useEffect(() => {
+      onResize();
+    }, [EditorStore.mode]);
 
     useEffect(() => {
       if (EditorStore.mode === "mask") {
@@ -99,12 +112,15 @@ const Viewbox = observer(
     }, [EditorStore.currentStepData]);
 
     const vbMainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
+
     const vbCursorClass =
       EditorStore.mode === "mask" || EditorStore.mode === "action"
         ? " viewbox--crosshair"
         : "";
+
     const vbActionClass =
       EditorStore.mode === "action" ? " viewbox--action-mode" : "";
+
     const maskActions =
       EditorStore.mode === "mask" || EditorStore.mode === "action"
         ? {
@@ -157,13 +173,30 @@ const Viewbox = observer(
             },
           }
         : {};
+    //
 
     const imageLink = `${STORAGE_URL}${EditorStore.currentStepData?.imageUID}`;
 
     const { boxCoords } = EditorStore.currentStepData?.metaInfo;
 
-    const getShrinkRatioActionClass = () => {
+    const getShrinkRatio = () => {
       setShrinkRatio(image.current.clientWidth / image.current.naturalWidth);
+    };
+
+    const onResize = () => {
+      if (
+        image.current &&
+        image.current.naturalWidth !== 0 &&
+        image.current.complete
+      ) {
+        getShrinkRatio();
+      }
+    };
+
+    window.addEventListener("resize", onResize);
+
+    const getShrinkRatioActionClass = () => {
+      getShrinkRatio();
       setActionClass(
         actionStyle().width + actionStyle().left + MARGIN_FOR_ACTION >=
           image.current.clientWidth
@@ -173,31 +206,38 @@ const Viewbox = observer(
     };
 
     const actionStyle = () => {
-      const defaultStyle = {
+      const style = {
         top: boxCoords.upperLeft.y * shrinkRatio - 4,
         left: boxCoords.upperLeft.x * shrinkRatio - 4,
       };
       console.log(currentObjFirst, currentObjSecond);
-      if (EditorStore.mode === "action" && currentObjFirst && currentObjSecond)
-        return {
-          top: calculateTopLeft(currentObjFirst, currentObjSecond)?.y,
-          left: calculateTopLeft(currentObjFirst, currentObjSecond)?.x,
-        };
-      return defaultStyle;
+      if (
+        EditorStore.mode === "action" &&
+        currentObjFirst &&
+        currentObjSecond
+      ) {
+        const tempStyle = calculateTopLeft(currentObjFirst, currentObjSecond);
+        style.top = tempStyle?.y;
+        style.left = tempStyle?.x;
+      }
+      return style;
     };
 
     const actionButtonStyle = () => {
-      const defaultStyle = {
+      const style = {
         width: boxCoords.width * shrinkRatio,
         height: boxCoords.height * shrinkRatio,
       };
       console.log(currentObjFirst, currentObjSecond);
-      if (EditorStore.mode === "action" && currentObjFirst && currentObjSecond)
-        return {
-          width: calculateWidth(currentObjFirst, currentObjSecond),
-          height: calculateHeight(currentObjFirst, currentObjSecond),
-        };
-      return defaultStyle;
+      if (
+        EditorStore.mode === "action" &&
+        currentObjFirst &&
+        currentObjSecond
+      ) {
+        style.width = calculateWidth(currentObjFirst, currentObjSecond);
+        style.height = calculateHeight(currentObjFirst, currentObjSecond);
+      }
+      return style;
     };
 
     const actionButton = () => {

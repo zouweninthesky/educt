@@ -2,12 +2,10 @@ import React, { useRef, useState, useEffect } from "react";
 import "./Viewbox.scss";
 
 import Icon from "../Icon/Icon";
-import ActionPicker from "./ActionPicker/ActionPicker";
 import EnterText from "./EnterText/EnterText";
 
 import { MOUSE_LEFT_BUTTON } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
-// import TempStep from "../../../static/img/test/test.jpg";
 
 const MARGIN_FOR_ACTION = 70;
 
@@ -96,7 +94,7 @@ const Viewbox = ({ mod, step, actionClick }) => {
               }}
             ></button>
             <span className="viewbox__action-type">
-              <Icon id="mouse-left" width="42" height="42" />
+              <Icon id="mouse-left" width="42" />
             </span>
           </>
         );
@@ -121,7 +119,7 @@ const Viewbox = ({ mod, step, actionClick }) => {
               }}
             ></button>
             <span className="viewbox__action-type">
-              <Icon id="mouse-right" width="42" height="42" />
+              <Icon id="mouse-right" width="42" />
             </span>
           </>
         );
@@ -145,17 +143,7 @@ const Viewbox = ({ mod, step, actionClick }) => {
         />
         <div className={`viewbox__action ${actionClass}`} style={actionStyle}>
           {actionButton()}
-          {/* <ActionPicker /> */}
         </div>
-
-        {/* <div className="viewbox__mask">
-          <button
-            type="button"
-            className="viewbox__mask-remove button button--icon-only"
-          >
-            <Icon id="cancel" width="22" />
-          </button>
-        </div> */}
       </div>
     </section>
   );
