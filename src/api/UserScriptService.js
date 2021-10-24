@@ -66,6 +66,7 @@ class UserScriptsService {
       );
       step.metaInfo.boxCoords.width = parseInt(step.metaInfo.boxCoords.width);
       step.metaInfo.boxCoords.height = parseInt(step.metaInfo.boxCoords.height);
+      console.log(toJS(step));
       return step;
     });
 
