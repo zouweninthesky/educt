@@ -1,6 +1,7 @@
 import Auth from "../store/auth";
 import request from "./request";
 import { MAIN_URL, SCRIPTS_PER_PAGE } from "../utils/constants/links";
+import { toJS } from "mobx";
 
 const headers = {
   Authorization: `Bearer ${Auth.token}`,
@@ -55,49 +56,35 @@ class UserScriptsService {
     await request(url, config, true);
   }
 
-  // async getUserScripts() {
-  //   const response = await fetch(`${MAIN_URL}scripts/?page=1&perPage=15`, {
-  //     method: "GET",
-  //     headers: {
-  //       Authorization: `Bearer ${Auth.token}`,
-  //     },
-  //   });
+  async updateScript(scriptUID, toDelete, toUpdate) {
+    const toUpdateParsed = toUpdate.map((step) => {
+      step.metaInfo.boxCoords.upperLeft.x = parseInt(
+        step.metaInfo.boxCoords.upperLeft.x
+      );
+      step.metaInfo.boxCoords.upperLeft.y = parseInt(
+        step.metaInfo.boxCoords.upperLeft.y
+      );
+      step.metaInfo.boxCoords.width = parseInt(step.metaInfo.boxCoords.width);
+      step.metaInfo.boxCoords.height = parseInt(step.metaInfo.boxCoords.height);
+      return step;
+    });
 
-  // async getScript(UID) {
-  //   const response = await fetch(`${MAIN_URL}scripts/${UID}/`, {
-  //     method: "GET",
-  //     headers,
-  //   });
+    const url = `${MAIN_URL}steps/`;
+    const config = {
+      method: "PUT",
+      headers: {
+        Authorization: `Bearer ${Auth.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        scriptUID,
+        toDelete,
+        toUpdate: toUpdateParsed,
+      }),
+    };
 
-  //   const data = await response.json();
-
-  //   return data;
-  // }
-
-  // async deleteScript(UID) {
-  //   await fetch(`${MAIN_URL}scripts/${UID}/`, {
-  //     method: "DELETE",
-  //     headers,
-  //   });
-  // }
-
-  // async changeTitleDescriptionScript(UID, orgID, title, description) {
-  //   const data = {
-  //     UID,
-  //     orgID,
-  //     title,
-  //     description,
-  //   };
-
-  //   await fetch(`${MAIN_URL}scripts/${UID}/`, {
-  //     method: "PUT",
-  //     headers: {
-  //       ...headers,
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(data),
-  //   });
-  // }
+    await request(url, config, true);
+  }
 }
 
 export default new UserScriptsService();

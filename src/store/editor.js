@@ -60,7 +60,7 @@ class Editor {
     this.scriptRequested();
     this.scriptData = await Api.getScript(this.scriptUID);
     this.stepsOld = this.scriptData.steps;
-    this.steps = this.scriptData.steps;
+    this.steps = deepCopy(this.scriptData.steps);
     this.steps.forEach((step) => {
       step.masks = [];
       step.shrinkRatio = 1;
@@ -215,7 +215,6 @@ class Editor {
   saveStepDescription(description) {
     this.currentStepData.description = description;
     this.steps[this.currentStepNumber] = deepCopy(this.currentStepData);
-    console.log(this.steps[this.currentStepNumber].description);
     this.saveStepToUpdate();
   }
 
@@ -261,6 +260,10 @@ class Editor {
     );
     this.scriptData.title = this.scriptTitle;
     this.scriptData.description = this.scriptDescription;
+  }
+
+  async scriptUpdate() {
+    await ScriptsApi.updateScript(this.scriptUID, this.toDelete, this.toUpdate);
   }
 }
 
