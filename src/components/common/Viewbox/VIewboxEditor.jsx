@@ -96,6 +96,7 @@ const Viewbox = observer(
 
     useEffect(() => {
       // setting image offsets
+      console.log(imageOffsets);
       if (image.current.complete) {
         setImageOffsets({
           x: image.current.getBoundingClientRect().left,
@@ -109,7 +110,8 @@ const Viewbox = observer(
           });
         };
       }
-    }, [EditorStore.currentStepData]);
+      console.log(imageOffsets);
+    }, [EditorStore.currentStepData, EditorStore.mode]);
 
     const vbMainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
 
