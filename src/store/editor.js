@@ -55,7 +55,26 @@ class Editor {
     this.scriptDescription = this.scriptData.description;
   }
 
+  resetStore() {
+    this.scriptData = null;
+    this.scriptUID = null;
+    this.scriptTitle = null;
+    this.scriptDescription = null;
+    this.stepsOld = [];
+    this.steps = [];
+    this.currentStepNumber = 0;
+    this.currentStepData = null;
+    this.toDelete = [];
+    this.toUpdate = [];
+    this.loading = true;
+    this.error = null;
+    this.sending = false;
+    this.lastMaskId = 0;
+    this.actionPickerVisible = false;
+  }
+
   async getSteps(scriptUID) {
+    this.resetStore();
     this.scriptUID = scriptUID;
     this.scriptRequested();
     this.scriptData = await Api.getScript(this.scriptUID);
@@ -271,7 +290,7 @@ class Editor {
   }
 
   finishSending() {
-    this.sending = false;
+    this.resetStore();
   }
 }
 
