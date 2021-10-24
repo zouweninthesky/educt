@@ -2,18 +2,28 @@ import React, { useState } from "react";
 
 import Icon from "../../Icon/Icon";
 
+import EditorStore from "../../../../store/editor";
+
 import {
   MOUSE_LEFT_BUTTON,
   KEYBOARD_ENTER_BUTTON,
 } from "../../../../utils/constants/keycodes";
 
-const EnterText = ({ step, actionClick, sizes }) => {
+const EnterText = ({ actionClick, isEditor, sizes }) => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(false);
 
-  const neededString = step.metaInfo.text.slice();
+  const neededString = EditorStore.currentStepData.metaInfo.text?.slice() || "";
 
   const hint = () => {
+    if (isEditor) {
+      return (
+        <span className="viewbox__action-type">
+          <Icon id="text" width="42" height="42" />
+        </span>
+      );
+    }
+
     if (neededString === "") {
       return (
         <button
@@ -57,6 +67,17 @@ const EnterText = ({ step, actionClick, sizes }) => {
     );
   };
 
+  const onChange = (e) => {
+    if (isEditor) {
+      setValue(e.target.value);
+      EditorStore.currentStepData.metaInfo.text = e.target.value;
+    } else {
+      setValue(e.target.value);
+      if (e.target.value === neededString) setIsValid(true);
+      else setIsValid(false);
+    }
+  };
+
   return (
     <>
       <textarea
@@ -66,9 +87,7 @@ const EnterText = ({ step, actionClick, sizes }) => {
         value={value}
         style={sizes}
         onChange={(e) => {
-          setValue(e.target.value);
-          if (e.target.value === neededString) setIsValid(true);
-          else setIsValid(false);
+          onChange(e);
         }}
         onKeyDown={(e) => {
           if (isValid) {

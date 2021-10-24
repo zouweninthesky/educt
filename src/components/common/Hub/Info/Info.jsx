@@ -85,7 +85,7 @@ const Info = observer((props) => {
     if (isEditor) {
       return (
         <Link
-          to="/editor"
+          to={"/editor/" + chosenScript.UID}
           className="hub-info__author-button button button--simple"
         >
           <Icon id="puzzle-piece" width="22" />

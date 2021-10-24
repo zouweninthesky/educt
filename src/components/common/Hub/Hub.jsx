@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import { Scrollbars } from "react-custom-scrollbars";
 import "./Hub.scss";
@@ -19,8 +20,10 @@ const Hub = observer((props) => {
   const { scripts, allLoaded } = Scripts;
 
   useEffect(() => {
-    Scripts.scriptsClear();
-    Scripts.scriptsLoad();
+    (async () => {
+      Scripts.scriptsClear();
+      await Scripts.scriptsLoad();
+    })();
   }, []);
 
   const loadButton = () => {

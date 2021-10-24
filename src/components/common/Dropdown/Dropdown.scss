@@ -52,9 +52,16 @@
 
   &__item {
     padding: 0.625rem 1.25rem;
+    cursor: pointer;
 
     border-bottom: 0.0625rem solid $color-neutrals-light;
     background-color: $color-background;
+
+    &:hover {
+      color: $color-neutrals;
+
+      background-color: $color-neutrals-faded;
+    }
 
     &--current {
       color: $color-neutrals;

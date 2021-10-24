@@ -1,0 +1,15 @@
+@use "../../../../assets/scss/variables" as *;
+.mask {
+  &__delete-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    border: none;
+    position: absolute;
+    z-index: $z-delete-mask;
+    cursor: pointer;
+  }
+}
