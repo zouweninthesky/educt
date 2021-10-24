@@ -14,29 +14,59 @@ import { observer } from "mobx-react-lite";
 const Tools = observer(() => {
   const [, setModalID] = useModal();
 
+  const { steps, currentStepNumber } = EditorStore;
+
+  const prevButton = () => {
+    if (currentStepNumber === 0) {
+      return (
+        <button className="tools__navigation-button" type="button" disabled>
+          <Icon id="angle-left" width="24" />
+        </button>
+      );
+    }
+
+    return (
+      <button
+        className="tools__navigation-button"
+        type="button"
+        onClick={() => EditorStore.prevStep()}
+      >
+        <Icon id="angle-left" width="24" />
+      </button>
+    );
+  };
+
+  const nextButton = () => {
+    if (steps.length === currentStepNumber + 1) {
+      return (
+        <button className="tools__navigation-button" type="button" disabled>
+          <Icon id="angle-right" width="24" />
+        </button>
+      );
+    }
+
+    return (
+      <button
+        className="tools__navigation-button"
+        type="button"
+        onClick={() => EditorStore.nextStep()}
+      >
+        <Icon id="angle-right" width="24" />
+      </button>
+    );
+  };
+
   return (
     <div className="tools">
       <ul className="tools__buttons-list">
         <li className="tools__button-item">
           <div className="tools__buttons-wrapper">
-            <button
-              className="tools__navigation-button"
-              type="button"
-              onClick={() => EditorStore.prevStep()}
-            >
-              <Icon id="angle-left" width="24" />
-            </button>
+            {prevButton()}
             <p className="tools__navigation-count">
               <span>{EditorStore.currentStepNumber + 1}</span>
               <span>из {EditorStore.steps.length}</span>
             </p>
-            <button
-              className="tools__navigation-button"
-              type="button"
-              onClick={() => EditorStore.nextStep()}
-            >
-              <Icon id="angle-right" width="24" />
-            </button>
+            {nextButton()}
           </div>
         </li>
         <li className="tools__button-item">

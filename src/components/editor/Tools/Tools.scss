@@ -50,6 +50,12 @@
     border: 0;
     background-color: transparent;
     cursor: pointer;
+
+    &:disabled {
+      opacity: 0.3;
+
+      cursor: auto;
+    }
   }
 
   &__navigation-count {

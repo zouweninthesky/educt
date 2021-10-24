@@ -93,24 +93,19 @@ class Editor {
 
   openStep(UID) {
     this.currentStepNumber = this.steps.findIndex((step) => step.UID === UID);
-    console.log(this.currentStepNumber);
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
     this.mode = "tools";
   }
 
   nextStep() {
     console.log(toJS(this));
-    if (this.currentStepNumber < this.steps.length - 1) {
-      this.currentStepNumber++;
-      this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
-    }
+    this.currentStepNumber++;
+    this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
   }
 
   prevStep() {
-    if (this.currentStepNumber > 0) {
-      this.currentStepNumber--;
-      this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
-    }
+    this.currentStepNumber--;
+    this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
   }
 
   addMask(topLeft, bottomRight) {
@@ -239,18 +234,6 @@ class Editor {
     const step = deepCopy(this.currentStepData);
     step.actionID = type_id;
     this.currentStepData = step;
-  }
-
-  setLkmAction() {
-    this.setActionType(1);
-  }
-
-  setTextAction() {
-    this.setActionType(2);
-  }
-
-  setPkmAction() {
-    this.setActionType(3);
   }
 
   showActionPicker() {
