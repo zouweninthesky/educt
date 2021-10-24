@@ -22,6 +22,7 @@ import SavingArea from "./SavingArea/SavingArea";
 import request from "../../api/request";
 import ZoomPanel from "./ZoomPanel/ZoomPanel";
 import { MODAL_NO_SAVE_ID } from "../../utils/constants/modals";
+import Spinner from "../common/Spinner/Spinner";
 
 const HEADER_TOOLS_ON = "Все слайды";
 const HEADER_TOOLS_OFF = "Вернуться к списку";
@@ -66,8 +67,10 @@ const Editor = observer(({ scriptUID }) => {
           className="editor__save-button button button--simple"
           type="button"
           onClick={async () => {
+            EditorStore.startSending();
             await EditorStore.scriptUpdate();
-            // await saveAll();
+            await saveAll();
+            EditorStore.finishSending();
             history.push("/author");
           }}
         >
@@ -142,6 +145,7 @@ const Editor = observer(({ scriptUID }) => {
       maskedImages.length > 0 &&
       maskedImages.length === updatingSteps.length
     ) {
+      console.log("starting!");
       // console.log(maskedImages);
       (async () => {
         console.log("getting update links");
@@ -175,6 +179,10 @@ const Editor = observer(({ scriptUID }) => {
       })();
     }
   }, [maskedImages, updatingSteps]);
+
+  if (EditorStore.sending) {
+    return <Spinner show />;
+  }
 
   // will depend on currentSlide being not null
 

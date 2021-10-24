@@ -38,7 +38,7 @@ class Editor {
   // Ошибка, думаю, все же нужна, но не уверен, как её
   error = null;
   // Состояние, когда пользователь все сохранил и ждет отправки всех запросов
-  sending = null;
+  sending = false;
   // Счетчик для уникальных id масок
   lastMaskId = 0;
   // Показывается или нет дропдаун для выбора типа действия
@@ -264,6 +264,14 @@ class Editor {
 
   async scriptUpdate() {
     await ScriptsApi.updateScript(this.scriptUID, this.toDelete, this.toUpdate);
+  }
+
+  startSending() {
+    this.sending = true;
+  }
+
+  finishSending() {
+    this.sending = false;
   }
 }
 
