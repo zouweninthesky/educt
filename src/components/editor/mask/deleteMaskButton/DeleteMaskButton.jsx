@@ -6,7 +6,7 @@ import {
   calculateTopLeft,
 } from "../../../../utils/calculateMaskCoords";
 
-const DeleteMaskButton = ({ onDeleteMask, firstPoint, secondPoint }) => {
+const DeleteMaskButton = ({ onDeleteMask, firstPoint, secondPoint, shrinkRatio }) => {
   const topLeft = calculateTopLeft(firstPoint, secondPoint);
   const bottomRight = calculateBottomRight(firstPoint, secondPoint);
 
@@ -14,8 +14,8 @@ const DeleteMaskButton = ({ onDeleteMask, firstPoint, secondPoint }) => {
     <button
       className="mask__delete-button"
       style={{
-        left: `calc(${bottomRight.x}px  - (1.75rem / 2))`,
-        top: `calc(${topLeft.y}px - (1.75rem / 2))`,
+        left: `calc(${bottomRight.x * shrinkRatio}px  - (1.75rem / 2))`,
+        top: `calc(${topLeft.y * shrinkRatio }px - (1.75rem / 2))`,
       }}
       onClick={(e) => {
         e.stopPropagation();

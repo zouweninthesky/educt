@@ -18,7 +18,7 @@ const EnterText = ({ actionClick, isEditor, sizes }) => {
   const hint = () => {
     if (isEditor) {
       return (
-        <span className="viewbox__action-type">
+        <span className="viewbox__action-type" onClick={() => EditorStore.toggleActionPickerVisible()}>
           <Icon id="text" width="42" height="42" />
         </span>
       );

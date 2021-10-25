@@ -40,6 +40,9 @@
     z-index: $z-action;
     border: 0.25rem solid $color-secondary;
     border-radius: 0.25rem;
+    &--not-mounted {
+      z-index: $z-action-not-mounted;
+    }
   }
 
   &__action-button {
@@ -69,6 +72,8 @@
     position: absolute;
     right: -3.6875rem;
     top: 0;
+
+    cursor: pointer;
 
     width: 3.125rem;
     height: 3.125rem;

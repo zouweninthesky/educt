@@ -8,9 +8,17 @@ const SavingArea = ({ step, onSaveImage }) => {
 
   let imgRef = useRef();
   const canvasRef = useRef();
-  const [naturalSize, setNaturalSize] = useState({ width: 2000, height: 1000 });
+  const [naturalSize, setNaturalSize] = useState({ width: 0, height: 0 });
+
+  useEffect(() => {
+    if (naturalSize.width !== 0 && naturalSize.height !== 0) {
+      console.log(naturalSize.width, naturalSize.height, "natural size changed");
+      saveImg();
+    }
+  }, [naturalSize]);
 
   const changeNaturalSize = () => {
+    console.log(imgRef.current.naturalWidth, imgRef.current.naturalHeight, "imgSizes starting to change");
     setNaturalSize({ width: imgRef.current.naturalWidth, height: imgRef.current.naturalHeight });
   };
 
@@ -26,11 +34,12 @@ const SavingArea = ({ step, onSaveImage }) => {
         (mask.bottomRight.y - mask.topLeft.y) / step.shrinkRatio);
     });
     canvasRef.current.toBlob((blob) => {
+      console.log(blob, "blob");
       onSaveImage({
         imageUID: step.imageUID,
         imageBin: blob
-      })
-    })
+      });
+    });
 
   };
 
@@ -39,7 +48,6 @@ const SavingArea = ({ step, onSaveImage }) => {
       <button type='button' onClick={saveImg} />
       <img crossOrigin='anonymous' src={`${STORAGE_URL}${step.imageUID}`} ref={imgRef} onLoad={() => {
         changeNaturalSize();
-        saveImg();
       }} />
       <canvas width={naturalSize.width} height={naturalSize.height} ref={canvasRef} />
     </div>

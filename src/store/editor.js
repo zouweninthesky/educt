@@ -262,6 +262,10 @@ class Editor {
     this.actionPickerVisible = false;
   }
 
+  toggleActionPickerVisible() {
+    this.actionPickerVisible = !this.actionPickerVisible;
+  }
+
   changeTitle(title) {
     this.scriptTitle = title;
   }

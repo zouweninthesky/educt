@@ -71,7 +71,7 @@ const Editor = observer(({ scriptUID }) => {
             await EditorStore.scriptUpdate();
             await saveAll();
             // EditorStore.finishSending();
-            history.push("/author");
+            // history.push("/author");
           }}
         >
           <Icon id="save" width="22" />
@@ -176,6 +176,7 @@ const Editor = observer(({ scriptUID }) => {
             );
           })
         );
+        history.push("/author");
         console.log("evth uploaded");
       })();
     }
@@ -212,9 +213,6 @@ const Editor = observer(({ scriptUID }) => {
         mod={viewboxModifier}
         isEditor={true}
         maskActive={EditorStore.mode === "mask"}
-        onNewMask={(topLeft, bottomRight) =>
-          EditorStore.addMask(topLeft, bottomRight)
-        }
         onDeleteMask={(key) => EditorStore.deleteMask(key)}
         onShrinkRatioChange={(sr) => EditorStore.changeShrinkRatio(sr)}
       />
