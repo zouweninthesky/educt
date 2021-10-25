@@ -148,15 +148,9 @@ const Viewbox = observer(
           );
           setCurrentObjFirst(undefined);
           setCurrentObjSecond(undefined);
-          if (EditorStore.mode === "action") EditorStore.showActionPicker();
         }
       }
     }, [currentObjSecond, creatingObj]);
-
-    useEffect(() => {
-      // setting image offsets
-      // console.log(imageOffsets);
-    }, [EditorStore.currentStepData, EditorStore.mode]);
 
     const vbMainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
 

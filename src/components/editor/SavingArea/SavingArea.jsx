@@ -28,10 +28,10 @@ const SavingArea = ({ step, onSaveImage }) => {
     console.log(imgRef.current);
     ctx.drawImage(imgRef.current, 0, 0, naturalSize.width, naturalSize.height);
     step.masks.forEach((mask) => {
-      ctx.fillRect(mask.topLeft.x / step.shrinkRatio,
-        mask.topLeft.y / step.shrinkRatio,
-        (mask.bottomRight.x - mask.topLeft.x) / step.shrinkRatio,
-        (mask.bottomRight.y - mask.topLeft.y) / step.shrinkRatio);
+      ctx.fillRect(mask.topLeft.x,
+        mask.topLeft.y,
+        (mask.bottomRight.x - mask.topLeft.x),
+        (mask.bottomRight.y - mask.topLeft.y));
     });
     canvasRef.current.toBlob((blob) => {
       console.log(blob, "blob");
