@@ -9,25 +9,9 @@ import EditorStore from "../../../store/editor";
 
 const ZoomPanel = observer(({ maskMode, onApply, onCancel, onRepeatMasks }) => {
   const repeatMaskDisabled = () => {
-    let repeatableMasks;
-    if (EditorStore.currentStepNumber > 0) {
-      repeatableMasks = EditorStore.currentStepData.masks.filter(
-        (mask) => {
-          return (
-            EditorStore.steps[
-            EditorStore.currentStepNumber - 1
-              ].masks.findIndex((prevStepMask) => {
-              return prevStepMask.id === mask.id;
-            }) !== -1
-          );
-        }
-      );
-      // console.log(repeatableMasks);
-    }
-    // console.log(toJS(repeatableMasks), EditorStore.currentStepNumber);
-    return (
-      repeatableMasks?.length ===
-      EditorStore.steps[EditorStore.currentStepNumber - 1]?.masks.length || EditorStore.currentStepNumber <= 0);
+    return !(EditorStore.currentStepData.masks.length === 0 &&
+      EditorStore.steps[EditorStore.currentStepNumber - 1]?.masks.length > 0 &&
+      EditorStore.currentStepNumber > 0);
   };
 
   const RepeatMask = (disabled) => {

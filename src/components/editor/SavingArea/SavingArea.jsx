@@ -46,7 +46,7 @@ const SavingArea = ({ step, onSaveImage }) => {
   return (
     <div>
       <button type='button' onClick={saveImg} />
-      <img crossOrigin='anonymous' src={`${STORAGE_URL}${step.imageUID}`} ref={imgRef} onLoad={() => {
+      <img src={`${STORAGE_URL}${step.imageUID}`} ref={imgRef} onLoad={() => {
         changeNaturalSize();
       }} />
       <canvas width={naturalSize.width} height={naturalSize.height} ref={canvasRef} />
