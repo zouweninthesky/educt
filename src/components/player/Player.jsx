@@ -27,10 +27,15 @@ const Player = () => {
 
   const [, setModalID] = useModal();
   const [playerState, setPlayerState] = useState(state);
+  // let flag = false;
 
   useEffect(() => {
     if (PlayerStore.script) {
       setModalID(MODAL_INTRO_ID);
+
+      if (PlayerStore.script.steps.length === 1) {
+        setPlayerState((prev) => ({ ...prev, isLastStep: true }));
+      }
     }
   }, []);
 

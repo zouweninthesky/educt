@@ -99,6 +99,7 @@ const Tools = observer(() => {
           <button
             className="tools__button"
             type="button"
+            disabled
             onClick={() => EditorStore.setMaskMode()}
           >
             <Icon id="layer-group" width="64" />
