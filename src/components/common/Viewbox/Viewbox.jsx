@@ -127,14 +127,10 @@ const Viewbox = ({ mod, step, actionClick }) => {
     }
   };
 
-  const wrapperStyle = () => {
-    return {};
-  };
-
   return (
     <section className={mainClass}>
       <h2 className="visually-hidden">Текущий слайд</h2>
-      <div className="viewbox__wrapper" style={wrapperStyle()}>
+      <div className="viewbox__wrapper">
         <img
           className="viewbox__image"
           alt="Текущий слайд"
