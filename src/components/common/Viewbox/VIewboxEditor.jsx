@@ -60,7 +60,7 @@ const Viewbox = observer(
 
     const updateShrinkRatio = () => {
       setShrinkRatio(
-        imageRef.current.clientWidth / imageRef.current.naturalWidth
+        imageRef.current?.clientWidth / imageRef.current?.naturalWidth
       );
     };
 
