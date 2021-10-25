@@ -26,7 +26,7 @@ const Viewbox = observer(({ mod, step, actionClick }) => {
   const actionStyle = {
     top: boxCoords.upperLeft.y * shrinkRatio - 4,
     left: boxCoords.upperLeft.x * shrinkRatio - 4,
-    display: PlayerStore.imageLoad ? "block" : "none",
+    display: PlayerStore.imageLoaded ? "block" : "none",
   };
 
   const [actionClass, setActionClass] = useState(
@@ -39,6 +39,8 @@ const Viewbox = observer(({ mod, step, actionClick }) => {
   );
 
   useEffect(() => {
+    window.addEventListener("resize", onResize);
+
     return () => {
       window.removeEventListener("resize", onResize);
     };
@@ -61,8 +63,6 @@ const Viewbox = observer(({ mod, step, actionClick }) => {
       getShrinkRatio();
     }
   };
-
-  window.addEventListener("resize", onResize);
 
   const getShrinkRatioActionClass = () => {
     getShrinkRatio();

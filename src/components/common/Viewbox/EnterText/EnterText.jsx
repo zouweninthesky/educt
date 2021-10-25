@@ -9,16 +9,21 @@ import {
   KEYBOARD_ENTER_BUTTON,
 } from "../../../../utils/constants/keycodes";
 
-const EnterText = ({ actionClick, isEditor, sizes }) => {
+const EnterText = ({ actionClick, step, isEditor, sizes }) => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(false);
 
-  const neededString = EditorStore.currentStepData.metaInfo.text?.slice() || "";
+  const neededString = isEditor
+    ? EditorStore.currentStepData.metaInfo.text?.slice() || ""
+    : step.metaInfo.text?.slice() || "";
 
   const hint = () => {
     if (isEditor) {
       return (
-        <span className="viewbox__action-type" onClick={() => EditorStore.toggleActionPickerVisible()}>
+        <span
+          className="viewbox__action-type"
+          onClick={() => EditorStore.toggleActionPickerVisible()}
+        >
           <Icon id="text" width="42" height="42" />
         </span>
       );
