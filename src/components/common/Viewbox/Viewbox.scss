@@ -10,7 +10,6 @@
   &__wrapper {
     display: flex;
     justify-content: center;
-    align-items: center;
 
     position: relative;
 
@@ -25,7 +24,9 @@
     max-width: 100%;
 
     object-fit: contain;
+
     border-radius: 0.5rem;
+
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
