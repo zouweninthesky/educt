@@ -124,12 +124,14 @@ class Editor {
     this.currentStepNumber++;
     this.startImageLoad();
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+    console.log(toJS(this.currentStepData.shrinkRatio), "next sr");
   }
 
   prevStep() {
     this.currentStepNumber--;
     this.startImageLoad();
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+    console.log(toJS(this.currentStepData.shrinkRatio), "prev sr");
   }
 
   addMask(topLeft, bottomRight) {
