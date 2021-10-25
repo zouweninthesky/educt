@@ -46,7 +46,7 @@ const Player = () => {
   const nextStep = () => {
     const stepsNumber = PlayerStore.script.steps.length;
     const block = playerState.currentStepId === stepsNumber - 2;
-
+    PlayerStore.startImageLoad();
     if (block) {
       setPlayerState((prev) => ({
         currentStepId: prev.currentStepId + 1,
@@ -64,7 +64,7 @@ const Player = () => {
 
   const prevStep = () => {
     const block = playerState.currentStepId === 1;
-
+    PlayerStore.startImageLoad();
     if (block) {
       setPlayerState((prev) => ({
         currentStepId: prev.currentStepId - 1,

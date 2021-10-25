@@ -6,6 +6,7 @@ import Scripts from "./scripts";
 
 class Player {
   script = undefined;
+  imageLoaded = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -16,6 +17,14 @@ class Player {
     const data = await Api.getScript(Scripts.chosenScript.UID);
     this.script = await data;
     Store.loading = false;
+  }
+
+  startImageLoad() {
+    this.imageLoaded = false;
+  }
+
+  finishImageLoad() {
+    this.imageLoaded = true;
   }
 }
 

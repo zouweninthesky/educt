@@ -43,6 +43,8 @@ class Editor {
   lastMaskId = 0;
   // Показывается или нет дропдаун для выбора типа действия
   actionPickerVisible = false;
+  // Загружено ли изображение, сбрасывается при переключении слайдов
+  imageLoaded = false;
 
   mode = "overview";
 
@@ -113,17 +115,20 @@ class Editor {
   openStep(UID) {
     this.currentStepNumber = this.steps.findIndex((step) => step.UID === UID);
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+    this.startImageLoad();
     this.mode = "tools";
   }
 
   nextStep() {
     console.log(toJS(this));
     this.currentStepNumber++;
+    this.startImageLoad();
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
   }
 
   prevStep() {
     this.currentStepNumber--;
+    this.startImageLoad();
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
   }
 
@@ -183,11 +188,11 @@ class Editor {
   }
 
   repeatStepMasks() {
-    console.log(this.currentStepData.shrinkRatio)
+    console.log(this.currentStepData.shrinkRatio);
     const stepNew = deepCopy(this.currentStepData);
     stepNew.masks = deepCopy(this.steps[this.currentStepNumber - 1].masks);
     this.currentStepData = stepNew;
-    console.log(this.currentStepData.shrinkRatio)
+    console.log(this.currentStepData.shrinkRatio);
   }
 
   setMode(mode) {
@@ -297,6 +302,14 @@ class Editor {
 
   finishSending() {
     this.resetStore();
+  }
+
+  startImageLoad() {
+    this.imageLoaded = false;
+  }
+
+  finishImageLoad() {
+    this.imageLoaded = true;
   }
 }
 

@@ -7,6 +7,7 @@ import Icon from "../Icon/Icon";
 import ActionPicker from "./ActionPicker/ActionPicker";
 import EnterText from "./EnterText/EnterText";
 import Mask from "../../editor/mask/Mask";
+import Spinner from "../Spinner/Spinner";
 
 import EditorStore from "../../../store/editor";
 
@@ -15,20 +16,21 @@ import DeleteMaskButton from "../../editor/mask/deleteMaskButton/DeleteMaskButto
 import {
   calculateTopLeft,
   calculateWidth,
-  calculateHeight, calculateBottomRight
+  calculateHeight,
+  calculateBottomRight,
 } from "../../../utils/calculateMaskCoords";
 
 const MARGIN_FOR_ACTION = 70;
 
 const Viewbox = observer(
   ({
-     mod,
-     actionClick,
-     onNewMask,
-     isEditor,
-     onDeleteMask,
-     onShrinkRatioChange
-   }) => {
+    mod,
+    actionClick,
+    onNewMask,
+    isEditor,
+    onDeleteMask,
+    onShrinkRatioChange,
+  }) => {
     const imageRef = useRef(null);
     const actionRef = useRef(null);
     const actionButtonRef = useRef(null);
@@ -39,10 +41,14 @@ const Viewbox = observer(
         : 1
     );
 
+    // const [imageLoad, setImageLoad] = useState(false);
+
     useEffect(() => {
-      setShrinkRatio(imageRef.current?.complete
-        ? imageRef.current.clientWidth / imageRef.current.naturalWidth
-        : 1);
+      setShrinkRatio(
+        imageRef.current?.complete
+          ? imageRef.current.clientWidth / imageRef.current.naturalWidth
+          : 1
+      );
     });
 
     // ?????
@@ -52,7 +58,9 @@ const Viewbox = observer(
     // ?????
 
     const updateShrinkRatio = () => {
-      setShrinkRatio(imageRef.current.clientWidth / imageRef.current.naturalWidth);
+      setShrinkRatio(
+        imageRef.current.clientWidth / imageRef.current.naturalWidth
+      );
     };
 
     const calculateImageChanges = () => {
@@ -60,14 +68,14 @@ const Viewbox = observer(
         updateShrinkRatio();
         setImageOffsets({
           x: imageRef.current.getBoundingClientRect().left,
-          y: imageRef.current.getBoundingClientRect().top
+          y: imageRef.current.getBoundingClientRect().top,
         });
       } else {
         imageRef.current.onload = () => {
           updateShrinkRatio();
           setImageOffsets({
             x: imageRef.current?.getBoundingClientRect().left,
-            y: imageRef.current?.getBoundingClientRect().top
+            y: imageRef.current?.getBoundingClientRect().top,
           });
         };
       }
@@ -83,26 +91,27 @@ const Viewbox = observer(
     const [actionClass, setActionClass] = useState(
       imageRef.complete
         ? actionStyle().width + actionStyle().left + MARGIN_FOR_ACTION >=
-        imageRef.current.clientWidth
-        ? "viewbox__action--left"
-        : ""
+          imageRef.current.clientWidth
+          ? "viewbox__action--left"
+          : ""
         : ""
     );
 
     const actionMountedClass = () => {
-      return EditorStore.mode === "action" && creatingObj ? "viewbox__action--not-mounted" : "";
+      return EditorStore.mode === "action" && creatingObj
+        ? "viewbox__action--not-mounted"
+        : "";
     };
 
     const updateShrinkRatioActionClass = () => {
       calculateImageChanges();
       setActionClass(
         actionStyle().width + actionStyle().left + MARGIN_FOR_ACTION >=
-        imageRef.current.clientWidth
+          imageRef.current.clientWidth
           ? "viewbox__action--left"
           : ""
       );
     };
-
 
     // diff
     const [imageOffsets, setImageOffsets] = useState({ x: 0, y: 0 });
@@ -118,19 +127,28 @@ const Viewbox = observer(
       if (EditorStore.mode === "mask") {
         if (!creatingObj && currentObjFirst?.x && currentObjSecond?.x) {
           // console.log(currentObjFirst, currentObjSecond)
-          EditorStore.addMask(calculateTopLeft({
-            x: currentObjFirst.x / shrinkRatio,
-            y: currentObjFirst.y / shrinkRatio
-          }, {
-            x: currentObjSecond.x / shrinkRatio,
-            y: currentObjSecond.y / shrinkRatio
-          }), calculateBottomRight({
-            x: currentObjFirst.x / shrinkRatio,
-            y: currentObjFirst.y / shrinkRatio
-          }, {
-            x: currentObjSecond.x / shrinkRatio,
-            y: currentObjSecond.y / shrinkRatio
-          }));
+          EditorStore.addMask(
+            calculateTopLeft(
+              {
+                x: currentObjFirst.x / shrinkRatio,
+                y: currentObjFirst.y / shrinkRatio,
+              },
+              {
+                x: currentObjSecond.x / shrinkRatio,
+                y: currentObjSecond.y / shrinkRatio,
+              }
+            ),
+            calculateBottomRight(
+              {
+                x: currentObjFirst.x / shrinkRatio,
+                y: currentObjFirst.y / shrinkRatio,
+              },
+              {
+                x: currentObjSecond.x / shrinkRatio,
+                y: currentObjSecond.y / shrinkRatio,
+              }
+            )
+          );
           setCurrentObjFirst(undefined);
           setCurrentObjSecond(undefined);
         }
@@ -139,11 +157,11 @@ const Viewbox = observer(
           EditorStore.updateAction(
             {
               x: (currentObjFirst.x + 4) / shrinkRatio,
-              y: (currentObjFirst.y + 4) / shrinkRatio
+              y: (currentObjFirst.y + 4) / shrinkRatio,
             },
             {
               x: (currentObjSecond.x + 4) / shrinkRatio,
-              y: (currentObjSecond.y + 4) / shrinkRatio
+              y: (currentObjSecond.y + 4) / shrinkRatio,
             }
           );
           setCurrentObjFirst(undefined);
@@ -165,53 +183,52 @@ const Viewbox = observer(
     const maskActions =
       EditorStore.mode === "mask" || EditorStore.mode === "action"
         ? {
-          onMouseDown: (e) => {
-            if (e.target === e.currentTarget) {
-              if (EditorStore.actionPickerVisible)
-                EditorStore.hideActionPicker();
-              else {
-                setCreatingObj(true);
-                setCurrentObjFirst({
-                  x: e.clientX - imageOffsets.x,
-                  y: e.clientY - imageOffsets.y
-                });
+            onMouseDown: (e) => {
+              if (e.target === e.currentTarget) {
+                if (EditorStore.actionPickerVisible)
+                  EditorStore.hideActionPicker();
+                else {
+                  setCreatingObj(true);
+                  setCurrentObjFirst({
+                    x: e.clientX - imageOffsets.x,
+                    y: e.clientY - imageOffsets.y,
+                  });
+                }
               }
-            }
-          },
-          onMouseUp: (e) => {
-            if (e.target === e.currentTarget) {
-              if (creatingObj) {
-                setCurrentObjSecond({
-                  x: e.clientX - imageOffsets.x,
-                  y: e.clientY - imageOffsets.y
-                });
-              }
-              setCreatingObj(false);
-            }
-          },
-          onMouseMove: (e) => {
-            if (e.target === e.currentTarget) {
-              if (creatingObj) {
-                setCurrentObjSecond({
-                  x: e.clientX - imageOffsets.x,
-                  y: e.clientY - imageOffsets.y
-                });
-              }
-            }
-          },
-          onMouseOut: (e) => {
-            if (e.target === e.currentTarget) {
-              console.log(e);
-              if (creatingObj) {
+            },
+            onMouseUp: (e) => {
+              if (e.target === e.currentTarget) {
+                if (creatingObj) {
+                  setCurrentObjSecond({
+                    x: e.clientX - imageOffsets.x,
+                    y: e.clientY - imageOffsets.y,
+                  });
+                }
                 setCreatingObj(false);
-                if (EditorStore.mode === "action")
-                  EditorStore.showActionPicker();
               }
-            }
+            },
+            onMouseMove: (e) => {
+              if (e.target === e.currentTarget) {
+                if (creatingObj) {
+                  setCurrentObjSecond({
+                    x: e.clientX - imageOffsets.x,
+                    y: e.clientY - imageOffsets.y,
+                  });
+                }
+              }
+            },
+            onMouseOut: (e) => {
+              if (e.target === e.currentTarget) {
+                console.log(e);
+                if (creatingObj) {
+                  setCreatingObj(false);
+                  if (EditorStore.mode === "action")
+                    EditorStore.showActionPicker();
+                }
+              }
+            },
           }
-        }
         : {};
-
 
     const imageLink = `${STORAGE_URL}${EditorStore.currentStepData?.imageUID}`;
 
@@ -220,7 +237,8 @@ const Viewbox = observer(
     const actionStyle = () => {
       const style = {
         top: boxCoords.upperLeft.y * shrinkRatio - 4,
-        left: boxCoords.upperLeft.x * shrinkRatio - 4
+        left: boxCoords.upperLeft.x * shrinkRatio - 4,
+        display: EditorStore.imageLoaded ? "block" : "none",
       };
       if (
         EditorStore.mode === "action" &&
@@ -237,7 +255,7 @@ const Viewbox = observer(
     const actionButtonStyle = () => {
       const style = {
         width: boxCoords.width * shrinkRatio,
-        height: boxCoords.height * shrinkRatio
+        height: boxCoords.height * shrinkRatio,
       };
       if (
         EditorStore.mode === "action" &&
@@ -261,7 +279,10 @@ const Viewbox = observer(
                 style={actionButtonStyle()}
                 ref={actionButtonRef}
               ></button>
-              <span className="viewbox__action-type" onClick={() => EditorStore.toggleActionPickerVisible()}>
+              <span
+                className="viewbox__action-type"
+                onClick={() => EditorStore.toggleActionPickerVisible()}
+              >
                 <Icon id="mouse-left" width="42" height="42" />
               </span>
             </>
@@ -284,7 +305,10 @@ const Viewbox = observer(
                 style={actionButtonStyle()}
                 ref={actionButtonRef}
               ></button>
-              <span className="viewbox__action-type" onClick={() => EditorStore.toggleActionPickerVisible()}>
+              <span
+                className="viewbox__action-type"
+                onClick={() => EditorStore.toggleActionPickerVisible()}
+              >
                 <Icon id="mouse-right" width="42" height="42" />
               </span>
             </>
@@ -342,7 +366,7 @@ const Viewbox = observer(
         top: actionStyle().top,
         left: `calc(${
           actionStyle().left + actionButtonStyle().width + 8 + 2 + 6
-        }px + 3.125rem)`
+        }px + 3.125rem)`,
       };
     };
 
@@ -350,6 +374,7 @@ const Viewbox = observer(
       <section className={vbMainClass + vbCursorClass + vbActionClass}>
         <h2 className="visually-hidden">Текущий слайд</h2>
         <div className="viewbox__wrapper">
+          <Spinner show={!EditorStore.imageLoaded} />
           <div className="viewbox__canvas" {...maskActions}>
             {DeleteMasksButtons()}
             {EditorStore.actionPickerVisible ? (
@@ -370,6 +395,8 @@ const Viewbox = observer(
             src={imageLink}
             ref={imageRef}
             onLoad={() => {
+              EditorStore.finishImageLoad();
+              console.log(1111);
               updateShrinkRatioActionClass();
             }}
           />

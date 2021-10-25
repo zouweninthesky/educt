@@ -3,13 +3,16 @@ import "./Viewbox.scss";
 
 import Icon from "../Icon/Icon";
 import EnterText from "./EnterText/EnterText";
+import Spinner from "../Spinner/Spinner";
 
+import PlayerStore from "../../../store/player";
 import { MOUSE_LEFT_BUTTON } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
+import { observer } from "mobx-react-lite";
 
 const MARGIN_FOR_ACTION = 70;
 
-const Viewbox = ({ mod, step, actionClick }) => {
+const Viewbox = observer(({ mod, step, actionClick }) => {
   const image = useRef(null);
 
   const { boxCoords } = step.metaInfo;
@@ -20,12 +23,10 @@ const Viewbox = ({ mod, step, actionClick }) => {
       : 1
   );
 
-  const [actionShown, setActionShown] = useState(false);
-
   const actionStyle = {
     top: boxCoords.upperLeft.y * shrinkRatio - 4,
     left: boxCoords.upperLeft.x * shrinkRatio - 4,
-    display: actionShown ? "block" : "none",
+    display: PlayerStore.imageLoad ? "block" : "none",
   };
 
   const [actionClass, setActionClass] = useState(
@@ -131,14 +132,15 @@ const Viewbox = ({ mod, step, actionClick }) => {
     <section className={mainClass}>
       <h2 className="visually-hidden">Текущий слайд</h2>
       <div className="viewbox__wrapper">
+        <Spinner show={!PlayerStore.imageLoaded} />
         <img
           className="viewbox__image"
           alt="Текущий слайд"
           src={imageLink}
           ref={image}
           onLoad={() => {
+            PlayerStore.finishImageLoad();
             getShrinkRatioActionClass();
-            setActionShown(true);
           }}
         />
         <div className={`viewbox__action ${actionClass}`} style={actionStyle}>
@@ -147,6 +149,6 @@ const Viewbox = ({ mod, step, actionClick }) => {
       </div>
     </section>
   );
-};
+});
 
 export default Viewbox;
