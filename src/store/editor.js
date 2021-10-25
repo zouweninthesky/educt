@@ -183,9 +183,11 @@ class Editor {
   }
 
   repeatStepMasks() {
+    console.log(this.currentStepData.shrinkRatio)
     const stepNew = deepCopy(this.currentStepData);
     stepNew.masks = deepCopy(this.steps[this.currentStepNumber - 1].masks);
     this.currentStepData = stepNew;
+    console.log(this.currentStepData.shrinkRatio)
   }
 
   setMode(mode) {

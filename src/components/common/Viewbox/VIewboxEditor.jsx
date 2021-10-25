@@ -39,6 +39,12 @@ const Viewbox = observer(
         : 1
     );
 
+    useEffect(() => {
+      setShrinkRatio(imageRef.current?.complete
+        ? imageRef.current.clientWidth / imageRef.current.naturalWidth
+        : 1);
+    });
+
     // ?????
     useEffect(() => {
       EditorStore.changeShrinkRatio(shrinkRatio);
@@ -49,20 +55,28 @@ const Viewbox = observer(
       setShrinkRatio(imageRef.current.clientWidth / imageRef.current.naturalWidth);
     };
 
-    const onResize = () => {
-      if (
-        imageRef.current &&
-        imageRef.current.naturalWidth !== 0 &&
-        imageRef.current.complete
-      ) {
+    const calculateImageChanges = () => {
+      if (imageRef.current.complete) {
         updateShrinkRatio();
+        setImageOffsets({
+          x: imageRef.current.getBoundingClientRect().left,
+          y: imageRef.current.getBoundingClientRect().top
+        });
+      } else {
+        imageRef.current.onload = () => {
+          updateShrinkRatio();
+          setImageOffsets({
+            x: imageRef.current?.getBoundingClientRect().left,
+            y: imageRef.current?.getBoundingClientRect().top
+          });
+        };
       }
     };
 
     useEffect(() => {
-      window.addEventListener("resize", onResize);
+      window.addEventListener("resize", calculateImageChanges);
       return () => {
-        window.removeEventListener("resize", onResize);
+        window.removeEventListener("resize", calculateImageChanges);
       };
     });
 
@@ -77,7 +91,7 @@ const Viewbox = observer(
 
     const actionMountedClass = () => {
       return EditorStore.mode === "action" && creatingObj ? "viewbox__action--not-mounted" : "";
-    }
+    };
 
     const updateShrinkRatioActionClass = () => {
       updateShrinkRatio();
@@ -97,8 +111,8 @@ const Viewbox = observer(
     const [creatingObj, setCreatingObj] = useState(false);
 
     useEffect(() => {
-      onResize();
-    }, [EditorStore.mode]);
+      calculateImageChanges();
+    }, [EditorStore.mode, EditorStore.currentStepData]);
 
     useEffect(() => {
       if (EditorStore.mode === "mask") {
@@ -142,19 +156,6 @@ const Viewbox = observer(
     useEffect(() => {
       // setting image offsets
       // console.log(imageOffsets);
-      if (imageRef.current.complete) {
-        setImageOffsets({
-          x: imageRef.current.getBoundingClientRect().left,
-          y: imageRef.current.getBoundingClientRect().top
-        });
-      } else {
-        imageRef.current.onload = () => {
-          setImageOffsets({
-            x: imageRef.current?.getBoundingClientRect().left,
-            y: imageRef.current?.getBoundingClientRect().top
-          });
-        };
-      }
     }, [EditorStore.currentStepData, EditorStore.mode]);
 
     const vbMainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
@@ -190,8 +191,6 @@ const Viewbox = observer(
                   x: e.clientX - imageOffsets.x,
                   y: e.clientY - imageOffsets.y
                 });
-                if (EditorStore.mode === "action")
-                  EditorStore.showActionPicker();
               }
               setCreatingObj(false);
             }
