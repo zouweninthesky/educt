@@ -3,7 +3,6 @@ import { STORAGE_URL } from "../../../utils/constants/links";
 import { toJS } from "mobx";
 
 const SavingArea = ({ step, onSaveImage }) => {
-
   console.log(toJS(step));
 
   let imgRef = useRef();
@@ -12,14 +11,25 @@ const SavingArea = ({ step, onSaveImage }) => {
 
   useEffect(() => {
     if (naturalSize.width !== 0 && naturalSize.height !== 0) {
-      console.log(naturalSize.width, naturalSize.height, "natural size changed");
+      console.log(
+        naturalSize.width,
+        naturalSize.height,
+        "natural size changed"
+      );
       saveImg();
     }
   }, [naturalSize]);
 
   const changeNaturalSize = () => {
-    console.log(imgRef.current.naturalWidth, imgRef.current.naturalHeight, "imgSizes starting to change");
-    setNaturalSize({ width: imgRef.current.naturalWidth, height: imgRef.current.naturalHeight });
+    console.log(
+      imgRef.current.naturalWidth,
+      imgRef.current.naturalHeight,
+      "imgSizes starting to change"
+    );
+    setNaturalSize({
+      width: imgRef.current.naturalWidth,
+      height: imgRef.current.naturalHeight,
+    });
   };
 
   const saveImg = () => {
@@ -28,28 +38,38 @@ const SavingArea = ({ step, onSaveImage }) => {
     console.log(imgRef.current);
     ctx.drawImage(imgRef.current, 0, 0, naturalSize.width, naturalSize.height);
     step.masks.forEach((mask) => {
-      ctx.fillRect(mask.topLeft.x,
+      ctx.fillRect(
+        mask.topLeft.x,
         mask.topLeft.y,
-        (mask.bottomRight.x - mask.topLeft.x),
-        (mask.bottomRight.y - mask.topLeft.y));
+        mask.bottomRight.x - mask.topLeft.x,
+        mask.bottomRight.y - mask.topLeft.y
+      );
     });
     canvasRef.current.toBlob((blob) => {
       console.log(blob, "blob");
       onSaveImage({
         imageUID: step.imageUID,
-        imageBin: blob
+        imageBin: blob,
       });
     });
-
   };
 
   return (
     <div>
-      <button type='button' onClick={saveImg} />
-      <img src={`${STORAGE_URL}${step.imageUID}`} ref={imgRef} onLoad={() => {
-        changeNaturalSize();
-      }} />
-      <canvas width={naturalSize.width} height={naturalSize.height} ref={canvasRef} />
+      <button type="button" onClick={saveImg} />
+      <img
+        crossorigin="anonymous"
+        src={`${STORAGE_URL}${step.imageUID}`}
+        ref={imgRef}
+        onLoad={() => {
+          changeNaturalSize();
+        }}
+      />
+      <canvas
+        width={naturalSize.width}
+        height={naturalSize.height}
+        ref={canvasRef}
+      />
     </div>
   );
 };
