@@ -56,7 +56,7 @@ const Viewbox = observer(
     };
 
     const calculateImageChanges = () => {
-      if (imageRef.current.complete) {
+      if (imageRef.current?.complete && imageRef.current?.clientWidth > 0) {
         updateShrinkRatio();
         setImageOffsets({
           x: imageRef.current.getBoundingClientRect().left,
@@ -94,7 +94,7 @@ const Viewbox = observer(
     };
 
     const updateShrinkRatioActionClass = () => {
-      updateShrinkRatio();
+      calculateImageChanges();
       setActionClass(
         actionStyle().width + actionStyle().left + MARGIN_FOR_ACTION >=
         imageRef.current.clientWidth
