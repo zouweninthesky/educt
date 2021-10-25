@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
 import "./ZoomPanel.scss";
 
@@ -8,23 +9,25 @@ import EditorStore from "../../../store/editor";
 
 const ZoomPanel = observer(({ maskMode, onApply, onCancel, onRepeatMasks }) => {
   const repeatMaskDisabled = () => {
-    if (EditorStore.currentStepNumber > 1) {
-      const repeatableMasks = EditorStore.currentStepData.masks.filter(
+    let repeatableMasks;
+    if (EditorStore.currentStepNumber > 0) {
+      repeatableMasks = EditorStore.currentStepData.masks.filter(
         (mask) => {
           return (
             EditorStore.steps[
-              EditorStore.currentStepNumber - 1
-            ].masks.findIndex((prevStepMask) => {
+            EditorStore.currentStepNumber - 1
+              ].masks.findIndex((prevStepMask) => {
               return prevStepMask.id === mask.id;
             }) !== -1
           );
         }
       );
-      return (
-        repeatableMasks.length ===
-        EditorStore.steps[EditorStore.currentStepNumber - 1].masks.length
-      );
+      // console.log(repeatableMasks);
     }
+    // console.log(toJS(repeatableMasks), EditorStore.currentStepNumber);
+    return (
+      repeatableMasks?.length ===
+      EditorStore.steps[EditorStore.currentStepNumber - 1]?.masks.length || EditorStore.currentStepNumber <= 0);
   };
 
   const RepeatMask = (disabled) => {
