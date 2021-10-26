@@ -11,6 +11,8 @@ class Scripts {
   chosenScript = null;
   chosenScriptTitle = null;
   chosenScriptDescription = null;
+  chosenScriptOldTitle = null;
+  chosenScriptOldDescription = null;
   pagesLoaded = 1;
   allLoaded = false;
   scriptToDelete = "";
@@ -67,8 +69,14 @@ class Scripts {
   scriptChosen(UID) {
     const [chosenScript] = this.scripts.filter((script) => script.UID === UID);
     this.chosenScript = chosenScript;
-    this.chosenScriptTitle = chosenScript.title;
-    this.chosenScriptDescription = chosenScript.description;
+    this.chosenScriptTitle = chosenScript.title
+      ? chosenScript.title.slice()
+      : "Добавьте название";
+    this.chosenScriptOldTitle = chosenScript.title.slice();
+    this.chosenScriptDescription = chosenScript.description
+      ? chosenScript.description.slice()
+      : "Добавьте описание";
+    this.chosenScriptOldDescription = chosenScript.description.slice();
   }
 
   scriptToDeleteChosen(UID) {
@@ -95,6 +103,8 @@ class Scripts {
       this.chosenScriptTitle,
       this.chosenScriptDescription
     );
+    this.chosenScriptOldTitle = this.chosenScriptTitle.slice();
+    this.chosenScriptOldDescription = this.chosenScriptDescription.slice();
     this.updateShownScripts();
   }
 

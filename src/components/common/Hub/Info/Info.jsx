@@ -16,7 +16,13 @@ import { MASK_DAY_MONTH_YEAR_DOTS } from "../../../../utils/constants/dateFormat
 const Info = observer((props) => {
   const history = useHistory();
 
-  const { chosenScript, chosenScriptTitle, chosenScriptDescription } = Scripts;
+  const {
+    chosenScript,
+    chosenScriptTitle,
+    chosenScriptOldTitle,
+    chosenScriptDescription,
+    chosenScriptOldDescription,
+  } = Scripts;
 
   if (chosenScript === null) {
     return <></>;
@@ -24,11 +30,11 @@ const Info = observer((props) => {
 
   const { isEditor } = props;
 
-  const title = chosenScriptTitle
-    ? chosenScriptTitle
-    : isEditor
-    ? "Добавьте название"
-    : "Нет названия";
+  // const title = chosenScriptTitle
+  //   ? chosenScriptTitle
+  //   : isEditor
+  //   ? "Добавьте название"
+  //   : "Нет названия";
 
   const description = chosenScriptDescription
     ? chosenScriptDescription
@@ -36,12 +42,22 @@ const Info = observer((props) => {
     ? "Добавьте описание"
     : "Нет описания";
 
+  const title = () => {
+    console.log(chosenScriptTitle);
+    console.log(chosenScriptOldTitle);
+    if (isEditor) {
+      return chosenScriptTitle;
+    }
+
+    return chosenScriptOldTitle ? chosenScriptOldTitle : "Нет названия";
+  };
+
   const infoTitle = () => {
     if (isEditor) {
       return (
         <input
           type="text"
-          value={title}
+          value={title()}
           className="hub-info__title"
           onChange={(e) => {
             Scripts.changeTitle(e.target.value);
@@ -56,7 +72,7 @@ const Info = observer((props) => {
       );
     }
 
-    return <h3 className="hub-info__title">{title}</h3>;
+    return <h3 className="hub-info__title">{title()}</h3>;
   };
 
   const infoDescription = () => {
