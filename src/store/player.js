@@ -7,6 +7,8 @@ import Scripts from "./scripts";
 class Player {
   script = undefined;
   imageLoaded = false;
+  // used for evading cache-saving issues
+  timeStamp = null;
 
   constructor() {
     makeAutoObservable(this);
@@ -17,6 +19,7 @@ class Player {
     const data = await Api.getScript(Scripts.chosenScript.UID);
     this.script = await data;
     Store.loading = false;
+    this.timeStamp = Date.now();
   }
 
   startImageLoad() {

@@ -9,6 +9,7 @@ import PlayerStore from "../../../store/player";
 import { MOUSE_LEFT_BUTTON } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
 import { observer } from "mobx-react-lite";
+import Editor from "../../editor/Editor";
 
 const MARGIN_FOR_ACTION = 70;
 
@@ -48,7 +49,7 @@ const Viewbox = observer(({ mod, step, actionClick }) => {
 
   const mainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
 
-  const imageLink = `${STORAGE_URL}${step.imageUID}`;
+  const imageLink = `${STORAGE_URL}${step.imageUID}?p=${PlayerStore.timeStamp}`;
 
   const getShrinkRatio = () => {
     setShrinkRatio(image.current.clientWidth / image.current.naturalWidth);
