@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { STORAGE_URL } from "../../../utils/constants/links";
 import { toJS } from "mobx";
 
+import EditorStore from "../../../store/editor";
+
 const SavingArea = ({ step, onSaveImage }) => {
   console.log(toJS(step));
 
@@ -19,6 +21,8 @@ const SavingArea = ({ step, onSaveImage }) => {
       saveImg();
     }
   }, [naturalSize]);
+
+  const imageLink = `${STORAGE_URL}${step.imageUID}?s=${EditorStore.timeStamp}`;
 
   const changeNaturalSize = () => {
     console.log(
@@ -58,8 +62,8 @@ const SavingArea = ({ step, onSaveImage }) => {
     <div>
       <button type="button" onClick={saveImg} />
       <img
-        crossorigin="anonymous"
-        src={`${STORAGE_URL}${step.imageUID}`}
+        crossOrigin="anonymous"
+        src={imageLink}
         ref={imgRef}
         onLoad={() => {
           changeNaturalSize();

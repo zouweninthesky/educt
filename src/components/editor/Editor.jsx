@@ -70,8 +70,6 @@ const Editor = observer(({ scriptUID }) => {
             EditorStore.startSending();
             await EditorStore.scriptUpdate();
             await saveAll();
-            // EditorStore.finishSending();
-            // history.push("/author");
           }}
         >
           <Icon id="save" width="22" />
@@ -199,6 +197,8 @@ const Editor = observer(({ scriptUID }) => {
   const saveAll = () => {
     console.log("starting save");
     setUpdatingSteps(EditorStore.toUpdate);
+    // EditorStore.finishSending();
+    // history.push("/author");
   };
 
   const viewboxModifier =

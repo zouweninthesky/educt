@@ -17,20 +17,20 @@ import {
   calculateTopLeft,
   calculateWidth,
   calculateHeight,
-  calculateBottomRight
+  calculateBottomRight,
 } from "../../../utils/calculateMaskCoords";
 
 const MARGIN_FOR_ACTION = 70;
 
 const Viewbox = observer(
   ({
-     mod,
-     actionClick,
-     onNewMask,
-     isEditor,
-     onDeleteMask,
-     onShrinkRatioChange
-   }) => {
+    mod,
+    actionClick,
+    onNewMask,
+    isEditor,
+    onDeleteMask,
+    onShrinkRatioChange,
+  }) => {
     const imageRef = useRef(null);
     const actionRef = useRef(null);
     const actionButtonRef = useRef(null);
@@ -69,14 +69,14 @@ const Viewbox = observer(
         updateShrinkRatio();
         setImageOffsets({
           x: imageRef.current.getBoundingClientRect().left,
-          y: imageRef.current.getBoundingClientRect().top
+          y: imageRef.current.getBoundingClientRect().top,
         });
       } else {
         imageRef.current.onload = () => {
           updateShrinkRatio();
           setImageOffsets({
             x: imageRef.current?.getBoundingClientRect().left,
-            y: imageRef.current?.getBoundingClientRect().top
+            y: imageRef.current?.getBoundingClientRect().top,
           });
         };
       }
@@ -92,9 +92,9 @@ const Viewbox = observer(
     const [actionClass, setActionClass] = useState(
       imageRef.complete
         ? actionStyle().width + actionStyle().left + MARGIN_FOR_ACTION >=
-        imageRef.current.clientWidth
-        ? "viewbox__action--left"
-        : ""
+          imageRef.current.clientWidth
+          ? "viewbox__action--left"
+          : ""
         : ""
     );
 
@@ -108,7 +108,7 @@ const Viewbox = observer(
       calculateImageChanges();
       setActionClass(
         actionStyle().width + actionStyle().left + MARGIN_FOR_ACTION >=
-        imageRef.current.clientWidth
+          imageRef.current.clientWidth
           ? "viewbox__action--left"
           : ""
       );
@@ -122,7 +122,11 @@ const Viewbox = observer(
 
     useEffect(() => {
       calculateImageChanges();
-    }, [EditorStore.mode, EditorStore.currentStepData, EditorStore.currentStepNumber]);
+    }, [
+      EditorStore.mode,
+      EditorStore.currentStepData,
+      EditorStore.currentStepNumber,
+    ]);
 
     useEffect(() => {
       if (EditorStore.mode === "mask") {
@@ -132,21 +136,21 @@ const Viewbox = observer(
             calculateTopLeft(
               {
                 x: currentObjFirst.x / shrinkRatio,
-                y: currentObjFirst.y / shrinkRatio
+                y: currentObjFirst.y / shrinkRatio,
               },
               {
                 x: currentObjSecond.x / shrinkRatio,
-                y: currentObjSecond.y / shrinkRatio
+                y: currentObjSecond.y / shrinkRatio,
               }
             ),
             calculateBottomRight(
               {
                 x: currentObjFirst.x / shrinkRatio,
-                y: currentObjFirst.y / shrinkRatio
+                y: currentObjFirst.y / shrinkRatio,
               },
               {
                 x: currentObjSecond.x / shrinkRatio,
-                y: currentObjSecond.y / shrinkRatio
+                y: currentObjSecond.y / shrinkRatio,
               }
             )
           );
@@ -158,11 +162,11 @@ const Viewbox = observer(
           EditorStore.updateAction(
             {
               x: (currentObjFirst.x + 4) / shrinkRatio,
-              y: (currentObjFirst.y + 4) / shrinkRatio
+              y: (currentObjFirst.y + 4) / shrinkRatio,
             },
             {
               x: (currentObjSecond.x + 4) / shrinkRatio,
-              y: (currentObjSecond.y + 4) / shrinkRatio
+              y: (currentObjSecond.y + 4) / shrinkRatio,
             }
           );
           setCurrentObjFirst(undefined);
@@ -184,54 +188,54 @@ const Viewbox = observer(
     const maskActions =
       EditorStore.mode === "mask" || EditorStore.mode === "action"
         ? {
-          onMouseDown: (e) => {
-            if (e.target === e.currentTarget) {
-              if (EditorStore.actionPickerVisible)
-                EditorStore.hideActionPicker();
-              else {
-                setCreatingObj(true);
-                setCurrentObjFirst({
-                  x: e.clientX - imageOffsets.x,
-                  y: e.clientY - imageOffsets.y
-                });
+            onMouseDown: (e) => {
+              if (e.target === e.currentTarget) {
+                if (EditorStore.actionPickerVisible)
+                  EditorStore.hideActionPicker();
+                else {
+                  setCreatingObj(true);
+                  setCurrentObjFirst({
+                    x: e.clientX - imageOffsets.x,
+                    y: e.clientY - imageOffsets.y,
+                  });
+                }
               }
-            }
-          },
-          onMouseUp: (e) => {
-            if (e.target === e.currentTarget) {
-              if (creatingObj) {
-                setCurrentObjSecond({
-                  x: e.clientX - imageOffsets.x,
-                  y: e.clientY - imageOffsets.y
-                });
-              }
-              setCreatingObj(false);
-            }
-          },
-          onMouseMove: (e) => {
-            if (e.target === e.currentTarget) {
-              if (creatingObj) {
-                setCurrentObjSecond({
-                  x: e.clientX - imageOffsets.x,
-                  y: e.clientY - imageOffsets.y
-                });
-              }
-            }
-          },
-          onMouseOut: (e) => {
-            if (e.target === e.currentTarget) {
-              console.log(e);
-              if (creatingObj) {
+            },
+            onMouseUp: (e) => {
+              if (e.target === e.currentTarget) {
+                if (creatingObj) {
+                  setCurrentObjSecond({
+                    x: e.clientX - imageOffsets.x,
+                    y: e.clientY - imageOffsets.y,
+                  });
+                }
                 setCreatingObj(false);
-                if (EditorStore.mode === "action")
-                  EditorStore.showActionPicker();
               }
-            }
+            },
+            onMouseMove: (e) => {
+              if (e.target === e.currentTarget) {
+                if (creatingObj) {
+                  setCurrentObjSecond({
+                    x: e.clientX - imageOffsets.x,
+                    y: e.clientY - imageOffsets.y,
+                  });
+                }
+              }
+            },
+            onMouseOut: (e) => {
+              if (e.target === e.currentTarget) {
+                console.log(e);
+                if (creatingObj) {
+                  setCreatingObj(false);
+                  if (EditorStore.mode === "action")
+                    EditorStore.showActionPicker();
+                }
+              }
+            },
           }
-        }
         : {};
 
-    const imageLink = `${STORAGE_URL}${EditorStore.currentStepData?.imageUID}`;
+    const imageLink = `${STORAGE_URL}${EditorStore.currentStepData?.imageUID}?e=${EditorStore.timeStamp}`;
 
     const { boxCoords } = EditorStore.currentStepData?.metaInfo;
 
@@ -239,7 +243,7 @@ const Viewbox = observer(
       const style = {
         top: boxCoords.upperLeft.y * shrinkRatio - 4,
         left: boxCoords.upperLeft.x * shrinkRatio - 4,
-        display: EditorStore.imageLoaded ? "block" : "none"
+        display: EditorStore.imageLoaded ? "block" : "none",
       };
       if (
         EditorStore.mode === "action" &&
@@ -256,7 +260,7 @@ const Viewbox = observer(
     const actionButtonStyle = () => {
       const style = {
         width: boxCoords.width * shrinkRatio,
-        height: boxCoords.height * shrinkRatio
+        height: boxCoords.height * shrinkRatio,
       };
       if (
         EditorStore.mode === "action" &&
@@ -370,7 +374,7 @@ const Viewbox = observer(
         top: actionStyle().top,
         left: `calc(${
           actionStyle().left + actionButtonStyle().width + 8 + 2 + 6
-        }px + 3.125rem)`
+        }px + 3.125rem)`,
       };
     };
 

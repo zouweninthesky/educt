@@ -45,6 +45,8 @@ class Editor {
   actionPickerVisible = false;
   // Загружено ли изображение, сбрасывается при переключении слайдов
   imageLoaded = false;
+  // used for evading cache-saving issues
+  timeStamp = null;
 
   mode = "overview";
 
@@ -73,6 +75,7 @@ class Editor {
     this.sending = false;
     this.lastMaskId = 0;
     this.actionPickerVisible = false;
+    this.timeStamp = null;
   }
 
   async getSteps(scriptUID) {
@@ -92,6 +95,7 @@ class Editor {
     });
     this.currentStepNumber = 0;
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+    this.timeStamp = Date.now();
     this.setTitleDescription();
     this.stepsLoaded();
   }
