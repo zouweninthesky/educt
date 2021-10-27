@@ -65,5 +65,12 @@
 
   &__title {
     font-weight: 400;
+
+    margin-bottom: 0;
+  }
+
+  &__changes {
+    font-size: 12px;
+    color: $color-neutrals-lighter;
   }
 }

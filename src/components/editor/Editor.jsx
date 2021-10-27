@@ -8,7 +8,8 @@ import Icon from "../common/Icon/Icon";
 import ViewboxEditor from "../common/Viewbox/VIewboxEditor";
 import Overview from "./Overview/Overview";
 import Tools from "./Tools/Tools";
-import DeleteModal from "./modals/DeleteModal";
+import DeleteStepModal from "./modals/DeleteStepModal";
+import DeleteScriptModal from "./modals/EditorDeleteScriptModal";
 import Overlay from "../common/Modal/Overlay";
 import CommentModal from "./modals/CommentModal";
 import SettingsModal from "./modals/SettingsModal";
@@ -53,15 +54,35 @@ const Editor = observer(({ scriptUID }) => {
         </>
       );
 
-    return (
-      <>
-        <button
-          type="button"
+    const backButton = () => {
+      if (
+        EditorStore.toDelete.length !== 0 ||
+        EditorStore.toUpdate.length !== 0
+      ) {
+        return (
+          <button
+            type="button"
+            className="editor__arrow-button button button--simple button--icon-only"
+            onClick={() => setModalID(MODAL_NO_SAVE_ID)}
+          >
+            <Icon id="arrow-left" width="24" />
+          </button>
+        );
+      }
+      return (
+        <Link
+          to="/author"
           className="editor__arrow-button button button--simple button--icon-only"
-          onClick={() => setModalID(MODAL_NO_SAVE_ID)}
+          onClick={() => EditorStore.resetStore()}
         >
           <Icon id="arrow-left" width="24" />
-        </button>
+        </Link>
+      );
+    };
+
+    return (
+      <>
+        {backButton()}
         <h2 className="editor__header">{HEADER_TOOLS_OFF}</h2>
         <button
           className="editor__save-button button button--simple"
@@ -220,7 +241,8 @@ const Editor = observer(({ scriptUID }) => {
       {currentPanel()}
       {SavingAreas()}
       <CommentModal step={EditorStore.currentStepData.description} />
-      <DeleteModal onDelete={() => EditorStore.deleteStep()} />
+      <DeleteStepModal onDelete={() => EditorStore.deleteStep()} />
+      <DeleteScriptModal />
       <NoSaveModal />
       <SettingsModal />
       <Overlay />

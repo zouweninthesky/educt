@@ -404,7 +404,6 @@ const Viewbox = observer(
             ref={imageRef}
             onLoad={() => {
               EditorStore.finishImageLoad();
-              console.log(1111);
               updateShrinkRatioActionClass();
             }}
           />

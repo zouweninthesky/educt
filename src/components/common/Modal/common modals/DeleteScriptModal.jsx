@@ -7,7 +7,7 @@ import Scripts from "../../../../store/scripts";
 import { useModal } from "../../../common/Modal/ModalContext";
 import { MODAL_DELETE_SCRIPT_ID } from "../../../../utils/constants/modals";
 
-const DeleteScriptModal = () => {
+const DeleteScriptModal = ({ onDelete }) => {
   const [modalID, setModalID] = useModal();
 
   if (modalID !== MODAL_DELETE_SCRIPT_ID) {
@@ -27,7 +27,7 @@ const DeleteScriptModal = () => {
         className="button modal__button modal__button--action"
         type="button"
         onClick={() => {
-          Scripts.scriptDelete();
+          onDelete();
           setModalID();
         }}
       >

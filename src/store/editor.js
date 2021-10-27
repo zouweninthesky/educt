@@ -257,7 +257,7 @@ class Editor {
     this.steps = stepsNew;
     if (this.currentStepNumber < this.steps.length - 1)
       this.currentStepNumber += 0;
-    else this.currentStepNumber -= 1;
+    else if (this.currentStepNumber !== 0) this.currentStepNumber -= 1;
     this.currentStepData = this.steps[this.currentStepNumber];
   }
 
@@ -316,6 +316,10 @@ class Editor {
 
   finishImageLoad() {
     this.imageLoaded = true;
+  }
+
+  async scriptDelete() {
+    await Api.deleteScript(this.scriptUID);
   }
 }
 
