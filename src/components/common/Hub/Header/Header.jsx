@@ -34,7 +34,12 @@ const Header = () => {
 
   return (
     <header className="hub-header container">
-      <a href="/" className="hub-header__logo">
+      <a
+        href="https://educt.ru/"
+        target="_blank"
+        rel="noreferrer noopener"
+        className="hub-header__logo"
+      >
         <Icon id="main-logo" width="122" height="28" />
         <span className="visually-hidden">educt</span>
       </a>
