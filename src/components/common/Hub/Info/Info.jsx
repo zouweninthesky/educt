@@ -43,8 +43,6 @@ const Info = observer((props) => {
     : "Нет описания";
 
   const title = () => {
-    console.log(chosenScriptTitle);
-    console.log(chosenScriptOldTitle);
     if (isEditor) {
       return chosenScriptTitle;
     }

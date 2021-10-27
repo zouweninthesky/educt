@@ -9,7 +9,7 @@ import Info from "./Info/Info";
 import ScriptItem from "./ScriptItem/ScriptItem";
 import Spinner from "../../common/Spinner/Spinner";
 import Overlay from "../../common/Modal/Overlay";
-import DeleteScriptModal from "./modals/DeleteScriptModal";
+import DeleteScriptModal from "./modals/HubDeleteScriptModal";
 
 import Scripts from "../../../store/scripts";
 import NoScripts from "./NoScripts/NoScripts";

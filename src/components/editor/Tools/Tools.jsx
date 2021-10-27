@@ -7,6 +7,7 @@ import EditorStore from "../../../store/editor";
 import { useModal } from "../../common/Modal/ModalContext";
 import {
   MODAL_DELETE_STEP_ID,
+  MODAL_DELETE_SCRIPT_ID,
   MODAL_COMMENT_ID,
 } from "../../../utils/constants/modals";
 import { observer } from "mobx-react-lite";
@@ -56,6 +57,24 @@ const Tools = observer(() => {
     );
   };
 
+  const deleteButton = () => {
+    const modalID =
+      EditorStore.steps.length <= 1
+        ? MODAL_DELETE_SCRIPT_ID
+        : MODAL_DELETE_STEP_ID;
+
+    return (
+      <button
+        className="tools__button"
+        type="button"
+        onClick={() => setModalID(modalID)}
+      >
+        <Icon id="trash" width="64" />
+        <h3 className="tools__button-title">Удалить слайд</h3>
+      </button>
+    );
+  };
+
   return (
     <div className="tools">
       <ul className="tools__buttons-list">
@@ -90,7 +109,7 @@ const Tools = observer(() => {
           </button>
         </li>
         <li className="tools__button-item">
-          <button className="tools__button" type="button">
+          <button className="tools__button" type="button" disabled>
             <Icon id="microphone" width="64" />
             <h3 className="tools__button-title">Аудио</h3>
           </button>
@@ -106,21 +125,7 @@ const Tools = observer(() => {
             <h3 className="tools__button-title">Маска</h3>
           </button>
         </li>
-        <li className="tools__button-item">
-          <button
-            className="tools__button"
-            type="button"
-            disabled={EditorStore.steps.length <= 1}
-            onClick={() =>
-              EditorStore.steps.length > 1
-                ? setModalID(MODAL_DELETE_STEP_ID)
-                : null
-            }
-          >
-            <Icon id="trash" width="64" />
-            <h3 className="tools__button-title">Удалить слайд</h3>
-          </button>
-        </li>
+        <li className="tools__button-item">{deleteButton()}</li>
       </ul>
     </div>
   );

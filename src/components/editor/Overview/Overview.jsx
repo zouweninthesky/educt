@@ -12,7 +12,7 @@ import Thumbnail from "../../../static/img/test/temp-slide-thumbnail.jpg";
 const Overview = () => {
   const [, setModalID] = useModal();
 
-  const { steps } = EditorStore;
+  const { steps, toDelete, toUpdate } = EditorStore;
 
   const content = () => {
     if (steps && steps.length) {
@@ -42,6 +42,12 @@ const Overview = () => {
     }
   };
 
+  const isChanged = () => {
+    return toDelete.length !== 0 || toUpdate.length !== 0
+      ? "Изменения внесены"
+      : "";
+  };
+
   return (
     <div className="overview">
       <div className="overview__item">
@@ -51,7 +57,10 @@ const Overview = () => {
           onClick={() => setModalID(MODAL_SETTINGS_ID)}
         >
           <Icon id="info" width="64" />
-          <h3 className="overview__title">Общие настройки</h3>
+          <div>
+            <h3 className="overview__title">Общие настройки</h3>
+            <span className="overview__changes">{isChanged()}</span>
+          </div>
         </button>
       </div>
       {content()}
