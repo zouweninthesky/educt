@@ -1,10 +1,10 @@
 import { makeAutoObservable } from "mobx";
 
-import Store from "../store";
+import Store from ".";
 import Api from "../api/UserScriptService";
 import Scripts from "./scripts";
 
-class Player {
+class Exam {
   script = undefined;
   imageLoaded = false;
   // used for evading cache-saving issues
@@ -38,4 +38,4 @@ class Player {
   }
 }
 
-export default new Player();
+export default new Exam();

@@ -45,6 +45,11 @@
     &--not-mounted {
       z-index: $z-action-not-mounted;
     }
+
+    &--exam {
+      // background-color: red;
+      border: 0;
+    }
   }
 
   &__action-button {
@@ -92,6 +97,26 @@
 
     &--clickable {
       cursor: pointer;
+    }
+  }
+
+  &__action--exam {
+    & .viewbox {
+      &__action-button {
+        cursor: auto;
+
+        // background-color: transparent;
+        background-color: red;
+      }
+
+      &__action-type {
+        display: none;
+      }
+    }
+
+    & textarea.viewbox__action-button {
+      // background-color: transparent;
+      background-color: red;
     }
   }
 

@@ -1,29 +1,27 @@
 import React from "react";
 import "./Panel.scss";
 
-import Icon from "../../common/Icon/Icon";
+import Icon from "../../../common/Icon/Icon";
 import FullScreenButton from "./FullScreenButton/FullScreenButton";
 
-import { useModal } from "../../common/Modal/ModalContext";
-import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
+import { useModal } from "../../../common/Modal/ModalContext";
+import { MODAL_CLOSE_ID } from "../../../../utils/constants/modals";
 
-const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
+const Panel = ({
+  step,
+  prevStep,
+  nextStep,
+  disablePrev,
+  disableNext,
+  isExam,
+}) => {
   const [, setModalID] = useModal();
 
-  return (
-    <section className="panel">
-      <h2 className="visually-hidden">Панель управления</h2>
-      <div className="panel__left-side">
-        <button
-          className="panel__button button button--simple button--icon-only"
-          type="button"
-          onClick={() => setModalID(MODAL_CLOSE_ID)}
-        >
-          <Icon id="arrow-left" width="24" />
-        </button>
-        <Icon id="main-logo" width="122" height="28" className="panel__logo" />
-      </div>
-      <div className="panel__center">
+  const navButtons = () => {
+    if (isExam) return <></>;
+
+    return (
+      <>
         <button
           type="button"
           className="panel__button button button--simple button--icon-only"
@@ -40,6 +38,25 @@ const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
         >
           <Icon id="angle-right" width="24" />
         </button>
+      </>
+    );
+  };
+
+  return (
+    <section className="panel">
+      <h2 className="visually-hidden">Панель управления</h2>
+      <div className="panel__left-side">
+        <button
+          className="panel__button button button--simple button--icon-only"
+          type="button"
+          onClick={() => setModalID(MODAL_CLOSE_ID)}
+        >
+          <Icon id="arrow-left" width="24" />
+        </button>
+        <Icon id="main-logo" width="122" height="28" className="panel__logo" />
+      </div>
+      <div className="panel__center">
+        {navButtons()}
         <div className="panel__text-wrapper">
           <p className="panel__text">
             {step.description === "" ? "Нет описания" : step.description}

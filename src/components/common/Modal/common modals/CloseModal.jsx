@@ -1,18 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import Icon from "../../common/Icon/Icon";
-import Modal from "../../common/Modal/Modal";
+import Icon from "../../../common/Icon/Icon";
+import Modal from "../Modal";
 
-import { useModal } from "../../common/Modal/ModalContext";
-import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
+import { useModal } from "../ModalContext";
+import PlayerStore from "../../../../store/player";
+import ExamStore from "../../../../store/exam";
+import { MODAL_CLOSE_ID } from "../../../../utils/constants/modals";
 
-const CloseModal = () => {
+const CloseModal = ({ isExam }) => {
   const [modalID, setModalID] = useModal();
 
   if (modalID !== MODAL_CLOSE_ID) {
     return <></>;
   }
+
+  const resetStore = () =>
+    isExam ? ExamStore.resetStore() : PlayerStore.resetStore();
 
   return (
     <Modal>
@@ -26,7 +31,10 @@ const CloseModal = () => {
       <Link
         to="/user"
         className="button modal__button modal__button--action"
-        onClick={() => setModalID()}
+        onClick={() => {
+          resetStore();
+          setModalID();
+        }}
       >
         Закрыть
       </Link>

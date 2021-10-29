@@ -9,12 +9,12 @@ import {
   createNumberStringMale,
   createNumberStringFemale,
 } from "../../../utils/string-generators";
-import { MODAL_INTRO_ID } from "../../../utils/constants/modals";
+import { MODAL_INTRO_PLAYER_ID } from "../../../utils/constants/modals";
 
-const IntroModal = ({ script }) => {
+const IntroPlayerModal = ({ script }) => {
   const [modalID, setModalID] = useModal();
 
-  if (modalID !== MODAL_INTRO_ID) {
+  if (modalID !== MODAL_INTRO_PLAYER_ID) {
     return <></>;
   }
 
@@ -64,4 +64,4 @@ const IntroModal = ({ script }) => {
   );
 };
 
-export default IntroModal;
+export default IntroPlayerModal;

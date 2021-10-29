@@ -13,7 +13,7 @@ import Editor from "../../editor/Editor";
 
 const MARGIN_FOR_ACTION = 70;
 
-const Viewbox = observer(({ mod, step, actionClick }) => {
+const Viewbox = observer(({ mod, step, actionClick, isExam }) => {
   const image = useRef(null);
 
   const { boxCoords } = step.metaInfo;
@@ -30,7 +30,12 @@ const Viewbox = observer(({ mod, step, actionClick }) => {
     display: PlayerStore.imageLoaded ? "block" : "none",
   };
 
-  const [actionClass, setActionClass] = useState(
+  const actionClass = isExam
+    ? "viewbox__action viewbox__action--exam"
+    : "viewbox__action";
+  console.log(isExam);
+
+  const [actionHintPosition, setActionHintPosition] = useState(
     image.current && image.current.complete
       ? actionStyle.width + actionStyle.left + MARGIN_FOR_ACTION >=
         image.current.clientWidth
@@ -65,9 +70,9 @@ const Viewbox = observer(({ mod, step, actionClick }) => {
     }
   };
 
-  const getShrinkRatioActionClass = () => {
+  const getShrinkRatioactionHintPosition = () => {
     getShrinkRatio();
-    setActionClass(
+    setActionHintPosition(
       actionStyle.width + actionStyle.left + MARGIN_FOR_ACTION >=
         image.current.clientWidth
         ? "viewbox__action--left"
@@ -141,10 +146,13 @@ const Viewbox = observer(({ mod, step, actionClick }) => {
           ref={image}
           onLoad={() => {
             PlayerStore.finishImageLoad();
-            getShrinkRatioActionClass();
+            getShrinkRatioactionHintPosition();
           }}
         />
-        <div className={`viewbox__action ${actionClass}`} style={actionStyle}>
+        <div
+          className={`${actionClass} ${actionHintPosition}`}
+          style={actionStyle}
+        >
           {actionButton()}
         </div>
       </div>

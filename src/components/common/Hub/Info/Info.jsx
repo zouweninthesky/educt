@@ -8,8 +8,9 @@ import "./Info.scss";
 import Icon from "../../Icon/Icon";
 
 import Store from "../../../../store";
-import Scripts from "../../../../store/scripts";
+import ExamStore from "../../../../store/exam";
 import PlayerStore from "../../../../store/player";
+import Scripts from "../../../../store/scripts";
 import { KEYBOARD_ENTER_BUTTON } from "../../../../utils/constants/keycodes";
 import { MASK_DAY_MONTH_YEAR_DOTS } from "../../../../utils/constants/dateFormatMasks";
 
@@ -111,12 +112,17 @@ const Info = observer((props) => {
     return (
       <>
         <div className="hub-info__small-button-wrapper">
-          <Link
-            to="/player/:id/test"
-            className="hub-info__button hub-info__button--outline button"
+          <button
+            className="hub-info__button  hub-info__button--outline button"
+            type="button"
+            onClick={async () => {
+              Store.storeRequested();
+              await ExamStore.getScript();
+              history.push("/exam");
+            }}
           >
             Тестирование
-          </Link>
+          </button>
           <button
             type="button"
             className="hub-info__stats hub-info__button hub-info__button--outline button button--icon-only"
@@ -131,7 +137,7 @@ const Info = observer((props) => {
           type="button"
           onClick={async () => {
             Store.storeRequested();
-            await PlayerStore.playerGetScript();
+            await PlayerStore.getScript();
             history.push("/player");
           }}
         >

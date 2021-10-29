@@ -2,18 +2,18 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
 import "./Player.scss";
 
-import Panel from "./Panel/Panel";
-import ProgressBar from "./ProgressBar/ProgressBar";
+import Panel from "../common/Walkthrough/Panel/Panel";
+import ProgressBar from "../common/Walkthrough/ProgressBar/ProgressBar";
 import Viewbox from "../common/Viewbox/Viewbox";
 import Overlay from "../common/Modal/Overlay";
-import CloseModal from "./modals/CloseModal";
+import CloseModal from "../common/Modal/common modals/CloseModal";
 import FinishPlayModal from "./modals/FinishPlayModal";
-import IntroModal from "./modals/IntroModal";
+import IntroPlayerModal from "./modals/IntroPlayerModal";
 
 import PlayerStore from "../../store/player";
 import { useModal } from "../common/Modal/ModalContext";
 import {
-  MODAL_INTRO_ID,
+  MODAL_INTRO_PLAYER_ID,
   MODAL_FINISH_PLAY_ID,
 } from "../../utils/constants/modals";
 
@@ -27,11 +27,10 @@ const Player = () => {
 
   const [, setModalID] = useModal();
   const [playerState, setPlayerState] = useState(state);
-  // let flag = false;
 
   useEffect(() => {
     if (PlayerStore.script) {
-      setModalID(MODAL_INTRO_ID);
+      setModalID(MODAL_INTRO_PLAYER_ID);
 
       if (PlayerStore.script.steps.length === 1) {
         setPlayerState((prev) => ({ ...prev, isLastStep: true }));
@@ -103,7 +102,7 @@ const Player = () => {
         total={PlayerStore.script.steps.length}
       />
       <CloseModal />
-      <IntroModal script={PlayerStore.script} />
+      <IntroPlayerModal script={PlayerStore.script} />
       <FinishPlayModal />
       <Overlay />
     </main>
