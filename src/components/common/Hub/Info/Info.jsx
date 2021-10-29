@@ -36,18 +36,24 @@ const Info = observer((props) => {
   //   ? "Добавьте название"
   //   : "Нет названия";
 
-  const description = chosenScriptDescription
-    ? chosenScriptDescription
-    : isEditor
-    ? "Добавьте описание"
-    : "Нет описания";
+  // const description = chosenScriptDescription
+  //   ? chosenScriptDescription
+  //   : isEditor
+  //   ? "Добавьте описание"
+  //   : "Нет описания";
 
   const title = () => {
-    if (isEditor) {
-      return chosenScriptTitle;
-    }
+    if (isEditor) return chosenScriptTitle;
 
     return chosenScriptOldTitle ? chosenScriptOldTitle : "Нет названия";
+  };
+
+  const description = () => {
+    if (isEditor) return chosenScriptDescription;
+
+    return chosenScriptOldDescription
+      ? chosenScriptOldDescription
+      : "Нет названия";
   };
 
   const infoTitle = () => {
@@ -78,7 +84,7 @@ const Info = observer((props) => {
       return (
         <input
           type="text"
-          value={description}
+          value={description()}
           onChange={(e) => {
             Scripts.changeDescription(e.target.value);
           }}
@@ -92,7 +98,7 @@ const Info = observer((props) => {
       );
     }
 
-    return description;
+    return description();
   };
 
   const infoButtons = () => {
