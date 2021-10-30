@@ -6,10 +6,10 @@ import EnterText from "./EnterText/EnterText";
 import Spinner from "../Spinner/Spinner";
 
 import PlayerStore from "../../../store/player";
+import ExamStore from "../../../store/exam";
 import { MOUSE_LEFT_BUTTON } from "../../../utils/constants/keycodes";
 import { STORAGE_URL } from "../../../utils/constants/links";
 import { observer } from "mobx-react-lite";
-import Editor from "../../editor/Editor";
 
 const MARGIN_FOR_ACTION = 70;
 
@@ -33,7 +33,6 @@ const Viewbox = observer(({ mod, step, actionClick, isExam }) => {
   const actionClass = isExam
     ? "viewbox__action viewbox__action--exam"
     : "viewbox__action";
-  console.log(isExam);
 
   const [actionHintPosition, setActionHintPosition] = useState(
     image.current && image.current.complete
@@ -134,6 +133,10 @@ const Viewbox = observer(({ mod, step, actionClick, isExam }) => {
     }
   };
 
+  const imgClickListener = () => {
+    ExamStore.clickRegistered();
+  };
+
   return (
     <section className={mainClass}>
       <h2 className="visually-hidden">Текущий слайд</h2>
@@ -148,6 +151,13 @@ const Viewbox = observer(({ mod, step, actionClick, isExam }) => {
             PlayerStore.finishImageLoad();
             getShrinkRatioactionHintPosition();
           }}
+          onClick={
+            isExam
+              ? () => {
+                  imgClickListener();
+                }
+              : null
+          }
         />
         <div
           className={`${actionClass} ${actionHintPosition}`}

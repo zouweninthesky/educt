@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
+import { observer } from "mobx-react-lite";
 import "./Exam.scss";
 
 import Panel from "../common/Walkthrough/Panel/Panel";
@@ -17,21 +18,16 @@ import {
   MODAL_FINISH_EXAM_ID,
 } from "../../utils/constants/modals";
 
-const Exam = () => {
-  const state = {
-    currentStepId: 0,
-    isLastStep: false,
-  };
-
+const Exam = observer(() => {
   const [, setModalID] = useModal();
-  const [examState, setExamState] = useState(state);
+  const [isLastStep, setIsLastStep] = useState(false);
 
   useEffect(() => {
     if (ExamStore.script) {
       setModalID(MODAL_INTRO_EXAM_ID);
 
       if (ExamStore.script.steps.length === 1) {
-        setExamState((prev) => ({ ...prev, isLastStep: true }));
+        setIsLastStep(true);
       }
     }
   }, []);
@@ -40,36 +36,33 @@ const Exam = () => {
     return <Redirect to="/user" />;
   }
 
-  const { currentStepId, isLastStep } = examState;
-
   const nextStep = () => {
     const stepsNumber = ExamStore.script.steps.length;
-    const block = currentStepId === stepsNumber - 2;
+    const block = ExamStore.currentStepId === stepsNumber - 2;
     ExamStore.startImageLoad();
     if (block) {
-      setExamState((prev) => ({
-        currentStepId: prev.currentStepId + 1,
-        isLastStep: true,
-      }));
+      ExamStore.stepFinished();
+      setIsLastStep(true);
     } else {
-      setExamState((prev) => ({
-        currentStepId: prev.currentStepId + 1,
-      }));
+      ExamStore.stepFinished();
     }
   };
 
-  const actionClick = isLastStep
-    ? setModalID.bind(null, MODAL_FINISH_EXAM_ID)
-    : nextStep;
+  const lastStepClick = () => {
+    setModalID.bind(null, MODAL_FINISH_EXAM_ID);
+    ExamStore.finishExam();
+  };
 
-  const currentStep = ExamStore.script.steps[currentStepId];
+  const actionClick = isLastStep ? lastStepClick : nextStep;
+
+  const currentStep = ExamStore.script.steps[ExamStore.currentStepID];
 
   return (
     <main className="exam">
       <Viewbox step={currentStep} actionClick={actionClick} isExam={true} />
       <Panel step={currentStep} isExam={true} />
       <ProgressBar
-        current={currentStepId}
+        current={ExamStore.currentStepId}
         total={ExamStore.script.steps.length}
       />
       <CloseModal isExam={true} />
@@ -78,6 +71,6 @@ const Exam = () => {
       <Overlay />
     </main>
   );
-};
+});
 
 export default Exam;
