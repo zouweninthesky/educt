@@ -16,6 +16,7 @@ class Player {
 
   async playerGetScript() {
     Store.loading = true;
+    console.log(Scripts.chosenScript.UID);
     const data = await Api.getScript(Scripts.chosenScript.UID);
     this.script = await data;
     Store.loading = false;

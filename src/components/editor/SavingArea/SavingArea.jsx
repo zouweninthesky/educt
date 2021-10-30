@@ -49,13 +49,17 @@ const SavingArea = ({ step, onSaveImage }) => {
         mask.bottomRight.y - mask.topLeft.y
       );
     });
-    canvasRef.current.toBlob((blob) => {
-      console.log(blob, "blob");
-      onSaveImage({
-        imageUID: step.imageUID,
-        imageBin: blob,
-      });
-    });
+    canvasRef.current.toBlob(
+      (blob) => {
+        console.log(blob, "blob");
+        onSaveImage({
+          imageUID: step.imageUID,
+          imageBin: blob,
+        });
+      },
+      "image/jpeg",
+      0.94
+    );
   };
 
   return (
