@@ -1,4 +1,5 @@
 import React from "react";
+import Icon from "../components/common/Icon/Icon";
 import "./SpritePage.scss";
 
 const SpritePage = () => {
@@ -7,237 +8,159 @@ const SpritePage = () => {
       <div className="container sprite">
         <div>
           <p>accept</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#accept"></use>
-          </svg>
+          <Icon id="accept" width="40" />
         </div>
         <div>
           <p>action</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#action"></use>
-          </svg>
+          <Icon id="action" width="40" />
         </div>
         <div>
           <p>angle-down</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#angle-down"></use>
-          </svg>
+          <Icon id="angle-down" width="40" />
         </div>
         <div>
           <p>angle-left</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#angle-left"></use>
-          </svg>
+          <Icon id="angle-left" width="40" />
         </div>
         <div>
           <p>angle-right</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#angle-right"></use>
-          </svg>
+          <Icon id="angle-right" width="40" />
         </div>
         <div>
           <p>angle-up</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#angle-up"></use>
-          </svg>
+          <Icon id="angle-up" width="40" />
         </div>
         <div>
           <p>apps</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#apps"></use>
-          </svg>
+          <Icon id="apps" width="40" />
         </div>
         <div>
           <p>arrow-left</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#arrow-left"></use>
-          </svg>
+          <Icon id="arrow-left" width="40" />
         </div>
         <div>
           <p>arrow-down</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#arrow-down"></use>
-          </svg>
+          <Icon id="arrow-down" width="40" />
         </div>
         <div>
           <p>cancel</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#cancel"></use>
-          </svg>
+          <Icon id="cancel" width="40" />
         </div>
         <div>
           <p>comment-new</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#comment-new"></use>
-          </svg>
+          <Icon id="comment-new" width="40" />
         </div>
         <div>
           <p>focus</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#focus"></use>
-          </svg>
+          <Icon id="focus" width="40" />
         </div>
         <div>
           <p>focus-finish</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#focus-finish"></use>
-          </svg>
+          <Icon id="focus-finish" width="40" />
         </div>
         <div>
           <p>graduation</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#graduation"></use>
-          </svg>
+          <Icon id="graduation" width="40" />
         </div>
         <div>
           <p>graph-bar</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#graph-bar"></use>
-          </svg>
+          <Icon id="graph-bar" width="40" />
         </div>
         <div>
           <p>image</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#image"></use>
-          </svg>
+          <Icon id="image" width="40" />
         </div>
         <div>
           <p>info</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#info"></use>
-          </svg>
+          <Icon id="info" width="40" />
         </div>
         <div>
           <p>like</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#like"></use>
-          </svg>
+          <Icon id="like" width="40" />
         </div>
         <div>
           <p>like-clicked</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#like-clicked"></use>
-          </svg>
+          <Icon id="like-clicked" width="40" />
         </div>
         <div>
           <p>layer-group</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#layer-group"></use>
-          </svg>
+          <Icon id="layer-group" width="40" />
         </div>
         <div>
           <p>microphone</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#microphone"></use>
-          </svg>
+          <Icon id="microphone" width="40" />
         </div>
         <div>
           <p>mouse</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#mouse"></use>
-          </svg>
+          <Icon id="mouse" width="40" />
         </div>
         <div>
           <p>mouse-left</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#mouse-left"></use>
-          </svg>
+          <Icon id="mouse-left" width="40" />
         </div>
         <div>
           <p>mouse-right</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#mouse-right"></use>
-          </svg>
+          <Icon id="mouse-right" width="40" />
         </div>
         <div>
           <p>play</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#play"></use>
-          </svg>
+          <Icon id="play" width="40" />
         </div>
         <div>
           <p>puzzle-piece</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#puzzle-piece"></use>
-          </svg>
+          <Icon id="puzzle-piece" width="40" />
         </div>
         <div>
           <p>save</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#save"></use>
-          </svg>
+          <Icon id="save" width="40" />
         </div>
         <div>
           <p>smile</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#smile"></use>
-          </svg>
+          <Icon id="smile" width="40" />
         </div>
         <div>
           <p>sort-amount-down</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#sort-amount-down"></use>
-          </svg>
+          <Icon id="sort-amount-down" width="40" />
         </div>
         <div>
           <p>sort-amount-up</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#sort-amount-up"></use>
-          </svg>
+          <Icon id="sort-amount-up" width="40" />
         </div>
         <div>
           <p>text</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#text"></use>
-          </svg>
+          <Icon id="text" width="40" />
         </div>
         <div>
           <p>trash</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#trash"></use>
-          </svg>
+          <Icon id="trash" width="40" />
         </div>
         <div>
           <p>volume</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#volume"></use>
-          </svg>
+          <Icon id="volume" width="40" />
         </div>
         <div>
           <p>volume-off</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#volume-off"></use>
-          </svg>
+          <Icon id="volume-off" width="40" />
         </div>
         <div>
           <p>volume-up</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#volume-up"></use>
-          </svg>
+          <Icon id="volume-up" width="40" />
         </div>
         <div>
           <p>warning</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#warning"></use>
-          </svg>
+          <Icon id="warning" width="40" />
         </div>
         <div>
           <p>undo</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#undo"></use>
-          </svg>
+          <Icon id="undo" width="40" />
         </div>
         <div>
           <p>zoom</p>
-          <svg width="40" height="40">
-            <use xlinkHref="#zoom"></use>
-          </svg>
+          <Icon id="zoom" width="40" />
         </div>
         <div>
           <p>main-logo</p>
-          <svg width="322" height="74">
-            <use xlinkHref="#main-logo"></use>
-          </svg>
+          <Icon id="main-logo" width="322" height="74" />
         </div>
       </div>
     </main>
