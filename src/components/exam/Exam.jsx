@@ -8,8 +8,9 @@ import ProgressBar from "../common/Walkthrough/ProgressBar/ProgressBar";
 import ViewboxExam from "../common/Viewbox/ViewboxExam";
 import Overlay from "../common/Modal/Overlay";
 import CloseModal from "../common/Modal/common modals/CloseModal";
-// import FinishPlayModal from "./modals/FinishPlayModal";
+import FinishExamModal from "./modals/FinishExamModal";
 import IntroExamModal from "./modals/IntroExamModal";
+import TouchDetectedModal from "./modals/TouchDetectedModal";
 
 import ExamStore from "../../store/exam";
 import { useModal } from "../common/Modal/ModalContext";
@@ -38,7 +39,7 @@ const Exam = observer(() => {
 
   const nextStep = () => {
     const stepsNumber = ExamStore.script.steps.length;
-    const block = ExamStore.currentStepId === stepsNumber - 2;
+    const block = ExamStore.currentStepID === stepsNumber - 2;
     ExamStore.startImageLoad();
     if (block) {
       ExamStore.stepFinished();
@@ -49,7 +50,7 @@ const Exam = observer(() => {
   };
 
   const lastStepClick = () => {
-    setModalID.bind(null, MODAL_FINISH_EXAM_ID);
+    setModalID(MODAL_FINISH_EXAM_ID);
     ExamStore.finishExam();
   };
 
@@ -62,12 +63,13 @@ const Exam = observer(() => {
       <ViewboxExam step={currentStep} actionClick={actionClick} />
       <Panel step={currentStep} isExam={true} />
       <ProgressBar
-        current={ExamStore.currentStepId}
+        current={ExamStore.currentStepID}
         total={ExamStore.script.steps.length}
       />
       <CloseModal isExam={true} />
       <IntroExamModal script={ExamStore.script} />
-      {/* <FinishPlayModal /> */}
+      <FinishExamModal />
+      <TouchDetectedModal />
       <Overlay />
     </main>
   );

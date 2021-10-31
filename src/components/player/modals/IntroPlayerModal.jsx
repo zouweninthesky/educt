@@ -1,9 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
+import ExamStore from "../../../store/exam";
 import { useModal } from "../../common/Modal/ModalContext";
 import {
   createNumberStringMale,
@@ -12,6 +14,7 @@ import {
 import { MODAL_INTRO_PLAYER_ID } from "../../../utils/constants/modals";
 
 const IntroPlayerModal = ({ script }) => {
+  const history = useHistory();
   const [modalID, setModalID] = useModal();
 
   if (modalID !== MODAL_INTRO_PLAYER_ID) {
@@ -47,7 +50,13 @@ const IntroPlayerModal = ({ script }) => {
           <Icon id="play" width="40" />
           <span>Начать</span>
         </button>
-        <button className="modal__big-button modal__big-button--test" disabled>
+        <button
+          className="modal__big-button modal__big-button--test"
+          onClick={async () => {
+            await ExamStore.getScript();
+            history.push("/exam");
+          }}
+        >
           <Icon id="graduation" width="40" />
           <span>Тестирование</span>
         </button>

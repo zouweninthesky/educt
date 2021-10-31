@@ -23,6 +23,14 @@
 
   &__icon-wrapper {
     color: $color-danger;
+
+    &--positive {
+      color: $color-success;
+    }
+
+    &--warning {
+      color: $color-warning;
+    }
   }
 
   &__header {
@@ -41,6 +49,42 @@
     color: $color-neutrals-light;
 
     width: 100%;
+  }
+
+  &__description-link {
+    position: relative;
+
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: 700;
+    color: $color-neutrals;
+    // width: 100%;
+
+    padding: 0;
+
+    border: 0;
+    background-color: transparent;
+
+    cursor: pointer;
+
+    &:after {
+      content: "";
+
+      position: absolute;
+      bottom: 0;
+      left: 0;
+
+      width: 100%;
+      height: 2px;
+
+      background-color: $color-neutrals;
+    }
+
+    // temp
+    &:hover,
+    &:focus {
+      opacity: 0.7;
+    }
   }
 
   &__button {
@@ -101,6 +145,10 @@
         color: $color-neutrals;
         border-color: $color-neutrals;
       }
+    }
+
+    &--lonely {
+      margin-top: 2rem;
     }
   }
 

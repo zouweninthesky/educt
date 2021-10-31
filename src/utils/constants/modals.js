@@ -8,6 +8,7 @@ const MODAL_NO_SAVE_ID = "no-save";
 const MODAL_SETTINGS_ID = "settings";
 const MODAL_FINISH_PLAY_ID = "finish-play";
 const MODAL_FINISH_EXAM_ID = "finish-exam";
+const MODAL_TOUCH_DETECTED_ID = "touch-detected";
 
 export {
   MODAL_CLOSE_ID,
@@ -20,4 +21,5 @@ export {
   MODAL_SETTINGS_ID,
   MODAL_FINISH_PLAY_ID,
   MODAL_FINISH_EXAM_ID,
+  MODAL_TOUCH_DETECTED_ID,
 };

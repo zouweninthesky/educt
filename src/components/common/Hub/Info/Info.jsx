@@ -122,7 +122,6 @@ const Info = observer((props) => {
             className="hub-info__button  hub-info__button--outline button"
             type="button"
             onClick={async () => {
-              Store.storeRequested();
               await ExamStore.getScript();
               history.push("/exam");
             }}
@@ -142,7 +141,6 @@ const Info = observer((props) => {
           className="hub-info__button button"
           type="button"
           onClick={async () => {
-            Store.storeRequested();
             await PlayerStore.getScript();
             history.push("/player");
           }}
