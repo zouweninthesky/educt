@@ -1,8 +1,6 @@
 import React from "react";
 
-const Icon = (props) => {
-  const { id, width, height, className } = props;
-
+const Icon = ({ id, width, height, className }) => {
   const realHeight = height ? height : width;
 
   return (

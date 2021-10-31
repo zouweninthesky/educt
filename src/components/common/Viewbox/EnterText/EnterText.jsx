@@ -24,7 +24,7 @@ const EnterText = ({ actionClick, step, isEditor, sizes, isExam }) => {
           className="viewbox__action-type"
           onClick={() => EditorStore.toggleActionPickerVisible()}
         >
-          <Icon id="text" width="42" height="42" />
+          <Icon id="text" width="42" />
         </span>
       );
     }
@@ -40,7 +40,7 @@ const EnterText = ({ actionClick, step, isEditor, sizes, isExam }) => {
             }
           }}
         >
-          <Icon id="accept" width="42" height="42" />
+          <Icon id="accept" width="42" />
         </button>
       );
     }
@@ -48,7 +48,7 @@ const EnterText = ({ actionClick, step, isEditor, sizes, isExam }) => {
     if (value === "") {
       return (
         <span className="viewbox__action-type">
-          <Icon id="text" width="42" height="42" />
+          <Icon id="text" width="42" />
         </span>
       );
     }
@@ -63,11 +63,11 @@ const EnterText = ({ actionClick, step, isEditor, sizes, isExam }) => {
           }
         }}
       >
-        <Icon id="accept" width="42" height="42" />
+        <Icon id="accept" width="42" />
       </button>
     ) : (
       <span className="viewbox__action-type">
-        <Icon id="cancel" width="42" height="42" />
+        <Icon id="cancel" width="42" />
       </span>
     );
   };
