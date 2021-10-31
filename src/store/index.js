@@ -8,39 +8,17 @@ class Store {
     makeAutoObservable(this);
   }
 
-  storeRequested() {
+  loadingStarted() {
     this.loading = true;
   }
 
-  storeLoaded() {
+  loadingFinished() {
     this.loading = false;
   }
 
-  storeError() {
+  errorOccured() {
     this.error = true;
   }
-
-  // async scriptsLoad() {
-  //   const data = await Api.getUserScripts();
-  //   this.scripts = await data;
-  //   this.loading = false;
-  //   this.error = null;
-  // }
-
-  // scriptsRequested() {
-  //   this.loading = true;
-  // }
-
-  // scriptsError(error) {
-  //   this.scripts = [];
-  //   this.loading = false;
-  //   this.error = error;
-  // }
-
-  // scriptChosen(id) {
-  //   const [chosenScript] = this.scripts.filter((script) => script.UID === id);
-  //   this.chosenScript = chosenScript;
-  // }
 }
 
 export default new Store();

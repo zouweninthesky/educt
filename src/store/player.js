@@ -15,11 +15,11 @@ class Player {
   }
 
   async playerGetScript() {
-    Store.loading = true;
+    Store.loadingStarted();
     console.log(Scripts.chosenScript.UID);
     const data = await Api.getScript(Scripts.chosenScript.UID);
     this.script = await data;
-    Store.loading = false;
+    Store.loadingFinished();
     this.timeStamp = Date.now();
   }
 
