@@ -117,6 +117,13 @@
     & textarea.viewbox__action-button {
       // background-color: transparent;
       background-color: red;
+
+      cursor: default;
+
+      &:focus {
+        cursor: text;
+        background-color: $color-background;
+      }
     }
   }
 

@@ -9,7 +9,7 @@ import {
   KEYBOARD_ENTER_BUTTON,
 } from "../../../../utils/constants/keycodes";
 
-const EnterText = ({ actionClick, step, isEditor, sizes }) => {
+const EnterText = ({ actionClick, step, isEditor, sizes, isExam }) => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(false);
 
@@ -88,7 +88,7 @@ const EnterText = ({ actionClick, step, isEditor, sizes }) => {
       <textarea
         name="temp-name"
         className="viewbox__action-button"
-        placeholder={neededString}
+        placeholder={isExam ? "" : neededString}
         value={value}
         style={sizes}
         onChange={(e) => {

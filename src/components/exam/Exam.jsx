@@ -5,7 +5,7 @@ import "./Exam.scss";
 
 import Panel from "../common/Walkthrough/Panel/Panel";
 import ProgressBar from "../common/Walkthrough/ProgressBar/ProgressBar";
-import Viewbox from "../common/Viewbox/Viewbox";
+import ViewboxExam from "../common/Viewbox/ViewboxExam";
 import Overlay from "../common/Modal/Overlay";
 import CloseModal from "../common/Modal/common modals/CloseModal";
 // import FinishPlayModal from "./modals/FinishPlayModal";
@@ -59,7 +59,7 @@ const Exam = observer(() => {
 
   return (
     <main className="exam">
-      <Viewbox step={currentStep} actionClick={actionClick} isExam={true} />
+      <ViewboxExam step={currentStep} actionClick={actionClick} />
       <Panel step={currentStep} isExam={true} />
       <ProgressBar
         current={ExamStore.currentStepId}
