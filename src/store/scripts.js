@@ -36,13 +36,13 @@ class Scripts {
   }
 
   async scriptsLoad() {
-    Store.storeRequested();
+    Store.loadingStarted();
     const response = await ScriptsService.getUserScripts(this.pagesLoaded);
 
     if (response.length) {
       this.scriptsSet(response);
       this.pagesLoaded++;
-      Store.storeLoaded();
+      Store.loadingFinished();
       if (this.scripts.length % SCRIPTS_PER_PAGE !== 0) {
         this.allLoaded = true;
       }
@@ -50,21 +50,11 @@ class Scripts {
       this.allLoaded = true;
     } else {
       this.scriptsSet([]);
-      Store.storeError();
+      Store.errorOccured();
     }
 
     this.scriptsSet([]);
   }
-
-  // scriptsRequested() {
-  //   this.loading = true;
-  // }
-
-  // scriptsError(error) {
-  //   this.scripts = [];
-  //   this.loading = false;
-  //   this.error = error;
-  // }
 
   scriptChosen(UID) {
     const [chosenScript] = this.scripts.filter((script) => script.UID === UID);
