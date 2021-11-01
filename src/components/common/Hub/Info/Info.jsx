@@ -136,7 +136,7 @@ const Info = observer((props) => {
           className="hub-info__button button"
           type="button"
           onClick={async () => {
-            Store.storeRequested();
+            Store.loadingStarted();
             await PlayerStore.playerGetScript();
             history.push("/player");
           }}
