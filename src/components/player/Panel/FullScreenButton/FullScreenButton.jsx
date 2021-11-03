@@ -15,10 +15,18 @@ const FullScreenButton = () => {
   const toggleFullScreen = () => {
     if (!fullScreen) {
       setFullScreen(true);
-      document.documentElement.requestFullscreen();
+      if (document.requestFullscreen) {
+        document.requestFullscreen();
+      } else {
+        document.webkitRequestFullscreen();
+      }
     } else {
       setFullScreen(false);
-      document.exitFullscreen();
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else {
+        document.webkitExitFullscreen();
+      }
     }
   };
 
