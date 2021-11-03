@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 import Store from "../store";
 import Api from "../api/UserScriptService";
@@ -11,7 +11,14 @@ class Player {
   timeStamp = null;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      script: observable,
+      imageLoaded: observable,
+      timeStamp: observable,
+      playerGetScript: action,
+      startImageLoad: action,
+      finishImageLoad: action,
+    });
   }
 
   async playerGetScript() {

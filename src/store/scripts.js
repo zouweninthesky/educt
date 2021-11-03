@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 // import ScriptsService from "../utils/UserScriptsServiceFake";
 // import AuthService from "../api/AuthService";
@@ -18,7 +18,27 @@ class Scripts {
   scriptToDelete = "";
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      scripts: observable,
+      chosenScript: observable,
+      chosenScriptTitle: observable,
+      chosenScriptDescription: observable,
+      chosenScriptOldTitle: observable,
+      chosenScriptOldDescription: observable,
+      pagesLoaded: observable,
+      allLoaded: observable,
+      scriptToDelete: observable,
+      scriptsSet: action,
+      scriptsClear: action,
+      scriptsLoad: action,
+      scriptChosen: action,
+      scriptToDeleteChosen: action,
+      scriptDelete: action,
+      changeTitle: action,
+      changeDescription: action,
+      scriptTitleDescriptionUpdate: action,
+      updateShownScripts: action,
+    });
   }
 
   // without this a warning popped up on each sciptsLoad
