@@ -56,6 +56,7 @@ const Viewbox = observer(({ mod, step, actionClick }) => {
   };
 
   const onResize = () => {
+    console.log(111111);
     if (
       image.current &&
       image.current.naturalWidth !== 0 &&
