@@ -5,10 +5,39 @@ import Icon from "../../common/Icon/Icon";
 import FullScreenButton from "./FullScreenButton/FullScreenButton";
 
 import { useModal } from "../../common/Modal/ModalContext";
-import { MODAL_CLOSE_ID } from "../../../utils/constants/modals";
+import {
+  MODAL_CLOSE_ID,
+  MODAL_FINISH_PLAY_ID,
+} from "../../../utils/constants/modals";
 
-const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
+const Panel = ({ step, prevStep, nextStep, disablePrev, isLastStep }) => {
   const [, setModalID] = useModal();
+
+  const nextButton = () => {
+    if (isLastStep) {
+      return (
+        <button
+          type="button"
+          className="panel__button button button--simple button--icon-only"
+          onClick={() => {
+            setModalID(MODAL_FINISH_PLAY_ID);
+          }}
+        >
+          <Icon id="accept" width="24" />
+        </button>
+      );
+    }
+
+    return (
+      <button
+        type="button"
+        className="panel__button button button--simple button--icon-only"
+        onClick={nextStep}
+      >
+        <Icon id="angle-right" width="24" />
+      </button>
+    );
+  };
 
   return (
     <section className="panel">
@@ -32,14 +61,7 @@ const Panel = ({ step, prevStep, nextStep, disablePrev, disableNext }) => {
         >
           <Icon id="angle-left" width="24" />
         </button>
-        <button
-          type="button"
-          className="panel__button button button--simple button--icon-only"
-          onClick={nextStep}
-          disabled={disableNext}
-        >
-          <Icon id="angle-right" width="24" />
-        </button>
+        {nextButton()}
         <div className="panel__text-wrapper">
           <p className="panel__text">
             {step.description === "" ? "Нет описания" : step.description}

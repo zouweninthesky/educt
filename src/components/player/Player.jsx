@@ -21,13 +21,11 @@ const Player = () => {
   const state = {
     currentStepId: 0,
     disablePrev: true,
-    disableNext: false,
     isLastStep: false,
   };
 
   const [, setModalID] = useModal();
   const [playerState, setPlayerState] = useState(state);
-  // let flag = false;
 
   useEffect(() => {
     if (PlayerStore.script) {
@@ -50,7 +48,6 @@ const Player = () => {
     if (block) {
       setPlayerState((prev) => ({
         currentStepId: prev.currentStepId + 1,
-        disableNext: true,
         disablePrev: false,
         isLastStep: true,
       }));
@@ -69,18 +66,16 @@ const Player = () => {
       setPlayerState((prev) => ({
         currentStepId: prev.currentStepId - 1,
         disablePrev: true,
-        disableNext: false,
       }));
     } else {
       setPlayerState((prev) => ({
         currentStepId: prev.currentStepId - 1,
-        disableNext: false,
         isLastStep: false,
       }));
     }
   };
 
-  const { currentStepId, disablePrev, disableNext, isLastStep } = playerState;
+  const { currentStepId, disablePrev, isLastStep } = playerState;
 
   const currentStep = PlayerStore.script.steps[currentStepId];
 
@@ -96,7 +91,7 @@ const Player = () => {
         prevStep={prevStep}
         nextStep={nextStep}
         disablePrev={disablePrev}
-        disableNext={disableNext}
+        isLastStep={isLastStep}
       />
       <ProgressBar
         current={currentStepId}
