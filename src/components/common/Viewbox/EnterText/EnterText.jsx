@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Icon from "../../Icon/Icon";
 
 import EditorStore from "../../../../store/editor";
-
+import { useModal } from "../../Modal/ModalContext";
 import {
   MOUSE_LEFT_BUTTON,
   KEYBOARD_ENTER_BUTTON,
@@ -12,10 +12,21 @@ import {
 const EnterText = ({ actionClick, step, isEditor, sizes }) => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(false);
+  const inputField = useRef(null);
+  const [modalID] = useModal();
 
   const neededString = isEditor
     ? EditorStore.currentStepData.metaInfo.text?.slice() || ""
     : step.metaInfo.text?.slice() || "";
+
+  useEffect(() => {
+    if (!isEditor && modalID === null) {
+      inputField.current.focus();
+    }
+    if (modalID !== null) {
+      inputField.current.blur();
+    }
+  });
 
   const hint = () => {
     if (isEditor) {
@@ -91,6 +102,7 @@ const EnterText = ({ actionClick, step, isEditor, sizes }) => {
         placeholder={neededString}
         value={value}
         style={sizes}
+        ref={inputField}
         onChange={(e) => {
           onChange(e);
         }}
