@@ -70,6 +70,7 @@ class Scripts {
       this.allLoaded = true;
     } else {
       this.scriptsSet([]);
+      Store.loadingFinished();
       Store.errorOccured();
     }
 
