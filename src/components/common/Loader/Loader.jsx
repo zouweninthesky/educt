@@ -1,30 +1,11 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 import "./Loader.scss";
 
-const Loader = (props) => {
-  // const [className, setClassName] = useState("");
+import Store from "../../../store";
 
-  // const spinnerInterval = setInterval(() => {
-  //   if (className === "active") setClassName(() => "");
-  //   else setClassName(() => "active");
-  // }, 3600);
-
-  // useEffect(() => {
-  //   setClassName("active");
-
-  //   return () => {
-  //     clearInterval(spinnerInterval);
-  //   };
-  // }, [spinnerInterval]);
-
-  const width = props.width || 324;
-  const height = props.height || 76;
-
-  // console.log("Эх " + props.loading);
-
-  if (props.loading === false) {
-    // console.log("Ух " + props.loading);
-    // clearInterval(spinnerInterval);
+const Loader = observer(({ width = 324, height = 76 }) => {
+  if (Store.loading === false) {
     return <></>;
   }
 
@@ -36,7 +17,6 @@ const Loader = (props) => {
         viewBox="0 0 324 76"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        // className={className}
       >
         <path
           d="M53.2084 50.5838H21.6315C22.1481 53.3384 23.4073 55.5922 25.4091 57.3452C27.4755 59.0355 30.3814 59.8807 34.1267 59.8807C36.8388 59.8807 39.3895 59.3799 41.7788 58.3782C44.168 57.3139 46.073 55.8426 47.4936 53.9645C51.8201 56.0305 57.5672 58.253 64.735 60.632C62.7332 65.0144 59.0847 68.5203 53.7896 71.1497C48.5591 73.7166 41.7142 75 33.2549 75C22.2773 75 14.1409 72.5584 8.8458 67.6751C3.61527 62.7293 1 56.2496 1 48.236C1 40.4103 3.61527 34.0558 8.8458 29.1726C14.0763 24.2893 22.2127 21.8477 33.2549 21.8477C39.8415 21.8477 45.5564 22.912 50.3995 25.0406C55.2425 27.1692 58.9556 30.143 61.5386 33.9619C64.1215 37.7183 65.413 42.0381 65.413 46.9213C65.413 48.5491 65.3484 49.7699 65.2193 50.5838H53.2084ZM34.611 36.0279C31.3823 36.0279 28.7347 36.6227 26.6683 37.8122C24.6019 39.0017 23.149 40.6294 22.3096 42.6954H45.1689C44.394 40.692 43.1348 39.0956 41.3913 37.9061C39.6478 36.654 37.3877 36.0279 34.611 36.0279Z"
@@ -96,6 +76,6 @@ const Loader = (props) => {
       </svg>
     </div>
   );
-};
+});
 
 export default Loader;
