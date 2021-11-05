@@ -1,6 +1,6 @@
 import { makeAutoObservable, toJS } from "mobx";
-import Scripts from "./scripts";
 
+import Store from ".";
 import ScriptsApi from "../api/UserScriptService";
 import { deepCopy } from "../utils/deepCopy";
 import {
@@ -38,7 +38,7 @@ class Editor {
   // Ошибка, думаю, все же нужна, но не уверен, как её
   error = null;
   // Состояние, когда пользователь все сохранил и ждет отправки всех запросов
-  sending = false;
+  // sending = false;
   // Счетчик для уникальных id масок
   lastMaskId = 0;
   // Показывается или нет дропдаун для выбора типа действия
@@ -72,13 +72,14 @@ class Editor {
     this.toUpdate = [];
     this.loading = true;
     this.error = null;
-    this.sending = false;
+    // this.sending = false;
     this.lastMaskId = 0;
     this.actionPickerVisible = false;
     this.timeStamp = null;
   }
 
   async getSteps(scriptUID) {
+    Store.loadingStarted();
     this.resetStore();
     this.scriptUID = scriptUID;
     this.scriptRequested();
@@ -98,6 +99,7 @@ class Editor {
     this.timeStamp = Date.now();
     this.setTitleDescription();
     this.stepsLoaded();
+    Store.loadingFinished();
   }
 
   scriptSet(uid) {
@@ -303,10 +305,11 @@ class Editor {
   }
 
   startSending() {
-    this.sending = true;
+    Store.loadingStarted();
   }
 
   finishSending() {
+    Store.loadingFinished();
     this.resetStore();
   }
 
