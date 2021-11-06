@@ -3,16 +3,24 @@ import "../../Dropdown/Dropdown.scss";
 
 import Icon from "../../Icon/Icon";
 
-const options = ["Все сценарии", "Новое", "Тестирование"];
+import ScriptsStore from "../../../../store/scripts";
 
 const FilterDropdown = () => {
+  const options = [
+    { id: 1, title: "Все сценарии", state: null },
+    { id: 2, title: "Новое", state: 1 },
+    { id: 3, title: "На тестирование", state: 2 },
+  ];
+
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Новое");
+  const [selectedOption, setSelectedOption] = useState(options[0]);
 
   const toggling = () => setIsOpen(!isOpen);
 
-  const onOptionClicked = (value) => () => {
-    setSelectedOption(value);
+  const onOptionClicked = (id) => () => {
+    const [option] = options.filter((opt) => opt.id === id);
+    setSelectedOption(option);
+    ScriptsStore.applyStateFilter(option.state);
     setIsOpen(false);
   };
 
@@ -20,7 +28,7 @@ const FilterDropdown = () => {
     <div className="dropdown">
       <Icon id="angle-down" width="24" className="dropdown__arrow" />
       <div className="dropdown__header" onClick={toggling}>
-        {selectedOption}
+        {selectedOption.title}
       </div>
       {isOpen && (
         <div className="dropdown__wrapper">
@@ -28,14 +36,14 @@ const FilterDropdown = () => {
             {options.map((option, i) => (
               <li
                 className={
-                  selectedOption === option
+                  selectedOption.id === option.id
                     ? "dropdown__item dropdown__item--current"
                     : "dropdown__item"
                 }
-                onClick={onOptionClicked(option)}
-                key={i}
+                onClick={onOptionClicked(option.id)}
+                key={option.id}
               >
-                {option}
+                {option.title}
               </li>
             ))}
           </ul>

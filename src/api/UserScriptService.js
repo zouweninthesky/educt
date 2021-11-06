@@ -8,8 +8,10 @@ const headers = {
 };
 
 class UserScriptsService {
-  async getUserScripts(pageNumber) {
-    const url = `${MAIN_URL}scripts/?page=${pageNumber}&perPage=${SCRIPTS_PER_PAGE}`;
+  async getUserScripts(pageNumber, state) {
+    const stateParam = state === null ? "" : `&state=${state}`;
+
+    const url = `${MAIN_URL}scripts/?page=${pageNumber}&perPage=${SCRIPTS_PER_PAGE}${stateParam}`;
     const config = {
       method: "GET",
       headers: {
