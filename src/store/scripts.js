@@ -16,7 +16,12 @@ class Scripts {
   pagesLoaded = 1;
   allLoaded = false;
   scriptToDelete = "";
-  stateFilter = null;
+  stateFilterID = 0;
+  filterOptions = [
+    { id: 0, title: "Все сценарии", state: null },
+    { id: 1, title: "Новое", state: 1 },
+    { id: 2, title: "На тестирование", state: 2 },
+  ];
 
   constructor() {
     makeObservable(this, {
@@ -60,7 +65,7 @@ class Scripts {
     Store.loadingStarted();
     const response = await ScriptsService.getUserScripts(
       this.pagesLoaded,
-      this.stateFilter
+      this.filterOptions[this.stateFilterID].state
     );
 
     if (response.length) {
@@ -132,8 +137,8 @@ class Scripts {
   }
 
   async applyStateFilter(state) {
-    if (this.stateFilter !== state) {
-      this.stateFilter = state;
+    if (this.stateFilterID !== state) {
+      this.stateFilterID = state;
       this.scriptsClear();
       await this.scriptsLoad();
     }
