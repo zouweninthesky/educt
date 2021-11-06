@@ -13,7 +13,7 @@ import { useModal } from "../../Modal/ModalContext";
 import { MODAL_DELETE_SCRIPT_ID } from "../../../../utils/constants/modals";
 import { MASK_DAY_MONTH_SHORT_YEAR_DOTS_HOUR_MINUTE } from "../../../../utils/constants/dateFormatMasks";
 
-const ScriptItem = observer(({ id, title, createTime, isEditor }) => {
+const ScriptItem = observer(({ id, state, title, createTime, isEditor }) => {
   const [, setModalID] = useModal();
   const history = useHistory();
 
@@ -35,6 +35,13 @@ const ScriptItem = observer(({ id, title, createTime, isEditor }) => {
     return <></>;
   };
 
+  const modifier =
+    state === 1
+      ? " script-item--new"
+      : state === 2
+      ? " script-item--for-test"
+      : "";
+
   const shownTitle = title
     ? title
     : `Новый сценарий от ${dateFormat(
@@ -43,7 +50,7 @@ const ScriptItem = observer(({ id, title, createTime, isEditor }) => {
       )}`;
 
   return (
-    <li className="script-item" id={id.toString()}>
+    <li className={`script-item${modifier}`} id={id.toString()}>
       <button
         className="script-item__button"
         type="button"

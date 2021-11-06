@@ -28,6 +28,27 @@
     background-color: $color-neutrals-faded;
   }
 
+  &--new::before,
+  &--for-test::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0.625rem;
+    left: 0.5rem;
+
+    width: 0.375rem;
+    height: 0.375rem;
+
+    border-radius: 0.375rem;
+
+    background-color: $color-primary;
+  }
+
+  &--for-test::before {
+    background-color: $color-secondary;
+  }
+
   &__button {
     position: relative;
 
@@ -48,22 +69,6 @@
     border: 0;
     cursor: pointer;
     margin-right: auto;
-
-    &::before {
-      content: "";
-
-      position: absolute;
-
-      top: 0.625rem;
-      left: -1rem;
-
-      width: 0.375rem;
-      height: 0.375rem;
-
-      border-radius: 0.375rem;
-
-      background-color: $color-primary;
-    }
   }
 
   &__icon-button {

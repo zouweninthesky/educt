@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Icon from "../../../../common/Icon/Icon";
+import Icon from "../../../Icon/Icon";
 
 const NOT_FULLSCREEN_ID = "focus-finish";
 const FULLSCREEN_ID = "focus";
@@ -15,10 +15,18 @@ const FullScreenButton = () => {
   const toggleFullScreen = () => {
     if (!fullScreen) {
       setFullScreen(true);
-      document.documentElement.requestFullscreen();
+      if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen();
+      } else {
+        document.documentElement.webkitRequestFullscreen();
+      }
     } else {
       setFullScreen(false);
-      document.exitFullscreen();
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else {
+        document.webkitExitFullscreen();
+      }
     }
   };
 

@@ -1,7 +1,7 @@
 import React from "react";
 import "./ProgressBar.scss";
 
-import { useModal } from "../../../common/Modal/ModalContext";
+import { useModal } from "../../Modal/ModalContext";
 import {
   MODAL_INTRO_PLAYER_ID,
   MODAL_INTRO_EXAM_ID,

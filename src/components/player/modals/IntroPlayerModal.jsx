@@ -56,6 +56,10 @@ const IntroPlayerModal = ({ script }) => {
             await ExamStore.getScript();
             history.push("/exam");
           }}
+          onTouchStart={() => {
+            ExamStore.touchDetected();
+            history.push("/exam");
+          }}
         >
           <Icon id="graduation" width="40" />
           <span>Тестирование</span>

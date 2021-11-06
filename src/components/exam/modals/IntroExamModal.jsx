@@ -57,7 +57,10 @@ const IntroExamModal = () => {
       <div className="modal__button-wrapper modal__button-wrapper--big">
         <button
           className="modal__big-button modal__big-button--test"
-          onClick={() => setModalID()}
+          onClick={() => {
+            ExamStore.startTimeCount();
+            setModalID();
+          }}
         >
           <Icon id="graduation" width="40" />
           <span>Тестирование</span>

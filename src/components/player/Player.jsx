@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { Redirect } from "react-router";
 import "./Player.scss";
 
-import Panel from "../common/Walkthrough/Panel/Panel";
-import ProgressBar from "../common/Walkthrough/ProgressBar/ProgressBar";
+import Panel from "../common/walkthrough/Panel/Panel";
+import ProgressBar from "../common/walkthrough/ProgressBar/ProgressBar";
 import Viewbox from "../common/Viewbox/Viewbox";
 import Overlay from "../common/Modal/Overlay";
 import CloseModal from "../common/Modal/common modals/CloseModal";
@@ -21,7 +21,6 @@ const Player = () => {
   const state = {
     currentStepId: 0,
     disablePrev: true,
-    disableNext: false,
     isLastStep: false,
   };
 
@@ -49,7 +48,6 @@ const Player = () => {
     if (block) {
       setPlayerState((prev) => ({
         currentStepId: prev.currentStepId + 1,
-        disableNext: true,
         disablePrev: false,
         isLastStep: true,
       }));
@@ -68,34 +66,41 @@ const Player = () => {
       setPlayerState((prev) => ({
         currentStepId: prev.currentStepId - 1,
         disablePrev: true,
-        disableNext: false,
       }));
     } else {
       setPlayerState((prev) => ({
         currentStepId: prev.currentStepId - 1,
-        disableNext: false,
         isLastStep: false,
       }));
     }
   };
 
-  const { currentStepId, disablePrev, disableNext, isLastStep } = playerState;
+  const { currentStepId, disablePrev, isLastStep } = playerState;
 
   const currentStep = PlayerStore.script.steps[currentStepId];
 
-  const actionClick = isLastStep
-    ? setModalID.bind(null, MODAL_FINISH_PLAY_ID)
-    : nextStep;
+  const actionClick = () => {
+    if (isLastStep) {
+      return async () => {
+        await PlayerStore.completeScript();
+        setModalID(MODAL_FINISH_PLAY_ID);
+      };
+    }
+
+    return () => {
+      nextStep();
+    };
+  };
 
   return (
     <main className="player">
-      <Viewbox step={currentStep} actionClick={actionClick} />
+      <Viewbox step={currentStep} actionClick={actionClick()} />
       <Panel
         step={currentStep}
         prevStep={prevStep}
         nextStep={nextStep}
         disablePrev={disablePrev}
-        disableNext={disableNext}
+        isLastStep={isLastStep}
       />
       <ProgressBar
         current={currentStepId}

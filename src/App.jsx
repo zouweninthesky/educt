@@ -15,8 +15,6 @@ import Sprite from "./components/common/Sprite/Sprite";
 import ErrorIndicator from "./components/common/ErrorIndicator/ErrorIndicator";
 import Loader from "./components/common/Loader/Loader";
 
-import Store from "./store";
-
 const error = null;
 
 const App = () => {
@@ -24,8 +22,7 @@ const App = () => {
     <>
       <Sprite />
       <ErrorIndicator error={error} />
-      <Loader loading={Store.loading} />
-      {/* <Loader loading={true} /> */}
+      <Loader />
       <Switch>
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

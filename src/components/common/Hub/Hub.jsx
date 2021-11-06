@@ -54,6 +54,7 @@ const Hub = observer((props) => {
             <ScriptItem
               key={script.UID}
               id={script.UID}
+              state={script.state}
               title={script.title}
               createTime={script.createTime}
               isEditor={isEditor}
@@ -63,7 +64,7 @@ const Hub = observer((props) => {
         return (
           <>
             <div className="hub__content-filters">
-              {/* <FilterDropdown /> */}
+              <FilterDropdown />
             </div>
             <div className="hub__content-wrapper">
               <Scrollbars autoHide autoHideTimeout={500}>

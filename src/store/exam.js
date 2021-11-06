@@ -14,8 +14,10 @@ class Exam {
   currentTime = 0;
   timePassed = 0;
   currentClicks = 0;
+  currentSymbolsTyped = 0;
   // used for evading cache-saving issues
   timeStamp = null;
+  wasTouched = false;
 
   constructor() {
     makeAutoObservable(this);
@@ -29,7 +31,9 @@ class Exam {
     this.currentTime = 0;
     this.timePassed = 0;
     this.currentClicks = 0;
+    this.currentSymbolsTyped = 0;
     this.timeStamp = null;
+    this.touchDetected = false;
   }
 
   async getScript() {
@@ -72,15 +76,25 @@ class Exam {
     this.currentTime = new Date();
   }
 
+  symbolTyped() {
+    this.currentSymbolsTyped++;
+    console.log(this.currentSymbolsTyped);
+  }
+
   // сохраняет объект процесса прохождения шага
   saveStepResults() {
     this.clickRegistered();
     this.finishTimeCount();
     const stepResults = {
-      UID: this.script.steps[this.currentStepID].UID,
-      time: this.timePassed,
-      clicks: this.currentClicks,
+      stepUID: this.script.steps[this.currentStepID].UID,
+      timeSpent: this.timePassed,
+      attemptsCount: this.currentClicks,
     };
+    if (this.currentSymbolsTyped !== 0) {
+      // will be enabled later
+      // stepResults.symbols = this.currentSymbolsTyped;
+      this.currentSymbolsTyped = 0;
+    }
     console.log(stepResults);
     this.results.push(stepResults);
     this.currentClicks = 0;
@@ -88,7 +102,11 @@ class Exam {
 
   async finishExam() {
     this.saveStepResults();
-    // написать отправку на результатов
+    await Api.completeScript(this.script.UID, 3, this.results);
+  }
+
+  touchDetected() {
+    this.wasTouched = true;
   }
 }
 

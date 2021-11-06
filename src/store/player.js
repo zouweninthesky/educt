@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 import Store from "../store";
 import Api from "../api/UserScriptService";
@@ -11,7 +11,14 @@ class Player {
   timeStamp = null;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      script: observable,
+      imageLoaded: observable,
+      timeStamp: observable,
+      getScript: action,
+      startImageLoad: action,
+      finishImageLoad: action,
+    });
   }
 
   resetStore() {
@@ -36,6 +43,10 @@ class Player {
 
   finishImageLoad() {
     this.imageLoaded = true;
+  }
+
+  async completeScript() {
+    await Api.completeScript(this.script.UID, 2);
   }
 }
 

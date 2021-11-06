@@ -31,18 +31,6 @@ const Info = observer((props) => {
 
   const { isEditor } = props;
 
-  // const title = chosenScriptTitle
-  //   ? chosenScriptTitle
-  //   : isEditor
-  //   ? "Добавьте название"
-  //   : "Нет названия";
-
-  // const description = chosenScriptDescription
-  //   ? chosenScriptDescription
-  //   : isEditor
-  //   ? "Добавьте описание"
-  //   : "Нет описания";
-
   const title = () => {
     if (isEditor) return chosenScriptTitle;
 
@@ -118,19 +106,26 @@ const Info = observer((props) => {
     return (
       <>
         <div className="hub-info__small-button-wrapper">
+          {/* Нужно изменить, чтобы это было ссылкой с onTouchStart, когда переделаю прокидывание ссылки в плеер */}
           <button
-            className="hub-info__button  hub-info__button--outline button"
+            className="hub-info__button hub-info__button--outline button"
             type="button"
             onClick={async () => {
               await ExamStore.getScript();
               history.push("/exam");
             }}
+            onTouchStart={() => {
+              ExamStore.touchDetected();
+              history.push("/exam");
+            }}
+            disabled={chosenScript.state === 1}
           >
             Тестирование
           </button>
           <button
             type="button"
             className="hub-info__stats hub-info__button hub-info__button--outline button button--icon-only"
+            disabled
           >
             <Icon id="graph-bar" width="22" />
             <span className="visually-hidden">Статистика</span>

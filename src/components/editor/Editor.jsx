@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { STORAGE_URL } from "../../utils/constants/links";
 import "./Editor.scss";
 
 import Icon from "../common/Icon/Icon";
@@ -17,13 +16,11 @@ import NoSaveModal from "./modals/NoSaveModal";
 import { useModal } from "../common/Modal/ModalContext";
 import EditorStore from "../../store/editor";
 import { observer } from "mobx-react-lite";
-import { toJS } from "mobx";
 import Loader from "../common/Loader/Loader";
 import SavingArea from "./SavingArea/SavingArea";
 import request from "../../api/request";
 import ZoomPanel from "./ZoomPanel/ZoomPanel";
 import { MODAL_NO_SAVE_ID } from "../../utils/constants/modals";
-import Spinner from "../common/Spinner/Spinner";
 
 const HEADER_TOOLS_ON = "Все слайды";
 const HEADER_TOOLS_OFF = "Вернуться к списку";
@@ -229,7 +226,6 @@ const Editor = observer(({ scriptUID }) => {
 
   return (
     <main className="editor">
-      <Spinner show={EditorStore.sending} />
       <ViewboxEditor
         mod={viewboxModifier}
         isEditor={true}

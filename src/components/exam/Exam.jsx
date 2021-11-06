@@ -3,20 +3,21 @@ import { Redirect } from "react-router";
 import { observer } from "mobx-react-lite";
 import "./Exam.scss";
 
-import Panel from "../common/Walkthrough/Panel/Panel";
-import ProgressBar from "../common/Walkthrough/ProgressBar/ProgressBar";
+import Panel from "../common/walkthrough/Panel/Panel";
+import ProgressBar from "../common/walkthrough/ProgressBar/ProgressBar";
 import ViewboxExam from "../common/Viewbox/ViewboxExam";
-import Overlay from "../common/Modal/Overlay";
 import CloseModal from "../common/Modal/common modals/CloseModal";
 import FinishExamModal from "./modals/FinishExamModal";
 import IntroExamModal from "./modals/IntroExamModal";
 import TouchDetectedModal from "./modals/TouchDetectedModal";
+import Overlay from "../common/Modal/Overlay";
 
 import ExamStore from "../../store/exam";
 import { useModal } from "../common/Modal/ModalContext";
 import {
   MODAL_INTRO_EXAM_ID,
   MODAL_FINISH_EXAM_ID,
+  MODAL_TOUCH_DETECTED_ID,
 } from "../../utils/constants/modals";
 
 const Exam = observer(() => {
@@ -32,6 +33,17 @@ const Exam = observer(() => {
       }
     }
   }, []);
+
+  if (ExamStore.wasTouched) {
+    setModalID(MODAL_TOUCH_DETECTED_ID);
+
+    return (
+      <main className="exam">
+        <TouchDetectedModal />
+        <Overlay />
+      </main>
+    );
+  }
 
   if (ExamStore.script === undefined) {
     return <Redirect to="/user" />;
@@ -49,9 +61,9 @@ const Exam = observer(() => {
     }
   };
 
-  const lastStepClick = () => {
+  const lastStepClick = async () => {
+    await ExamStore.finishExam();
     setModalID(MODAL_FINISH_EXAM_ID);
-    ExamStore.finishExam();
   };
 
   const actionClick = isLastStep ? lastStepClick : nextStep;
@@ -69,7 +81,6 @@ const Exam = observer(() => {
       <CloseModal isExam={true} />
       <IntroExamModal script={ExamStore.script} />
       <FinishExamModal />
-      <TouchDetectedModal />
       <Overlay />
     </main>
   );
