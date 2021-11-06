@@ -1,22 +1,28 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
+import PlayerStore from "../../../store/player";
+import ExamStore from "../../../store/exam";
 import { useModal } from "../../common/Modal/ModalContext";
 import {
-  createNumberStringMale,
   createNumberStringFemale,
+  createNumberStringMale,
 } from "../../../utils/string-generators";
-import { MODAL_INTRO_ID } from "../../../utils/constants/modals";
+import { MODAL_INTRO_EXAM_ID } from "../../../utils/constants/modals";
 
-const IntroModal = ({ script }) => {
+const IntroExamModal = () => {
+  const history = useHistory();
   const [modalID, setModalID] = useModal();
 
-  if (modalID !== MODAL_INTRO_ID) {
+  if (modalID !== MODAL_INTRO_EXAM_ID) {
     return <></>;
   }
+
+  const { script } = ExamStore;
 
   const stepString = createNumberStringMale(script.steps.length, "слайд");
   const title = script.title || "Нет названия";
@@ -32,7 +38,16 @@ const IntroModal = ({ script }) => {
       <div className="modal__info-wrapper">
         <div className="modal__description">
           <p>{description}</p>
-          {/* <p>Режим тестирования станет доступен после обычного прохождения.</p> */}
+          <button
+            className="modal__description-link"
+            type="button"
+            onClick={async () => {
+              await PlayerStore.getScript();
+              history.push("/player");
+            }}
+          >
+            Потренироваться в режиме обучения
+          </button>
         </div>
         <div className="modal__info">
           <p>{stepString}</p>
@@ -41,13 +56,12 @@ const IntroModal = ({ script }) => {
       </div>
       <div className="modal__button-wrapper modal__button-wrapper--big">
         <button
-          className="modal__big-button modal__big-button--start"
-          onClick={() => setModalID()}
+          className="modal__big-button modal__big-button--test"
+          onClick={() => {
+            ExamStore.startTimeCount();
+            setModalID();
+          }}
         >
-          <Icon id="play" width="40" />
-          <span>Начать</span>
-        </button>
-        <button className="modal__big-button modal__big-button--test" disabled>
           <Icon id="graduation" width="40" />
           <span>Тестирование</span>
         </button>
@@ -64,4 +78,4 @@ const IntroModal = ({ script }) => {
   );
 };
 
-export default IntroModal;
+export default IntroExamModal;

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import Icon from "../../../common/Icon/Icon";
+import Icon from "../../../Icon/Icon";
 
 const NOT_FULLSCREEN_ID = "focus-finish";
 const FULLSCREEN_ID = "focus";

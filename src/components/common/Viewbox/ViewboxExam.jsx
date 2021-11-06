@@ -13,7 +13,7 @@ import { observer } from "mobx-react-lite";
 
 const MARGIN_FOR_ACTION = 70;
 
-const Viewbox = observer(({ mod, step, actionClick, isExam }) => {
+const Viewbox = observer(({ mod, step, actionClick }) => {
   const image = useRef(null);
 
   const { boxCoords } = step.metaInfo;
@@ -30,9 +30,7 @@ const Viewbox = observer(({ mod, step, actionClick, isExam }) => {
     display: PlayerStore.imageLoaded ? "block" : "none",
   };
 
-  const actionClass = isExam
-    ? "viewbox__action viewbox__action--exam"
-    : "viewbox__action";
+  const actionClass = "viewbox__action viewbox__action--exam";
 
   const [actionHintPosition, setActionHintPosition] = useState(
     image.current && image.current.complete
@@ -110,6 +108,7 @@ const Viewbox = observer(({ mod, step, actionClick, isExam }) => {
             step={step}
             actionClick={actionClick}
             sizes={actionButtonStyle}
+            isExam={true}
           />
         );
       case 3:
@@ -151,13 +150,7 @@ const Viewbox = observer(({ mod, step, actionClick, isExam }) => {
             PlayerStore.finishImageLoad();
             getShrinkRatioactionHintPosition();
           }}
-          onClick={
-            isExam
-              ? () => {
-                  imgClickListener();
-                }
-              : null
-          }
+          onClick={() => imgClickListener()}
         />
         <div
           className={`${actionClass} ${actionHintPosition}`}

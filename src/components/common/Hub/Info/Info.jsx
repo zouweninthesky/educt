@@ -8,8 +8,9 @@ import "./Info.scss";
 import Icon from "../../Icon/Icon";
 
 import Store from "../../../../store";
-import Scripts from "../../../../store/scripts";
+import ExamStore from "../../../../store/exam";
 import PlayerStore from "../../../../store/player";
+import Scripts from "../../../../store/scripts";
 import { KEYBOARD_ENTER_BUTTON } from "../../../../utils/constants/keycodes";
 import { MASK_DAY_MONTH_YEAR_DOTS } from "../../../../utils/constants/dateFormatMasks";
 
@@ -29,18 +30,6 @@ const Info = observer((props) => {
   }
 
   const { isEditor } = props;
-
-  // const title = chosenScriptTitle
-  //   ? chosenScriptTitle
-  //   : isEditor
-  //   ? "Добавьте название"
-  //   : "Нет названия";
-
-  // const description = chosenScriptDescription
-  //   ? chosenScriptDescription
-  //   : isEditor
-  //   ? "Добавьте описание"
-  //   : "Нет описания";
 
   const title = () => {
     if (isEditor) return chosenScriptTitle;
@@ -117,15 +106,26 @@ const Info = observer((props) => {
     return (
       <>
         <div className="hub-info__small-button-wrapper">
-          <Link
-            to="/player/:id/test"
+          {/* Нужно изменить, чтобы это было ссылкой с onTouchStart, когда переделаю прокидывание ссылки в плеер */}
+          <button
             className="hub-info__button hub-info__button--outline button"
+            type="button"
+            onClick={async () => {
+              await ExamStore.getScript();
+              history.push("/exam");
+            }}
+            onTouchStart={() => {
+              ExamStore.touchDetected();
+              history.push("/exam");
+            }}
+            disabled={chosenScript.state === 1}
           >
             Тестирование
-          </Link>
+          </button>
           <button
             type="button"
             className="hub-info__stats hub-info__button hub-info__button--outline button button--icon-only"
+            disabled
           >
             <Icon id="graph-bar" width="22" />
             <span className="visually-hidden">Статистика</span>
@@ -136,8 +136,7 @@ const Info = observer((props) => {
           className="hub-info__button button"
           type="button"
           onClick={async () => {
-            Store.loadingStarted();
-            await PlayerStore.playerGetScript();
+            await PlayerStore.getScript();
             history.push("/player");
           }}
         >

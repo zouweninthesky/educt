@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 
 import Icon from "../../Icon/Icon";
 
+import ExamStore from "../../../../store/exam";
 import EditorStore from "../../../../store/editor";
 import { useModal } from "../../Modal/ModalContext";
 import {
@@ -9,7 +10,7 @@ import {
   KEYBOARD_ENTER_BUTTON,
 } from "../../../../utils/constants/keycodes";
 
-const EnterText = ({ actionClick, step, isEditor, sizes }) => {
+const EnterText = ({ actionClick, step, isEditor, sizes, isExam }) => {
   const [value, setValue] = useState("");
   const [isValid, setIsValid] = useState(false);
   const inputField = useRef(null);
@@ -87,6 +88,11 @@ const EnterText = ({ actionClick, step, isEditor, sizes }) => {
     if (isEditor) {
       setValue(e.target.value);
       EditorStore.currentStepData.metaInfo.text = e.target.value;
+    } else if (isExam) {
+      setValue(e.target.value);
+      ExamStore.symbolTyped();
+      if (e.target.value === neededString) setIsValid(true);
+      else setIsValid(false);
     } else {
       setValue(e.target.value);
       if (e.target.value === neededString) setIsValid(true);
@@ -99,7 +105,7 @@ const EnterText = ({ actionClick, step, isEditor, sizes }) => {
       <textarea
         name="temp-name"
         className="viewbox__action-button"
-        placeholder={neededString}
+        placeholder={isExam ? "" : neededString}
         value={value}
         style={sizes}
         ref={inputField}

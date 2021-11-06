@@ -56,6 +56,27 @@ class UserScriptsService {
     await request(url, config, true);
   }
 
+  async completeScript(UID, state, stepStates) {
+    const url = `${MAIN_URL}scripts/${UID}/states/`;
+    const body = {
+      state,
+    };
+    if (stepStates) {
+      body.stepStates = stepStates;
+    }
+    const config = {
+      method: "POST",
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    console.log(body);
+
+    await request(url, config, true);
+  }
+
   async updateScript(scriptUID, toDelete, toUpdate) {
     const toUpdateParsed = toUpdate.map((step) => {
       step.metaInfo.boxCoords.upperLeft.x = parseInt(

@@ -5,6 +5,7 @@ import Author from "./components/author/Author";
 import Editor from "./components/editor/Editor";
 import Login from "./components/login/Login";
 import Player from "./components/player/Player";
+import Exam from "./components/exam/Exam";
 import Register from "./components/register/Register";
 import User from "./components/user/User";
 import Welcome from "./components/welcome/Welcome";
@@ -31,6 +32,9 @@ const App = () => {
         </PrivateRoute>
         <PrivateRoute path="/player">
           <Player />
+        </PrivateRoute>
+        <PrivateRoute path="/exam">
+          <Exam />
         </PrivateRoute>
         <PrivateRoute
           path="/editor/:scriptUID"
