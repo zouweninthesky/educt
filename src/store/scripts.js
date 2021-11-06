@@ -16,6 +16,7 @@ class Scripts {
   pagesLoaded = 1;
   allLoaded = false;
   scriptToDelete = "";
+  stateFilter = null;
 
   constructor() {
     makeObservable(this, {
@@ -57,7 +58,10 @@ class Scripts {
 
   async scriptsLoad() {
     Store.loadingStarted();
-    const response = await ScriptsService.getUserScripts(this.pagesLoaded);
+    const response = await ScriptsService.getUserScripts(
+      this.pagesLoaded,
+      this.stateFilter
+    );
 
     if (response.length) {
       this.scriptsSet(response);
@@ -123,6 +127,14 @@ class Scripts {
     const oldPagesLoaded = this.pagesLoaded;
     this.scriptsClear();
     for (let i = 0; i < oldPagesLoaded; i++) {
+      await this.scriptsLoad();
+    }
+  }
+
+  async applyStateFilter(state) {
+    if (this.stateFilter !== state) {
+      this.stateFilter = state;
+      this.scriptsClear();
       await this.scriptsLoad();
     }
   }
