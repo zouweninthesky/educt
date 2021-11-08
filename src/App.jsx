@@ -9,7 +9,7 @@ import Exam from "./components/exam/Exam";
 import Register from "./components/register/Register";
 import User from "./components/user/User";
 // import Welcome from "./components/welcome/Welcome";
-import SpritePage from "./utils/SpritePage";
+// import SpritePage from "./utils/SpritePage";
 import PrivateRoute from "./components/common/PrivateRoute/PrivateRoute";
 import Sprite from "./components/common/Sprite/Sprite";
 import ErrorIndicator from "./components/common/ErrorIndicator/ErrorIndicator";
@@ -43,9 +43,9 @@ const App = () => {
         <PrivateRoute path="/author">
           <Author />
         </PrivateRoute>
-        <PrivateRoute path="/sprite">
+        {/* <PrivateRoute path="/sprite">
           <SpritePage />
-        </PrivateRoute>
+        </PrivateRoute> */}
       </Switch>
     </>
   );
