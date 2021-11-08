@@ -139,6 +139,12 @@
         background-color: transparent;
       }
     }
+
+    &:disabled {
+      cursor: auto;
+
+      opacity: 0.3;
+    }
   }
 
   &__stats {

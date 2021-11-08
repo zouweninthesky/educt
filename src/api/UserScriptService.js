@@ -8,8 +8,10 @@ const headers = {
 };
 
 class UserScriptsService {
-  async getUserScripts(pageNumber) {
-    const url = `${MAIN_URL}scripts/?page=${pageNumber}&perPage=${SCRIPTS_PER_PAGE}`;
+  async getUserScripts(pageNumber, state) {
+    const stateParam = state === null ? "" : `&state=${state}`;
+
+    const url = `${MAIN_URL}scripts/?page=${pageNumber}&perPage=${SCRIPTS_PER_PAGE}${stateParam}`;
     const config = {
       method: "GET",
       headers: {
@@ -52,6 +54,27 @@ class UserScriptsService {
         description,
       }),
     };
+
+    await request(url, config, true);
+  }
+
+  async completeScript(UID, state, stepStates) {
+    const url = `${MAIN_URL}scripts/${UID}/states/`;
+    const body = {
+      state,
+    };
+    if (stepStates) {
+      body.stepStates = stepStates;
+    }
+    const config = {
+      method: "POST",
+      headers: {
+        ...headers,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    };
+    console.log(body);
 
     await request(url, config, true);
   }

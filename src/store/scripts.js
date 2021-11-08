@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 // import ScriptsService from "../utils/UserScriptsServiceFake";
 // import AuthService from "../api/AuthService";
@@ -16,9 +16,35 @@ class Scripts {
   pagesLoaded = 1;
   allLoaded = false;
   scriptToDelete = "";
+  stateFilterID = 0;
+  filterOptions = [
+    { id: 0, title: "Все сценарии", state: null },
+    { id: 1, title: "Новое", state: 1 },
+    { id: 2, title: "На тестирование", state: 2 },
+  ];
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      scripts: observable,
+      chosenScript: observable,
+      chosenScriptTitle: observable,
+      chosenScriptDescription: observable,
+      chosenScriptOldTitle: observable,
+      chosenScriptOldDescription: observable,
+      pagesLoaded: observable,
+      allLoaded: observable,
+      scriptToDelete: observable,
+      scriptsSet: action,
+      scriptsClear: action,
+      scriptsLoad: action,
+      scriptChosen: action,
+      scriptToDeleteChosen: action,
+      scriptDelete: action,
+      changeTitle: action,
+      changeDescription: action,
+      scriptTitleDescriptionUpdate: action,
+      updateShownScripts: action,
+    });
   }
 
   // without this a warning popped up on each sciptsLoad
@@ -37,7 +63,10 @@ class Scripts {
 
   async scriptsLoad() {
     Store.loadingStarted();
-    const response = await ScriptsService.getUserScripts(this.pagesLoaded);
+    const response = await ScriptsService.getUserScripts(
+      this.pagesLoaded,
+      this.filterOptions[this.stateFilterID].state
+    );
 
     if (response.length) {
       this.scriptsSet(response);
@@ -48,11 +77,14 @@ class Scripts {
       }
     } else if (response.length === 0) {
       this.allLoaded = true;
+      Store.loadingFinished();
     } else {
       this.scriptsSet([]);
+      Store.loadingFinished();
       Store.errorOccured();
     }
 
+    Store.loadingFinished();
     this.scriptsSet([]);
   }
 
@@ -102,6 +134,14 @@ class Scripts {
     const oldPagesLoaded = this.pagesLoaded;
     this.scriptsClear();
     for (let i = 0; i < oldPagesLoaded; i++) {
+      await this.scriptsLoad();
+    }
+  }
+
+  async applyStateFilter(state) {
+    if (this.stateFilterID !== state) {
+      this.stateFilterID = state;
+      this.scriptsClear();
       await this.scriptsLoad();
     }
   }

@@ -1,13 +1,16 @@
 import React from "react";
 import "./ProgressBar.scss";
 
-import { useModal } from "../../common/Modal/ModalContext";
-import { MODAL_INTRO_ID } from "../../../utils/constants/modals";
+import { useModal } from "../../Modal/ModalContext";
+import {
+  MODAL_INTRO_PLAYER_ID,
+  MODAL_INTRO_EXAM_ID,
+} from "../../../../utils/constants/modals";
 
 const ProgressBar = ({ current, total }) => {
   const [modalID] = useModal();
 
-  if (modalID === MODAL_INTRO_ID) {
+  if (modalID === MODAL_INTRO_PLAYER_ID || modalID === MODAL_INTRO_EXAM_ID) {
     return <></>;
   }
 

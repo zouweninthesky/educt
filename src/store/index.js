@@ -1,11 +1,17 @@
-import { makeAutoObservable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 
 class Store {
   loading = false;
   error = null;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      loading: observable,
+      error: observable,
+      loadingStarted: action,
+      loadingFinished: observable,
+      errorOccured: observable,
+    });
   }
 
   loadingStarted() {

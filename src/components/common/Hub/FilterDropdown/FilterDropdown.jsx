@@ -3,16 +3,20 @@ import "../../Dropdown/Dropdown.scss";
 
 import Icon from "../../Icon/Icon";
 
-const options = ["Все сценарии", "Новое", "Тестирование"];
+import ScriptsStore from "../../../../store/scripts";
+import { observer } from "mobx-react-lite";
 
-const FilterDropdown = () => {
+const FilterDropdown = observer(() => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOption, setSelectedOption] = useState("Новое");
+  const { filterOptions, stateFilterID } = ScriptsStore;
+  console.log(filterOptions);
+  console.log(stateFilterID);
 
   const toggling = () => setIsOpen(!isOpen);
 
-  const onOptionClicked = (value) => () => {
-    setSelectedOption(value);
+  const onOptionClicked = (id) => () => {
+    const [option] = filterOptions.filter((opt) => opt.id === id);
+    ScriptsStore.applyStateFilter(id);
     setIsOpen(false);
   };
 
@@ -20,22 +24,22 @@ const FilterDropdown = () => {
     <div className="dropdown">
       <Icon id="angle-down" width="24" className="dropdown__arrow" />
       <div className="dropdown__header" onClick={toggling}>
-        {selectedOption}
+        {filterOptions[stateFilterID].title}
       </div>
       {isOpen && (
         <div className="dropdown__wrapper">
           <ul className="dropdown__list">
-            {options.map((option, i) => (
+            {filterOptions.map((option, i) => (
               <li
                 className={
-                  selectedOption === option
+                  filterOptions[stateFilterID].id === option.id
                     ? "dropdown__item dropdown__item--current"
                     : "dropdown__item"
                 }
-                onClick={onOptionClicked(option)}
-                key={i}
+                onClick={onOptionClicked(option.id)}
+                key={option.id}
               >
-                {option}
+                {option.title}
               </li>
             ))}
           </ul>
@@ -43,6 +47,6 @@ const FilterDropdown = () => {
       )}
     </div>
   );
-};
+});
 
 export default FilterDropdown;
