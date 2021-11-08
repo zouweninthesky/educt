@@ -77,12 +77,14 @@ class Scripts {
       }
     } else if (response.length === 0) {
       this.allLoaded = true;
+      Store.loadingFinished();
     } else {
       this.scriptsSet([]);
       Store.loadingFinished();
       Store.errorOccured();
     }
 
+    Store.loadingFinished();
     this.scriptsSet([]);
   }
 
