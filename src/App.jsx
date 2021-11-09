@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import Author from "./components/author/Author";
 import Editor from "./components/editor/Editor";
@@ -18,37 +18,68 @@ import Loader from "./components/common/Loader/Loader";
 const error = null;
 
 const App = () => {
+  console.log(process.env.PUBLIC_URL);
   return (
     <>
       <Sprite />
       <ErrorIndicator error={error} />
       <Loader />
       <Switch>
-        <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
-        {/* <Route path="/" component={Welcome} exact /> */}
-        <PrivateRoute path="/user">
+        <Route path={`/login`} component={Login} />
+        <Route path={`/register`} component={Register} />
+        <PrivateRoute path={`/user`}>
           <User />
         </PrivateRoute>
-        <PrivateRoute path="/player">
+        <PrivateRoute path={`/player`}>
           <Player />
         </PrivateRoute>
-        <PrivateRoute path="/exam">
+        <PrivateRoute path={`/exam`}>
           <Exam />
         </PrivateRoute>
         <PrivateRoute
-          path="/editor/:scriptUID"
+          path={`/editor/:scriptUID`}
           component={(props) => <Editor {...props.match.params} />}
         />
-        <PrivateRoute path="/author">
+        <PrivateRoute path={`/author`}>
           <Author />
         </PrivateRoute>
-        {/* <PrivateRoute path="/sprite">
-          <SpritePage />
-        </PrivateRoute> */}
+        <Redirect from={`/`} to={`/user`} />
+        {/* <Route path={`${process.env.PUBLIC_URL}/login`} component={Login} />
+        <Route
+          path={`${process.env.PUBLIC_URL}/register`}
+          component={Register}
+        />
+        <PrivateRoute path={`${process.env.PUBLIC_URL}/user`}>
+          <User />
+        </PrivateRoute>
+        <PrivateRoute path={`${process.env.PUBLIC_URL}/player`}>
+          <Player />
+        </PrivateRoute>
+        <PrivateRoute path={`${process.env.PUBLIC_URL}/exam`}>
+          <Exam />
+        </PrivateRoute>
+        <PrivateRoute
+          path={`${process.env.PUBLIC_URL}/editor/:scriptUID`}
+          component={(props) => <Editor {...props.match.params} />}
+        />
+        <PrivateRoute path={`${process.env.PUBLIC_URL}/author`}>
+          <Author />
+        </PrivateRoute>
+        <Redirect
+          from={`${process.env.PUBLIC_URL}/`}
+          to={`${process.env.PUBLIC_URL}/user`}
+        /> */}
       </Switch>
     </>
   );
 };
 
 export default App;
+{
+  /* <Route path="/" component={Welcome} exact /> */
+}
+{
+  /* <PrivateRoute path="/sprite">
+          <SpritePage />
+        </PrivateRoute> */
+}

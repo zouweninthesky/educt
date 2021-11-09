@@ -8,7 +8,7 @@ import ModalProvider from "./components/common/Modal/ModalContext";
 
 ReactDOM.render(
   <ModalProvider>
-    <Router>
+    <Router basename="/app">
       <App />
     </Router>
   </ModalProvider>,
