@@ -25,25 +25,25 @@ const App = () => {
       <ErrorIndicator error={error} />
       <Loader />
       <Switch>
-        <Route path={`/login`} component={Login} />
-        <Route path={`/register`} component={Register} />
-        <PrivateRoute path={`/user`}>
+        <Route path="/login" component={Login} />
+        <Route path="/register" component={Register} />
+        <PrivateRoute path="/user">
           <User />
         </PrivateRoute>
-        <PrivateRoute path={`/player`}>
+        <PrivateRoute path="/player">
           <Player />
         </PrivateRoute>
-        <PrivateRoute path={`/exam`}>
+        <PrivateRoute path="/exam">
           <Exam />
         </PrivateRoute>
         <PrivateRoute
-          path={`/editor/:scriptUID`}
+          path="/editor/:scriptUID"
           component={(props) => <Editor {...props.match.params} />}
         />
-        <PrivateRoute path={`/author`}>
+        <PrivateRoute path="/author">
           <Author />
         </PrivateRoute>
-        <Redirect from={`/`} to={`/user`} />
+        <Redirect from="/" to="/user" />
         {/* <Route path={`${process.env.PUBLIC_URL}/login`} component={Login} />
         <Route
           path={`${process.env.PUBLIC_URL}/register`}
