@@ -25,7 +25,7 @@ const App = () => {
       <ErrorIndicator error={error} />
       <Loader />
       <Switch>
-        {/* <Route path={`/login`} component={Login} />
+        <Route path={`/login`} component={Login} />
         <Route path={`/register`} component={Register} />
         <PrivateRoute path={`/user`}>
           <User />
@@ -43,13 +43,13 @@ const App = () => {
         <PrivateRoute path={`/author`}>
           <Author />
         </PrivateRoute>
-        <Redirect from={`/`} to={`/user`} /> */}
-        <Route path={`${process.env.PUBLIC_URL}/login`} component={Login} />
+        <Redirect from={`/`} to={`/user`} />
+        {/* <Route path={`${process.env.PUBLIC_URL}/login`} component={Login} />
         <Route
           path={`${process.env.PUBLIC_URL}/register`}
           component={Register}
         />
-        <PrivateRoute path={`${process.env.PUBLIC_URL}/user`}>
+        <PrivateRoute path={`/user`}>
           <User />
         </PrivateRoute>
         <PrivateRoute path={`${process.env.PUBLIC_URL}/player`}>
@@ -68,7 +68,7 @@ const App = () => {
         <Redirect
           from={`${process.env.PUBLIC_URL}/`}
           to={`${process.env.PUBLIC_URL}/user`}
-        />
+        /> */}
       </Switch>
     </>
   );
