@@ -10,19 +10,19 @@ import ScriptItem from "./ScriptItem/ScriptItem";
 import Spinner from "../../common/Spinner/Spinner";
 import Overlay from "../../common/Modal/Overlay";
 import DeleteScriptModal from "./modals/HubDeleteScriptModal";
-
-import Scripts from "../../../store/scripts";
 import NoScripts from "./NoScripts/NoScripts";
+
+import ScriptsStore from "../../../store/scripts";
 
 const Hub = observer((props) => {
   const { isEditor } = props;
 
-  const { scripts, allLoaded } = Scripts;
+  const { scripts, allLoaded } = ScriptsStore;
 
   useEffect(() => {
     (async () => {
-      Scripts.scriptsClear();
-      await Scripts.scriptsLoad();
+      ScriptsStore.scriptsClear();
+      await ScriptsStore.scriptsLoad();
     })();
   }, []);
 
@@ -38,7 +38,7 @@ const Hub = observer((props) => {
       <button
         className="button hub__load-button"
         onClick={() => {
-          Scripts.scriptsLoad();
+          ScriptsStore.scriptsLoad();
         }}
       >
         Загрузить ещё 15 сценариев
@@ -74,9 +74,18 @@ const Hub = observer((props) => {
             </div>
           </>
         );
-      } else {
-        return <NoScripts isEditor={isEditor} />;
-      }
+      } else
+        return (
+          <>
+            <div className="hub__content-filters">
+              {ScriptsStore.stateFilterID !== 0 ? <FilterDropdown /> : <></>}
+            </div>
+            <NoScripts
+              isEditor={isEditor}
+              isFiltered={ScriptsStore.stateFilterID}
+            />
+          </>
+        );
     } else if (scripts && scripts.length === 0) {
       return (
         <>

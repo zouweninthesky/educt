@@ -8,9 +8,14 @@
   height: calc(100vh - 4rem);
 
   &__wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+
     max-width: 37.5rem;
 
-    margin-bottom: 5%;
+    margin-bottom: 8%;
   }
 
   &__header {
@@ -28,11 +33,14 @@
     line-height: 1.575rem;
     color: $color-neutrals-dark;
     text-align: center;
+
+    margin: 0;
   }
 
   &__button {
-    color: $color-background;
+    // display: inline-block;
 
+    color: $color-background;
     margin: 2.5625rem auto 0;
 
     background-color: $color-secondary;
