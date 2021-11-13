@@ -1,4 +1,5 @@
 @use "../../../assets/scss/variables.scss" as *;
+@use "../../../assets/scss/mixins.scss" as *;
 
 .modal {
   display: flex;
@@ -238,8 +239,7 @@
     }
 
     &:disabled {
-      opacity: 0.3;
-      cursor: default;
+      @include disable-standard;
 
       &:hover,
       &:focus {

@@ -141,9 +141,7 @@
     }
 
     &:disabled {
-      cursor: auto;
-
-      opacity: 0.3;
+      @include disable-standard;
     }
   }
 

@@ -1,4 +1,5 @@
 @use "./variables.scss" as *;
+@use "./mixins.scss" as *;
 
 @font-face {
   font-family: "Inter";
@@ -159,8 +160,7 @@ a {
     }
 
     &:disabled {
-      opacity: 0.3;
-      cursor: default;
+      @include disable-standard;
       background-color: transparent;
 
       &:hover,

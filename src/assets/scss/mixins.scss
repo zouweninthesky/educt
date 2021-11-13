@@ -1,9 +1,5 @@
 @use "./variables.scss" as *;
 
-@mixin shadow {
-  box-shadow: 0 0.125rem 1.25rem 0 $color-shadow;
-}
-
 @mixin vp-laptop {
   @media (max-width: $vp-laptop - 1) {
     @content;
@@ -20,4 +16,14 @@
   @media (max-width: $vp-mobile - 1) {
     @content;
   }
+}
+
+@mixin shadow {
+  box-shadow: 0 0.125rem 1.25rem 0 $color-shadow;
+}
+
+@mixin disable-standard {
+  cursor: default;
+
+  opacity: 0.3;
 }
