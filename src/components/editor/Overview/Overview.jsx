@@ -1,4 +1,5 @@
 import React from "react";
+import { Scrollbars } from "react-custom-scrollbars";
 import "./Overview.scss";
 
 import Icon from "../../common/Icon/Icon";
@@ -33,6 +34,7 @@ const Overview = () => {
         );
       });
       return <ul className="overview__list">{stepsItems}</ul>;
+      // return <div className="temp">Я очень хочу показаться</div>;
     } else {
       return (
         <>
@@ -63,7 +65,16 @@ const Overview = () => {
           </div>
         </button>
       </div>
-      {content()}
+      <Scrollbars
+        renderTrackHorizontal={(props) => (
+          <div {...props} className="overview__scroll" />
+        )}
+        // renderThumbHorizontal={(props) => (
+        //   <div {...props} className="overview__scroll-thumb" />
+        // )}
+      >
+        {content()}
+      </Scrollbars>
     </div>
   );
 };
