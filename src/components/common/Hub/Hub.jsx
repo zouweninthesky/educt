@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { toJS } from "mobx";
+import React, { useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { Scrollbars } from "react-custom-scrollbars";
 import "./Hub.scss";
