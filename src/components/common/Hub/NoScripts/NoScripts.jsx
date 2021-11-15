@@ -32,14 +32,15 @@ const NoScripts = ({ isEditor, isFiltered }) => {
         </button>
       );
     return isEditor ? (
-      <a
-        href="https://educt-desktop-apps.s3.eu-north-1.amazonaws.com/EductRecorder-001.exe"
-        download
-        className="button no-scripts__button"
-      >
-        <Icon id="arrow-down" width="22" />
-        Приложение для Windows
-      </a>
+      // <a
+      //   href="https://educt-desktop-apps.s3.eu-north-1.amazonaws.com/EductRecorder-001.exe"
+      //   download
+      //   className="button no-scripts__button"
+      // >
+      //   <Icon id="arrow-down" width="22" />
+      //   Приложение для Windows
+      // </a>
+      <></>
     ) : (
       <></>
     );

@@ -71,14 +71,7 @@ const Header = () => {
               Настройки
             </button>
           </li>
-          <li className="hub-header__dropdown-item">
-            {/* <button
-              className="hub-header__dropdown-link"
-              type="button"
-              disabled={!Auth.isEditor}
-            >
-              Скачать приложение
-            </button> */}
+          {/* <li className="hub-header__dropdown-item">
             <a
               className="hub-header__dropdown-link"
               href="https://educt-desktop-apps.s3.eu-north-1.amazonaws.com/EductRecorder-001.exe"
@@ -86,7 +79,7 @@ const Header = () => {
             >
               Скачать приложение
             </a>
-          </li>
+          </li> */}
           <li className="hub-header__dropdown-item">
             <button
               className="hub-header__dropdown-link"
