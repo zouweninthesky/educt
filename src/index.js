@@ -14,5 +14,3 @@ ReactDOM.render(
   </ModalProvider>,
   document.getElementById("root")
 );
-
-// basename="/app"

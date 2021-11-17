@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, toJS } from "react";
 import { Redirect } from "react-router";
 import { observer } from "mobx-react-lite";
 import "./Exam.scss";
@@ -11,7 +11,9 @@ import FinishExamModal from "./modals/FinishExamModal";
 import IntroExamModal from "./modals/IntroExamModal";
 import TouchDetectedModal from "./modals/TouchDetectedModal";
 import Overlay from "../common/Modal/Overlay";
+import Loader from "../common/Loader/Loader";
 
+import Store from "../../store";
 import ExamStore from "../../store/exam";
 import { useModal } from "../common/Modal/ModalContext";
 import {
@@ -20,19 +22,20 @@ import {
   MODAL_TOUCH_DETECTED_ID,
 } from "../../utils/constants/modals";
 
-const Exam = observer(() => {
+const Exam = observer(({ scriptUID }) => {
   const [, setModalID] = useModal();
   const [isLastStep, setIsLastStep] = useState(false);
 
   useEffect(() => {
-    if (ExamStore.script) {
+    (async () => {
+      await ExamStore.getScript(scriptUID);
       setModalID(MODAL_INTRO_EXAM_ID);
 
       if (ExamStore.script.steps.length === 1) {
         setIsLastStep(true);
       }
-    }
-  }, []);
+    })();
+  }, [scriptUID]);
 
   if (ExamStore.wasTouched) {
     setModalID(MODAL_TOUCH_DETECTED_ID);
@@ -45,9 +48,7 @@ const Exam = observer(() => {
     );
   }
 
-  if (ExamStore.script === undefined) {
-    return <Redirect to="/user" />;
-  }
+  if (Store.loading) return <Loader />;
 
   const nextStep = () => {
     const stepsNumber = ExamStore.script.steps.length;

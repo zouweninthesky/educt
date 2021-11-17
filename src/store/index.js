@@ -1,7 +1,7 @@
 import { action, makeObservable, observable } from "mobx";
 
 class Store {
-  loading = false;
+  loading = true;
   error = null;
 
   constructor() {

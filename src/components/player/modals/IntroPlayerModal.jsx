@@ -1,10 +1,13 @@
 import React from "react";
+import { toJS } from "mobx";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
 
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
+import Store from "../../../store";
+import PlayerStore from "../../../store/player";
 import ExamStore from "../../../store/exam";
 import { useModal } from "../../common/Modal/ModalContext";
 import {
@@ -28,6 +31,8 @@ const IntroPlayerModal = ({ script }) => {
     Math.ceil(script.steps.length / 4),
     "минут"
   );
+
+  console.log(toJS(script));
 
   return (
     <Modal modifier="wide">
@@ -53,13 +58,16 @@ const IntroPlayerModal = ({ script }) => {
         <button
           className="modal__big-button modal__big-button--test"
           onClick={async () => {
-            await ExamStore.getScript();
-            history.push("/exam");
+            Store.loadingStarted();
+            PlayerStore.resetStore();
+            history.push(`/exam/${script.UID}`);
           }}
           onTouchStart={() => {
             ExamStore.touchDetected();
-            history.push("/exam");
+            PlayerStore.resetStore();
+            history.push(`/exam/${script.UID}`);
           }}
+          disabled={script.state === 1}
         >
           <Icon id="graduation" width="40" />
           <span>Тестирование</span>

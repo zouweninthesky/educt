@@ -5,7 +5,7 @@ import { useHistory } from "react-router";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
-import PlayerStore from "../../../store/player";
+import Store from "../../../store";
 import ExamStore from "../../../store/exam";
 import { useModal } from "../../common/Modal/ModalContext";
 import {
@@ -42,8 +42,9 @@ const IntroExamModal = () => {
             className="modal__description-link"
             type="button"
             onClick={async () => {
-              await PlayerStore.getScript();
-              history.push("/player");
+              Store.loadingStarted();
+              ExamStore.resetStore();
+              history.push(`/player/${script.UID}`);
             }}
           >
             Потренироваться в режиме обучения
