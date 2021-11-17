@@ -106,13 +106,12 @@ const Info = observer((props) => {
     return (
       <>
         <div className="hub-info__small-button-wrapper">
-          {/* Нужно изменить, чтобы это было ссылкой с onTouchStart, когда переделаю прокидывание ссылки в плеер */}
           <button
             className="hub-info__button hub-info__button--outline button"
             type="button"
             onClick={async () => {
-              await ExamStore.getScript();
-              history.push("/exam");
+              Store.loadingStarted();
+              history.push(`/exam/${chosenScript.UID}`);
             }}
             onTouchStart={() => {
               ExamStore.touchDetected();
@@ -132,16 +131,13 @@ const Info = observer((props) => {
           </button>
         </div>
 
-        <button
+        <Link
           className="hub-info__button button"
-          type="button"
-          onClick={async () => {
-            await PlayerStore.getScript();
-            history.push("/player");
-          }}
+          to={`/player/${chosenScript.UID}`}
+          onClick={() => Store.loadingStarted()}
         >
           Пройти сценарий
-        </button>
+        </Link>
       </>
     );
   };

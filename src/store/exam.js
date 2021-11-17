@@ -1,4 +1,4 @@
-import { makeAutoObservable } from "mobx";
+import { makeObservable, observable, action, computed, toJS } from "mobx";
 
 import Store from ".";
 import Api from "../api/UserScriptService";
@@ -20,7 +20,38 @@ class Exam {
   wasTouched = false;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      script: observable,
+      currentStepID: observable,
+      imageLoaded: observable,
+      results: observable,
+      currentTime: observable,
+      timePassed: observable,
+      currentClicks: observable,
+      currentSymbolsTyped: observable,
+      timeStamp: observable,
+      wasTouched: observable,
+      currentStep: computed,
+
+      resetStore: action,
+      getScript: action,
+      startImageLoad: action,
+      finishImageLoad: action,
+      clickRegistered: action,
+      stepFinished: action,
+      startTimeCount: action,
+      finishTimeCount: action,
+      symbolTyped: action,
+      saveStepResults: action,
+      finishExam: action,
+      touchDetected: action,
+    });
+  }
+
+  get currentStep() {
+    // return null;
+    console.log(toJS(this.script));
+    return this.script?.steps[this.currentStepID];
   }
 
   resetStore() {
@@ -36,10 +67,10 @@ class Exam {
     this.touchDetected = false;
   }
 
-  async getScript() {
+  async getScript(scriptUID) {
     this.resetStore();
     Store.loading = true;
-    const data = await Api.getScript(Scripts.chosenScript.UID);
+    const data = await Api.getScript(scriptUID);
     this.script = await data;
     Store.loading = false;
     this.timeStamp = Date.now();
@@ -64,6 +95,7 @@ class Exam {
   stepFinished() {
     this.saveStepResults();
     this.currentStepID++;
+    this.startImageLoad();
   }
 
   // Нужно вызывать при закрытии интромодалки или сразу, если модалки нет

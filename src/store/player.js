@@ -27,11 +27,11 @@ class Player {
     this.timeStamp = null;
   }
 
-  async getScript() {
+  async getScript(scriptUID) {
     this.resetStore();
     Store.loadingStarted();
-    console.log(Scripts.chosenScript.UID);
-    const data = await Api.getScript(Scripts.chosenScript.UID);
+    console.log(scriptUID);
+    const data = await Api.getScript(scriptUID);
     this.script = await data;
     Store.loadingFinished();
     this.timeStamp = Date.now();

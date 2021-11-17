@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Redirect } from "react-router";
+import { observer } from "mobx-react-lite";
 import "./Player.scss";
 
 import Panel from "../common/walkthrough/Panel/Panel";
@@ -9,7 +9,9 @@ import Overlay from "../common/Modal/Overlay";
 import CloseModal from "../common/Modal/common modals/CloseModal";
 import FinishPlayModal from "./modals/FinishPlayModal";
 import IntroPlayerModal from "./modals/IntroPlayerModal";
+import Loader from "../common/Loader/Loader";
 
+import Store from "../../store";
 import PlayerStore from "../../store/player";
 import { useModal } from "../common/Modal/ModalContext";
 import {
@@ -17,7 +19,7 @@ import {
   MODAL_FINISH_PLAY_ID,
 } from "../../utils/constants/modals";
 
-const Player = () => {
+const Player = observer(({ scriptUID }) => {
   const state = {
     currentStepId: 0,
     disablePrev: true,
@@ -28,18 +30,17 @@ const Player = () => {
   const [playerState, setPlayerState] = useState(state);
 
   useEffect(() => {
-    if (PlayerStore.script) {
+    (async () => {
+      await PlayerStore.getScript(scriptUID);
       setModalID(MODAL_INTRO_PLAYER_ID);
 
       if (PlayerStore.script.steps.length === 1) {
         setPlayerState((prev) => ({ ...prev, isLastStep: true }));
       }
-    }
-  }, []);
+    })();
+  }, [scriptUID]);
 
-  if (PlayerStore.script === undefined) {
-    return <Redirect to="/user" />;
-  }
+  if (Store.loading) return <Loader />;
 
   const nextStep = () => {
     const stepsNumber = PlayerStore.script.steps.length;
@@ -112,6 +113,6 @@ const Player = () => {
       <Overlay />
     </main>
   );
-};
+});
 
 export default Player;
