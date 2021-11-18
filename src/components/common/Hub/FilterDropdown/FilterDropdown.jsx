@@ -9,8 +9,6 @@ import { observer } from "mobx-react-lite";
 const FilterDropdown = observer(() => {
   const [isOpen, setIsOpen] = useState(false);
   const { filterOptions, stateFilterID } = ScriptsStore;
-  console.log(filterOptions);
-  console.log(stateFilterID);
 
   const toggling = () => setIsOpen(!isOpen);
 

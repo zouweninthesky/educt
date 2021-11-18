@@ -13,6 +13,10 @@ import PlayerStore from "../../../../store/player";
 import Scripts from "../../../../store/scripts";
 import { KEYBOARD_ENTER_BUTTON } from "../../../../utils/constants/keycodes";
 import { MASK_DAY_MONTH_YEAR_DOTS } from "../../../../utils/constants/dateFormatMasks";
+import {
+  MAX_SYMBOLS_TITLE,
+  MAX_SYMBOLS_DESCRIPTION,
+} from "../../../../utils/constants/magicNumbers";
 
 const Info = observer((props) => {
   const history = useHistory();
@@ -48,20 +52,30 @@ const Info = observer((props) => {
   const infoTitle = () => {
     if (isEditor) {
       return (
-        <input
-          type="text"
-          value={title()}
-          className="hub-info__title"
-          onChange={(e) => {
-            Scripts.changeTitle(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === KEYBOARD_ENTER_BUTTON) {
-              Scripts.scriptTitleDescriptionUpdate();
-              e.target.blur();
-            }
-          }}
-        />
+        <>
+          <div
+            className="hub-info__title hub-info__trick"
+            data-replicated-value={title()}
+          >
+            <textarea
+              rows="1"
+              type="text"
+              value={title()}
+              className="hub-info__title"
+              onChange={(e) => {
+                if (e.target.value.length >= MAX_SYMBOLS_TITLE)
+                  e.target.value = e.target.value.slice(0, MAX_SYMBOLS_TITLE);
+                Scripts.changeTitle(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === KEYBOARD_ENTER_BUTTON) {
+                  Scripts.scriptTitleDescriptionUpdate();
+                  e.target.blur();
+                }
+              }}
+            ></textarea>
+          </div>
+        </>
       );
     }
 
@@ -71,19 +85,32 @@ const Info = observer((props) => {
   const infoDescription = () => {
     if (isEditor) {
       return (
-        <input
-          type="text"
-          value={description()}
-          onChange={(e) => {
-            Scripts.changeDescription(e.target.value);
-          }}
-          onKeyDown={(e) => {
-            if (e.key === KEYBOARD_ENTER_BUTTON) {
-              Scripts.scriptTitleDescriptionUpdate();
-              e.target.blur();
-            }
-          }}
-        />
+        <>
+          <div
+            className="hub-info__description hub-info__trick"
+            data-replicated-value={description()}
+          >
+            <textarea
+              rows="1"
+              type="text"
+              value={description()}
+              onChange={(e) => {
+                if (e.target.value.length >= MAX_SYMBOLS_DESCRIPTION)
+                  e.target.value = e.target.value.slice(
+                    0,
+                    MAX_SYMBOLS_DESCRIPTION
+                  );
+                Scripts.changeDescription(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.key === KEYBOARD_ENTER_BUTTON) {
+                  Scripts.scriptTitleDescriptionUpdate();
+                  e.target.blur();
+                }
+              }}
+            ></textarea>
+          </div>
+        </>
       );
     }
 
