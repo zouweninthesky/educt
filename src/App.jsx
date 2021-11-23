@@ -25,7 +25,7 @@ const App = () => {
       <Loader />
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/register" component={Register} />
+        {/* <Route path="/register" component={Register} /> */}
         <PrivateRoute path="/user">
           <User />
         </PrivateRoute>
@@ -44,9 +44,9 @@ const App = () => {
         <PrivateRoute path="/author">
           <Author />
         </PrivateRoute>
-        <PrivateRoute path="/sprite">
+        {/* <PrivateRoute path="/sprite">
           <SpritePage />
-        </PrivateRoute>
+        </PrivateRoute> */}
         <Redirect from="/" to="/user" />
       </Switch>
     </>

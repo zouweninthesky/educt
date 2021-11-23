@@ -1,13 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory, Redirect } from "react-router";
 
 import Spinner from "../common/Spinner/Spinner";
 import Authentication from "../common/Authentication/Authentication";
 
 import Auth from "../../store/auth";
+import Store from "../../store";
 
 const Login = () => {
   const history = useHistory();
+
+  useEffect(() => {
+    Store.loadingFinished();
+  }, []);
 
   const initialState = {
     login: "",
