@@ -9,7 +9,10 @@ import EnterText from "./EnterText/EnterText";
 import Mask from "../../editor/mask/Mask";
 import Spinner from "../Spinner/Spinner";
 
-import EditorStore from "../../../store/editor";
+// import EditorStore from "../../../store/editor";
+import EditorMainStore from "../../../store/editorMain";
+import EditorStepStore from "../../../store/editorStep";
+import EditorMaskStore from "../../../store/editorMask";
 
 import { STORAGE_URL } from "../../../utils/constants/links";
 import DeleteMaskButton from "../../editor/mask/deleteMaskButton/DeleteMaskButton";
@@ -44,7 +47,7 @@ const Viewbox = observer(
     // const [imageLoad, setImageLoad] = useState(false);
 
     useEffect(() => {
-      if (imageRef.current.complete) EditorStore.finishImageLoad();
+      if (imageRef.current.complete) EditorStepStore.finishImageLoad();
       setShrinkRatio(
         imageRef.current?.complete
           ? imageRef.current.clientWidth / imageRef.current.naturalWidth
@@ -54,7 +57,7 @@ const Viewbox = observer(
 
     // ?????
     useEffect(() => {
-      EditorStore.changeShrinkRatio(shrinkRatio);
+      EditorStepStore.changeShrinkRatio(shrinkRatio);
     }, [shrinkRatio]);
     // ?????
 
@@ -99,7 +102,7 @@ const Viewbox = observer(
     );
 
     const actionMountedClass = () => {
-      return EditorStore.mode === "action" && creatingObj
+      return EditorMainStore.mode === "action" && creatingObj
         ? "viewbox__action--not-mounted"
         : "";
     };
@@ -123,16 +126,16 @@ const Viewbox = observer(
     useEffect(() => {
       calculateImageChanges();
     }, [
-      EditorStore.mode,
-      EditorStore.currentStepData,
-      EditorStore.currentStepNumber,
+      EditorMainStore.mode,
+      EditorStepStore.currentStepData,
+      EditorStepStore.currentStepNumber,
     ]);
 
     useEffect(() => {
-      if (EditorStore.mode === "mask") {
+      if (EditorMainStore.mode === "mask") {
         if (!creatingObj && currentObjFirst?.x && currentObjSecond?.x) {
           // console.log(currentObjFirst, currentObjSecond)
-          EditorStore.addMask(
+          EditorMaskStore.addMask(
             calculateTopLeft(
               {
                 x: currentObjFirst.x / shrinkRatio,
@@ -157,9 +160,9 @@ const Viewbox = observer(
           setCurrentObjFirst(undefined);
           setCurrentObjSecond(undefined);
         }
-      } else if (EditorStore.mode === "action") {
+      } else if (EditorMainStore.mode === "action") {
         if (!creatingObj && currentObjFirst?.x && currentObjSecond?.x) {
-          EditorStore.updateAction(
+          EditorStepStore.updateAction(
             {
               x: (currentObjFirst.x + 4) / shrinkRatio,
               y: (currentObjFirst.y + 4) / shrinkRatio,
@@ -178,20 +181,20 @@ const Viewbox = observer(
     const vbMainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
 
     const vbCursorClass =
-      EditorStore.mode === "mask" || EditorStore.mode === "action"
+      EditorMainStore.mode === "mask" || EditorMainStore.mode === "action"
         ? " viewbox--crosshair"
         : "";
 
     const vbActionClass =
-      EditorStore.mode === "action" ? " viewbox--action-mode" : "";
+      EditorMainStore.mode === "action" ? " viewbox--action-mode" : "";
 
     const maskActions =
-      EditorStore.mode === "mask" || EditorStore.mode === "action"
+      EditorMainStore.mode === "mask" || EditorMainStore.mode === "action"
         ? {
             onMouseDown: (e) => {
               if (e.target === e.currentTarget) {
-                if (EditorStore.actionPickerVisible)
-                  EditorStore.hideActionPicker();
+                if (EditorStepStore.actionPickerVisible)
+                  EditorStepStore.hideActionPicker();
                 else {
                   setCreatingObj(true);
                   setCurrentObjFirst({
@@ -227,26 +230,26 @@ const Viewbox = observer(
                 console.log(e);
                 if (creatingObj) {
                   setCreatingObj(false);
-                  if (EditorStore.mode === "action")
-                    EditorStore.showActionPicker();
+                  if (EditorMainStore.mode === "action")
+                    EditorStepStore.showActionPicker();
                 }
               }
             },
           }
         : {};
 
-    const imageLink = `${STORAGE_URL}${EditorStore.currentStepData?.imageUID}?e=${EditorStore.timeStamp}`;
+    const imageLink = `${STORAGE_URL}${EditorStepStore.currentStepData?.imageUID}?e=${EditorMainStore.timeStamp}`;
 
-    const { boxCoords } = EditorStore.currentStepData?.metaInfo;
+    const { boxCoords } = EditorStepStore.currentStepData?.metaInfo;
 
     const actionStyle = () => {
       const style = {
         top: boxCoords.upperLeft.y * shrinkRatio - 4,
         left: boxCoords.upperLeft.x * shrinkRatio - 4,
-        display: EditorStore.imageLoaded ? "block" : "none",
+        display: EditorStepStore.imageLoaded ? "block" : "none",
       };
       if (
-        EditorStore.mode === "action" &&
+        EditorMainStore.mode === "action" &&
         currentObjFirst &&
         currentObjSecond
       ) {
@@ -263,7 +266,7 @@ const Viewbox = observer(
         height: boxCoords.height * shrinkRatio,
       };
       if (
-        EditorStore.mode === "action" &&
+        EditorMainStore.mode === "action" &&
         currentObjFirst &&
         currentObjSecond
       ) {
@@ -274,7 +277,7 @@ const Viewbox = observer(
     };
 
     const actionButton = () => {
-      switch (EditorStore.currentStepData.actionID) {
+      switch (EditorStepStore.currentStepData.actionID) {
         case 1:
           return (
             <>
@@ -286,7 +289,7 @@ const Viewbox = observer(
               ></button>
               <span
                 className="viewbox__action-type"
-                onClick={() => EditorStore.toggleActionPickerVisible()}
+                onClick={() => EditorStepStore.toggleActionPickerVisible()}
               >
                 <Icon id="mouse-left" width="42" height="42" />
               </span>
@@ -312,7 +315,7 @@ const Viewbox = observer(
               ></button>
               <span
                 className="viewbox__action-type"
-                onClick={() => EditorStore.toggleActionPickerVisible()}
+                onClick={() => EditorStepStore.toggleActionPickerVisible()}
               >
                 <Icon id="mouse-right" width="42" height="42" />
               </span>
@@ -324,12 +327,12 @@ const Viewbox = observer(
 
     const Masks = () => {
       let masks;
-      if (EditorStore.imageLoaded) {
-        // console.log(toJS(EditorStore.currentStepData.masks), toJS(shrinkRatio));
-        const masks = EditorStore.currentStepData.masks.map((el) => {
+      if (EditorStepStore.imageLoaded) {
+        // console.log(toJS(EditorStepStore.currentStepData.masks), toJS(shrinkRatio));
+        const masks = EditorStepStore.currentStepData.masks.map((el) => {
           return (
             <Mask
-              shrinkRatio={EditorStore.currentStepData.shrinkRatio}
+              shrinkRatio={EditorStepStore.currentStepData.shrinkRatio}
               firstPoint={el.topLeft}
               secondPoint={el.bottomRight}
               key={el.id}
@@ -337,7 +340,7 @@ const Viewbox = observer(
           );
         });
         if (
-          EditorStore.mode === "mask" &&
+          EditorMainStore.mode === "mask" &&
           currentObjFirst?.x &&
           currentObjSecond?.x
         )
@@ -355,7 +358,7 @@ const Viewbox = observer(
     };
 
     const DeleteMasksButtons = () => {
-      const buttons = EditorStore.currentStepData.masks.map((el) => {
+      const buttons = EditorStepStore.currentStepData.masks.map((el) => {
         return (
           <DeleteMaskButton
             shrinkRatio={shrinkRatio}
@@ -382,10 +385,10 @@ const Viewbox = observer(
       <section className={vbMainClass + vbCursorClass + vbActionClass}>
         <h2 className="visually-hidden">Текущий слайд</h2>
         <div className="viewbox__wrapper">
-          <Spinner show={!EditorStore.imageLoaded} />
+          <Spinner show={!EditorStepStore.imageLoaded} />
           <div className="viewbox__canvas" {...maskActions}>
             {DeleteMasksButtons()}
-            {EditorStore.actionPickerVisible ? (
+            {EditorStepStore.actionPickerVisible ? (
               <ActionPicker pickerStyle={actionPickerStyle()} />
             ) : null}
           </div>
@@ -403,7 +406,7 @@ const Viewbox = observer(
             src={imageLink}
             ref={imageRef}
             onLoad={() => {
-              EditorStore.finishImageLoad();
+              EditorStepStore.finishImageLoad();
               updateShrinkRatioActionClass();
             }}
           />

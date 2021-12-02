@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "../../Dropdown/Dropdown.scss";
 
-import EditorStore from "../../../../store/editor";
+// import EditorStore from "../../../../store/editor";
+import EditorStepStore from "../../../../store/editorStep";
 
 const options = ["ЛКМ", "Ввод текста", "ПКМ"];
 
@@ -26,11 +27,11 @@ const ActionPicker = ({ pickerStyle }) => {
         {options.map((option, i) => (
           <li
             className={
-              EditorStore.currentStepData.actionID === i + 1
+              EditorStepStore.currentStepData.actionID === i + 1
                 ? "dropdown__item dropdown__item--current"
                 : "dropdown__item"
             }
-            onClick={() => EditorStore.setActionType(i + 1)}
+            onClick={() => EditorStepStore.setActionType(i + 1)}
             key={i}
           >
             {option}

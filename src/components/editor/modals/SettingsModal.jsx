@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
-import EditorStore from "../../../store/editor";
+import EditorMainStore from "../../../store/editorMain";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_SETTINGS_ID } from "../../../utils/constants/modals";
 
@@ -15,7 +15,7 @@ const SettingsModal = observer(() => {
     return <></>;
   }
 
-  const { scriptTitle, scriptDescription } = EditorStore;
+  const { scriptTitle, scriptDescription } = EditorMainStore;
 
   const title = scriptTitle ? scriptTitle : "Добавьте название";
 
@@ -29,7 +29,7 @@ const SettingsModal = observer(() => {
         className="modal__header modal__editable-text modal__editable-text--wide modal__editable-text--header"
         value={title}
         onChange={(e) => {
-          EditorStore.changeTitle(e.target.value);
+          EditorMainStore.changeTitle(e.target.value);
         }}
       />
       <div className="modal__info-wrapper">
@@ -38,7 +38,7 @@ const SettingsModal = observer(() => {
             className="modal__editable-text"
             value={description}
             onChange={(e) => {
-              EditorStore.changeDescription(e.target.value);
+              EditorMainStore.changeDescription(e.target.value);
             }}
           ></textarea>
         </div>
@@ -52,7 +52,7 @@ const SettingsModal = observer(() => {
           className="button button--accept"
           type="button"
           onClick={() => {
-            EditorStore.scriptTitleDescriptionUpdate();
+            EditorMainStore.scriptTitleDescriptionUpdate();
             setModalID();
           }}
         >
@@ -63,7 +63,7 @@ const SettingsModal = observer(() => {
           className="button button--discard"
           type="button"
           onClick={() => {
-            EditorStore.setTitleDescription();
+            EditorMainStore.setTitleDescription();
             setModalID();
           }}
         >

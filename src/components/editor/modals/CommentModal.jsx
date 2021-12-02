@@ -4,7 +4,7 @@ import { observer } from "mobx-react-lite";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
-import EditorStore from "../../../store/editor";
+import EditorStepStore from "../../../store/editorStep";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_COMMENT_ID } from "../../../utils/constants/modals";
 
@@ -54,7 +54,7 @@ const CommentModal = observer(({ step }) => {
           className="button button--accept"
           type="button"
           onClick={() => {
-            EditorStore.saveStepDescription(value);
+            EditorStepStore.saveStepDescription(value);
             setModalID();
           }}
         >

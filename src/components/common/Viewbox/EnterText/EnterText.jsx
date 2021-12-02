@@ -3,7 +3,8 @@ import React, { useState, useEffect, useRef } from "react";
 import Icon from "../../Icon/Icon";
 
 import ExamStore from "../../../../store/exam";
-import EditorStore from "../../../../store/editor";
+// import EditorStore from "../../../../store/editor";
+import EditorStepStore from "../../../../store/editorStep";
 import { useModal } from "../../Modal/ModalContext";
 import {
   MOUSE_LEFT_BUTTON,
@@ -17,7 +18,7 @@ const EnterText = ({ actionClick, step, isEditor, sizes, isExam }) => {
   const [modalID] = useModal();
 
   const neededString = isEditor
-    ? EditorStore.currentStepData.metaInfo.text?.slice() || ""
+    ? EditorStepStore.currentStepData.metaInfo.text?.slice() || ""
     : step.metaInfo.text?.slice() || "";
 
   useEffect(() => {
@@ -34,7 +35,7 @@ const EnterText = ({ actionClick, step, isEditor, sizes, isExam }) => {
       return (
         <span
           className="viewbox__action-type"
-          onClick={() => EditorStore.toggleActionPickerVisible()}
+          onClick={() => EditorStepStore.toggleActionPickerVisible()}
         >
           <Icon id="text" width="42" />
         </span>
@@ -87,7 +88,7 @@ const EnterText = ({ actionClick, step, isEditor, sizes, isExam }) => {
   const onChange = (e) => {
     if (isEditor) {
       setValue(e.target.value);
-      EditorStore.currentStepData.metaInfo.text = e.target.value;
+      EditorStepStore.currentStepData.metaInfo.text = e.target.value;
     } else if (isExam) {
       setValue(e.target.value);
       ExamStore.symbolTyped();
