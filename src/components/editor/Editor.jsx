@@ -208,7 +208,7 @@ const Editor = observer(({ scriptUID }) => {
 
   // will depend on currentSlide being not null
 
-  if (Store.loading) return <Loader />;
+  if (EditorMainStore.loading) return <Loader />;
 
   const SavingAreas = () => {
     return updatingSteps.map((step) => (
@@ -235,7 +235,6 @@ const Editor = observer(({ scriptUID }) => {
 
   return (
     <main className="editor">
-      {EditorMainStore.sending ? <Loader /> : <></>}
       <ViewboxEditor
         mod={viewboxModifier}
         isEditor={true}

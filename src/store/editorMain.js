@@ -21,6 +21,8 @@ class EditorMain {
   scriptDescription = null;
   // used for evading cache-saving issues
   timeStamp = null;
+  // Нужно, чтобы дождаться загрузки данных, и при этом не скрыть канвас на этапе сохранения
+  loading = true;
   // current menu mode
   mode = "overview";
 
@@ -38,6 +40,7 @@ class EditorMain {
     this.scriptDescription = null;
     this.sending = false;
     this.timeStamp = null;
+    this.loading = true;
     EditorStepStore.resetStore();
     EditorMaskStore.resetStore();
   }
@@ -53,6 +56,7 @@ class EditorMain {
     EditorStepStore.initSteps(scriptData);
     this.timeStamp = Date.now();
     this.setTitleDescription(scriptData);
+    this.loading = false;
     GlobalStore.loadingFinished();
   }
 
@@ -101,7 +105,7 @@ class EditorMain {
   }
 
   startSending() {
-    this.sending = true;
+    GlobalStore.loadingStarted();
   }
 
   finishSending() {
