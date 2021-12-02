@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 
 import DeleteScriptModal from "../../common/Modal/common modals/DeleteScriptModal";
 
-import EditorStore from "../../../store/editor";
+import EditorMainStore from "../../../store/editorMain";
 
 const EditorDeleteScriptModal = () => {
   const history = useHistory();
@@ -11,8 +11,8 @@ const EditorDeleteScriptModal = () => {
   return (
     <DeleteScriptModal
       onDelete={async () => {
-        await EditorStore.scriptDelete();
-        EditorStore.resetStore();
+        await EditorMainStore.scriptDelete();
+        EditorMainStore.resetStore();
         history.push("/author");
       }}
     />

@@ -5,13 +5,16 @@ import "./ZoomPanel.scss";
 
 import Icon from "../../common/Icon/Icon";
 
-import EditorStore from "../../../store/editor";
+import EditorStepStore from "../../../store/editorStep";
 
 const ZoomPanel = observer(({ maskMode, onApply, onCancel, onRepeatMasks }) => {
   const repeatMaskDisabled = () => {
-    return !(EditorStore.currentStepData.masks.length === 0 &&
-      EditorStore.steps[EditorStore.currentStepNumber - 1]?.masks.length > 0 &&
-      EditorStore.currentStepNumber > 0);
+    return !(
+      EditorStepStore.currentStepData.masks.length === 0 &&
+      EditorStepStore.steps[EditorStepStore.currentStepNumber - 1]?.masks
+        .length > 0 &&
+      EditorStepStore.currentStepNumber > 0
+    );
   };
 
   const RepeatMask = (disabled) => {
@@ -33,7 +36,7 @@ const ZoomPanel = observer(({ maskMode, onApply, onCancel, onRepeatMasks }) => {
       <button
         className="button button--accept"
         onClick={() => {
-          EditorStore.hideActionPicker();
+          EditorStepStore.hideActionPicker();
           onApply();
         }}
       >
@@ -43,7 +46,7 @@ const ZoomPanel = observer(({ maskMode, onApply, onCancel, onRepeatMasks }) => {
       <button
         className="button button--discard"
         onClick={() => {
-          EditorStore.hideActionPicker();
+          EditorStepStore.hideActionPicker();
           onCancel();
         }}
       >

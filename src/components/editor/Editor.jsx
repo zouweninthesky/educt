@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import "./Editor.scss";
@@ -7,21 +8,24 @@ import Icon from "../common/Icon/Icon";
 import ViewboxEditor from "../common/Viewbox/VIewboxEditor";
 import Overview from "./Overview/Overview";
 import Tools from "./Tools/Tools";
+import Loader from "../common/Loader/Loader";
+import SavingArea from "./SavingArea/SavingArea";
+import ZoomPanel from "./ZoomPanel/ZoomPanel";
 import DeleteStepModal from "./modals/DeleteStepModal";
 import DeleteScriptModal from "./modals/EditorDeleteScriptModal";
-import Overlay from "../common/Modal/Overlay";
 import CommentModal from "./modals/CommentModal";
 import SettingsModal from "./modals/SettingsModal";
 import NoSaveModal from "./modals/NoSaveModal";
-import { useModal } from "../common/Modal/ModalContext";
-import EditorStore from "../../store/editor";
-import { observer } from "mobx-react-lite";
-import Loader from "../common/Loader/Loader";
-import SavingArea from "./SavingArea/SavingArea";
-import request from "../../api/request";
-import ZoomPanel from "./ZoomPanel/ZoomPanel";
-import { MODAL_NO_SAVE_ID } from "../../utils/constants/modals";
+import Overlay from "../common/Modal/Overlay";
 
+import Store from "../../store";
+import EditorMainStore from "../../store/editorMain";
+import EditorStepStore from "../../store/editorStep";
+import EditorMaskStore from "../../store/editorMask";
+import { useModal } from "../common/Modal/ModalContext";
+import request from "../../api/request";
+
+import { MODAL_NO_SAVE_ID } from "../../utils/constants/modals";
 const HEADER_TOOLS_ON = "Все слайды";
 const HEADER_TOOLS_OFF = "Вернуться к списку";
 
@@ -32,18 +36,18 @@ const Editor = observer(({ scriptUID }) => {
 
   useEffect(() => {
     (async () => {
-      await EditorStore.getSteps(scriptUID);
+      await EditorMainStore.getSteps(scriptUID);
     })();
   }, [scriptUID]);
 
   const headerContent = () => {
-    if (EditorStore.mode === "tools")
+    if (EditorMainStore.mode === "tools")
       return (
         <>
           <button
             className="editor__arrow-button button button--simple button--icon-only"
             type="button"
-            onClick={() => EditorStore.setOverviewMode()}
+            onClick={() => EditorMainStore.setOverviewMode()}
           >
             <Icon id="arrow-left" width="24" />
           </button>
@@ -53,9 +57,13 @@ const Editor = observer(({ scriptUID }) => {
 
     const backButton = () => {
       if (
-        EditorStore.toDelete.length !== 0 ||
-        EditorStore.toUpdate.length !== 0
+        EditorStepStore.toDelete.length !== 0 ||
+        EditorStepStore.toUpdate.length !== 0
       ) {
+        // EditorStepStore.toUpdateDescription.length !== 0 ||
+        // EditorStepStore.toUpdateActionID.length !== 0 ||
+        // EditorStepStore.toUpdateBoxCoords.length !== 0 ||
+        // EditorStepStore.toUpdateText.length !== 0
         return (
           <button
             type="button"
@@ -70,7 +78,7 @@ const Editor = observer(({ scriptUID }) => {
         <Link
           to="/author"
           className="editor__arrow-button button button--simple button--icon-only"
-          onClick={() => EditorStore.resetStore()}
+          onClick={() => EditorMainStore.resetStore()}
         >
           <Icon id="arrow-left" width="24" />
         </Link>
@@ -85,8 +93,8 @@ const Editor = observer(({ scriptUID }) => {
           className="editor__save-button button button--simple"
           type="button"
           onClick={async () => {
-            EditorStore.startSending();
-            await EditorStore.scriptUpdate();
+            EditorMainStore.startSending();
+            await EditorMainStore.scriptUpdate();
             await saveAll();
           }}
         >
@@ -98,20 +106,20 @@ const Editor = observer(({ scriptUID }) => {
   };
 
   const currentPanel = () => {
-    switch (EditorStore.mode) {
+    switch (EditorMainStore.mode) {
       case "mask":
         return (
           <ZoomPanel
             maskMode={true}
             onApply={() => {
-              EditorStore.saveStepMasks();
-              EditorStore.setDefaultMode();
+              EditorMaskStore.saveStepMasks();
+              EditorMainStore.setToolsMode();
             }}
             onCancel={() => {
-              EditorStore.cancelStepMasks();
-              EditorStore.setDefaultMode();
+              EditorMaskStore.cancelStepMasks();
+              EditorMainStore.setToolsMode();
             }}
-            onRepeatMasks={() => EditorStore.repeatStepMasks()}
+            onRepeatMasks={() => EditorMaskStore.repeatStepMasks()}
           />
         );
       case "tools":
@@ -125,12 +133,12 @@ const Editor = observer(({ scriptUID }) => {
         return (
           <ZoomPanel
             onApply={() => {
-              EditorStore.saveStepAction();
-              EditorStore.setDefaultMode();
+              EditorStepStore.saveStepAction();
+              EditorMainStore.setToolsMode();
             }}
             onCancel={() => {
-              EditorStore.cancelStepAction();
-              EditorStore.setDefaultMode();
+              EditorStepStore.cancelStepAction();
+              EditorMainStore.setToolsMode();
             }}
           />
         );
@@ -200,7 +208,7 @@ const Editor = observer(({ scriptUID }) => {
 
   // will depend on currentSlide being not null
 
-  if (EditorStore.loading) return <Loader />;
+  if (Store.loading) return <Loader />;
 
   const SavingAreas = () => {
     return updatingSteps.map((step) => (
@@ -214,30 +222,32 @@ const Editor = observer(({ scriptUID }) => {
 
   const saveAll = () => {
     console.log("starting save");
-    setUpdatingSteps(EditorStore.toUpdate);
-    // EditorStore.finishSending();
+    EditorMainStore.startSending();
+    setUpdatingSteps(EditorStepStore.toUpdate);
+    // EditorMainStore.finishSending();
     // history.push("/author");
   };
 
   const viewboxModifier =
-    EditorStore.mode === "mask" || EditorStore.mode === "action"
+    EditorMainStore.mode === "mask" || EditorMainStore.mode === "action"
       ? ""
       : "editor";
 
   return (
     <main className="editor">
+      {EditorMainStore.sending ? <Loader /> : <></>}
       <ViewboxEditor
         mod={viewboxModifier}
         isEditor={true}
-        maskActive={EditorStore.mode === "mask"}
-        onDeleteMask={(key) => EditorStore.deleteMask(key)}
-        onShrinkRatioChange={(sr) => EditorStore.changeShrinkRatio(sr)}
+        maskActive={EditorMainStore.mode === "mask"}
+        onDeleteMask={(key) => EditorMaskStore.deleteMask(key)}
+        onShrinkRatioChange={(sr) => EditorStepStore.changeShrinkRatio(sr)}
       />
 
       {currentPanel()}
       {SavingAreas()}
-      <CommentModal step={EditorStore.currentStepData.description} />
-      <DeleteStepModal onDelete={() => EditorStore.deleteStep()} />
+      <CommentModal step={EditorStepStore.currentStepData.description} />
+      <DeleteStepModal onDelete={() => EditorStepStore.deleteStep()} />
       <DeleteScriptModal />
       <NoSaveModal />
       <SettingsModal />

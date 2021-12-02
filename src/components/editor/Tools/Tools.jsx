@@ -3,7 +3,8 @@ import "./Tools.scss";
 
 import Icon from "../../common/Icon/Icon";
 
-import EditorStore from "../../../store/editor";
+import EditorMainStore from "../../../store/editorMain";
+import EditorStepStore from "../../../store/editorStep";
 import { useModal } from "../../common/Modal/ModalContext";
 import {
   MODAL_DELETE_STEP_ID,
@@ -15,7 +16,7 @@ import { observer } from "mobx-react-lite";
 const Tools = observer(() => {
   const [, setModalID] = useModal();
 
-  const { steps, currentStepNumber } = EditorStore;
+  const { steps, currentStepNumber } = EditorStepStore;
 
   const prevButton = () => {
     if (currentStepNumber === 0) {
@@ -30,7 +31,7 @@ const Tools = observer(() => {
       <button
         className="tools__navigation-button"
         type="button"
-        onClick={() => EditorStore.prevStep()}
+        onClick={() => EditorStepStore.prevStep()}
       >
         <Icon id="angle-left" width="24" />
       </button>
@@ -50,7 +51,7 @@ const Tools = observer(() => {
       <button
         className="tools__navigation-button"
         type="button"
-        onClick={() => EditorStore.nextStep()}
+        onClick={() => EditorStepStore.nextStep()}
       >
         <Icon id="angle-right" width="24" />
       </button>
@@ -59,7 +60,7 @@ const Tools = observer(() => {
 
   const deleteButton = () => {
     const modalID =
-      EditorStore.steps.length <= 1
+      EditorStepStore.steps.length <= 1
         ? MODAL_DELETE_SCRIPT_ID
         : MODAL_DELETE_STEP_ID;
 
@@ -82,8 +83,8 @@ const Tools = observer(() => {
           <div className="tools__buttons-wrapper">
             {prevButton()}
             <p className="tools__navigation-count">
-              <span>{EditorStore.currentStepNumber + 1}</span>
-              <span>из {EditorStore.steps.length}</span>
+              <span>{EditorStepStore.currentStepNumber + 1}</span>
+              <span>из {EditorStepStore.steps.length}</span>
             </p>
             {nextButton()}
           </div>
@@ -102,7 +103,7 @@ const Tools = observer(() => {
           <button
             className="tools__button"
             type="button"
-            onClick={() => EditorStore.setActionMode()}
+            onClick={() => EditorMainStore.setActionMode()}
           >
             <Icon id="action" width="64" />
             <h3 className="tools__button-title">Действие</h3>
@@ -119,7 +120,7 @@ const Tools = observer(() => {
             className="tools__button"
             type="button"
             // disabled
-            onClick={() => EditorStore.setMaskMode()}
+            onClick={() => EditorMainStore.setMaskMode()}
           >
             <Icon id="layer-group" width="64" />
             <h3 className="tools__button-title">Маска</h3>

@@ -123,6 +123,9 @@ const Info = observer((props) => {
         <Link
           to={"/editor/" + chosenScript.UID}
           className="hub-info__author-button button button--simple"
+          onClick={() => {
+            Store.loadingStarted();
+          }}
         >
           <Icon id="puzzle-piece" width="22" />
           Открыть редактор

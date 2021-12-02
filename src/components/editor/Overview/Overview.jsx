@@ -5,7 +5,8 @@ import "./Overview.scss";
 import Icon from "../../common/Icon/Icon";
 import Spinner from "../../common/Spinner/Spinner";
 
-import EditorStore from "../../../store/editor";
+// import EditorStore from "../../../store/editor";
+import EditorStepStore from "../../../store/editorStep";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_SETTINGS_ID } from "../../../utils/constants/modals";
 import Thumbnail from "../../../static/img/test/temp-slide-thumbnail.jpg";
@@ -13,7 +14,15 @@ import Thumbnail from "../../../static/img/test/temp-slide-thumbnail.jpg";
 const Overview = () => {
   const [, setModalID] = useModal();
 
-  const { steps, toDelete, toUpdate } = EditorStore;
+  const {
+    steps,
+    toDelete,
+    toUpdate,
+    // toUpdateDescription,
+    // toUpdateActionID,
+    // toUpdateBoxCoords,
+    // toUpdateText,
+  } = EditorStepStore;
 
   const content = () => {
     if (steps && steps.length) {
@@ -24,7 +33,7 @@ const Overview = () => {
               className="overview__button"
               type="button"
               onClick={() => {
-                EditorStore.openStep(step.UID);
+                EditorStepStore.openStep(step.UID);
               }}
             >
               <img src={Thumbnail} width="110" height="62" alt="thumbnail" />
@@ -34,7 +43,6 @@ const Overview = () => {
         );
       });
       return <ul className="overview__list">{stepsItems}</ul>;
-      // return <div className="temp">Я очень хочу показаться</div>;
     } else {
       return (
         <>
@@ -46,7 +54,11 @@ const Overview = () => {
 
   const isChanged = () => {
     return toDelete.length !== 0 || toUpdate.length !== 0
-      ? "Изменения внесены"
+      ? // toUpdateDescription.length !== 0 ||
+        // toUpdateActionID.length !== 0 ||
+        // toUpdateBoxCoords.length !== 0 ||
+        // toUpdateText.length !== 0
+        "Изменения внесены"
       : "";
   };
 
