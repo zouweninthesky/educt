@@ -1,72 +1,93 @@
-import { makeAutoObservable, toJS } from "mobx";
-// import Scripts from "./scripts";
+import { action, makeObservable, observable } from "mobx";
 
 import EditorStep from "./editorStep";
 import { deepCopy } from "../utils/deepCopy";
-// import {
-//   calculateHeight,
-//   calculateTopLeft,
-//   calculateWidth,
-// } from "../utils/calculateMaskCoords";
 
 class EditorMask {
   // Создать массив масок, сохранять изменения масок в этот массив, запрос на запекание масок и отправку замененных
   // изображений тоже вызывать из этого стора
+  toMask = [];
   // Счетчик для уникальных id масок
+  currentMasks = [];
   lastMaskId = 0;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      toMask: observable,
+      currentMasks: observable,
+      lastMaskId: observable,
+      resetStore: action,
+      addMask: action,
+      deleteMask: action,
+      saveStepMasks: action,
+      cancelStepMasks: action,
+      repeatStepMasks: action,
+    });
   }
 
   resetStore() {
     this.lastMaskId = 0;
+    this.toMask = [];
+    this.currentMasks = [];
   }
 
   addMask(topLeft, bottomRight) {
-    // console.log(toJS(this.currentStepData));
-    EditorStep.currentStepData.masks.push({
+    const newMask = {
       topLeft,
       bottomRight,
-      id: this.lastMaskId,
-    });
+      UID: `${EditorStep.currentStepData.UID}${this.lastMaskId}`,
+    };
+    this.currentMasks.push(newMask);
     this.lastMaskId++;
   }
 
-  deleteMask(id) {
-    // masks, кажется, должен вообще не тут быть
-    const index = EditorStep.currentStepData.masks.findIndex(
-      (el) => el.id === id
+  showOldMasks() {
+    const index = this.toMask.findIndex(
+      (obj) => obj.UID === EditorStep.currentStepData.UID
     );
-    EditorStep.currentStepData.masks.splice(index, 1);
+    if (index !== -1) {
+      this.currentMasks = [...this.toMask[index].masks];
+    } else {
+      this.currentMasks = [];
+    }
+  }
+
+  deleteMask(id) {
+    // Ищет маску в только что созданных
+    const currentMasksIndex = this.currentMasks.findIndex(
+      (obj) => obj.UID === id
+    );
+    if (currentMasksIndex !== -1) {
+      this.currentMasks.splice(currentMasksIndex, 1);
+    }
+    // Ищет маску в уже сохранённых ранее
   }
 
   saveStepMasks() {
-    const stepNew = { ...EditorStep.currentStepData };
-    stepNew.actionID = EditorStep.steps[EditorStep.currentStepNumber].actionID;
-    stepNew.metaInfo = deepCopy(
-      EditorStep.steps[EditorStep.currentStepNumber].metaInfo
+    const index = this.toMask.findIndex(
+      (obj) => obj.UID === EditorStep.currentStepData.UID
     );
-    EditorStep.steps[EditorStep.currentStepNumber] = deepCopy(stepNew);
-    EditorStep.saveStepToUpdate();
+    if (index !== -1) {
+      this.toMask[index].masks = [...this.currentMasks];
+    } else {
+      this.toMask.push({
+        UID: EditorStep.currentStepData.UID,
+        imageUID: EditorStep.currentStepData.imageUID,
+        masks: [...this.currentMasks],
+      });
+    }
   }
 
   cancelStepMasks() {
-    console.log("cancel");
-    // masks, кажется, должен вообще не тут быть
-    EditorStep.currentStepData.masks = deepCopy(
-      EditorStep.steps[this.currentStepNumber].masks
-    );
+    this.showOldMasks();
   }
 
   repeatStepMasks() {
-    console.log(EditorStep.currentStepData.shrinkRatio);
-    const stepNew = deepCopy(EditorStep.currentStepData);
-    stepNew.masks = deepCopy(
-      EditorStep.steps[this.currentStepNumber - 1].masks
-    );
-    EditorStep.currentStepData = stepNew;
-    console.log(EditorStep.currentStepData.shrinkRatio);
+    const prevUID = EditorStep.steps[EditorStep.currentStepNumber - 1].UID;
+    const prevStep = this.toMask.find((obj) => obj.UID === prevUID);
+    if (prevStep !== -1) {
+      this.currentMasks = [...deepCopy(prevStep.masks)];
+    }
   }
 }
 

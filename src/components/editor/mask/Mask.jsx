@@ -1,12 +1,15 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 import "./Mask.scss";
+
+import EditorMain from "../../../store/editorMain";
+
 import {
   calculateTopLeft,
   calculateBottomRight,
 } from "../../../utils/calculateMaskCoords";
-import { observer } from "mobx-react-lite";
 
-const Mask = observer(({ firstPoint, secondPoint, current, shrinkRatio }) => {
+const Mask = observer(({ firstPoint, secondPoint, shrinkRatio }) => {
   const topLeft = calculateTopLeft(firstPoint, secondPoint, shrinkRatio);
   const bottomRight = calculateBottomRight(
     firstPoint,

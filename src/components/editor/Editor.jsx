@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import { toJS } from "mobx";
 import "./Editor.scss";
 
 import Icon from "../common/Icon/Icon";
@@ -18,16 +19,23 @@ import SettingsModal from "./modals/SettingsModal";
 import NoSaveModal from "./modals/NoSaveModal";
 import Overlay from "../common/Modal/Overlay";
 
-import Store from "../../store";
 import EditorMainStore from "../../store/editorMain";
 import EditorStepStore from "../../store/editorStep";
 import EditorMaskStore from "../../store/editorMask";
+import UserScriptService from "../../api/UserScriptService";
 import { useModal } from "../common/Modal/ModalContext";
-import request from "../../api/request";
 
 import { MODAL_NO_SAVE_ID } from "../../utils/constants/modals";
-const HEADER_TOOLS_ON = "Все слайды";
-const HEADER_TOOLS_OFF = "Вернуться к списку";
+import {
+  EDITOR_MODE_TOOLS,
+  EDITOR_MODE_ACTION,
+  EDITOR_MODE_MASK,
+  EDITOR_MODE_OVERVIEW,
+} from "../../utils/constants/modes";
+import {
+  EDITOR_HEADER_TOOLS_OFF,
+  EDITOR_HEADER_TOOLS_ON,
+} from "../../utils/constants/textStrings";
 
 const Editor = observer(({ scriptUID }) => {
   const [, setModalID] = useModal();
@@ -40,74 +48,79 @@ const Editor = observer(({ scriptUID }) => {
     })();
   }, [scriptUID]);
 
-  const headerContent = () => {
-    if (EditorMainStore.mode === "tools")
+  const backButton = () => {
+    if (EditorMainStore.mode === EDITOR_MODE_TOOLS)
       return (
-        <>
-          <button
-            className="editor__arrow-button button button--simple button--icon-only"
-            type="button"
-            onClick={() => EditorMainStore.setOverviewMode()}
-          >
-            <Icon id="arrow-left" width="24" />
-          </button>
-          <h2 className="editor__header">{HEADER_TOOLS_ON}</h2>
-        </>
-      );
-
-    const backButton = () => {
-      if (
-        EditorStepStore.toDelete.length !== 0 ||
-        EditorStepStore.toUpdate.length !== 0
-      ) {
-        // EditorStepStore.toUpdateDescription.length !== 0 ||
-        // EditorStepStore.toUpdateActionID.length !== 0 ||
-        // EditorStepStore.toUpdateBoxCoords.length !== 0 ||
-        // EditorStepStore.toUpdateText.length !== 0
-        return (
-          <button
-            type="button"
-            className="editor__arrow-button button button--simple button--icon-only"
-            onClick={() => setModalID(MODAL_NO_SAVE_ID)}
-          >
-            <Icon id="arrow-left" width="24" />
-          </button>
-        );
-      }
-      return (
-        <Link
-          to="/author"
+        <button
           className="editor__arrow-button button button--simple button--icon-only"
-          onClick={() => EditorMainStore.resetStore()}
+          type="button"
+          onClick={() => EditorMainStore.setOverviewMode()}
         >
           <Icon id="arrow-left" width="24" />
-        </Link>
+        </button>
       );
-    };
 
+    if (
+      EditorStepStore.toDelete.length !== 0 ||
+      EditorStepStore.toUpdate.length !== 0
+    ) {
+      // EditorStepStore.toUpdateDescription.length !== 0 ||
+      // EditorStepStore.toUpdateActionID.length !== 0 ||
+      // EditorStepStore.toUpdateBoxCoords.length !== 0 ||
+      // EditorStepStore.toUpdateText.length !== 0
+      return (
+        <button
+          type="button"
+          className="editor__arrow-button button button--simple button--icon-only"
+          onClick={() => setModalID(MODAL_NO_SAVE_ID)}
+        >
+          <Icon id="arrow-left" width="24" />
+        </button>
+      );
+    }
+    return (
+      <Link
+        to="/author"
+        className="editor__arrow-button button button--simple button--icon-only"
+        onClick={() => EditorMainStore.resetStore()}
+      >
+        <Icon id="arrow-left" width="24" />
+      </Link>
+    );
+  };
+
+  const headerContent = () => {
     return (
       <>
         {backButton()}
-        <h2 className="editor__header">{HEADER_TOOLS_OFF}</h2>
-        <button
-          className="editor__save-button button button--simple"
-          type="button"
-          onClick={async () => {
-            EditorMainStore.startSending();
-            await EditorMainStore.scriptUpdate();
-            await saveAll();
-          }}
-        >
-          <Icon id="save" width="22" />
-          Сохранить и выйти
-        </button>
+        <h2 className="editor__header">
+          {EditorMainStore.mode === EDITOR_MODE_TOOLS
+            ? EDITOR_HEADER_TOOLS_ON
+            : EDITOR_HEADER_TOOLS_OFF}
+        </h2>
+        {EditorMainStore.mode !== EDITOR_MODE_TOOLS && (
+          <button
+            className="editor__save-button button button--simple"
+            type="button"
+            onClick={async () => {
+              await EditorMainStore.scriptUpdate();
+              // invokes masking
+              if (EditorMaskStore.toMask.length !== 0) {
+                setStepsToMask(EditorMaskStore.toMask);
+              } else history.push("/author");
+            }}
+          >
+            <Icon id="save" width="22" />
+            Сохранить и выйти
+          </button>
+        )}
       </>
     );
   };
 
   const currentPanel = () => {
     switch (EditorMainStore.mode) {
-      case "mask":
+      case EDITOR_MODE_MASK:
         return (
           <ZoomPanel
             maskMode={true}
@@ -122,14 +135,14 @@ const Editor = observer(({ scriptUID }) => {
             onRepeatMasks={() => EditorMaskStore.repeatStepMasks()}
           />
         );
-      case "tools":
+      case EDITOR_MODE_TOOLS:
         return (
           <section className="editor__panel">
             <div className="editor__header-wrapper">{headerContent()}</div>
             <Tools />
           </section>
         );
-      case "action":
+      case EDITOR_MODE_ACTION:
         return (
           <ZoomPanel
             onApply={() => {
@@ -142,7 +155,7 @@ const Editor = observer(({ scriptUID }) => {
             }}
           />
         );
-      case "overview":
+      case EDITOR_MODE_OVERVIEW:
         return (
           <section className="editor__panel">
             <div className="editor__header-wrapper">{headerContent()}</div>
@@ -159,77 +172,48 @@ const Editor = observer(({ scriptUID }) => {
     }
   };
 
-  const [updatingSteps, setUpdatingSteps] = useState([]);
+  const [stepsToMask, setStepsToMask] = useState([]);
 
   const [maskedImages, setMaskedImages] = useState([]); // [{imageId, imageSrc}...]
 
   // updates only images
   useEffect(() => {
-    // console.log("here we go");
-    if (
-      maskedImages.length > 0 &&
-      maskedImages.length === updatingSteps.length
-    ) {
-      console.log("starting!");
-      // console.log(maskedImages);
+    if (maskedImages.length > 0 && maskedImages.length === stepsToMask.length) {
       (async () => {
-        console.log("getting update links");
-        const updateLinks = await request("https://educt.ru/storage/url/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            images: maskedImages.map((el) => el.imageUID),
-          }),
-        });
-        console.log(updateLinks, "got update links, sending photos");
+        const updateLinks = await UserScriptService.getImageUpdateLinks(
+          maskedImages
+        );
         await Promise.all(
           updateLinks.urls.map(async ({ imageUID, url }) => {
-            return await request(
-              url,
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "image/png",
-                },
-                body: maskedImages.find((obj) => obj.imageUID === imageUID)
-                  .imageBin,
-              },
-              true
-            );
+            const imageBin = maskedImages.find(
+              (obj) => obj.imageUID === imageUID
+            ).imageBin;
+            await UserScriptService.replaceImagesStorage(imageBin, url);
+            return;
           })
         );
         history.push("/author");
-        console.log("evth uploaded");
       })();
     }
-  }, [maskedImages, updatingSteps]);
-
-  // will depend on currentSlide being not null
+  }, [maskedImages, stepsToMask]);
 
   if (EditorMainStore.loading) return <Loader />;
 
   const SavingAreas = () => {
-    return updatingSteps.map((step) => (
+    return stepsToMask.map((step) => (
       <SavingArea
         step={step}
         key={step.UID}
-        onSaveImage={(imageObj) => setMaskedImages([...maskedImages, imageObj])}
+        onSaveImage={(imageObj) => {
+          setMaskedImages((maskedImages) => [...maskedImages, imageObj]);
+        }}
       />
     ));
   };
 
-  const saveAll = () => {
-    console.log("starting save");
-    EditorMainStore.startSending();
-    setUpdatingSteps(EditorStepStore.toUpdate);
-    // EditorMainStore.finishSending();
-    // history.push("/author");
-  };
-
   const viewboxModifier =
-    EditorMainStore.mode === "mask" || EditorMainStore.mode === "action"
+    EditorMainStore.mode === EDITOR_MODE_MASK ||
+    EditorMainStore.mode === EDITOR_MODE_ACTION
       ? ""
       : "editor";
 
@@ -238,7 +222,7 @@ const Editor = observer(({ scriptUID }) => {
       <ViewboxEditor
         mod={viewboxModifier}
         isEditor={true}
-        maskActive={EditorMainStore.mode === "mask"}
+        maskActive={EditorMainStore.mode === EDITOR_MODE_MASK}
         onDeleteMask={(key) => EditorMaskStore.deleteMask(key)}
         onShrinkRatioChange={(sr) => EditorStepStore.changeShrinkRatio(sr)}
       />

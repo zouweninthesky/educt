@@ -1,0 +1,11 @@
+const EDITOR_MODE_TOOLS = "tools";
+const EDITOR_MODE_ACTION = "action";
+const EDITOR_MODE_MASK = "mask";
+const EDITOR_MODE_OVERVIEW = "overview";
+
+export {
+  EDITOR_MODE_TOOLS,
+  EDITOR_MODE_ACTION,
+  EDITOR_MODE_MASK,
+  EDITOR_MODE_OVERVIEW,
+};

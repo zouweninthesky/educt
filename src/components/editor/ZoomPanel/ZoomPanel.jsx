@@ -6,15 +6,27 @@ import "./ZoomPanel.scss";
 import Icon from "../../common/Icon/Icon";
 
 import EditorStepStore from "../../../store/editorStep";
+import EditorMaskStore from "../../../store/editorMask";
 
 const ZoomPanel = observer(({ maskMode, onApply, onCancel, onRepeatMasks }) => {
   const repeatMaskDisabled = () => {
-    return !(
-      EditorStepStore.currentStepData.masks.length === 0 &&
-      EditorStepStore.steps[EditorStepStore.currentStepNumber - 1]?.masks
-        .length > 0 &&
-      EditorStepStore.currentStepNumber > 0
-    );
+    if (EditorStepStore.currentStepNumber > 0) {
+      const prevStepMaskObject = EditorMaskStore.toMask.find(
+        (obj) =>
+          obj.UID ===
+          EditorStepStore.steps[EditorStepStore.currentStepNumber - 1].UID
+      );
+      if (prevStepMaskObject) {
+        // console.log(EditorMaskStore.currentMasks.length);
+        // console.log(prevStepMaskObject);
+        // console.log(EditorStepStore.currentStepNumber);
+        return !(
+          EditorMaskStore.currentMasks.length === 0 && prevStepMaskObject
+        );
+      }
+      return true;
+    }
+    return true;
   };
 
   const RepeatMask = (disabled) => {

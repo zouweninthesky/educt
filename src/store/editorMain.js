@@ -1,16 +1,16 @@
-import { makeAutoObservable, toJS } from "mobx";
-
-import ScriptsApi from "../api/UserScriptService";
-// import { deepCopy } from "../utils/deepCopy";
-// import {
-//   calculateHeight,
-//   calculateTopLeft,
-//   calculateWidth,
-// } from "../utils/calculateMaskCoords";
+import { action, makeObservable, observable } from "mobx";
 
 import GlobalStore from ".";
 import EditorStepStore from "./editorStep";
 import EditorMaskStore from "./editorMask";
+import ScriptsApi from "../api/UserScriptService";
+
+import {
+  EDITOR_MODE_TOOLS,
+  EDITOR_MODE_ACTION,
+  EDITOR_MODE_MASK,
+  EDITOR_MODE_OVERVIEW,
+} from "../utils/constants/modes";
 
 class EditorMain {
   scriptUID = null;
@@ -24,10 +24,33 @@ class EditorMain {
   // Нужно, чтобы дождаться загрузки данных, и при этом не скрыть канвас на этапе сохранения
   loading = true;
   // current menu mode
-  mode = "overview";
+  mode = EDITOR_MODE_OVERVIEW;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      scriptUID: observable,
+      orgID: observable,
+      scriptTitle: observable,
+      scriptDescription: observable,
+      timeStamp: observable,
+      loading: observable,
+      mode: observable,
+      setTitleDescription: action,
+      resetStore: action,
+      getSteps: action,
+      setMode: action,
+      setMaskMode: action,
+      setOverviewMode: action,
+      setToolsMode: action,
+      setActionMode: action,
+      changeTitle: action,
+      changeDescription: action,
+      scriptTitleDescriptionUpdate: action,
+      startSending: action,
+      finishSending: action,
+      scriptDelete: action,
+      scriptUpdate: action,
+    });
   }
 
   setTitleDescription(data) {
@@ -65,24 +88,19 @@ class EditorMain {
   }
 
   setMaskMode() {
-    this.setMode("mask");
+    this.setMode(EDITOR_MODE_MASK);
   }
 
   setOverviewMode() {
-    this.setMode("overview");
+    this.setMode(EDITOR_MODE_OVERVIEW);
   }
 
-  // переписать на setToolsMode
-  // setDefaultMode() {
-  //   this.setMode("tools");
-  // }
-
   setToolsMode() {
-    this.setMode("tools");
+    this.setMode(EDITOR_MODE_TOOLS);
   }
 
   setActionMode() {
-    this.setMode("action");
+    this.setMode(EDITOR_MODE_ACTION);
   }
 
   changeTitle(title) {
@@ -118,6 +136,7 @@ class EditorMain {
   }
 
   async scriptUpdate() {
+    this.startSending();
     await ScriptsApi.updateScript(
       this.scriptUID,
       EditorStepStore.toDelete,

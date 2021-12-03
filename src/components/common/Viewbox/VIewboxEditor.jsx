@@ -25,7 +25,7 @@ import {
 
 const MARGIN_FOR_ACTION = 70;
 
-const Viewbox = observer(
+const ViewboxEditor = observer(
   ({
     mod,
     actionClick,
@@ -227,7 +227,6 @@ const Viewbox = observer(
             },
             onMouseOut: (e) => {
               if (e.target === e.currentTarget) {
-                console.log(e);
                 if (creatingObj) {
                   setCreatingObj(false);
                   if (EditorMainStore.mode === "action")
@@ -326,16 +325,15 @@ const Viewbox = observer(
     };
 
     const Masks = () => {
-      let masks;
       if (EditorStepStore.imageLoaded) {
-        // console.log(toJS(EditorStepStore.currentStepData.masks), toJS(shrinkRatio));
-        const masks = EditorStepStore.currentStepData.masks.map((el) => {
+        const maskArray = [...EditorMaskStore.currentMasks];
+        const masks = maskArray.map((el) => {
           return (
             <Mask
-              shrinkRatio={EditorStepStore.currentStepData.shrinkRatio}
+              shrinkRatio={shrinkRatio}
               firstPoint={el.topLeft}
               secondPoint={el.bottomRight}
-              key={el.id}
+              key={el.UID}
             />
           );
         });
@@ -346,7 +344,6 @@ const Viewbox = observer(
         )
           masks.push(
             <Mask
-              current={true}
               shrinkRatio={1}
               firstPoint={currentObjFirst}
               secondPoint={currentObjSecond}
@@ -358,14 +355,15 @@ const Viewbox = observer(
     };
 
     const DeleteMasksButtons = () => {
-      const buttons = EditorStepStore.currentStepData.masks.map((el) => {
+      const maskArray = [...EditorMaskStore.currentMasks];
+      const buttons = maskArray.map((el) => {
         return (
           <DeleteMaskButton
             shrinkRatio={shrinkRatio}
             firstPoint={el.topLeft}
             secondPoint={el.bottomRight}
-            onDeleteMask={() => onDeleteMask(el.id)}
-            key={el.id}
+            onDeleteMask={() => onDeleteMask(el.UID)}
+            key={el.UID}
           />
         );
       });
@@ -415,4 +413,4 @@ const Viewbox = observer(
     );
   }
 );
-export default Viewbox;
+export default ViewboxEditor;

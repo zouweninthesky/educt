@@ -1,6 +1,10 @@
 import Auth from "../store/auth";
 import request from "./request";
-import { MAIN_URL, SCRIPTS_PER_PAGE } from "../utils/constants/links";
+import {
+  MAIN_URL,
+  STORAGE_REQUEST_URL,
+  SCRIPTS_PER_PAGE,
+} from "../utils/constants/links";
 import { toJS } from "mobx";
 
 const headers = {
@@ -74,12 +78,12 @@ class UserScriptsService {
       },
       body: JSON.stringify(body),
     };
-    console.log(body);
 
     await request(url, config, true);
   }
 
   async updateScript(scriptUID, toDelete, toUpdate) {
+    // keeps only integer on boxSize and boxCoords
     const toUpdateParsed = toUpdate.map((step) => {
       step.metaInfo.boxCoords.upperLeft.x = parseInt(
         step.metaInfo.boxCoords.upperLeft.x
@@ -89,7 +93,6 @@ class UserScriptsService {
       );
       step.metaInfo.boxCoords.width = parseInt(step.metaInfo.boxCoords.width);
       step.metaInfo.boxCoords.height = parseInt(step.metaInfo.boxCoords.height);
-      console.log(toJS(step));
       return step;
     });
 
@@ -106,6 +109,35 @@ class UserScriptsService {
         toUpdate: toUpdateParsed,
       }),
     };
+
+    await request(url, config, true);
+  }
+
+  async getImageUpdateLinks(imagesObjects) {
+    const url = `${STORAGE_REQUEST_URL}url/`;
+    const config = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        images: imagesObjects.map((el) => el.imageUID),
+      }),
+    };
+    console.log(`sent ${url}`);
+
+    return await request(url, config);
+  }
+
+  async replaceImagesStorage(imageBin, url) {
+    const config = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "image/png",
+      },
+      body: imageBin,
+    };
+    console.log(`sent 2 ${url}`);
 
     await request(url, config, true);
   }

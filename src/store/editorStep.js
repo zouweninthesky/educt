@@ -1,5 +1,4 @@
-import { makeAutoObservable, toJS } from "mobx";
-import Scripts from "./scripts";
+import { action, makeObservable, toJS, observable } from "mobx";
 
 import ScriptsApi from "../api/UserScriptService";
 import { deepCopy } from "../utils/deepCopy";
@@ -10,6 +9,7 @@ import {
 } from "../utils/calculateMaskCoords";
 
 import EditorMain from "./editorMain";
+import EditorMask from "./editorMask";
 
 class EditorStep {
   // Откуда будут браться степы для отображения и редактирования
@@ -36,7 +36,35 @@ class EditorStep {
   imageLoaded = false;
 
   constructor() {
-    makeAutoObservable(this);
+    makeObservable(this, {
+      stepsOld: observable,
+      steps: observable,
+      currentStepNumber: observable,
+      toDelete: observable,
+      toUpdate: observable,
+      actionPickerVisible: observable,
+      imageLoaded: observable,
+      resetStore: action,
+      initSteps: action,
+      saveStepDescription: action,
+      changeShrinkRatio: action,
+      openStep: action,
+      nextStep: action,
+      prevStep: action,
+      saveStepToUpdate: action,
+      updateAction: action,
+      saveStepAction: action,
+      cancelStepAction: action,
+      deleteStep: action,
+      setActionType: action,
+      showActionPicker: action,
+      hideActionPicker: action,
+      toggleActionPickerVisible: action,
+      scriptUpdate: action,
+      startImageLoad: action,
+      finishImageLoad: action,
+      // resetMasks: action,
+    });
   }
 
   resetStore() {
@@ -203,6 +231,7 @@ class EditorStep {
     this.currentStepNumber = this.steps.findIndex((step) => step.UID === UID);
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
     this.startImageLoad();
+    EditorMask.showOldMasks();
     EditorMain.setToolsMode();
   }
 
@@ -210,12 +239,14 @@ class EditorStep {
     this.currentStepNumber++;
     this.startImageLoad();
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+    EditorMask.showOldMasks();
   }
 
   prevStep() {
     this.currentStepNumber--;
     this.startImageLoad();
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
+    EditorMask.showOldMasks();
   }
 
   // скорее всего вообще больше не нужна эта функция, стараться от неё уйти
@@ -253,7 +284,6 @@ class EditorStep {
     step.metaInfo.boxCoords.width = calculateWidth(firstPoint, secondPoint);
     step.metaInfo.boxCoords.height = calculateHeight(firstPoint, secondPoint);
     this.currentStepData = step;
-    console.log("upd action", toJS(this.currentStepData));
   }
 
   saveStepAction() {
@@ -262,11 +292,10 @@ class EditorStep {
   }
 
   cancelStepAction() {
-    console.log("cancel");
     this.currentStepData = deepCopy(this.steps[this.currentStepNumber]);
   }
 
-  // НАДО НАПИСАТЬ ФУНКЦИИ SAVESTEPBOXCOORS И ADDTOUPDATEBOXCOORDS
+  // НАДО НАПИСАТЬ ФУНКЦИИ SAVESTEPBOXCOODRS И ADDTOUPDATEBOXCOORDS
 
   deleteStep() {
     this.toDelete = [...this.toDelete, this.currentStepData.UID];
@@ -317,6 +346,13 @@ class EditorStep {
   finishImageLoad() {
     this.imageLoaded = true;
   }
+
+  // Временно, когда будут переделаны маски в отдельный архив - убрать
+  // resetMasks() {
+  //   this.currentStepData.masks = deepCopy(
+  //     this.steps[this.currentStepNumber].masks
+  //   );
+  // }
 }
 
 export default new EditorStep();
