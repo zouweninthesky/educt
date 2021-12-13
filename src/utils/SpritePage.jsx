@@ -2,7 +2,11 @@ import React from "react";
 import Icon from "../components/common/Icon/Icon";
 import "./SpritePage.scss";
 
+import Store from "../store";
+
 const SpritePage = () => {
+  Store.loadingFinished();
+
   return (
     <main>
       <div className="container sprite">
@@ -49,6 +53,10 @@ const SpritePage = () => {
         <div>
           <p>comment-new</p>
           <Icon id="comment-new" width="40" />
+        </div>
+        <div>
+          <p>device</p>
+          <Icon id="device" width="40" />
         </div>
         <div>
           <p>focus</p>

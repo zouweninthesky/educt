@@ -1,7 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 
-import Header from "../common/Hub/Header/Header";
+import Header from "../common/Header/Header";
 import Hub from "../common/Hub/Hub";
 
 const User = observer(() => {

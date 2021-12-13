@@ -3,12 +3,13 @@ import { Switch, Route, Redirect } from "react-router-dom";
 
 import Author from "./components/author/Author";
 import Editor from "./components/editor/Editor";
+import Exam from "./components/exam/Exam";
 import Login from "./components/login/Login";
 import Player from "./components/player/Player";
-import Exam from "./components/exam/Exam";
-import Register from "./components/register/Register";
+// import Profile from "./components/profile/Profile";
+// import Register from "./components/register/Register";
 import User from "./components/user/User";
-import SpritePage from "./utils/SpritePage";
+// import SpritePage from "./utils/SpritePage";
 import PrivateRoute from "./components/common/PrivateRoute/PrivateRoute";
 import Sprite from "./components/common/Sprite/Sprite";
 import ErrorIndicator from "./components/common/ErrorIndicator/ErrorIndicator";
@@ -43,6 +44,9 @@ const App = () => {
         <PrivateRoute path="/author">
           <Author />
         </PrivateRoute>
+        {/* <PrivateRoute path="/profile">
+          <Profile />
+        </PrivateRoute> */}
         {/* <PrivateRoute path="/sprite">
           <SpritePage />
         </PrivateRoute> */}

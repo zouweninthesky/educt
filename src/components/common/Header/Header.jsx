@@ -3,9 +3,9 @@ import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router";
 import "./Header.scss";
 
-import Icon from "../../Icon/Icon";
+import Icon from "../Icon/Icon";
 
-import Auth from "../../../../store/auth";
+import Auth from "../../../store/auth";
 
 const Header = () => {
   const history = useHistory();
