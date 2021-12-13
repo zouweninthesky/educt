@@ -1,7 +1,7 @@
 import React from "react";
 import { Redirect } from "react-router";
 
-import Header from "../common/Hub/Header/Header";
+import Header from "../common/Header/Header";
 import Hub from "../common/Hub/Hub";
 
 import Auth from "../../store/auth";
