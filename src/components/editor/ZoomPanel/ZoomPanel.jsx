@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { toJS } from "mobx";
+import React from "react";
 import { observer } from "mobx-react-lite";
 import "./ZoomPanel.scss";
 
@@ -17,9 +16,6 @@ const ZoomPanel = observer(({ maskMode, onApply, onCancel, onRepeatMasks }) => {
           EditorStepStore.steps[EditorStepStore.currentStepNumber - 1].UID
       );
       if (prevStepMaskObject) {
-        // console.log(EditorMaskStore.currentMasks.length);
-        // console.log(prevStepMaskObject);
-        // console.log(EditorStepStore.currentStepNumber);
         return !(
           EditorMaskStore.currentMasks.length === 0 && prevStepMaskObject
         );
