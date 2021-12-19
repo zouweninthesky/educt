@@ -2,7 +2,6 @@ import { action, makeObservable, observable } from "mobx";
 
 import Store from "../store";
 import Api from "../api/UserScriptService";
-import Scripts from "./scripts";
 
 class Player {
   script = undefined;

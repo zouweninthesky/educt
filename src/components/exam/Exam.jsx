@@ -1,5 +1,4 @@
-import React, { useState, useEffect, toJS } from "react";
-import { Redirect } from "react-router";
+import React, { useState, useEffect } from "react";
 import { observer } from "mobx-react-lite";
 import "./Exam.scss";
 

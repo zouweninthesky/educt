@@ -146,6 +146,20 @@
         color: $color-neutrals;
         border-color: $color-neutrals;
       }
+
+      & + .modal__button--cancel {
+        margin-top: 0.5rem;
+      }
+    }
+
+    &--positive {
+      color: $color-background;
+
+      background-color: $color-success;
+
+      &:hover {
+        background-color: $color-success-dark;
+      }
     }
 
     &--lonely {

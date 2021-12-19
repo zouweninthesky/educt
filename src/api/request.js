@@ -20,6 +20,7 @@ const request = async (url, config, responseNotNeeded) => {
     return;
   }
   const data = await response.json();
+  console.log(data);
   return data;
 };
 
