@@ -124,6 +124,8 @@ class UserScriptsService {
         images: imagesObjects.map((el) => el.imageUID),
       }),
     };
+
+    console.log(config.body);
     console.log(`sent ${url}`);
 
     return await request(url, config);
@@ -133,13 +135,44 @@ class UserScriptsService {
     const config = {
       method: "PUT",
       headers: {
-        "Content-Type": "image/png",
+        "Content-Type": "image/jpg",
       },
       body: imageBin,
     };
     console.log(`sent 2 ${url}`);
 
     await request(url, config, true);
+  }
+
+  async uploadCommentImage(imageUID, imageBin) {
+    const firstUrl = `${STORAGE_REQUEST_URL}url/`;
+    const firstConfig = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        images: [`${imageUID}`],
+      }),
+    };
+
+    console.log(`sent ${firstUrl}`);
+
+    const responseLinks = await request(firstUrl, firstConfig);
+
+    const secondUrl = responseLinks.urls[0].url;
+
+    const secondConfig = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "image/jpg",
+      },
+      body: imageBin,
+    };
+
+    console.log(`sent 3 ${secondUrl}`);
+
+    await request(secondUrl, secondConfig, true);
   }
 }
 
