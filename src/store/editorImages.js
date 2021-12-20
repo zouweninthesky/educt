@@ -20,22 +20,24 @@ class EditorImages {
     });
   }
 
-  addCommentImage(imageBlob) {
+  addCommentImage(imageBlob, imageName) {
     // const imageUID = `${EditorMainStore.timeStamp}${this.tempCounter}`;
     // this.tempCounter++;
     // EditorStepStore.currentStepData.metaInfo.imageUIDs = [imageUID];
     this.commentImages.push({
       stepUID: EditorStepStore.currentStepData.UID.slice(),
       // imageUID =
+      name: imageName,
       imageBlob,
     });
 
     console.log(this.commentImages);
   }
 
+  // Пока работает только с только что загруженными изображениями
   removeCommentImage() {
     const index = this.commentImages.findIndex(
-      (obj) => obj.UID === EditorStepStore.currentStepData.UID
+      (obj) => obj.stepUID === EditorStepStore.currentStepData.UID
     );
     if (index !== -1) {
       this.commentImages.splice(index, 1);

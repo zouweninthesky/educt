@@ -17,6 +17,12 @@ const CommentModal = observer(({ step }) => {
   const [value, setValue] = useState(step);
   const [image, setImage] = useState("");
 
+  // const [imageAttached, setImageAttached] = useState(
+  //   EditorImagesStore.commentImages.findIndex(
+  //     (obj) => obj.stepUID === EditorStepStore.currentStepData.UID
+  //   ) !== -1
+  // );
+
   const fileInput = useRef(null);
 
   useEffect(() => {
@@ -42,6 +48,40 @@ const CommentModal = observer(({ step }) => {
     return <></>;
   }
 
+  const buttons = () => {
+    const index = EditorImagesStore.commentImages.findIndex(
+      (obj) => obj.stepUID === EditorStepStore.currentStepData.UID
+    );
+    if (index === -1) {
+      return (
+        <button
+          className="button modal__button"
+          type="button"
+          onClick={() => fileInput.current.click()}
+        >
+          <Icon id="image" width="22" />
+          Добавить фото
+        </button>
+      );
+    }
+    return (
+      <>
+        <p className="modal__upload-name">
+          {EditorImagesStore.commentImages[index].name}
+        </p>
+        <button
+          className="button modal__button modal__button--icon-only"
+          type="button"
+          onClick={() => {
+            EditorImagesStore.removeCommentImage();
+          }}
+        >
+          <Icon id="cancel" width="24" />
+        </button>
+      </>
+    );
+  };
+
   return (
     <Modal modifier="wide">
       <h2 className="modal__header">Комментарий</h2>
@@ -57,14 +97,7 @@ const CommentModal = observer(({ step }) => {
         </div>
       </div>
       <div className="modal__upload-wrapper">
-        <button
-          className="button modal__button"
-          type="button"
-          onClick={() => fileInput.current.click()}
-        >
-          <Icon id="image" width="22" />
-          Добавить фото
-        </button>
+        {buttons()}
         <input
           type="file"
           name=""
@@ -74,26 +107,16 @@ const CommentModal = observer(({ step }) => {
           className="modal__upload-button"
           onChange={async (e) => {
             e.preventDefault();
-            // const timeStamp = EditorMainStore.timeStamp;
-            // console.log(timeStamp);
             const reader = new FileReader();
             reader.readAsArrayBuffer(e.target.files[0]);
             reader.onload = () => {
-              // await UserScriptService.uploadCommentImage(
-              //   timeStamp,
-              //   reader.result
-              // );
-              EditorImagesStore.addCommentImage(reader.result);
+              EditorImagesStore.addCommentImage(
+                reader.result,
+                e.target.files[0].name
+              );
             };
           }}
         />
-
-        <button
-          className="button modal__button modal__button--icon-only"
-          type="button"
-        >
-          <Icon id="cancel" width="24" />
-        </button>
       </div>
       <div className="modal__button-wrapper">
         <button
