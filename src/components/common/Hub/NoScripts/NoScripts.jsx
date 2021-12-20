@@ -1,8 +1,6 @@
 import React from "react";
 import "./NoScripts.scss";
 
-import Icon from "../../Icon/Icon";
-
 import ScriptsStore from "../../../../store/scripts";
 
 const NoScripts = ({ isEditor, isFiltered }) => {

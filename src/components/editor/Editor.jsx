@@ -12,9 +12,10 @@ import Tools from "./Tools/Tools";
 import Loader from "../common/Loader/Loader";
 import SavingArea from "./SavingArea/SavingArea";
 import ZoomPanel from "./ZoomPanel/ZoomPanel";
+import CommentModal from "./modals/CommentModal";
 import DeleteStepModal from "./modals/DeleteStepModal";
 import DeleteScriptModal from "./modals/EditorDeleteScriptModal";
-import CommentModal from "./modals/CommentModal";
+import FirstSaveModal from "./modals/FirstSaveModal";
 import SettingsModal from "./modals/SettingsModal";
 import NoSaveModal from "./modals/NoSaveModal";
 import Overlay from "../common/Modal/Overlay";
@@ -25,7 +26,10 @@ import EditorMaskStore from "../../store/editorMask";
 import UserScriptService from "../../api/UserScriptService";
 import { useModal } from "../common/Modal/ModalContext";
 
-import { MODAL_NO_SAVE_ID } from "../../utils/constants/modals";
+import {
+  MODAL_NO_SAVE_ID,
+  MODAL_FIRST_SAVE_ID,
+} from "../../utils/constants/modals";
 import {
   EDITOR_MODE_TOOLS,
   EDITOR_MODE_ACTION,
@@ -43,9 +47,7 @@ const Editor = observer(({ scriptUID }) => {
   const history = useHistory();
 
   useEffect(() => {
-    (async () => {
-      await EditorMainStore.getSteps(scriptUID);
-    })();
+    (async () => await EditorMainStore.getSteps(scriptUID))();
   }, [scriptUID]);
 
   const backButton = () => {
@@ -89,7 +91,41 @@ const Editor = observer(({ scriptUID }) => {
     );
   };
 
+  const savingFunction = async () => {
+    await EditorMainStore.scriptUpdate();
+    // invokes masking
+    if (EditorMaskStore.toMask.length !== 0) {
+      setStepsToMask(EditorMaskStore.toMask);
+    } else history.push("/author");
+  };
+
   const headerContent = () => {
+    const saveButton = () => {
+      if (EditorMainStore.isPublished) {
+        return (
+          <button
+            className="editor__save-button button button--simple"
+            type="button"
+            onClick={async () => savingFunction()}
+          >
+            <Icon id="save" width="22" />
+            Сохранить и выйти
+          </button>
+        );
+      }
+
+      return (
+        <button
+          className="editor__save-button button button--simple"
+          type="button"
+          onClick={() => setModalID(MODAL_FIRST_SAVE_ID)}
+        >
+          <Icon id="save" width="22" />
+          Сохранить и выйти
+        </button>
+      );
+    };
+
     return (
       <>
         {backButton()}
@@ -98,22 +134,7 @@ const Editor = observer(({ scriptUID }) => {
             ? EDITOR_HEADER_TOOLS_ON
             : EDITOR_HEADER_TOOLS_OFF}
         </h2>
-        {EditorMainStore.mode !== EDITOR_MODE_TOOLS && (
-          <button
-            className="editor__save-button button button--simple"
-            type="button"
-            onClick={async () => {
-              await EditorMainStore.scriptUpdate();
-              // invokes masking
-              if (EditorMaskStore.toMask.length !== 0) {
-                setStepsToMask(EditorMaskStore.toMask);
-              } else history.push("/author");
-            }}
-          >
-            <Icon id="save" width="22" />
-            Сохранить и выйти
-          </button>
-        )}
+        {EditorMainStore.mode !== EDITOR_MODE_TOOLS && saveButton()}
       </>
     );
   };
@@ -232,6 +253,7 @@ const Editor = observer(({ scriptUID }) => {
       <CommentModal step={EditorStepStore.currentStepData.description} />
       <DeleteStepModal onDelete={() => EditorStepStore.deleteStep()} />
       <DeleteScriptModal />
+      <FirstSaveModal savingFunction={() => savingFunction()} />
       <NoSaveModal />
       <SettingsModal />
       <Overlay />

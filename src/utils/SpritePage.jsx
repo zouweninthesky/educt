@@ -123,6 +123,10 @@ const SpritePage = () => {
           <Icon id="save" width="40" />
         </div>
         <div>
+          <p>show</p>
+          <Icon id="show" width="40" />
+        </div>
+        <div>
           <p>smile</p>
           <Icon id="smile" width="40" />
         </div>

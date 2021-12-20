@@ -22,7 +22,6 @@ const request = async (url, config, responseNotNeeded) => {
   console.log(response);
 
   const data = await response.json();
-
   console.log(data);
   return data;
 };

@@ -113,6 +113,18 @@ class UserScriptsService {
     await request(url, config, true);
   }
 
+  async publishScript(UID) {
+    const url = `${MAIN_URL}scripts/${UID}/publish/`;
+    const config = {
+      method: "POST",
+      headers: {
+        ...headers,
+      },
+    };
+
+    await request(url, config, true);
+  }
+
   async getImageUpdateLinks(imagesObjects) {
     const url = `${STORAGE_REQUEST_URL}url/`;
     const config = {
@@ -125,9 +137,6 @@ class UserScriptsService {
       }),
     };
 
-    console.log(config.body);
-    console.log(`sent ${url}`);
-
     return await request(url, config);
   }
 
@@ -139,7 +148,6 @@ class UserScriptsService {
       },
       body: imageBin,
     };
-    console.log(`sent 2 ${url}`);
 
     await request(url, config, true);
   }

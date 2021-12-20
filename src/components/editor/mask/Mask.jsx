@@ -2,8 +2,6 @@ import React from "react";
 import { observer } from "mobx-react-lite";
 import "./Mask.scss";
 
-import EditorMain from "../../../store/editorMain";
-
 import {
   calculateTopLeft,
   calculateBottomRight,

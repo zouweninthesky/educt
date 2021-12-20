@@ -30,7 +30,8 @@
   }
 
   &--new::before,
-  &--for-test::before {
+  &--for-test::before,
+  &--not-published::before {
     content: "";
 
     position: absolute;
@@ -48,6 +49,10 @@
 
   &--for-test::before {
     background-color: $color-secondary;
+  }
+
+  &--not-published::before {
+    background-color: $color-neutrals-light;
   }
 
   &__button {

@@ -23,6 +23,8 @@ class EditorMain {
   timeStamp = null;
   // Нужно, чтобы дождаться загрузки данных, и при этом не скрыть канвас на этапе сохранения
   loading = true;
+  // флаг опубликованности
+  isPublished = false;
   // current menu mode
   mode = EDITOR_MODE_OVERVIEW;
 
@@ -34,6 +36,7 @@ class EditorMain {
       scriptDescription: observable,
       timeStamp: observable,
       loading: observable,
+      isPublished: observable,
       mode: observable,
       setTitleDescription: action,
       resetStore: action,
@@ -63,6 +66,7 @@ class EditorMain {
     this.scriptDescription = null;
     this.sending = false;
     this.timeStamp = null;
+    this.isPublished = false;
     this.loading = true;
     EditorStepStore.resetStore();
     EditorMaskStore.resetStore();
@@ -75,6 +79,7 @@ class EditorMain {
     GlobalStore.loadingStarted();
     const scriptData = await ScriptsApi.getScript(this.scriptUID);
     this.orgID = scriptData.orgID;
+    this.isPublished = scriptData.isPublished;
     this.setTitleDescription(scriptData);
     EditorStepStore.initSteps(scriptData);
     this.timeStamp = Date.now();
@@ -142,6 +147,10 @@ class EditorMain {
       EditorStepStore.toDelete,
       EditorStepStore.toUpdate
     );
+  }
+
+  async scriptPublish() {
+    await ScriptsApi.publishScript(this.scriptUID);
   }
 }
 
