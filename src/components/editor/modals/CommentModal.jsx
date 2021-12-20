@@ -5,6 +5,7 @@ import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
 import EditorMainStore from "../../../store/editorMain";
+import EditorImagesStore from "../../../store/editorImages";
 import EditorStepStore from "../../../store/editorStep";
 import UserScriptService from "../../../api/UserScriptService";
 import { useModal } from "../../common/Modal/ModalContext";
@@ -73,15 +74,16 @@ const CommentModal = observer(({ step }) => {
           className="modal__upload-button"
           onChange={async (e) => {
             e.preventDefault();
-            const timeStamp = EditorMainStore.timeStamp;
-            console.log(timeStamp);
+            // const timeStamp = EditorMainStore.timeStamp;
+            // console.log(timeStamp);
             const reader = new FileReader();
             reader.readAsArrayBuffer(e.target.files[0]);
-            reader.onload = async () => {
-              await UserScriptService.uploadCommentImage(
-                timeStamp,
-                reader.result
-              );
+            reader.onload = () => {
+              // await UserScriptService.uploadCommentImage(
+              //   timeStamp,
+              //   reader.result
+              // );
+              EditorImagesStore.addCommentImage(reader.result);
             };
           }}
         />

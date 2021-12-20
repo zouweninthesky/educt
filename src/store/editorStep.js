@@ -346,13 +346,6 @@ class EditorStep {
   finishImageLoad() {
     this.imageLoaded = true;
   }
-
-  // Временно, когда будут переделаны маски в отдельный архив - убрать
-  // resetMasks() {
-  //   this.currentStepData.masks = deepCopy(
-  //     this.steps[this.currentStepNumber].masks
-  //   );
-  // }
 }
 
 export default new EditorStep();

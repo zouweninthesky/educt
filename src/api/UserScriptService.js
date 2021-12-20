@@ -125,6 +125,7 @@ class UserScriptsService {
     await request(url, config, true);
   }
 
+  // Нужен для замены картинок, в данном случае при загрузке масок
   async getImageUpdateLinks(imagesObjects) {
     const url = `${STORAGE_REQUEST_URL}url/`;
     const config = {
@@ -140,7 +141,7 @@ class UserScriptsService {
     return await request(url, config);
   }
 
-  async replaceImagesStorage(imageBin, url) {
+  async uploadImagesStorage(imageBin, url) {
     const config = {
       method: "PUT",
       headers: {
@@ -181,6 +182,15 @@ class UserScriptsService {
     console.log(`sent 3 ${secondUrl}`);
 
     await request(secondUrl, secondConfig, true);
+  }
+
+  async getImageUploadLinks(numberOfLinks) {
+    const url = `${STORAGE_REQUEST_URL}url/?count=${numberOfLinks}`;
+    const config = {
+      method: "GET",
+      headers,
+    };
+    return await request(url, config);
   }
 }
 
