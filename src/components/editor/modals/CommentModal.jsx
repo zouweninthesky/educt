@@ -4,10 +4,8 @@ import { observer } from "mobx-react-lite";
 import Icon from "../../common/Icon/Icon";
 import Modal from "../../common/Modal/Modal";
 
-import EditorMainStore from "../../../store/editorMain";
 import EditorImagesStore from "../../../store/editorImages";
 import EditorStepStore from "../../../store/editorStep";
-import UserScriptService from "../../../api/UserScriptService";
 import { useModal } from "../../common/Modal/ModalContext";
 import { MODAL_COMMENT_ID } from "../../../utils/constants/modals";
 
@@ -15,13 +13,6 @@ const CommentModal = observer(({ step }) => {
   const [modalID, setModalID] = useModal();
 
   const [value, setValue] = useState(step);
-  const [image, setImage] = useState("");
-
-  // const [imageAttached, setImageAttached] = useState(
-  //   EditorImagesStore.commentImages.findIndex(
-  //     (obj) => obj.stepUID === EditorStepStore.currentStepData.UID
-  //   ) !== -1
-  // );
 
   const fileInput = useRef(null);
 
@@ -30,19 +21,6 @@ const CommentModal = observer(({ step }) => {
       setValue(step);
     }
   }, [step]);
-
-  // useEffect(() => {
-  //   console.log(image);
-  //   (async () => {
-  //     const timeStamp = EditorMainStore.timeStamp;
-  //     console.log(timeStamp);
-  //     const fake = [{ imageUID: `${timeStamp}` }];
-  //     console.log(fake);
-  //     const links = await UserScriptService.getImageUpdateLinks(fake);
-  //     console.log(links);
-  //     await UserScriptService.replaceImagesStorage(image, links[0]);
-  //   })();
-  // }, [image]);
 
   if (modalID !== MODAL_COMMENT_ID) {
     return <></>;
@@ -108,12 +86,15 @@ const CommentModal = observer(({ step }) => {
           onChange={async (e) => {
             e.preventDefault();
             const reader = new FileReader();
+            console.log(e.target.files[0]);
             reader.readAsArrayBuffer(e.target.files[0]);
             reader.onload = () => {
+              console.log(reader.result);
               EditorImagesStore.addCommentImage(
                 reader.result,
                 e.target.files[0].name
               );
+              EditorStepStore.saveStepDescriptionImage();
             };
           }}
         />
@@ -134,6 +115,7 @@ const CommentModal = observer(({ step }) => {
           className="button button--discard"
           type="button"
           onClick={() => {
+            EditorImagesStore.removeCommentImage();
             setModalID();
           }}
         >

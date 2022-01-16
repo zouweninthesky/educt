@@ -66,6 +66,14 @@ const Panel = ({
     );
   };
 
+  const image = () => {
+    if (step.metaInfo.imageUIDs) {
+      // console.log(step.metaInfo);
+    }
+    console.log(step.metaInfo);
+    return <p>Леха тут</p>;
+  };
+
   return (
     <section className="panel">
       <h2 className="visually-hidden">Панель управления</h2>
@@ -81,7 +89,8 @@ const Panel = ({
       </div>
       <div className="panel__center">
         {navButtons()}
-        <div className="panel__text-wrapper">
+        <div className="panel__comment-wrapper">
+          {image()}
           <p className="panel__text">
             {step.description === "" ? "Нет описания" : step.description}
           </p>

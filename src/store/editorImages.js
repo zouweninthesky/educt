@@ -50,13 +50,15 @@ class EditorImages {
     );
 
     this.commentImages.forEach(async (imageObj, i) => {
-      const index = EditorStepStore.steps.findIndex(
+      const index = EditorStepStore.toUpdate.findIndex(
         (step) => step.UID === imageObj.stepUID
       );
+      console.log(index);
       if (index !== -1) {
-        EditorStepStore.steps[index].metaInfo.imageUIDs = [
+        EditorStepStore.toUpdate[index].metaInfo.imageUIDs = [
           `${linkObjects.urls[i].image_uid}`,
         ];
+        console.log(EditorStepStore.toUpdate[index].metaInfo.imageUIDs);
       }
 
       await ScriptsApi.uploadImagesStorage(

@@ -112,6 +112,12 @@ class EditorStep {
     this.saveStepToUpdate();
   }
 
+  saveStepDescriptionImage() {
+    this.currentStepData.metaInfo.imageUIDs = ["added"];
+    this.steps[this.currentStepNumber] = deepCopy(this.currentStepData);
+    this.saveStepToUpdate();
+  }
+
   // // добавляет изменения в массив toUpdateDescription
   // addToUpdateDescription(description) {
   //   const oldIndex = this.stepsOld.findIndex(

@@ -84,6 +84,8 @@ class UserScriptsService {
 
   async updateScript(scriptUID, toDelete, toUpdate) {
     // keeps only integer on boxSize and boxCoords
+    console.log(toJS(toUpdate));
+
     const toUpdateParsed = toUpdate.map((step) => {
       step.metaInfo.boxCoords.upperLeft.x = parseInt(
         step.metaInfo.boxCoords.upperLeft.x
@@ -153,37 +155,6 @@ class UserScriptsService {
     await request(url, config, true);
   }
 
-  async uploadCommentImage(imageUID, imageBin) {
-    const firstUrl = `${STORAGE_REQUEST_URL}url/`;
-    const firstConfig = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        images: [`${imageUID}`],
-      }),
-    };
-
-    console.log(`sent ${firstUrl}`);
-
-    const responseLinks = await request(firstUrl, firstConfig);
-
-    const secondUrl = responseLinks.urls[0].url;
-
-    const secondConfig = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "image/jpg",
-      },
-      body: imageBin,
-    };
-
-    console.log(`sent 3 ${secondUrl}`);
-
-    await request(secondUrl, secondConfig, true);
-  }
-
   async getImageUploadLinks(numberOfLinks) {
     const url = `${STORAGE_REQUEST_URL}url/?count=${numberOfLinks}`;
     const config = {
@@ -195,3 +166,34 @@ class UserScriptsService {
 }
 
 export default new UserScriptsService();
+
+// async uploadCommentImage(imageUID, imageBin) {
+//   const firstUrl = `${STORAGE_REQUEST_URL}url/`;
+//   const firstConfig = {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       images: [`${imageUID}`],
+//     }),
+//   };
+
+//   console.log(`sent ${firstUrl}`);
+
+//   const responseLinks = await request(firstUrl, firstConfig);
+
+//   const secondUrl = responseLinks.urls[0].url;
+
+//   const secondConfig = {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "image/jpg",
+//     },
+//     body: imageBin,
+//   };
+
+//   console.log(`sent 3 ${secondUrl}`);
+
+//   await request(secondUrl, secondConfig, true);
+// }

@@ -93,9 +93,11 @@ const Editor = observer(({ scriptUID }) => {
   };
 
   const savingFunction = async () => {
+    if (EditorImagesStore.commentImages.length !== 0) {
+      await EditorImagesStore.uploadCommentImages();
+    }
     await EditorMainStore.scriptUpdate();
     // invokes masking
-    await EditorImagesStore.uploadCommentImages();
     if (EditorMaskStore.toMask.length !== 0) {
       setStepsToMask(EditorMaskStore.toMask);
     } else history.push("/author");
@@ -108,7 +110,7 @@ const Editor = observer(({ scriptUID }) => {
           <button
             className="editor__save-button button button--simple"
             type="button"
-            onClick={async () => savingFunction()}
+            onClick={async () => await savingFunction()}
           >
             <Icon id="save" width="22" />
             Сохранить и выйти
