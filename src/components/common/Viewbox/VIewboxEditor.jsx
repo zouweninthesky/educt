@@ -429,7 +429,7 @@ const ViewboxEditor = observer(
             style={actionStyle()}
             ref={actionRef}
           >
-            {actionBorders()}
+            {/* {actionBorders()} */}
             {actionButton()}
           </div>
           <img
