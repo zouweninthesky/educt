@@ -188,7 +188,7 @@ const ViewboxEditor = observer(
     const vbActionClass =
       EditorMainStore.mode === "action" ? " viewbox--action-mode" : "";
 
-    const maskActions =
+    const drawingHandlers =
       EditorMainStore.mode === "mask" || EditorMainStore.mode === "action"
         ? {
             onMouseDown: (e) => {
@@ -379,12 +379,45 @@ const ViewboxEditor = observer(
       };
     };
 
+    const actionBorders = () => {
+      if (EditorMainStore.mode === "action") {
+        return (
+          <>
+            <div
+              className="viewbox__action-border viewbox__action-border--top"
+              onMouseDown={() => {
+                console.log("I'm top");
+              }}
+            ></div>
+            <div
+              className="viewbox__action-border viewbox__action-border--bottom"
+              onMouseDown={() => {
+                console.log("I'm bottom");
+              }}
+            ></div>
+            <div
+              className="viewbox__action-border viewbox__action-border--left"
+              onMouseDown={() => {
+                console.log("I'm left");
+              }}
+            ></div>
+            <div
+              className="viewbox__action-border viewbox__action-border--right"
+              onMouseDown={() => {
+                console.log("I'm right");
+              }}
+            ></div>
+          </>
+        );
+      }
+    };
+
     return (
       <section className={vbMainClass + vbCursorClass + vbActionClass}>
         <h2 className="visually-hidden">Текущий слайд</h2>
         <div className="viewbox__wrapper">
           <Spinner show={!EditorStepStore.imageLoaded} />
-          <div className="viewbox__canvas" {...maskActions}>
+          <div className="viewbox__canvas" {...drawingHandlers}>
             {DeleteMasksButtons()}
             {EditorStepStore.actionPickerVisible ? (
               <ActionPicker pickerStyle={actionPickerStyle()} />
@@ -396,6 +429,7 @@ const ViewboxEditor = observer(
             style={actionStyle()}
             ref={actionRef}
           >
+            {actionBorders()}
             {actionButton()}
           </div>
           <img

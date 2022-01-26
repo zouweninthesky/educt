@@ -160,4 +160,41 @@
       display: none;
     }
   }
+
+  &__action-border {
+    position: absolute;
+    background-color: blue;
+
+    &--left {
+      left: -4px;
+      top: -4px;
+      width: 4px;
+      height: calc(100% + 4px);
+      cursor: ew-resize;
+    }
+
+    &--right {
+      right: -4px;
+      top: -4px;
+      width: 4px;
+      height: calc(100% + 4px);
+      cursor: ew-resize;
+    }
+
+    &--top {
+      left: -4px;
+      top: -4px;
+      width: calc(100% + 4px);
+      height: 4px;
+      cursor: ns-resize;
+    }
+
+    &--bottom {
+      left: -4px;
+      bottom: -4px;
+      width: calc(100% + 4px);
+      height: 4px;
+      cursor: ns-resize;
+    }
+  }
 }

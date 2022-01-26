@@ -109,7 +109,7 @@ const Player = observer(({ scriptUID }) => {
       />
       <CloseModal />
       <IntroPlayerModal script={PlayerStore.script} />
-      <FinishPlayModal />
+      <FinishPlayModal script={PlayerStore.script} />
       <Overlay />
     </main>
   );
