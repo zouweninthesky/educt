@@ -1,39 +1,32 @@
 import React, { useRef, useState, useEffect } from "react";
 import { toJS } from "mobx";
 import { observer } from "mobx-react-lite";
-import "./Viewbox.scss";
+import "../Viewbox.scss";
 
-import Icon from "../Icon/Icon";
-import ActionPicker from "./ActionPicker/ActionPicker";
-import EnterText from "./EnterText/EnterText";
-import Mask from "../../editor/mask/Mask";
-import Spinner from "../Spinner/Spinner";
+import Icon from "../../Icon/Icon";
+import ActionPicker from "../ActionPicker/ActionPicker";
+import EnterText from "../EnterText/EnterText";
+import ActionBorders from "./ActionBorders/ActionBorders";
+import Masks from "./Masks/Masks";
+import Spinner from "../../Spinner/Spinner";
 
-// import EditorStore from "../../../store/editor";
-import EditorMainStore from "../../../store/editorMain";
-import EditorStepStore from "../../../store/editorStep";
-import EditorMaskStore from "../../../store/editorMask";
+import EditorMainStore from "../../../../store/editorMain";
+import EditorStepStore from "../../../../store/editorStep";
+import EditorMaskStore from "../../../../store/editorMask";
 
-import { STORAGE_URL } from "../../../utils/constants/links";
-import DeleteMaskButton from "../../editor/mask/deleteMaskButton/DeleteMaskButton";
+import { STORAGE_URL } from "../../../../utils/constants/links";
+import DeleteMaskButton from "../../../editor/mask/deleteMaskButton/DeleteMaskButton";
 import {
   calculateTopLeft,
   calculateWidth,
   calculateHeight,
   calculateBottomRight,
-} from "../../../utils/calculateMaskCoords";
+} from "../../../../utils/calculateMaskCoords";
 
 const MARGIN_FOR_ACTION = 70;
 
 const ViewboxEditor = observer(
-  ({
-    mod,
-    actionClick,
-    onNewMask,
-    isEditor,
-    onDeleteMask,
-    onShrinkRatioChange,
-  }) => {
+  ({ mod, actionClick, isEditor, onDeleteMask }) => {
     const imageRef = useRef(null);
     const actionRef = useRef(null);
     const actionButtonRef = useRef(null);
@@ -44,7 +37,7 @@ const ViewboxEditor = observer(
         : 1
     );
 
-    // const [imageLoad, setImageLoad] = useState(false);
+    const { boxCoords } = EditorStepStore.currentStepData?.metaInfo;
 
     useEffect(() => {
       if (imageRef.current.complete) EditorStepStore.finishImageLoad();
@@ -102,7 +95,7 @@ const ViewboxEditor = observer(
     );
 
     const actionMountedClass = () => {
-      return EditorMainStore.mode === "action" && creatingObj
+      return EditorMainStore.mode === "action" && drawingObj
         ? "viewbox__action--not-mounted"
         : "";
     };
@@ -122,7 +115,9 @@ const ViewboxEditor = observer(
     const [currentObjFirst, setCurrentObjFirst] = useState(undefined);
     const [currentObjSecond, setCurrentObjSecond] = useState(undefined);
     const [creatingObj, setCreatingObj] = useState(false);
+    const [drawingObj, setDrawingObj] = useState(false);
 
+    // Высчитывает shrinkRatio и отступы слева и сверху, когда переключается режим и меняется шаг
     useEffect(() => {
       calculateImageChanges();
     }, [
@@ -130,11 +125,26 @@ const ViewboxEditor = observer(
       EditorStepStore.currentStepData,
       EditorStepStore.currentStepNumber,
     ]);
+    //
 
     useEffect(() => {
-      if (EditorMainStore.mode === "mask") {
+      if (EditorMainStore.mode === "action") {
         if (!creatingObj && currentObjFirst?.x && currentObjSecond?.x) {
-          // console.log(currentObjFirst, currentObjSecond)
+          EditorStepStore.updateAction(
+            {
+              x: (currentObjFirst.x + 4) / shrinkRatio,
+              y: (currentObjFirst.y + 4) / shrinkRatio,
+            },
+            {
+              x: (currentObjSecond.x + 4) / shrinkRatio,
+              y: (currentObjSecond.y + 4) / shrinkRatio,
+            }
+          );
+          setCurrentObjFirst(undefined);
+          setCurrentObjSecond(undefined);
+        }
+      } else if (EditorMainStore.mode === "mask") {
+        if (!creatingObj && currentObjFirst?.x && currentObjSecond?.x) {
           EditorMaskStore.addMask(
             calculateTopLeft(
               {
@@ -160,42 +170,19 @@ const ViewboxEditor = observer(
           setCurrentObjFirst(undefined);
           setCurrentObjSecond(undefined);
         }
-      } else if (EditorMainStore.mode === "action") {
-        if (!creatingObj && currentObjFirst?.x && currentObjSecond?.x) {
-          EditorStepStore.updateAction(
-            {
-              x: (currentObjFirst.x + 4) / shrinkRatio,
-              y: (currentObjFirst.y + 4) / shrinkRatio,
-            },
-            {
-              x: (currentObjSecond.x + 4) / shrinkRatio,
-              y: (currentObjSecond.y + 4) / shrinkRatio,
-            }
-          );
-          setCurrentObjFirst(undefined);
-          setCurrentObjSecond(undefined);
-        }
       }
     }, [currentObjSecond, creatingObj]);
 
-    const vbMainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
-
-    const vbCursorClass =
-      EditorMainStore.mode === "mask" || EditorMainStore.mode === "action"
-        ? " viewbox--crosshair"
-        : "";
-
-    const vbActionClass =
-      EditorMainStore.mode === "action" ? " viewbox--action-mode" : "";
-
     const drawingHandlers =
-      EditorMainStore.mode === "mask" || EditorMainStore.mode === "action"
+      // EditorMainStore.mode === "mask" || EditorMainStore.mode === "action"
+      EditorMainStore.mode === "mask"
         ? {
             onMouseDown: (e) => {
               if (e.target === e.currentTarget) {
                 if (EditorStepStore.actionPickerVisible)
                   EditorStepStore.hideActionPicker();
                 else {
+                  setDrawingObj(true);
                   setCreatingObj(true);
                   setCurrentObjFirst({
                     x: e.clientX - imageOffsets.x,
@@ -229,6 +216,7 @@ const ViewboxEditor = observer(
               if (e.target === e.currentTarget) {
                 if (creatingObj) {
                   setCreatingObj(false);
+                  setDrawingObj(false);
                   if (EditorMainStore.mode === "action")
                     EditorStepStore.showActionPicker();
                 }
@@ -236,10 +224,6 @@ const ViewboxEditor = observer(
             },
           }
         : {};
-
-    const imageLink = `${STORAGE_URL}${EditorStepStore.currentStepData?.imageUID}?e=${EditorMainStore.timeStamp}`;
-
-    const { boxCoords } = EditorStepStore.currentStepData?.metaInfo;
 
     const actionStyle = () => {
       const style = {
@@ -324,36 +308,6 @@ const ViewboxEditor = observer(
       }
     };
 
-    const Masks = () => {
-      if (EditorStepStore.imageLoaded) {
-        const maskArray = [...EditorMaskStore.currentMasks];
-        const masks = maskArray.map((el) => {
-          return (
-            <Mask
-              shrinkRatio={shrinkRatio}
-              firstPoint={el.topLeft}
-              secondPoint={el.bottomRight}
-              key={el.UID}
-            />
-          );
-        });
-        if (
-          EditorMainStore.mode === "mask" &&
-          currentObjFirst?.x &&
-          currentObjSecond?.x
-        )
-          masks.push(
-            <Mask
-              shrinkRatio={1}
-              firstPoint={currentObjFirst}
-              secondPoint={currentObjSecond}
-              key="current"
-            />
-          );
-        return masks;
-      }
-    };
-
     const DeleteMasksButtons = () => {
       const maskArray = [...EditorMaskStore.currentMasks];
       const buttons = maskArray.map((el) => {
@@ -379,38 +333,17 @@ const ViewboxEditor = observer(
       };
     };
 
-    const actionBorders = () => {
-      if (EditorMainStore.mode === "action") {
-        return (
-          <>
-            <div
-              className="viewbox__action-border viewbox__action-border--top"
-              onMouseDown={() => {
-                console.log("I'm top");
-              }}
-            ></div>
-            <div
-              className="viewbox__action-border viewbox__action-border--bottom"
-              onMouseDown={() => {
-                console.log("I'm bottom");
-              }}
-            ></div>
-            <div
-              className="viewbox__action-border viewbox__action-border--left"
-              onMouseDown={() => {
-                console.log("I'm left");
-              }}
-            ></div>
-            <div
-              className="viewbox__action-border viewbox__action-border--right"
-              onMouseDown={() => {
-                console.log("I'm right");
-              }}
-            ></div>
-          </>
-        );
-      }
-    };
+    const vbMainClass = mod ? `viewbox viewbox--${mod}` : "viewbox";
+
+    const vbCursorClass =
+      EditorMainStore.mode === "mask" || EditorMainStore.mode === "action"
+        ? " viewbox--crosshair"
+        : "";
+
+    const vbActionClass =
+      EditorMainStore.mode === "action" ? " viewbox--action-mode" : "";
+
+    const imageLink = `${STORAGE_URL}${EditorStepStore.currentStepData?.imageUID}?e=${EditorMainStore.timeStamp}`;
 
     return (
       <section className={vbMainClass + vbCursorClass + vbActionClass}>
@@ -418,18 +351,31 @@ const ViewboxEditor = observer(
         <div className="viewbox__wrapper">
           <Spinner show={!EditorStepStore.imageLoaded} />
           <div className="viewbox__canvas" {...drawingHandlers}>
+            {/* <div className="viewbox__canvas"> */}
             {DeleteMasksButtons()}
             {EditorStepStore.actionPickerVisible ? (
               <ActionPicker pickerStyle={actionPickerStyle()} />
             ) : null}
           </div>
-          {Masks()}
+          <Masks
+            shrinkRatio={shrinkRatio}
+            currentObjFirst={currentObjFirst}
+            currentObjSecond={currentObjSecond}
+          />
           <div
             className={`viewbox__action ${actionClass} ${actionMountedClass()}`}
             style={actionStyle()}
             ref={actionRef}
           >
-            {/* {actionBorders()} */}
+            {EditorMainStore.mode === "action" && (
+              <ActionBorders
+                actionRef={actionRef}
+                imageOffsets={imageOffsets}
+                setCreatingObj={setCreatingObj}
+                setCurrentObjFirst={setCurrentObjFirst}
+                setCurrentObjSecond={setCurrentObjSecond}
+              />
+            )}
             {actionButton()}
           </div>
           <img
