@@ -39,6 +39,10 @@ const ViewboxEditor = observer(
 
     const { boxCoords } = EditorStepStore.currentStepData?.metaInfo;
 
+    // useEffect(() => {
+    //   console.log("yep");
+    // }, [EditorStepStore.actionPickerVisible]);
+
     useEffect(() => {
       if (imageRef.current.complete) EditorStepStore.finishImageLoad();
       setShrinkRatio(
@@ -185,16 +189,12 @@ const ViewboxEditor = observer(
         ? {
             onMouseDown: (e) => {
               if (e.target === e.currentTarget) {
-                if (EditorStepStore.actionPickerVisible)
-                  EditorStepStore.hideActionPicker();
-                else {
-                  setDrawingObj(true);
-                  setCreatingObj(true);
-                  setCurrentObjFirst({
-                    x: e.clientX - imageOffsets.x,
-                    y: e.clientY - imageOffsets.y,
-                  });
-                }
+                setDrawingObj(true);
+                setCreatingObj(true);
+                setCurrentObjFirst({
+                  x: e.clientX - imageOffsets.x,
+                  y: e.clientY - imageOffsets.y,
+                });
               }
             },
             onMouseUp: (e) => {
@@ -223,8 +223,6 @@ const ViewboxEditor = observer(
                 if (creatingObj) {
                   setCreatingObj(false);
                   setDrawingObj(false);
-                  if (EditorMainStore.mode === "action")
-                    EditorStepStore.showActionPicker();
                 }
               }
             },
@@ -278,7 +276,10 @@ const ViewboxEditor = observer(
               ></button>
               <span
                 className="viewbox__action-type"
-                onClick={() => EditorStepStore.toggleActionPickerVisible()}
+                onClick={() => {
+                  if (EditorMainStore.mode === "action")
+                    EditorStepStore.toggleActionPickerVisible();
+                }}
               >
                 <Icon id="mouse-left" width="42" height="42" />
               </span>
@@ -304,7 +305,10 @@ const ViewboxEditor = observer(
               ></button>
               <span
                 className="viewbox__action-type"
-                onClick={() => EditorStepStore.toggleActionPickerVisible()}
+                onClick={() => {
+                  if (EditorMainStore.mode === "action")
+                    EditorStepStore.toggleActionPickerVisible();
+                }}
               >
                 <Icon id="mouse-right" width="42" height="42" />
               </span>
