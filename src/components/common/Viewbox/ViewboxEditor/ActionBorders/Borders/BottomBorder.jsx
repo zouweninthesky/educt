@@ -23,10 +23,17 @@ const BottomBorder = ({
   };
 
   const resizeBottom = (e) => {
-    setCurrentObjSecond((prev) => ({
-      ...prev,
-      y: e.clientY - imageOffsets.y,
-    }));
+    if (e.clientY <= imageOffsets.y2 - 4) {
+      setCurrentObjSecond((prev) => ({
+        ...prev,
+        y: e.clientY - imageOffsets.y,
+      }));
+    } else {
+      setCurrentObjSecond((prev) => ({
+        ...prev,
+        y: imageOffsets.y2 - imageOffsets.y - 4,
+      }));
+    }
   };
 
   const onResizeBottomFinished = () => {

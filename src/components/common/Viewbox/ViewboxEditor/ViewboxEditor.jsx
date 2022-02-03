@@ -63,16 +63,22 @@ const ViewboxEditor = observer(
     const calculateImageChanges = () => {
       if (imageRef.current?.complete && imageRef.current?.clientWidth > 0) {
         updateShrinkRatio();
+        const clientRect = imageRef.current.getBoundingClientRect();
         setImageOffsets({
-          x: imageRef.current.getBoundingClientRect().left,
-          y: imageRef.current.getBoundingClientRect().top,
+          x: clientRect.left,
+          y: clientRect.top,
+          x2: clientRect.right,
+          y2: clientRect.bottom,
         });
       } else {
         imageRef.current.onload = () => {
           updateShrinkRatio();
+          const clientRect = imageRef.current?.getBoundingClientRect();
           setImageOffsets({
-            x: imageRef.current?.getBoundingClientRect().left,
-            y: imageRef.current?.getBoundingClientRect().top,
+            x: clientRect.left,
+            y: clientRect.top,
+            x2: clientRect.right,
+            y2: clientRect.bottom,
           });
         };
       }
