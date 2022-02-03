@@ -17,17 +17,11 @@ const SettingsModal = observer(() => {
 
   const { scriptTitle, scriptDescription } = EditorMainStore;
 
-  const title = scriptTitle ? scriptTitle : "Добавьте название";
-
-  const description = scriptDescription
-    ? scriptDescription
-    : "Добавьте описание";
-
   return (
     <Modal modifier="wide">
       <input
         className="modal__header modal__editable-text modal__editable-text--wide modal__editable-text--header"
-        value={title}
+        value={scriptTitle}
         onChange={(e) => {
           EditorMainStore.changeTitle(e.target.value);
         }}
@@ -36,7 +30,7 @@ const SettingsModal = observer(() => {
         <div className="modal__description">
           <textarea
             className="modal__editable-text"
-            value={description}
+            value={scriptDescription}
             onChange={(e) => {
               EditorMainStore.changeDescription(e.target.value);
             }}
@@ -63,7 +57,7 @@ const SettingsModal = observer(() => {
           className="button button--discard"
           type="button"
           onClick={() => {
-            EditorMainStore.setTitleDescription();
+            EditorMainStore.resetTitleDescription();
             setModalID();
           }}
         >

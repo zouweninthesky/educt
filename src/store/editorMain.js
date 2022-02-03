@@ -19,6 +19,8 @@ class EditorMain {
   // // "Сохранить и выйти" и сопутствующие предупреждения
   scriptTitle = null;
   scriptDescription = null;
+  scriptOldTitle = null;
+  scriptOldDescription = null;
   // used for evading cache-saving issues
   timeStamp = null;
   // Нужно, чтобы дождаться загрузки данных, и при этом не скрыть канвас на этапе сохранения
@@ -34,12 +36,15 @@ class EditorMain {
       orgID: observable,
       scriptTitle: observable,
       scriptDescription: observable,
+      scriptOldTitle: observable,
+      scriptOldDescription: observable,
       timeStamp: observable,
       loading: observable,
       isPublished: observable,
       mode: observable,
       setTitleDescription: action,
       resetStore: action,
+      resetTitleDescription: action,
       getSteps: action,
       setMode: action,
       setMaskMode: action,
@@ -57,8 +62,21 @@ class EditorMain {
   }
 
   setTitleDescription(data) {
-    this.scriptTitle = data.title;
-    this.scriptDescription = data.description;
+    this.scriptTitle = data.title ? data.title.slice() : "Добавьте название";
+    this.scriptOldTitle = data.title.slice();
+    this.scriptDescription = data.description
+      ? data.description.slice()
+      : "Добавьте описание";
+    this.scriptOldDescription = data.description.slice();
+  }
+
+  resetTitleDescription() {
+    this.scriptTitle = this.scriptOldTitle
+      ? this.scriptOldTitle.slice()
+      : "Добавьте название";
+    this.scriptDescription = this.scriptOldDescription
+      ? this.scriptOldDescription.slice()
+      : "Добавьте описание";
   }
 
   resetStore() {
@@ -123,8 +141,8 @@ class EditorMain {
       this.scriptTitle,
       this.scriptDescription
     );
-    // this.scriptData.title = this.scriptTitle;
-    // this.scriptData.description = this.scriptDescription;
+    this.scriptOldTitle = this.scriptTitle.slice();
+    this.scriptOldDescription = this.scriptDescription.slice();
   }
 
   startSending() {

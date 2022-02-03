@@ -39,10 +39,6 @@ const ViewboxEditor = observer(
 
     const { boxCoords } = EditorStepStore.currentStepData?.metaInfo;
 
-    // useEffect(() => {
-    //   console.log("yep");
-    // }, [EditorStepStore.actionPickerVisible]);
-
     useEffect(() => {
       if (imageRef.current.complete) EditorStepStore.finishImageLoad();
       setShrinkRatio(

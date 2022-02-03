@@ -5,18 +5,7 @@ import EditorStepStore from "../../../../store/editorStep";
 
 const options = ["ЛКМ", "Ввод текста", "ПКМ"];
 
-// NOT FINISHED, FEEL FREE TO CHANGE
 const ActionPicker = ({ pickerStyle }) => {
-  // const [isOpen, setIsOpen] = useState(false);
-  // const [selectedOption, setSelectedOption] = useState("ЛКМ");
-
-  // const toggling = () => setIsOpen(!isOpen);
-  //
-  // const onOptionClicked = (value) => () => {
-  //   setSelectedOption(value);
-  //   setIsOpen(false);
-  // };
-
   return (
     <div
       className="dropdown__wrapper dropdown__wrapper--action"
