@@ -23,10 +23,17 @@ const LeftBorder = ({
   };
 
   const resizeLeft = (e) => {
-    setCurrentObjFirst((prev) => ({
-      ...prev,
-      x: e.clientX - imageOffsets.x,
-    }));
+    if (e.clientX >= imageOffsets.x - 4) {
+      setCurrentObjFirst((prev) => ({
+        ...prev,
+        x: e.clientX - imageOffsets.x,
+      }));
+    } else {
+      setCurrentObjFirst((prev) => ({
+        ...prev,
+        x: -4,
+      }));
+    }
   };
 
   const onResizeLeftFinished = () => {

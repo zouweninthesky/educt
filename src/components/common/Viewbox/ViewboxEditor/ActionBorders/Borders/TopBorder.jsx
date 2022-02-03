@@ -23,10 +23,17 @@ const TopBorder = ({
   };
 
   const resizeTop = (e) => {
-    setCurrentObjFirst((prev) => ({
-      ...prev,
-      y: e.clientY - imageOffsets.y,
-    }));
+    if (e.clientY >= imageOffsets.y) {
+      setCurrentObjFirst((prev) => ({
+        ...prev,
+        y: e.clientY - imageOffsets.y,
+      }));
+    } else {
+      setCurrentObjFirst((prev) => ({
+        ...prev,
+        y: -4,
+      }));
+    }
   };
 
   const onResizeTopFinished = () => {

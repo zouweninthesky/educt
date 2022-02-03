@@ -23,10 +23,17 @@ const RightBorder = ({
   };
 
   const resizeRight = (e) => {
-    setCurrentObjSecond((prev) => ({
-      ...prev,
-      x: e.clientX - imageOffsets.x,
-    }));
+    if (e.clientX <= imageOffsets.x2 - 4) {
+      setCurrentObjSecond((prev) => ({
+        ...prev,
+        x: e.clientX - imageOffsets.x,
+      }));
+    } else {
+      setCurrentObjSecond((prev) => ({
+        ...prev,
+        x: imageOffsets.x2 - imageOffsets.x - 4,
+      }));
+    }
   };
 
   const onResizeRightFinished = () => {
