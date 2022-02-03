@@ -1,5 +1,8 @@
-const calculateTopLeft = (firstPoint = { x: 0, y: 0 }, secondPoint = { x: 0, y: 0 }, shrinkRatio = 1) => {
-
+const calculateTopLeft = (
+  firstPoint = { x: 0, y: 0 },
+  secondPoint = { x: 0, y: 0 },
+  shrinkRatio = 1
+) => {
   const topLeft = { ...firstPoint };
   if (firstPoint.x >= secondPoint.x) topLeft.x = secondPoint.x;
   if (firstPoint.y >= secondPoint.y) topLeft.y = secondPoint.y;
@@ -8,7 +11,11 @@ const calculateTopLeft = (firstPoint = { x: 0, y: 0 }, secondPoint = { x: 0, y: 
   return topLeft;
 };
 
-const calculateBottomRight = (firstPoint = { x: 0, y: 0 }, secondPoint = { x: 0, y: 0 }, shrinkRatio = 1) => {
+const calculateBottomRight = (
+  firstPoint = { x: 0, y: 0 },
+  secondPoint = { x: 0, y: 0 },
+  shrinkRatio = 1
+) => {
   const bottomRight = { ...secondPoint };
   if (secondPoint.x <= firstPoint.x) bottomRight.x = firstPoint.x;
   if (secondPoint.y <= firstPoint.y) bottomRight.y = firstPoint.y;
@@ -17,12 +24,25 @@ const calculateBottomRight = (firstPoint = { x: 0, y: 0 }, secondPoint = { x: 0,
   return bottomRight;
 };
 
-const calculateWidth = (firstPoint = { x: 0, y: 0 }, secondPoint = { x: 0, y: 0 }, shrinkRatio = 1) => {
+const calculateWidth = (
+  firstPoint = { x: 0, y: 0 },
+  secondPoint = { x: 0, y: 0 },
+  shrinkRatio = 1
+) => {
   return Math.abs(firstPoint.x - secondPoint.x) * shrinkRatio;
 };
 
-const calculateHeight = (firstPoint = { x: 0, y: 0 }, secondPoint = { x: 0, y: 0 }, shrinkRatio = 1) => {
+const calculateHeight = (
+  firstPoint = { x: 0, y: 0 },
+  secondPoint = { x: 0, y: 0 },
+  shrinkRatio = 1
+) => {
   return Math.abs(firstPoint.y - secondPoint.y) * shrinkRatio;
 };
 
-export { calculateTopLeft, calculateBottomRight, calculateWidth, calculateHeight };
+export {
+  calculateTopLeft,
+  calculateBottomRight,
+  calculateWidth,
+  calculateHeight,
+};

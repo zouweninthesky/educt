@@ -6,7 +6,7 @@ import { toJS } from "mobx";
 import "./Editor.scss";
 
 import Icon from "../common/Icon/Icon";
-import ViewboxEditor from "../common/Viewbox/VIewboxEditor";
+import ViewboxEditor from "../common/Viewbox/ViewboxEditor/ViewboxEditor";
 import Overview from "./Overview/Overview";
 import Tools from "./Tools/Tools";
 import Loader from "../common/Loader/Loader";
