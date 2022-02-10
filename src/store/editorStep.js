@@ -112,6 +112,12 @@ class EditorStep {
     this.saveStepToUpdate();
   }
 
+  saveStepDescriptionImage() {
+    this.currentStepData.metaInfo.imageUIDs = ["added"];
+    this.steps[this.currentStepNumber] = deepCopy(this.currentStepData);
+    this.saveStepToUpdate();
+  }
+
   // // добавляет изменения в массив toUpdateDescription
   // addToUpdateDescription(description) {
   //   const oldIndex = this.stepsOld.findIndex(
@@ -346,13 +352,6 @@ class EditorStep {
   finishImageLoad() {
     this.imageLoaded = true;
   }
-
-  // Временно, когда будут переделаны маски в отдельный архив - убрать
-  // resetMasks() {
-  //   this.currentStepData.masks = deepCopy(
-  //     this.steps[this.currentStepNumber].masks
-  //   );
-  // }
 }
 
 export default new EditorStep();

@@ -46,23 +46,4 @@
       }
     }
   }
-
-  &__text-wrapper {
-    align-self: flex-end;
-
-    width: 33.75rem;
-    min-height: 4.1875rem;
-
-    padding: 0.5625rem 1rem;
-
-    border: 0.0625rem solid $color-neutrals-faded;
-    border-bottom: 0;
-    border-radius: 0.5rem 0.5rem 0 0;
-  }
-
-  &__text {
-    width: 100%;
-
-    margin: 0;
-  }
 }

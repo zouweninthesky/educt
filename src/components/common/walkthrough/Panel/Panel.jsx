@@ -3,6 +3,7 @@ import "./Panel.scss";
 
 import Icon from "../../Icon/Icon";
 import FullScreenButton from "./FullScreenButton/FullScreenButton";
+import Comment from "./Comment/Comment";
 
 import PlayerStore from "../../../../store/player";
 import { useModal } from "../../Modal/ModalContext";
@@ -81,11 +82,7 @@ const Panel = ({
       </div>
       <div className="panel__center">
         {navButtons()}
-        <div className="panel__text-wrapper">
-          <p className="panel__text">
-            {step.description === "" ? "Нет описания" : step.description}
-          </p>
-        </div>
+        <Comment step={step} />
       </div>
       <div className="panel__right-side">
         <button

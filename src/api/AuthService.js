@@ -6,12 +6,6 @@ const headers = {
 };
 
 class AuthService {
-  data = {
-    ok: true,
-    token: "QWERTYUIOP123!@#$",
-    error: "Неверный логин/пароль",
-  };
-
   async SignIn(login, passwordHash) {
     const response = await fetch(`${MAIN_URL}token/`, {
       method: "POST",
@@ -23,13 +17,6 @@ class AuthService {
     });
 
     return await response.json();
-  }
-
-  async SignOut() {
-    // const response = await fetch("https://educt.ru/api/scripts/", {
-    // method: "DELETE",
-    // });
-    // return await response.json();
   }
 
   async RefreshToken() {

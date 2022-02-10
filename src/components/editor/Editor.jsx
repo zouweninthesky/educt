@@ -23,6 +23,7 @@ import Overlay from "../common/Modal/Overlay";
 import EditorMainStore from "../../store/editorMain";
 import EditorStepStore from "../../store/editorStep";
 import EditorMaskStore from "../../store/editorMask";
+import EditorImagesStore from "../../store/editorImages";
 import UserScriptService from "../../api/UserScriptService";
 import { useModal } from "../common/Modal/ModalContext";
 
@@ -92,6 +93,9 @@ const Editor = observer(({ scriptUID }) => {
   };
 
   const savingFunction = async () => {
+    if (EditorImagesStore.commentImages.length !== 0) {
+      await EditorImagesStore.uploadCommentImages();
+    }
     await EditorMainStore.scriptUpdate();
     // invokes masking
     if (EditorMaskStore.toMask.length !== 0) {
@@ -106,7 +110,7 @@ const Editor = observer(({ scriptUID }) => {
           <button
             className="editor__save-button button button--simple"
             type="button"
-            onClick={async () => savingFunction()}
+            onClick={async () => await savingFunction()}
           >
             <Icon id="save" width="22" />
             Сохранить и выйти
@@ -209,7 +213,7 @@ const Editor = observer(({ scriptUID }) => {
             const imageBin = maskedImages.find(
               (obj) => obj.imageUID === imageUID
             ).imageBin;
-            await UserScriptService.replaceImagesStorage(imageBin, url);
+            await UserScriptService.uploadImagesStorage(imageBin, url);
             return;
           })
         );

@@ -84,6 +84,8 @@ class UserScriptsService {
 
   async updateScript(scriptUID, toDelete, toUpdate) {
     // keeps only integer on boxSize and boxCoords
+    console.log(toJS(toUpdate));
+
     const toUpdateParsed = toUpdate.map((step) => {
       step.metaInfo.boxCoords.upperLeft.x = parseInt(
         step.metaInfo.boxCoords.upperLeft.x
@@ -125,6 +127,7 @@ class UserScriptsService {
     await request(url, config, true);
   }
 
+  // Нужен для замены картинок, в данном случае при загрузке масок
   async getImageUpdateLinks(imagesObjects) {
     const url = `${STORAGE_REQUEST_URL}url/`;
     const config = {
@@ -140,17 +143,57 @@ class UserScriptsService {
     return await request(url, config);
   }
 
-  async replaceImagesStorage(imageBin, url) {
+  async uploadImagesStorage(imageBin, url) {
     const config = {
       method: "PUT",
       headers: {
-        "Content-Type": "image/png",
+        "Content-Type": "image/jpg",
       },
       body: imageBin,
     };
 
     await request(url, config, true);
   }
+
+  async getImageUploadLinks(numberOfLinks) {
+    const url = `${STORAGE_REQUEST_URL}url/?count=${numberOfLinks}`;
+    const config = {
+      method: "GET",
+      headers,
+    };
+    return await request(url, config);
+  }
 }
 
 export default new UserScriptsService();
+
+// async uploadCommentImage(imageUID, imageBin) {
+//   const firstUrl = `${STORAGE_REQUEST_URL}url/`;
+//   const firstConfig = {
+//     method: "POST",
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//     body: JSON.stringify({
+//       images: [`${imageUID}`],
+//     }),
+//   };
+
+//   console.log(`sent ${firstUrl}`);
+
+//   const responseLinks = await request(firstUrl, firstConfig);
+
+//   const secondUrl = responseLinks.urls[0].url;
+
+//   const secondConfig = {
+//     method: "PUT",
+//     headers: {
+//       "Content-Type": "image/jpg",
+//     },
+//     body: imageBin,
+//   };
+
+//   console.log(`sent 3 ${secondUrl}`);
+
+//   await request(secondUrl, secondConfig, true);
+// }

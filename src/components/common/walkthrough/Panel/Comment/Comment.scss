@@ -1,0 +1,72 @@
+@use "../../../../../assets/scss/variables.scss" as *;
+
+.panel-comment {
+  position: relative;
+
+  &__text {
+    width: 100%;
+
+    margin: 0;
+  }
+
+  &__image {
+    &--small {
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+
+      margin-right: 8px;
+    }
+  }
+
+  &__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    align-self: flex-end;
+
+    width: 33.75rem;
+    min-height: 4.1875rem;
+
+    padding: 0.5625rem 1rem;
+
+    border: 0.0625rem solid $color-neutrals-faded;
+    border-bottom: 0;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: $color-background;
+
+    &--with-image {
+      padding: 0.5625rem;
+    }
+
+    &--opened {
+      position: absolute;
+      // left: 700px;
+      bottom: 0;
+
+      height: 575px;
+      width: 540px;
+      padding: 517px 57px 9px;
+      z-index: $z-comment-opened;
+
+      & .panel-comment__image {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -58%);
+
+        width: 426px;
+        height: 426px;
+        object-fit: contain;
+      }
+    }
+  }
+
+  &__hide-button {
+    position: absolute;
+    right: 15px;
+    bottom: 18px;
+  }
+}
