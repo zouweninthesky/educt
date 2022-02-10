@@ -3,6 +3,7 @@ import "./Panel.scss";
 
 import Icon from "../../Icon/Icon";
 import FullScreenButton from "./FullScreenButton/FullScreenButton";
+import Comment from "./Comment/Comment";
 
 import PlayerStore from "../../../../store/player";
 import { useModal } from "../../Modal/ModalContext";
@@ -66,14 +67,6 @@ const Panel = ({
     );
   };
 
-  const image = () => {
-    if (step.metaInfo.imageUIDs) {
-      // console.log(step.metaInfo);
-    }
-    console.log(step.metaInfo);
-    return <p>Леха тут</p>;
-  };
-
   return (
     <section className="panel">
       <h2 className="visually-hidden">Панель управления</h2>
@@ -89,12 +82,7 @@ const Panel = ({
       </div>
       <div className="panel__center">
         {navButtons()}
-        <div className="panel__comment-wrapper">
-          {image()}
-          <p className="panel__text">
-            {step.description === "" ? "Нет описания" : step.description}
-          </p>
-        </div>
+        <Comment step={step} />
       </div>
       <div className="panel__right-side">
         <button

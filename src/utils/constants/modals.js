@@ -10,6 +10,7 @@ const MODAL_FINISH_PLAY_ID = "finish-play";
 const MODAL_FINISH_EXAM_ID = "finish-exam";
 const MODAL_TOUCH_DETECTED_ID = "touch-detected";
 const MODAL_FIRST_SAVE_ID = "first-save";
+const MODAL_COMMENT_OPENED_ID = "comment-opened";
 
 export {
   MODAL_CLOSE_ID,
@@ -24,4 +25,5 @@ export {
   MODAL_FINISH_EXAM_ID,
   MODAL_TOUCH_DETECTED_ID,
   MODAL_FIRST_SAVE_ID,
+  MODAL_COMMENT_OPENED_ID,
 };
