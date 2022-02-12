@@ -9,7 +9,7 @@ const User = observer(() => {
     <>
       <h1 className="visually-hidden">Меню выбора сценариев для прохождения</h1>
       <Header />
-      <Hub />
+      <Hub isEditor={false} />
     </>
   );
 });

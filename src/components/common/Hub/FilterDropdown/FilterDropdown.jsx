@@ -6,7 +6,7 @@ import Icon from "../../Icon/Icon";
 import ScriptsStore from "../../../../store/scripts";
 import { observer } from "mobx-react-lite";
 
-const FilterDropdown = observer(() => {
+const FilterDropdown = observer(({ isEditor }) => {
   const [isOpen, setIsOpen] = useState(false);
   const { filterOptions, stateFilterID } = ScriptsStore;
 
@@ -27,19 +27,22 @@ const FilterDropdown = observer(() => {
       {isOpen && (
         <div className="dropdown__wrapper">
           <ul className="dropdown__list">
-            {filterOptions.map((option, i) => (
-              <li
-                className={
-                  filterOptions[stateFilterID].id === option.id
-                    ? "dropdown__item dropdown__item--current"
-                    : "dropdown__item"
-                }
-                onClick={onOptionClicked(option.id)}
-                key={option.id}
-              >
-                {option.title}
-              </li>
-            ))}
+            {filterOptions.map((option, i) => {
+              if (!isEditor && option.id === 3) return <></>;
+              return (
+                <li
+                  className={
+                    filterOptions[stateFilterID].id === option.id
+                      ? "dropdown__item dropdown__item--current"
+                      : "dropdown__item"
+                  }
+                  onClick={onOptionClicked(option.id)}
+                  key={option.id}
+                >
+                  {option.title}
+                </li>
+              );
+            })}
           </ul>
         </div>
       )}

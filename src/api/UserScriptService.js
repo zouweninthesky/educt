@@ -11,11 +11,18 @@ const headers = {
   Authorization: `Bearer ${Auth.token}`,
 };
 
+const createStateParam = (state) => {
+  if (state === null) return "";
+  if (state === 3) return "&isPublished=false";
+  return `$state=${state}`;
+};
+
 class UserScriptsService {
   async getUserScripts(pageNumber, state) {
-    const stateParam = state === null ? "" : `&state=${state}`;
-
-    const url = `${MAIN_URL}scripts/?page=${pageNumber}&perPage=${SCRIPTS_PER_PAGE}${stateParam}`;
+    const url = `${MAIN_URL}scripts/?page=${pageNumber}&perPage=${SCRIPTS_PER_PAGE}${createStateParam(
+      state
+    )}`;
+    console.log(url);
     const config = {
       method: "GET",
       headers: {
