@@ -19,9 +19,9 @@ const FilterDropdown = observer(() => {
   };
 
   return (
-    <div className="dropdown">
+    <div className="dropdown" onClick={toggling}>
       <Icon id="angle-down" width="24" className="dropdown__arrow" />
-      <div className="dropdown__header" onClick={toggling}>
+      <div className="dropdown__header">
         {filterOptions[stateFilterID].title}
       </div>
       {isOpen && (

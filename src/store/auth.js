@@ -53,7 +53,7 @@ class Auth {
 
   async SignOut() {
     this.loading = true;
-    await Api.SignOut();
+    // await Api.SignOut();
     window.localStorage.clear();
     this.token = null;
     this.refresh = null;
