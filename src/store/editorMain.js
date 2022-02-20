@@ -3,7 +3,7 @@ import { action, makeObservable, observable } from "mobx";
 import GlobalStore from ".";
 import EditorStepStore from "./editorStep";
 import EditorMaskStore from "./editorMask";
-import ScriptsApi from "../api/UserScriptService";
+import ScriptsApi from "../api/ScriptsService";
 
 import {
   EDITOR_MODE_TOOLS,

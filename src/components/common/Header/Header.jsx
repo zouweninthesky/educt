@@ -1,11 +1,12 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { useHistory } from "react-router";
 import "./Header.scss";
 
 import Icon from "../Icon/Icon";
 
 import Auth from "../../../store/auth";
+import Store from "../../../store";
 
 const Header = () => {
   const history = useHistory();
@@ -66,7 +67,10 @@ const Header = () => {
             <button
               className="hub-header__dropdown-link"
               type="button"
-              disabled
+              onClick={async () => {
+                Store.loadingStarted();
+                history.push("/profile");
+              }}
             >
               Настройки
             </button>

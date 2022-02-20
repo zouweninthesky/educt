@@ -6,7 +6,7 @@ import Editor from "./components/editor/Editor";
 import Exam from "./components/exam/Exam";
 import Login from "./components/login/Login";
 import Player from "./components/player/Player";
-// import Profile from "./components/profile/Profile";
+import Profile from "./components/profile/Profile";
 // import Register from "./components/register/Register";
 import User from "./components/user/User";
 import SpritePage from "./utils/SpritePage";

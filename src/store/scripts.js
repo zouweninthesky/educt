@@ -2,7 +2,7 @@ import { action, makeObservable, observable } from "mobx";
 
 // import ScriptsService from "../utils/UserScriptsServiceFake";
 // import AuthService from "../api/AuthService";
-import ScriptsService from "../api/UserScriptService";
+import ScriptsService from "../api/ScriptsService";
 import Store from "./index";
 import { SCRIPTS_PER_PAGE } from "../utils/constants/links";
 
