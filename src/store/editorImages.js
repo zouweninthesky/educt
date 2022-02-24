@@ -4,7 +4,7 @@ import GlobalStore from ".";
 import EditorMainStore from "./editorMain";
 import EditorStepStore from "./editorStep";
 import EditorMaskStore from "./editorMask";
-import ScriptsApi from "../api/UserScriptService";
+import ScriptsApi from "../api/ScriptsService";
 
 class EditorImages {
   commentImages = [];

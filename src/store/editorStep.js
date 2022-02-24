@@ -1,6 +1,6 @@
 import { action, makeObservable, toJS, observable } from "mobx";
 
-import ScriptsApi from "../api/UserScriptService";
+import ScriptsApi from "../api/ScriptsService";
 import { deepCopy } from "../utils/deepCopy";
 import {
   calculateHeight,

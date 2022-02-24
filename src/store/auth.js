@@ -7,6 +7,18 @@ const hash = (string) => {
   return string;
 };
 
+const getUserInfoFromToken = () => {
+  const token = window.localStorage.getItem("token");
+  console.log(
+    JSON.parse(
+      atob(token.slice(token.indexOf(".") + 1, token.lastIndexOf(".")))
+    )
+  );
+  return JSON.parse(
+    atob(token.slice(token.indexOf(".") + 1, token.lastIndexOf(".")))
+  );
+};
+
 class Auth {
   token = window.localStorage.getItem("token") || null;
   refresh = window.localStorage.getItem("refresh") || null;
@@ -18,6 +30,7 @@ class Auth {
       token: observable,
       refresh: observable,
       isEditor: computed,
+      id: computed,
       loading: observable,
       error: observable,
       SignIn: action,
@@ -28,10 +41,14 @@ class Auth {
 
   get isEditor() {
     if (window.localStorage.getItem("token")) {
-      const token = window.localStorage.getItem("token");
-      return JSON.parse(
-        atob(token.slice(token.indexOf(".") + 1, token.lastIndexOf(".")))
-      ).isEditor;
+      return getUserInfoFromToken().isEditor;
+    }
+    return null;
+  }
+
+  get id() {
+    if (window.localStorage.getItem("token")) {
+      return getUserInfoFromToken().user_id;
     }
     return null;
   }

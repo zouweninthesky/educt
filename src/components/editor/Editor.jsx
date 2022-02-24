@@ -24,7 +24,7 @@ import EditorMainStore from "../../store/editorMain";
 import EditorStepStore from "../../store/editorStep";
 import EditorMaskStore from "../../store/editorMask";
 import EditorImagesStore from "../../store/editorImages";
-import UserScriptService from "../../api/UserScriptService";
+import UserScriptService from "../../api/ScriptsService";
 import { useModal } from "../common/Modal/ModalContext";
 
 import {
