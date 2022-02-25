@@ -48,7 +48,7 @@ class Auth {
 
   get id() {
     if (window.localStorage.getItem("token")) {
-      return getUserInfoFromToken().user_id;
+      return getUserInfoFromToken().userID;
     }
     return null;
   }
@@ -56,6 +56,7 @@ class Auth {
   async SignIn(login, password) {
     this.loading = true;
     const response = await Api.SignIn(login, hash(password));
+    console.log(response);
     this.loading = false;
     if (response.user) {
       this.token = response.access;

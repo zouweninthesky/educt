@@ -16,6 +16,8 @@ class AuthService {
       }),
     });
 
+    console.log(response);
+
     return await response.json();
   }
 
