@@ -13,9 +13,7 @@ import NoScripts from "./NoScripts/NoScripts";
 
 import ScriptsStore from "../../../store/scripts";
 
-const Hub = observer((props) => {
-  const { isEditor } = props;
-
+const Hub = observer(({ isEditor }) => {
   const { scripts, allLoaded } = ScriptsStore;
 
   useEffect(() => {
@@ -64,7 +62,7 @@ const Hub = observer((props) => {
         return (
           <>
             <div className="hub__content-filters">
-              <FilterDropdown />
+              <FilterDropdown isEditor={isEditor} />
             </div>
             <div className="hub__content-wrapper">
               <Scrollbars autoHide autoHideTimeout={500}>
@@ -78,7 +76,11 @@ const Hub = observer((props) => {
         return (
           <>
             <div className="hub__content-filters">
-              {ScriptsStore.stateFilterID !== 0 ? <FilterDropdown /> : <></>}
+              {ScriptsStore.stateFilterID !== 0 ? (
+                <FilterDropdown isEditor={isEditor} />
+              ) : (
+                <></>
+              )}
             </div>
             <NoScripts
               isEditor={isEditor}
@@ -90,7 +92,7 @@ const Hub = observer((props) => {
       return (
         <>
           <div className="hub__content-filters">
-            <FilterDropdown />
+            <FilterDropdown isEditor={isEditor} />
           </div>
           <div className="hub__content-wrapper">
             <Spinner show={true} />

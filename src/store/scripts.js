@@ -21,6 +21,7 @@ class Scripts {
     { id: 0, title: "Все сценарии", state: null },
     { id: 1, title: "Новое", state: 1 },
     { id: 2, title: "На тестирование", state: 2 },
+    { id: 3, title: "Не опубликовано", state: 3 },
   ];
 
   constructor() {
