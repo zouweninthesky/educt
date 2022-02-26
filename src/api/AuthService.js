@@ -18,7 +18,7 @@ class AuthService {
 
     console.log(response);
 
-    return await response.json();
+    return response;
   }
 
   async RefreshToken() {

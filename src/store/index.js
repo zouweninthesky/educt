@@ -3,11 +3,13 @@ import { action, makeObservable, observable } from "mobx";
 class Store {
   loading = true;
   error = null;
+  notification = null;
 
   constructor() {
     makeObservable(this, {
       loading: observable,
       error: observable,
+      notification: observable,
       loadingStarted: action,
       loadingFinished: observable,
       errorOccured: observable,
@@ -24,6 +26,10 @@ class Store {
 
   errorOccured() {
     this.error = true;
+  }
+
+  setNotification(code) {
+    this.notification = code;
   }
 }
 

@@ -29,7 +29,7 @@ const Login = () => {
   const signIn = async (evt) => {
     evt.preventDefault();
     await Auth.SignIn(loginState, passwordState);
-    if (Auth.error === null) {
+    if (Auth.token !== null) {
       history.push("/user");
     }
   };

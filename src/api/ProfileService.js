@@ -30,18 +30,18 @@ class ProfileService {
         ...headers,
       },
       body: JSON.stringify({
-        first_name: firstName,
-        last_name: lastName,
+        firstName,
+        lastName,
       }),
     };
 
-    return await request(url, config);
+    return await request(url, config, false, true);
   }
 
-  async changePassword(oldPassword, newPassword, repeatPassword) {
+  async changePassword(oldPassword, password, confirmedPassword) {
     console.log(oldPassword);
-    console.log(newPassword);
-    console.log(repeatPassword);
+    console.log(password);
+    console.log(confirmedPassword);
     const url = `${MAIN_URL}users/${Auth.id}/password/`;
     const config = {
       method: "PUT",
@@ -50,13 +50,13 @@ class ProfileService {
         ...headers,
       },
       body: JSON.stringify({
-        old_password: oldPassword,
-        password: newPassword,
-        confirmed_password: repeatPassword,
+        oldPassword: oldPassword,
+        password: password,
+        confirmedPassword: confirmedPassword,
       }),
     };
 
-    return await request(url, config);
+    return await request(url, config, false, true);
   }
 }
 

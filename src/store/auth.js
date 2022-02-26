@@ -1,6 +1,12 @@
 import { action, makeObservable, observable, computed } from "mobx";
 
+import MainStore from "./index";
 import Api from "../api/AuthService";
+
+import {
+  ERROR_SERVER,
+  ERROR_LOGIN_WRONG_CREDENTIALS,
+} from "../utils/constants/notificationStrings";
 
 const hash = (string) => {
   // Does nothing, was discussed, will be changed
@@ -9,11 +15,7 @@ const hash = (string) => {
 
 const getUserInfoFromToken = () => {
   const token = window.localStorage.getItem("token");
-  console.log(
-    JSON.parse(
-      atob(token.slice(token.indexOf(".") + 1, token.lastIndexOf(".")))
-    )
-  );
+
   return JSON.parse(
     atob(token.slice(token.indexOf(".") + 1, token.lastIndexOf(".")))
   );
@@ -58,14 +60,22 @@ class Auth {
     const response = await Api.SignIn(login, hash(password));
     console.log(response);
     this.loading = false;
-    if (response.user) {
-      this.token = response.access;
-      this.refresh = response.refresh;
-      window.localStorage.setItem("token", response.access);
-      window.localStorage.setItem("refresh", response.refresh);
-      this.error = null;
-    } else {
-      this.error = response.details;
+
+    switch (response.status) {
+      case 200:
+        const data = await response.json();
+        this.token = data.access;
+        this.refresh = data.refresh;
+        window.localStorage.setItem("token", data.access);
+        window.localStorage.setItem("refresh", data.refresh);
+        this.error = null;
+        break;
+
+      case 401:
+        MainStore.setNotification(ERROR_LOGIN_WRONG_CREDENTIALS);
+
+      case 500:
+        MainStore.setNotification(ERROR_SERVER);
     }
   }
 

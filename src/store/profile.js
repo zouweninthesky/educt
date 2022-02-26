@@ -1,7 +1,15 @@
-import { action, makeObservable, observable, ObservableMap } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import Store from "./index";
 
 import Api from "../api/ProfileService";
+import MainStore from "./index";
+
+import {
+  ERROR_SERVER,
+  SUCCESS_PERSONAL,
+  SUCCESS_PASSWORD,
+  ERROR_PASSWORD,
+} from "../utils/constants/notificationStrings";
 
 class Profile {
   id = "";
@@ -44,16 +52,18 @@ class Profile {
   }
 
   setFirstLastName(data) {
-    this.firstName = data.first_name ? data.first_name.slice() : "Нет имени";
-    this.oldFirstName = data.first_name.slice();
-    this.lastName = data.last_name ? data.last_name.slice() : "Нет фамилии";
-    this.oldLastName = data.last_name.slice();
+    this.firstName = data.firstName ? data.firstName.slice() : "Нет имени";
+    this.oldFirstName = data.firstName.slice();
+    this.lastName = data.lastName ? data.lastName.slice() : "Нет фамилии";
+    this.oldLastName = data.lastName.slice();
   }
 
   changeFirstName(firstName) {
     this.firstName = firstName;
     if (firstName !== this.oldFirstName) {
       this.personalChanged = true;
+    } else {
+      this.personalChanged = false;
     }
   }
 
@@ -61,16 +71,59 @@ class Profile {
     this.lastName = lastName;
     if (lastName !== this.oldLastName) {
       this.personalChanged = true;
+    } else {
+      this.personalChanged = false;
     }
   }
 
-  updateFirstLastName() {
-    Api.changePersonalData(this.firstName, this.lastName);
-    this.getUser();
+  async updateFirstLastName() {
+    const response = await Api.changePersonalData(
+      this.firstName,
+      this.lastName
+    );
+    console.log(response);
+    if (response) {
+      console.log(response.status);
+      switch (response.status) {
+        case 200:
+          MainStore.setNotification(SUCCESS_PERSONAL);
+          break;
+
+        case 500:
+          MainStore.setNotification(ERROR_SERVER);
+          break;
+
+        default:
+          break;
+      }
+    }
+    // this.getUser();
   }
 
   async changePassword(oldPassword, newPassword, repeatPassword) {
-    Api.changePassword(oldPassword, newPassword, repeatPassword);
+    const response = await Api.changePassword(
+      oldPassword,
+      newPassword,
+      repeatPassword
+    );
+    console.log(response);
+    if (response) {
+      console.log(response.status);
+      const data = await response.json();
+      console.log(data);
+      switch (response.status) {
+        case 200:
+          MainStore.setNotification(SUCCESS_PASSWORD);
+          break;
+
+        case 500:
+          MainStore.setNotification(ERROR_SERVER);
+          break;
+
+        default:
+          break;
+      }
+    }
   }
 }
 

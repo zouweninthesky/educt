@@ -19,7 +19,7 @@ const Profile = observer(() => {
 
   useEffect(() => {
     (async () => {
-      await ProfileStore.getUser();
+      if (ProfileStore.id === "") await ProfileStore.getUser();
     })();
   }, []);
 
@@ -129,7 +129,7 @@ const Profile = observer(() => {
               <div className="profile__input">
                 <label htmlFor="profile-old-password">Старый пароль</label>
                 <input
-                  // type="password"
+                  type="password"
                   id="profile-old-password"
                   value={oldPass}
                   placeholder="*****"
@@ -141,7 +141,7 @@ const Profile = observer(() => {
               <div className="profile__input">
                 <label htmlFor="profile-new-password">Новый пароль</label>
                 <input
-                  // type="password"
+                  type="password"
                   id="profile-new-password"
                   value={newPass}
                   placeholder="*******"
@@ -155,7 +155,7 @@ const Profile = observer(() => {
                   Повторите новый пароль
                 </label>
                 <input
-                  // type="password"
+                  type="password"
                   id="profile-repeat-password"
                   value={repeatNewPass}
                   placeholder="*******"
