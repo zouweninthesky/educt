@@ -1,7 +1,7 @@
 import Auth from "../store/auth";
 import { UNATHORIZED } from "../utils/constants/errorCodes";
 
-const request = async (url, config, responseNotNeeded) => {
+const request = async (url, config, responseNotNeeded, parseNotNeeded) => {
   let response = await fetch(url, config);
   if (response.status === UNATHORIZED) {
     await Auth.RefreshToken();
@@ -18,6 +18,10 @@ const request = async (url, config, responseNotNeeded) => {
 
   if (responseNotNeeded) {
     return;
+  }
+
+  if (parseNotNeeded) {
+    return response;
   }
   console.log(response);
 

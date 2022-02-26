@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import Author from "./components/author/Author";
 import Editor from "./components/editor/Editor";
@@ -14,14 +15,21 @@ import PrivateRoute from "./components/common/PrivateRoute/PrivateRoute";
 import Sprite from "./components/common/Sprite/Sprite";
 import ErrorIndicator from "./components/common/ErrorIndicator/ErrorIndicator";
 import Loader from "./components/common/Loader/Loader";
+import Notification from "./components/common/Notification/Notification";
 
 import Store from "./store";
 
 const App = () => {
+  const history = useHistory();
+  history.listen(() => {
+    Store.setNotification(null);
+  });
+
   return (
     <>
       <Sprite />
       <ErrorIndicator error={Store.error} />
+      <Notification />
       <Loader />
       <Switch>
         <Route path="/login" component={Login} />
@@ -44,9 +52,9 @@ const App = () => {
         <PrivateRoute path="/author">
           <Author />
         </PrivateRoute>
-        {/* <PrivateRoute path="/profile">
+        <PrivateRoute path="/profile">
           <Profile />
-        </PrivateRoute> */}
+        </PrivateRoute>
         <PrivateRoute path="/sprite">
           <SpritePage />
         </PrivateRoute>

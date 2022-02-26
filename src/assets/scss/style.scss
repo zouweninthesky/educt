@@ -154,7 +154,7 @@ a {
     border: 0;
 
     &:hover,
-    &:focus {
+    &:active {
       color: $color-primary-dark;
       background-color: $color-primary-faded;
     }
@@ -164,7 +164,7 @@ a {
       background-color: transparent;
 
       &:hover,
-      &:focus {
+      &:active {
         color: $color-primary;
         background-color: transparent;
       }

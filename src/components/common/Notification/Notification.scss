@@ -1,0 +1,64 @@
+@use "../../../assets/scss/variables.scss" as *;
+
+.notification {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  width: 100vw;
+  min-height: 60px;
+
+  padding: 0 50px;
+
+  background-color: $color-info;
+  z-index: $z-notification;
+
+  animation: slide 0.2s ease-in;
+
+  &__content {
+    color: $color-background;
+    text-align: center;
+
+    margin: 0;
+  }
+
+  &__hide {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    color: $color-background;
+
+    width: 30px;
+    height: 30px;
+
+    padding: 0;
+
+    // background-color: red;
+    background-color: transparent;
+    border: 0;
+
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      background-color: $color-info-dark;
+    }
+  }
+}
+
+@keyframes slide {
+  0% {
+    top: -60px;
+  }
+
+  100% {
+    top: 0;
+  }
+}
