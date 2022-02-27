@@ -5,17 +5,48 @@ import "./Profile.scss";
 
 import Header from "../common/Header/Header";
 import Icon from "../common/Icon/Icon";
+import NoSaveProfileModal from "./modals/NoSaveProfile";
+import Overlay from "../common/Modal/Overlay";
 
 import Store from "../../store";
 import ProfileStore from "../../store/profile";
+import { useModal } from "../common/Modal/ModalContext";
+
 import { MIN_PASSWORD_LENGTH } from "../../utils/constants/magicNumbers";
 import { PASSWORD_REG_EXP } from "../../utils/constants/textStrings";
+import { MODAL_NO_SAVE_PROFILE_ID } from "../../utils/constants/modals";
 
 const Profile = observer(() => {
   const [oldPass, setOldPass] = useState("");
   const [newPass, setNewPass] = useState("");
   const [repeatNewPass, setRepeatNewPass] = useState("");
   const [passwordStatus, setPasswordStatus] = useState("not-changed");
+  const [, setModalID] = useModal();
+
+  const backButton = () => {
+    if (passwordStatus !== "not-changed" || ProfileStore.personalChanged)
+      return (
+        <button
+          type="button"
+          className="button button--icon-only button--simple profile__back-button"
+          onClick={() => setModalID(MODAL_NO_SAVE_PROFILE_ID)}
+        >
+          <Icon id="arrow-left" width="24" />
+        </button>
+      );
+    return (
+      <Link
+        to="/user"
+        className="button button--icon-only button--simple profile__back-button"
+        onClick={() => {
+          ProfileStore.resetStore();
+          Store.loadingStarted();
+        }}
+      >
+        <Icon id="angle-left" width="24" />
+      </Link>
+    );
+  };
 
   useEffect(() => {
     (async () => {
@@ -75,16 +106,7 @@ const Profile = observer(() => {
       <main className="profile">
         <div className="container profile__container">
           <div className="profile__header-wrapper">
-            <Link
-              to="/user"
-              className="button button--icon-only button--simple profile__back-button"
-              onClick={() => {
-                ProfileStore.resetStore();
-                Store.loadingStarted();
-              }}
-            >
-              <Icon id="angle-left" width="24" />
-            </Link>
+            {backButton()}
             <h2 className="profile__header">Настройки профиля</h2>
           </div>
           <section className="profile__section">
@@ -231,6 +253,8 @@ const Profile = observer(() => {
             Сохранить пароль
           </button>
         </div>
+        <NoSaveProfileModal />
+        <Overlay />
       </main>
     </>
   );
