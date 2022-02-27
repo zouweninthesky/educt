@@ -26,8 +26,6 @@ const Profile = observer(() => {
   useEffect(() => {
     if (oldPass !== "" && newPass !== "") {
       if (newPass.length >= MIN_PASSWORD_LENGTH) {
-        console.log(PASSWORD_REG_EXP);
-        console.log(PASSWORD_REG_EXP.test(newPass));
         if (PASSWORD_REG_EXP.test(newPass)) {
           if (newPass !== oldPass) {
             if (newPass === repeatNewPass) {
@@ -218,7 +216,16 @@ const Profile = observer(() => {
             className="button profile__save-button"
             disabled={passwordStatus !== "acceptable"}
             onClick={() => {
-              ProfileStore.changePassword(oldPass, newPass, repeatNewPass);
+              const success = ProfileStore.changePassword(
+                oldPass,
+                newPass,
+                repeatNewPass
+              );
+              if (success) {
+                setOldPass("");
+                setNewPass("");
+                setRepeatNewPass("");
+              }
             }}
           >
             Сохранить пароль

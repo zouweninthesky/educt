@@ -111,10 +111,28 @@
 
       border: 1px solid $color-neutrals-lighter;
       border-radius: 0.5rem;
+
+      &:focus {
+        outline: none;
+
+        box-shadow: 0 4px 4px 0 $color-neutrals-faded;
+      }
     }
 
     &:last-child {
       margin-right: 0;
+    }
+
+    &--fail {
+      & input {
+        border-color: $color-danger;
+      }
+    }
+
+    &--success {
+      & input {
+        border-color: $color-success;
+      }
     }
   }
 

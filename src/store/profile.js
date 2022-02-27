@@ -114,7 +114,8 @@ class Profile {
       switch (response.status) {
         case 200:
           MainStore.setNotification(SUCCESS_PASSWORD);
-          break;
+
+          return true;
 
         case 500:
           MainStore.setNotification(ERROR_SERVER);
