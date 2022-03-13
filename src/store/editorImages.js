@@ -5,6 +5,7 @@ import EditorMainStore from "./editorMain";
 import EditorStepStore from "./editorStep";
 import EditorMaskStore from "./editorMask";
 import ScriptsApi from "../api/ScriptsService";
+import ImagesApi from "../api/ImageService";
 
 class EditorImages {
   commentImages = [];
@@ -45,7 +46,7 @@ class EditorImages {
   }
 
   async uploadCommentImages() {
-    const linkObjects = await ScriptsApi.getImageUploadLinks(
+    const linkObjects = await ImagesApi.getImageUploadLinks(
       this.commentImages.length
     );
 
@@ -56,12 +57,12 @@ class EditorImages {
       console.log(index);
       if (index !== -1) {
         EditorStepStore.toUpdate[index].metaInfo.imageUIDs = [
-          `${linkObjects.urls[i].image_uid}`,
+          `${linkObjects.urls[i].imageUid}`,
         ];
         console.log(EditorStepStore.toUpdate[index].metaInfo.imageUIDs);
       }
 
-      await ScriptsApi.uploadImagesStorage(
+      await ImagesApi.uploadImagesStorage(
         imageObj.imageBlob,
         linkObjects.urls[i].url
       );

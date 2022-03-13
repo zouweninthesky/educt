@@ -19,9 +19,10 @@ class ProfileService {
     return await request(url, config);
   }
 
-  async changePersonalData(firstName, lastName) {
+  async changePersonalData(firstName, lastName, avatarUid) {
     console.log(firstName);
     console.log(lastName);
+    console.log(avatarUid);
     const url = `${MAIN_URL}users/${Auth.id}/`;
     const config = {
       method: "PUT",
@@ -32,6 +33,7 @@ class ProfileService {
       body: JSON.stringify({
         firstName,
         lastName,
+        avatarUid,
       }),
     };
 

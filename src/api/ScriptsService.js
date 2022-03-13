@@ -1,10 +1,6 @@
 import Auth from "../store/auth";
 import request from "./request";
-import {
-  MAIN_URL,
-  STORAGE_REQUEST_URL,
-  SCRIPTS_PER_PAGE,
-} from "../utils/constants/links";
+import { MAIN_URL, SCRIPTS_PER_PAGE } from "../utils/constants/links";
 import { toJS } from "mobx";
 
 const headers = {
@@ -14,7 +10,7 @@ const headers = {
 const createStateParam = (state) => {
   if (state === null) return "";
   if (state === 3) return "&isPublished=false";
-  return `$state=${state}`;
+  return `&state=${state}`;
 };
 
 class UserScriptsService {
@@ -22,7 +18,6 @@ class UserScriptsService {
     const url = `${MAIN_URL}scripts/?page=${pageNumber}&perPage=${SCRIPTS_PER_PAGE}${createStateParam(
       state
     )}`;
-    console.log(url);
     const config = {
       method: "GET",
       headers: {
@@ -50,8 +45,8 @@ class UserScriptsService {
     await request(url, config, true);
   }
 
-  async changeTitleDescriptionScript(UID, orgID, title, description) {
-    const url = `${MAIN_URL}scripts/${UID}/`;
+  async changeTitleDescriptionScript(uid, orgID, title, description) {
+    const url = `${MAIN_URL}scripts/${uid}/`;
     const config = {
       method: "PUT",
       headers: {
@@ -59,7 +54,7 @@ class UserScriptsService {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        UID,
+        uid,
         orgID,
         title,
         description,
@@ -69,8 +64,8 @@ class UserScriptsService {
     await request(url, config, true);
   }
 
-  async completeScript(UID, state, stepStates) {
-    const url = `${MAIN_URL}scripts/${UID}/states/`;
+  async completeScript(uid, state, stepStates) {
+    const url = `${MAIN_URL}scripts/${uid}/states/`;
     const body = {
       state,
     };
@@ -91,7 +86,6 @@ class UserScriptsService {
 
   async updateScript(scriptUID, toDelete, toUpdate) {
     // keeps only integer on boxSize and boxCoords
-    console.log(toJS(toUpdate));
 
     const toUpdateParsed = toUpdate.map((step) => {
       step.metaInfo.boxCoords.upperLeft.x = parseInt(
@@ -133,74 +127,6 @@ class UserScriptsService {
 
     await request(url, config, true);
   }
-
-  // Нужен для замены картинок, в данном случае при загрузке масок
-  async getImageUpdateLinks(imagesObjects) {
-    const url = `${STORAGE_REQUEST_URL}url/`;
-    const config = {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        images: imagesObjects.map((el) => el.imageUID),
-      }),
-    };
-
-    return await request(url, config);
-  }
-
-  async uploadImagesStorage(imageBin, url) {
-    const config = {
-      method: "PUT",
-      headers: {
-        "Content-Type": "image/jpg",
-      },
-      body: imageBin,
-    };
-
-    await request(url, config, true);
-  }
-
-  async getImageUploadLinks(numberOfLinks) {
-    const url = `${STORAGE_REQUEST_URL}url/?count=${numberOfLinks}`;
-    const config = {
-      method: "GET",
-      headers,
-    };
-    return await request(url, config);
-  }
 }
 
 export default new UserScriptsService();
-
-// async uploadCommentImage(imageUID, imageBin) {
-//   const firstUrl = `${STORAGE_REQUEST_URL}url/`;
-//   const firstConfig = {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       images: [`${imageUID}`],
-//     }),
-//   };
-
-//   console.log(`sent ${firstUrl}`);
-
-//   const responseLinks = await request(firstUrl, firstConfig);
-
-//   const secondUrl = responseLinks.urls[0].url;
-
-//   const secondConfig = {
-//     method: "PUT",
-//     headers: {
-//       "Content-Type": "image/jpg",
-//     },
-//     body: imageBin,
-//   };
-
-//   console.log(`sent 3 ${secondUrl}`);
-
-//   await request(secondUrl, secondConfig, true);
-// }

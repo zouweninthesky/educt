@@ -7,6 +7,7 @@ import Header from "../common/Header/Header";
 import Icon from "../common/Icon/Icon";
 import NoSaveProfileModal from "./modals/NoSaveProfile";
 import Overlay from "../common/Modal/Overlay";
+import Personal from "./Personal/Personal";
 
 import Store from "../../store";
 import ProfileStore from "../../store/profile";
@@ -22,6 +23,12 @@ const Profile = observer(() => {
   const [repeatNewPass, setRepeatNewPass] = useState("");
   const [passwordStatus, setPasswordStatus] = useState("not-changed");
   const [, setModalID] = useModal();
+
+  useEffect(() => {
+    (async () => {
+      if (ProfileStore.id === "") await ProfileStore.getUser();
+    })();
+  }, []);
 
   const backButton = () => {
     if (passwordStatus !== "not-changed" || ProfileStore.personalChanged)
@@ -47,12 +54,6 @@ const Profile = observer(() => {
       </Link>
     );
   };
-
-  useEffect(() => {
-    (async () => {
-      if (ProfileStore.id === "") await ProfileStore.getUser();
-    })();
-  }, []);
 
   useEffect(() => {
     if (oldPass !== "" && newPass !== "") {
@@ -109,40 +110,7 @@ const Profile = observer(() => {
             {backButton()}
             <h2 className="profile__header">Настройки профиля</h2>
           </div>
-          <section className="profile__section">
-            <h3 className="profile__section-header">Личные данные</h3>
-            <div className="profile__section-row">
-              <button type="button" className="profile__image-button">
-                <img src="" alt="" />
-              </button>
-
-              <div className="profile__input">
-                <label htmlFor="profile-first-name">Имя</label>
-                <input
-                  type="text"
-                  id="profile-first-name"
-                  value={ProfileStore.firstName}
-                  placeholder="Укажите своё имя"
-                  onChange={(e) => {
-                    ProfileStore.changeFirstName(e.target.value);
-                  }}
-                />
-              </div>
-              <div className="profile__input">
-                <label htmlFor="profile-second-name">Фамилия</label>
-                <input
-                  type="text"
-                  id="profile-second-name"
-                  value={ProfileStore.lastName}
-                  placeholder="Укажите свою фамилию"
-                  onChange={(e) => {
-                    ProfileStore.changeLastName(e.target.value);
-                  }}
-                />
-              </div>
-            </div>
-          </section>
-
+          <Personal />
           <section className="profile__section profile__section--password">
             <h3 className="profile__section-header">Обновление пароля</h3>
             <div className="profile__section-row">
@@ -228,7 +196,7 @@ const Profile = observer(() => {
             className="button profile__save-button"
             disabled={!ProfileStore.personalChanged}
             onClick={() => {
-              ProfileStore.updateFirstLastName();
+              ProfileStore.uploadProfile();
             }}
           >
             Сохранить данные

@@ -74,12 +74,14 @@ const ViewboxEditor = observer(
         imageRef.current.onload = () => {
           updateShrinkRatio();
           const clientRect = imageRef.current?.getBoundingClientRect();
-          setImageOffsets({
-            x: clientRect.left,
-            y: clientRect.top,
-            x2: clientRect.right,
-            y2: clientRect.bottom,
-          });
+          if (clientRect) {
+            setImageOffsets({
+              x: clientRect.left,
+              y: clientRect.top,
+              x2: clientRect.right,
+              y2: clientRect.bottom,
+            });
+          }
         };
       }
     };
