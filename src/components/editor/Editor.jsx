@@ -25,6 +25,7 @@ import EditorStepStore from "../../store/editorStep";
 import EditorMaskStore from "../../store/editorMask";
 import EditorImagesStore from "../../store/editorImages";
 import UserScriptService from "../../api/ScriptsService";
+import ImageService from "../../api/ImageService";
 import { useModal } from "../common/Modal/ModalContext";
 
 import {
@@ -205,7 +206,7 @@ const Editor = observer(({ scriptUID }) => {
   useEffect(() => {
     if (maskedImages.length > 0 && maskedImages.length === stepsToMask.length) {
       (async () => {
-        const updateLinks = await UserScriptService.getImageUpdateLinks(
+        const updateLinks = await ImageService.getImageUpdateLinks(
           maskedImages
         );
         await Promise.all(
@@ -213,7 +214,7 @@ const Editor = observer(({ scriptUID }) => {
             const imageBin = maskedImages.find(
               (obj) => obj.imageUID === imageUID
             ).imageBin;
-            await UserScriptService.uploadImagesStorage(imageBin, url);
+            await ImageService.uploadImagesStorage(imageBin, url);
             return;
           })
         );

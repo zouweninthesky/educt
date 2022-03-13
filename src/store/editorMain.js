@@ -160,6 +160,7 @@ class EditorMain {
 
   async scriptUpdate() {
     this.startSending();
+    console.log(EditorStepStore.toUpdate);
     await ScriptsApi.updateScript(
       this.scriptUID,
       EditorStepStore.toDelete,

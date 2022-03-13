@@ -49,7 +49,7 @@ const Hub = observer(({ isEditor }) => {
         const scriptItems = scripts.map((script, i) => {
           return (
             <ScriptItem
-              key={script.UID}
+              key={`${script.UID}${Math.floor(Math.random() * 10000)}`}
               id={script.UID}
               state={script.state}
               isPublished={script.isPublished}

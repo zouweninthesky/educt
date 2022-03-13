@@ -23,10 +23,10 @@ const request = async (url, config, responseNotNeeded, parseNotNeeded) => {
   if (parseNotNeeded) {
     return response;
   }
-  console.log(response);
+  // console.log(response);
 
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
   return data;
 };
 
