@@ -21,7 +21,6 @@ class Profile {
   avatarUid = "";
   newAvatar = "";
   personalChanged = false;
-  // Добавить булку с "изменения внесены" и дизейблить с ней кнопку
 
   constructor() {
     makeObservable(this, {
@@ -35,6 +34,14 @@ class Profile {
       personalChanged: observable,
       resetStore: action,
       getUser: action,
+      setFirstLastName: action,
+      changeFirstName: action,
+      changeLastName: action,
+      uploadPersonal: action,
+      saveAvatar: action,
+      uploadAvatar: action,
+      uploadProfile: action,
+      changePassword: action,
     });
   }
 

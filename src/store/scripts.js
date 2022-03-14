@@ -35,6 +35,7 @@ class Scripts {
       pagesLoaded: observable,
       allLoaded: observable,
       scriptToDelete: observable,
+      stateFilterID: observable,
       scriptsSet: action,
       scriptsClear: action,
       scriptsLoad: action,
