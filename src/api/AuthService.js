@@ -6,7 +6,7 @@ const headers = {
 };
 
 class AuthService {
-  async SignIn(login, passwordHash) {
+  async signIn(login, passwordHash) {
     const response = await fetch(`${MAIN_URL}token/`, {
       method: "POST",
       headers,
@@ -21,7 +21,7 @@ class AuthService {
     return response;
   }
 
-  async RefreshToken() {
+  async refreshToken() {
     const response = await fetch(`${MAIN_URL}token/refresh/`, {
       method: "POST",
       headers,

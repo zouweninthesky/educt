@@ -88,7 +88,7 @@ const Header = () => {
             <button
               className="hub-header__dropdown-link"
               onClick={async () => {
-                await Auth.SignOut();
+                await Auth.signOut();
                 history.push("/login");
               }}
             >

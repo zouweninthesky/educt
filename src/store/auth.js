@@ -35,9 +35,9 @@ class Auth {
       id: computed,
       loading: observable,
       error: observable,
-      SignIn: action,
-      SignOut: action,
-      RefreshToken: action,
+      signIn: action,
+      signOut: action,
+      refreshToken: action,
     });
   }
 
@@ -55,9 +55,9 @@ class Auth {
     return null;
   }
 
-  async SignIn(login, password) {
+  async signIn(login, password) {
     this.loading = true;
-    const response = await Api.SignIn(login, hash(password));
+    const response = await Api.signIn(login, hash(password));
     console.log(response);
     this.loading = false;
 
@@ -79,7 +79,7 @@ class Auth {
     }
   }
 
-  async SignOut() {
+  async signOut() {
     this.loading = true;
     // await Api.SignOut();
     window.localStorage.clear();
@@ -88,11 +88,11 @@ class Auth {
     this.loading = false;
   }
 
-  async RefreshToken() {
+  async refreshToken() {
     this.loading = true;
     this.token = null;
     window.localStorage.removeItem("token");
-    const response = await Api.RefreshToken();
+    const response = await Api.refreshToken();
     if (response.access) {
       this.token = response.access;
       window.localStorage.setItem("token", response.access);

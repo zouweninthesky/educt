@@ -159,7 +159,7 @@ class Profile {
     }
   }
 
-  async changePassword(oldPassword, newPassword, repeatPassword) {
+  async uploadPassword(oldPassword, newPassword, repeatPassword) {
     const response = await ProfileService.changePassword(
       oldPassword,
       newPassword,

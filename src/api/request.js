@@ -4,7 +4,7 @@ import { UNATHORIZED } from "../utils/constants/errorCodes";
 const request = async (url, config, responseNotNeeded, parseNotNeeded) => {
   let response = await fetch(url, config);
   if (response.status === UNATHORIZED) {
-    await Auth.RefreshToken();
+    await Auth.refreshToken();
     const newConfig = {
       ...config,
       headers: {

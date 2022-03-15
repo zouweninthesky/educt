@@ -206,7 +206,7 @@ const Profile = observer(() => {
             className="button profile__save-button"
             disabled={passwordStatus !== "acceptable"}
             onClick={() => {
-              const success = ProfileStore.changePassword(
+              const success = ProfileStore.uploadPassword(
                 oldPass,
                 newPass,
                 repeatNewPass
