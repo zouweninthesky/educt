@@ -31,6 +31,7 @@ class Player {
     Store.loadingStarted();
     console.log(scriptUID);
     const data = await Api.getScript(scriptUID);
+    // ЭТА СТРОКА ЛИШНЯЯ !!!
     this.script = await data;
     Store.loadingFinished();
     this.timeStamp = Date.now();

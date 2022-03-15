@@ -73,9 +73,11 @@ class Auth {
 
       case 401:
         MainStore.setNotification(ERROR_LOGIN_WRONG_CREDENTIALS);
+        break;
 
       case 500:
         MainStore.setNotification(ERROR_SERVER);
+        break;
     }
   }
 

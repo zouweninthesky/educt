@@ -27,8 +27,8 @@ class UserScriptsService {
     return await request(url, config);
   }
 
-  async getScript(UID) {
-    const url = `${MAIN_URL}scripts/${UID}/`;
+  async getScript(uid) {
+    const url = `${MAIN_URL}scripts/${uid}/`;
     const config = {
       method: "GET",
       headers,
@@ -36,8 +36,8 @@ class UserScriptsService {
     return await request(url, config);
   }
 
-  async deleteScript(UID) {
-    const url = `${MAIN_URL}scripts/${UID}/`;
+  async deleteScript(uid) {
+    const url = `${MAIN_URL}scripts/${uid}/`;
     const config = {
       method: "DELETE",
       headers,
